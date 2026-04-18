@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
+    "predev": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\"",
     "dev": "next dev --port 3000",
     "dev:clean": "node scripts/dev-clean-run.mjs",
     "build": "next build",

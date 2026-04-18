@@ -28,3 +28,6 @@ pnpm-debug.log*
 # local archives / exports (do not ship to git hosting)
 src.zip
 guidelines.zip
+
+# Cursor debug session logs
+.cursor/debug-*.log

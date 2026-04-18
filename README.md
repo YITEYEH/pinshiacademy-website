@@ -45,6 +45,5 @@ cp .env.example .env.local
 
 ## 備註
 
-- `legacy/`：保留原本 Figma Make 匯出（Vite/React Router）程式碼，僅供對照，不參與 Next build。
-- Logo 使用 `public/brand/logo.png`（由 `image/Logo.png` 匯入部署）；若要更換品牌圖檔，直接替換該檔案即可。
+- Logo 使用 `public/brand/logo.png`（可由 `image/Logo.png` 等設計稿匯入）；若要更換品牌圖檔，直接替換該檔案即可。
 

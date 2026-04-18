@@ -14,7 +14,7 @@
 - **共用元件**：`app/components/Navbar.tsx`、`app/components/Footer.tsx`（需替換 Link/資產路徑）
 
 ### 需要重寫 / 改造（必要）
-- **路由層**：React Router（`createBrowserRouter`、`RouterProvider`、`Link`、`Outlet`）需改為 Next App Router（`app/(site)/**/page.tsx` + `next/link` + `layout.tsx`）
+- **路由層**：React Router（`createBrowserRouter`、`RouterProvider`、`Link`、`Outlet`）需改為 Next App Router（`app/**/page.tsx` + `next/link` + `layout.tsx`）
 - **SEO 能力**：目前沒有 Next 的 Metadata / sitemap / robots；需新增：
   - `app/layout.tsx`、各頁 `generateMetadata`
   - `app/sitemap.ts`、`app/robots.ts`
@@ -22,7 +22,7 @@
 - **Blog 架構**：目前 `app/pages/Blog.tsx` 是硬編的 `blogPosts` 陣列且 `link: "#"`，需改成：
   - `content/posts/*.mdx` + frontmatter
   - `content-api`（抽象層：先讀本機 MDX，未來可替換為 CMS provider）
-  - `app/(site)/blog/page.tsx`（列表）與 `app/(site)/blog/[slug]/page.tsx`（內頁）
+  - `app/blog/page.tsx`（列表）與 `app/blog/[slug]/page.tsx`（內頁）
 - **資產與圖片**：
   - 把 Logo 等圖片放到 `public/`（安全檔名，例如 `public/brand/logo.png`）
   - `img`/遠端圖改用 `next/image`（或先保留 `img`，再逐步優化）

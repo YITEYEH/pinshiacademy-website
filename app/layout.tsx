@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { SITE } from "@/lib/site";
 import { getGa4MeasurementId, getGoogleSiteVerificationToken } from "@/lib/analytics-env";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+import { ChunkLoadAudit } from "@/components/ChunkLoadAudit";
 import "./globals.css";
 
 const googleSiteVerification = getGoogleSiteVerificationToken();
@@ -24,6 +27,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: SITE.url,
   },
+  icons: {
+    icon: [{ url: "/brand/logo.png", type: "image/png" }],
+  },
   ...(googleSiteVerification
     ? {
         verification: {
@@ -39,8 +45,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="zh-Hant" suppressHydrationWarning>
       <body>
+        <ChunkLoadAudit />
         {ga4Id ? <GoogleAnalytics measurementId={ga4Id} /> : null}
-        {children}
+        <div className="min-h-screen flex flex-col">
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
