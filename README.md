@@ -10,7 +10,7 @@
 npm install
 ```
 
-啟動開發伺服器：
+啟動開發伺服器（**macOS / Linux 會先釋放 3000 埠**，避免舊 `next` 佔用導致靜態檔 404）：
 
 ```bash
 npm run dev
