@@ -4,8 +4,8 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "predev": "node scripts/clean-next-caches.mjs",
     "dev": "next dev --port 3000",
+    "dev:fresh": "node scripts/clean-next-caches.mjs && next dev --port 3000",
     "dev:clean": "node scripts/dev-clean-run.mjs",
     "build": "next build",
     "start": "next start",
