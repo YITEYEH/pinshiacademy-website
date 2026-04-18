@@ -55,7 +55,7 @@ export function TeachersClient() {
       <section className="py-20 lg:py-28 bg-gradient-to-br from-[#e8f5ee] to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="text-center max-w-4xl mx-auto mb-16"
@@ -72,7 +72,7 @@ export function TeachersClient() {
             {teacherCulture.map((item, index) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
                 className="bg-white rounded-xl p-6 shadow-sm text-center"
@@ -98,7 +98,8 @@ export function TeachersClient() {
             {teachers.map((teacher, index) => (
               <motion.div
                 key={teacher.name}
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
+                animate={{ opacity: 1, y: 0 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -168,7 +169,8 @@ export function TeachersClient() {
       <section className="py-20 bg-[#f7f9f7]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
@@ -197,7 +199,8 @@ export function TeachersClient() {
       <section className="py-20 bg-gradient-to-br from-primary to-[#1a4d2e]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}

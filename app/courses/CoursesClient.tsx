@@ -140,7 +140,7 @@ export function CoursesClient() {
       <section className="py-20 lg:py-28 bg-gradient-to-br from-[#e8f5ee] to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="text-center max-w-4xl mx-auto"
@@ -241,7 +241,7 @@ export function CoursesClient() {
               {whyChoose.map((item, index) => (
                 <motion.div
                   key={item.title}
-                  initial={{ opacity: 0, scale: 0.9 }}
+                  initial={false}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
                   className="bg-white rounded-lg p-4 shadow-sm"
@@ -265,7 +265,8 @@ export function CoursesClient() {
             {courses.map((course, index) => (
               <motion.div
                 key={course.name}
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
+                animate={{ opacity: 1, y: 0 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -345,7 +346,8 @@ export function CoursesClient() {
       <section className="py-20 bg-gradient-to-br from-primary to-[#1a4d2e]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
