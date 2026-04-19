@@ -33,6 +33,7 @@ const courses = [
       "考試策略指導：掌握答題技巧與時間分配",
     ],
     highlights: "透過文本分析與討論，培養獨立思考與文學鑑賞能力",
+    lineHref: "https://lin.ee/5itUHpZ",
   },
   {
     icon: Globe,
@@ -48,6 +49,7 @@ const courses = [
       "閱讀策略：掌握長篇文章的理解與分析技巧",
     ],
     highlights: "重視實際應用，讓英文成為溝通工具而非考試科目",
+    lineHref: "https://lin.ee/5itUHpZ",
   },
   {
     icon: Calculator,
@@ -63,6 +65,7 @@ const courses = [
       "靈活應用：將數學概念應用於各類題型",
     ],
     highlights: "從基礎概念出發，循序漸進建立完整的數學思維",
+    lineHref: "https://lin.ee/rl0Wyvh",
   },
   {
     icon: Leaf,
@@ -78,6 +81,7 @@ const courses = [
       "記憶技巧：透過理解與聯想，有效記憶重點",
     ],
     highlights: "不只是背誦，更要理解社會現象背後的因果關係",
+    lineHref: "https://lin.ee/rl0Wyvh",
   },
   {
     icon: Beaker,
@@ -93,6 +97,7 @@ const courses = [
       "圖表分析：掌握實驗數據與圖表判讀技巧",
     ],
     highlights: "激發好奇心，培養探索自然世界的科學精神",
+    lineHref: "https://lin.ee/rl0Wyvh",
   },
   {
     icon: GraduationCap,
@@ -108,25 +113,26 @@ const courses = [
       "時間管理：建立高效率的學習與複習節奏",
     ],
     highlights: "從目標設定到考試準備，完整的升學規劃與諮詢",
+    lineHref: "https://lin.ee/rl0Wyvh",
   },
 ];
 
 const whyChoose = [
   {
-    title: "小班制教學",
-    description: "每班不超過 8 人，確保每位學生都能獲得充分關注",
+    title: "彈性學習時間",
+    description: "不是沒時間讀書，而是時間終於能被好好利用",
   },
   {
-    title: "個人化進度",
-    description: "根據學生程度調整教學內容，不強迫跟從統一進度",
+    title: "反覆觀看理解",
+    description: "不再聽一次就過，真的搞懂才算學會",
   },
   {
-    title: "即時反饋",
-    description: "課堂中立即解答疑問，課後持續追蹤學習狀況",
+    title: "系統化練習",
+    description: "不是看影片，是一步一步會做題",
   },
   {
-    title: "定期檢討",
-    description: "每月學習報告，與家長保持密切溝通",
+    title: "線上支援解答",
+    description: "卡住的地方，不再自己撐",
   },
 ];
 
@@ -146,10 +152,10 @@ export function CoursesClient() {
             className="text-center max-w-4xl mx-auto"
           >
             <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
-              完整科目課程
+              孩子努力了，成績卻還是上不來？
             </h1>
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              從國英數社自五大科目到升學策略規劃，全方位陪伴學習成長。我們提供預錄課程與家教制課程兩種選擇，滿足不同學習需求。
+              我們不只是教科目，而是幫孩子建立真正能進步的學習方法
             </p>
 
             <div className="flex justify-center gap-4 mb-8">
@@ -185,7 +191,7 @@ export function CoursesClient() {
                     家教制課程
                   </h2>
                   <p className="text-muted-foreground mb-3">
-                    小班制即時互動教學，每班不超過8人，老師能充分關注每位學生的學習狀況。
+                    小班互動學習，每個孩子都能被看見
                   </p>
                   <div className="grid md:grid-cols-2 gap-3">
                     <div className="flex items-start gap-2 text-sm">
@@ -213,7 +219,7 @@ export function CoursesClient() {
                     預錄課程
                   </h2>
                   <p className="text-muted-foreground mb-3">
-                    高品質錄製課程，隨時隨地學習，可以依照自己的步調反覆觀看，靈活安排學習時間。
+                    高品質系統化課程，讓孩子可以反覆理解、不再只是聽過
                   </p>
                   <div className="grid md:grid-cols-2 gap-3">
                     <div className="flex items-start gap-2 text-sm">
@@ -331,9 +337,12 @@ export function CoursesClient() {
                     <Button
                       variant="outline"
                       className="border-primary text-primary hover:bg-primary hover:text-white"
+                      asChild
                     >
-                      了解更多
-                      <ArrowRight className="ml-2 w-4 h-4" />
+                      <ExternalLinkOnce href={course.lineHref}>
+                        了解更多
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </ExternalLinkOnce>
                     </Button>
                   </div>
                 </div>
@@ -353,10 +362,12 @@ export function CoursesClient() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-              想了解適合孩子的課程規劃？
+              孩子現在的學習方式，真的適合他嗎？
             </h2>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              立即預約免費諮詢，我們將根據學生的學習狀況，為您量身規劃最適合的課程
+              多數孩子不是不努力，而是沒有找到對的方法
+              <br />
+              我們用專業診斷，幫你找出最適合的學習路徑
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
@@ -364,8 +375,8 @@ export function CoursesClient() {
                 className="bg-white text-primary hover:bg-white/90 text-lg px-8"
                 asChild
               >
-                <ExternalLinkOnce href="https://lin.ee/8nQNuYl">
-                  預約免費諮詢
+                <ExternalLinkOnce href="https://lin.ee/9x27qTh">
+                  免費學習診斷
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </ExternalLinkOnce>
               </Button>
