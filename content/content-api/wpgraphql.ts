@@ -2,6 +2,21 @@ import type { BlogPost, BlogPostSummary } from "./types";
 
 const DEFAULT_ENDPOINT = "https://blog.pinshiacademy.com/graphql";
 
+/** 避免 WP 連線卡住時，整頁（含 RSC / prefetch）永遠轉圈 */
+const WP_FETCH_TIMEOUT_MS = 12_000;
+
+function fetchTimeoutSignal(): AbortSignal {
+  const S = AbortSignal as typeof AbortSignal & {
+    timeout?: (ms: number) => AbortSignal;
+  };
+  if (typeof S.timeout === "function") {
+    return S.timeout(WP_FETCH_TIMEOUT_MS);
+  }
+  const c = new AbortController();
+  setTimeout(() => c.abort(), WP_FETCH_TIMEOUT_MS);
+  return c.signal;
+}
+
 function stripHtml(html: string) {
   return html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
 }
@@ -101,6 +116,7 @@ async function graphqlRequest<T>(
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ query, variables }),
+    signal: fetchTimeoutSignal(),
     // cache on Vercel edge/runtime; keep fresh-ish for SEO posts
     next: { revalidate: 300 },
   });

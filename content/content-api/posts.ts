@@ -59,6 +59,7 @@ function mdxGetPostBySlug(slug: string): BlogPost {
 }
 
 function hasWpGraphqlConfigured() {
+  if (process.env.WP_GRAPHQL_DISABLED === "1") return false;
   // default to the production WP endpoint if env is not set
   return true;
 }
