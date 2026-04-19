@@ -154,7 +154,7 @@ export function AboutClient() {
             >
               <div className="rounded-2xl overflow-hidden shadow-2xl">
                 <ImageWithFallback
-                  src="/about-hero.jpg"
+                  src="/about-hero.jpg?v=4"
                   alt="品識學苑教學"
                   className="w-full h-auto"
                 />
