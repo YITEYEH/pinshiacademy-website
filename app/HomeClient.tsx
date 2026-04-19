@@ -104,7 +104,7 @@ const subjects = [
     name: "自然",
     color: "bg-teal-50",
     textColor: "text-teal-600",
-    description: "實驗思維，探索科學原理",
+    description: "理解原理，題目不再靠猜",
   },
   {
     icon: GraduationCap,
@@ -116,36 +116,35 @@ const subjects = [
 ];
 
 const stats = [
-  { value: "95%", label: "學生進步率" },
+  { value: "95%", label: "學生在3個月內看到進步" },
   { value: "4.8", label: "平均滿意度" },
-  { value: "1000+", label: "輔導學生數" },
+  { value: "500+", label: "輔導學生數" },
   { value: "15+", label: "專業師資" },
 ];
 
 const testimonials = [
   {
-    name: "陳老師",
+    name: "葉以德老師",
     subject: "數學",
-    image:
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
-    quote: "我相信每個孩子都能找到適合自己的學習方式",
-    studentReview: "陳老師讓我從害怕數學到喜歡數學！",
+    image: "/teacher-yeh-yide.jpg",
+    quote: "每個孩子都可以學會數學",
+    studentReview: "我以前幾乎都不會寫，現在有些題目自己也可以算出來",
   },
   {
-    name: "林老師",
-    subject: "英文",
-    image:
-      "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
-    quote: "語言學習需要的是理解和應用，而非死記硬背",
-    studentReview: "林老師的課很有趣，讓我敢開口說英文",
+    name: "葉以德老師",
+    subject: "數學",
+    image: "/teacher-yeh-yide.jpg",
+    quote: "孩子不是學不會，是以前的方法不對",
+    studentReview:
+      "孩子原本段考40幾分，現在有到65以上，孩子也比較有自信",
+    reviewLabel: "家長評價",
   },
   {
-    name: "王老師",
+    name: "蔣季芹老師",
     subject: "國文",
-    image:
-      "https://images.unsplash.com/photo-1543269865-cbf427effbad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
-    quote: "閱讀是理解世界的窗口",
-    studentReview: "王老師教會我如何欣賞文學之美",
+    image: "/teacher-jiang-jiqin.jpg",
+    quote: "國文不是背，是理解",
+    studentReview: "以前看到長文章就放棄，現在至少會慢慢看懂",
   },
 ];
 
@@ -349,7 +348,7 @@ export function HomeClient() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              完整科目課程
+              每個科目，都有對的方法
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               提供預錄課程與家教制課程，從學科到升學規劃，全方位陪伴學習成長
@@ -384,7 +383,7 @@ export function HomeClient() {
 
           <div className="mt-16">
             <h3 className="text-2xl font-bold text-foreground text-center mb-8">
-              兩種學習方式，滿足不同需求
+              孩子適合哪種學習方式？
             </h3>
             <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
               <motion.div
@@ -477,6 +476,9 @@ export function HomeClient() {
 
       <section className="py-20 bg-primary text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl lg:text-3xl font-bold text-center text-white mb-12 max-w-3xl mx-auto leading-snug">
+            這些數據，來自我們實際帶過的學生
+          </h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat) => (
               <div key={stat.label} className="text-center">
@@ -539,7 +541,8 @@ export function HomeClient() {
                   </div>
                   <div className="bg-white rounded-lg p-4 border-l-4 border-primary">
                     <div className="text-sm text-muted-foreground mb-1">
-                      學生評價
+                      {testimonials[currentTestimonial].reviewLabel ??
+                        "學生評價"}
                     </div>
                     <div className="text-foreground">
                       {testimonials[currentTestimonial].studentReview}
@@ -593,18 +596,18 @@ export function HomeClient() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-              準備好開始學習之旅了嗎？
+              孩子成績卡住，不知道問題在哪？
             </h2>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              立即預約免費諮詢，讓我們了解您的需求，為您量身打造最適合的學習計畫
+              免費學習檢測，幫你找出真正的卡關點，給你明確方向
             </p>
             <Button
               size="lg"
               className="bg-white text-primary hover:bg-white/90 text-lg px-8"
               asChild
             >
-              <ExternalLinkOnce href="https://lin.ee/8nQNuYl">
-                預約免費諮詢
+              <ExternalLinkOnce href="https://lin.ee/7j5iJiV">
+                立即預約免費檢測
                 <ArrowRight className="ml-2 w-5 h-5" />
               </ExternalLinkOnce>
             </Button>

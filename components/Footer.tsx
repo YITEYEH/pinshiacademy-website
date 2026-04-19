@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
+import { Mail, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
 
 const coreValues = [
   { icon: "品", title: "品德", description: "培養良好品格" },
@@ -91,36 +91,43 @@ export function Footer() {
             <h3 className="font-semibold mb-4">聯絡我們</h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-sm text-white/80">
-                <Phone className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>(02) 1234-5678</span>
-              </li>
-              <li className="flex items-start gap-2 text-sm text-white/80">
                 <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>contact@pinshi.edu.tw</span>
+                <a
+                  href="mailto:contact@pinshiacademy.com"
+                  className="hover:text-white transition-colors"
+                >
+                  contact@pinshiacademy.com
+                </a>
               </li>
               <li className="flex items-start gap-2 text-sm text-white/80">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>台北市信義區信義路五段7號</span>
+                <span>台北市信義區信義路四段415號14樓之一</span>
               </li>
             </ul>
 
             <div className="flex gap-3 mt-6">
               <a
-                href="#"
+                href="https://www.facebook.com/share/14X5a7c7kKd/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors"
                 aria-label="Facebook"
               >
                 <Facebook className="w-4 h-4" />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/pinshi_academy/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram className="w-4 h-4" />
               </a>
               <a
-                href="#"
+                href="https://www.youtube.com/@Pinshi-academy"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors"
                 aria-label="YouTube"
               >
