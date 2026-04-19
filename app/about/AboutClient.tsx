@@ -52,49 +52,61 @@ const dagSteps = [
     title: "Diagnosis",
     subtitle: "診斷",
     description: "全面了解學生的學習狀況、學習風格、強項與弱項",
-    points: ["學習習慣分析", "知識盲點診斷", "學習動機評估"],
+    points: [
+      "找出為什麼讀了還是不會",
+      "找出孩子真正卡住的地方",
+      "了解學習習慣問題",
+    ],
   },
   {
     step: 2,
     title: "Alignment",
     subtitle: "對齊",
-    description: "根據診斷結果，制定符合學生需求的學習策略",
-    points: ["設定階段目標", "規劃學習路徑", "選配適合師資"],
+    description: "建立適合孩子的學習方式，讓努力開始有效",
+    points: [
+      "建立適合孩子的學習方法",
+      "設定可達成的學習節奏",
+      "讓努力開始有方向",
+    ],
   },
   {
     step: 3,
     title: "Growth",
     subtitle: "成長",
     description: "透過持續陪伴與調整，讓學生穩定進步並建立自信",
-    points: ["定期追蹤進度", "即時調整策略", "累積學習成就"],
+    points: [
+      "持續追蹤進步狀況",
+      "即時調整學習策略",
+      "讓孩子慢慢建立自信",
+    ],
   },
 ];
 
 const comparisonData = [
   {
     category: "教學方式",
-    traditional: "大班制統一進度",
-    pinshi: "小班制個人化教學",
+    traditional: "一對多統一進度，跟不上就放棄",
+    pinshi: "小班制個人化教學，每個學生都有被看見",
   },
   {
     category: "學習目標",
-    traditional: "以成績為唯一指標",
-    pinshi: "培養學習能力與自信",
+    traditional: "只追求分數，考完就忘",
+    pinshi: "建立學習能力，成績自然提升",
   },
   {
     category: "師生互動",
-    traditional: "單向講授為主",
-    pinshi: "雙向討論與引導思考",
+    traditional: "老師講、學生聽，被動學習",
+    pinshi: "雙向引導與提問，真正理解內容",
   },
   {
     category: "進度追蹤",
-    traditional: "定期考試檢測",
-    pinshi: "即時反饋與調整",
+    traditional: "考試才知道不會，已經來不及",
+    pinshi: "即時回饋與調整，當下修正問題",
   },
   {
     category: "學習氛圍",
-    traditional: "高壓競爭環境",
-    pinshi: "支持性成長環境",
+    traditional: "高壓競爭，越學越沒信心",
+    pinshi: "支持型環境，讓孩子敢問敢錯敢成長",
   },
 ];
 
@@ -166,7 +178,7 @@ export function AboutClient() {
               四大核心架構
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              從診斷到成果，完整的教學循環確保每位學生都能穩定進步
+              從診斷到成果，我們不只是讓成績進步，更讓孩子建立真正的能力
             </p>
           </motion.div>
 
@@ -198,16 +210,6 @@ export function AboutClient() {
               </motion.div>
             ))}
           </div>
-
-          <div className="hidden lg:block relative mt-8">
-            <div className="flex justify-center items-center gap-8">
-              {[0, 1, 2].map((i) => (
-                <div key={i} className="flex items-center">
-                  <ArrowRight className="w-6 h-6 text-primary" />
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
@@ -224,11 +226,8 @@ export function AboutClient() {
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">
               DAG 成長模型
             </h2>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto">
-              Diagnosis · Alignment · Growth
-            </p>
-            <p className="text-lg text-white/80 mt-2">
-              系統化的學習成長路徑
+            <p className="text-lg text-white/80 max-w-2xl mx-auto">
+              不是讓孩子更努力，而是讓他用對方法學習
             </p>
           </motion.div>
 
@@ -296,7 +295,7 @@ export function AboutClient() {
               為什麼選擇品識學苑
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              我們與傳統補習班的差異
+              不是孩子不夠努力，而是學習方式出了問題
             </p>
           </motion.div>
 
@@ -365,10 +364,10 @@ export function AboutClient() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-              想深入了解我們的教學理念？
+              還在找適合孩子的學習方式嗎？
             </h2>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              預約免費諮詢，讓我們為您詳細說明品識學苑的教學方式
+              與其一直嘗試錯的方法，不如一次找到真正適合他的學習節奏
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
@@ -376,8 +375,8 @@ export function AboutClient() {
                 className="bg-white text-primary hover:bg-white/90 text-lg px-8"
                 asChild
               >
-                <ExternalLinkOnce href="https://lin.ee/8nQNuYl">
-                  預約免費諮詢
+                <ExternalLinkOnce href="https://lin.ee/5cE2MLo">
+                  免費找出學習盲點
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </ExternalLinkOnce>
               </Button>
