@@ -29,7 +29,7 @@ const coreValues = [
     icon: "品",
     title: "品德",
     subtitle: "Character",
-    description: "培養良好品格與做人處事的態度",
+    description: "培養面對人生的責任感與選擇能力",
   },
   {
     icon: "知",
@@ -53,20 +53,20 @@ const coreValues = [
 
 const painPoints = [
   {
-    problem: "很努力讀書卻總是卡關",
-    solution: "建立清晰思路，理解勝過死記",
+    problem: "很努力讀書，成績卻卡關",
+    solution: "建立清晰思路，理解不再只是死記",
   },
   {
-    problem: "越讀越沒有自信心",
-    solution: "小步前進，累積成就感",
+    problem: "越讀越沒自信，開始懷疑自己",
+    solution: "小步前進，讓孩子重新找回成就感",
   },
   {
-    problem: "不知道自己哪裡不會",
-    solution: "精準診斷學習盲點",
+    problem: "不知道自己到底哪裡不會",
+    solution: "精準診斷，找出真正卡關原因",
   },
   {
-    problem: "學習方法不適合自己",
-    solution: "客製化學習節奏與策略",
+    problem: "試過很多方法，卻都沒效果",
+    solution: "客製化策略，讓學習開始有效",
   },
 ];
 
@@ -173,12 +173,16 @@ export function HomeClient() {
               transition={{ duration: 0.6 }}
             >
               <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground mb-6 leading-tight">
-                陪伴每位學生
+                成績上不去？
                 <br />
-                找到學習節奏
+                問題不是努力不夠
+                <br />
+                而是方法不對
               </h1>
               <p className="text-lg text-muted-foreground mb-8 max-w-xl">
-                品識學苑不只是補習班，我們重視每個孩子的獨特性，透過專業師資與個人化教學，讓學習成為充滿成就感的旅程。
+                我們不做填鴨式教學
+                <br />
+                而是幫學生找到能持續進步的讀書方法
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
@@ -187,7 +191,7 @@ export function HomeClient() {
                   asChild
                 >
                   <ExternalLinkOnce href="https://lin.ee/8nQNuYl">
-                    聯繫學習顧問
+                    免費分析學習盲點
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </ExternalLinkOnce>
                 </Button>
@@ -210,8 +214,8 @@ export function HomeClient() {
             >
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800"
-                  alt="學生學習"
+                  src="/hero-section.jpg"
+                  alt="品識學苑教室互動教學"
                   className="w-full h-auto"
                 />
               </div>
@@ -244,10 +248,10 @@ export function HomeClient() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              四大核心理念
+              為什麼我們不只在教成績？
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              品識學苑致力於培養全人發展，不只是成績，更重視品格、視野與勇氣
+              因為真正能讓孩子長期進步的，從來不只是分數
             </p>
           </motion.div>
 
@@ -291,7 +295,7 @@ export function HomeClient() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-8">
-                傳統學習的困境
+                努力讀書，成績還是上不去？
               </h2>
               <div className="space-y-4">
                 {painPoints.map((point, index) => (
@@ -314,7 +318,7 @@ export function HomeClient() {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-8">
-                品識學苑的解方
+                我們怎麼幫學生突破卡關？
               </h2>
               <div className="space-y-4">
                 {painPoints.map((point, index) => (
