@@ -4,7 +4,7 @@ import { PrivacyClient } from "./PrivacyClient";
 
 export const metadata: Metadata = {
   title: "隱私權政策",
-  description: "品識學苑隱私權政策：說明個人資料蒐集、使用與保護方式，以及您的相關權利。",
+  description: "品識學苑結合12年國教升學策略與AI個人化學習系統，提供國高中完整課程與長期學習規劃，協助學生穩定提升成績與建立終身學習能力",
   alternates: { canonical: `${SITE.url}/privacy` },
 };
 

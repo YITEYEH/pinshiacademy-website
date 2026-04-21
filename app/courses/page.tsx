@@ -3,9 +3,9 @@ import { SITE } from "@/lib/site";
 import { CoursesClient } from "./CoursesClient";
 
 export const metadata: Metadata = {
-  title: "課程介紹",
+  title: "國小國中高中升學輔導課程推薦｜品識學苑",
   description:
-    "國英數社自五大科目與升學策略規劃，提供家教制與預錄課程兩種學習方式，為不同需求量身打造學習路徑。",
+    "專為12年國教設計的升學輔導課程，透過AI個人化學習與系統化教學，幫助學生有效提升成績與升學競爭力",
   alternates: { canonical: `${SITE.url}/courses` },
 };
 

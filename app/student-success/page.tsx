@@ -3,8 +3,8 @@ import { SITE } from "@/lib/site";
 import { StudentSuccessClient } from "./StudentSuccessClient";
 
 export const metadata: Metadata = {
-  title: "學生成果",
-  description: "看看學生如何在品識學苑找到學習節奏，建立自信，穩定進步。",
+  title: "學生成果與家長見證｜品識學苑",
+  description: "從成績提升到長期學習能力建立，探索品識學苑國小到高中學生的真實成長案例與升學成果，了解品識學習系統如何發揮效果",
   alternates: { canonical: `${SITE.url}/student-success` },
 };
 
