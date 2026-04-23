@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { SITE } from "@/lib/site";
 import { getGa4MeasurementId, getGoogleSiteVerificationToken } from "@/lib/analytics-env";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="flex-1">{children}</main>
           <Footer />
         </div>
+        <Analytics />
       </body>
     </html>
   );
