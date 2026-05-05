@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPostBySlug } from "@/content/content-api/posts";
 import { SITE } from "@/lib/site";
+import { buildPageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -24,18 +25,13 @@ export async function generateMetadata({
   const { slug } = await params;
   try {
     const post = await getPostBySlug(slug);
-    return {
+    return buildPageMetadata({
+      path: `/blog/${post.slug}`,
       title: post.frontmatter.title,
       description: post.frontmatter.description,
-      alternates: { canonical: `${SITE.url}/blog/${post.slug}` },
-      openGraph: {
-        type: "article",
-        url: `${SITE.url}/blog/${post.slug}`,
-        title: post.frontmatter.title,
-        description: post.frontmatter.description,
-        images: post.frontmatter.cover ? [post.frontmatter.cover] : undefined,
-      },
-    };
+      openGraphType: "article",
+      ogImages: post.frontmatter.cover ? [post.frontmatter.cover] : undefined,
+    });
   } catch {
     return {};
   }

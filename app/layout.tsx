@@ -18,9 +18,6 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: SITE.name,
-    url: SITE.url,
-    title: SITE.defaultTitle,
-    description: SITE.defaultDescription,
     locale: "zh_TW",
   },
   alternates: {
@@ -38,12 +35,41 @@ export const metadata: Metadata = {
     : {}),
 };
 
+const jsonLdGraph = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      name: SITE.name,
+      alternateName: SITE.englishName,
+      url: SITE.url,
+      logo: `${SITE.url}/brand/logo.png`,
+    },
+    {
+      "@type": "WebSite",
+      url: SITE.url,
+      name: SITE.name,
+      inLanguage: "zh-Hant",
+      publisher: {
+        "@type": "Organization",
+        name: SITE.name,
+        url: SITE.url,
+        logo: `${SITE.url}/brand/logo.png`,
+      },
+    },
+  ],
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const ga4Id = getGa4MeasurementId();
 
   return (
     <html lang="zh-Hant" suppressHydrationWarning>
       <body suppressHydrationWarning>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph) }}
+        />
         {ga4Id ? <GoogleAnalytics measurementId={ga4Id} /> : null}
         <div className="min-h-screen flex flex-col">
           <Navbar />

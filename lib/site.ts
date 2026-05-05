@@ -23,3 +23,6 @@ export const SITE = {
     "品識學苑重視每個孩子的獨特性，透過專業師資與個人化教學，讓學習成為充滿成就感的旅程。",
 } as const;
 
+/** Sitemap lastmod for routes without a content-derived timestamp (update when static pages meaningfully change). */
+export const STATIC_SITEMAP_LAST_MODIFIED = new Date("2025-01-01T00:00:00.000Z");
+

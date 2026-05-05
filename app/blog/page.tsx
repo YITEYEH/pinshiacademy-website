@@ -1,6 +1,8 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ExternalLink, BookOpen, Lightbulb, Target } from "lucide-react";
 import { getAllPosts } from "@/content/content-api/posts";
+import { buildPageMetadata } from "@/lib/seo";
 import type React from "react";
 
 type BlogSearchParams = Record<string, string | string[] | undefined>;
@@ -24,6 +26,20 @@ function isGenericGravatar(url: string) {
 }
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  searchParams: _searchParams,
+}: {
+  searchParams?: Promise<BlogSearchParams>;
+}): Promise<Metadata> {
+  void _searchParams;
+  return buildPageMetadata({
+    path: "/blog",
+    title: "學習專欄",
+    description:
+      "分享教育理念、學習方法與親子溝通的文章，幫助家長與學生建立更好的學習體驗。",
+  });
+}
 
 export default async function BlogIndexPage({
   searchParams,
