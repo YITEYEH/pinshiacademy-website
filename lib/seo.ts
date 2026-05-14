@@ -5,6 +5,22 @@ import { SITE } from "@/lib/site";
 
 const OG_LOCALE = "zh_TW";
 
+/** Ahrefs 等工具常將過短描述標為問題；低於此字數時自動補上品牌語句（不影響已足夠長的文案）。 */
+const MIN_DESCRIPTION_CHARS = 72;
+
+const DESCRIPTION_SUFFIX =
+  "品識學苑專注12年國教升學規劃與個人化學習，陪伴國小到高中學生建立學習節奏與成就感。";
+
+function finalizeDescription(raw: string): string {
+  const t = raw.trim();
+  if (t.length >= MIN_DESCRIPTION_CHARS) {
+    return t.length > 320 ? `${t.slice(0, 319)}…` : t;
+  }
+  const joiner = t && !/[。．.!！?？]$/u.test(t) ? "。" : "";
+  const merged = `${t}${joiner}${DESCRIPTION_SUFFIX}`;
+  return merged.length > 320 ? `${merged.slice(0, 319)}…` : merged;
+}
+
 const defaultOgImageUrl = () => `${SITE.url}/brand/logo.png`;
 
 function pageCanonical(path: string): string {
@@ -45,16 +61,17 @@ export function buildPageMetadata({
 
   const twitterImages = images.map((i) => i.url);
   const shareTitle = resolvedShareTitle(title, titleAbsolute);
+  const descriptionOut = finalizeDescription(description);
 
   return {
     ...(titleAbsolute ? { title: { absolute: title } } : { title }),
-    description,
+    description: descriptionOut,
     alternates: { canonical: url },
     openGraph: {
       type: openGraphType,
       url,
       title: shareTitle,
-      description,
+      description: descriptionOut,
       locale: OG_LOCALE,
       siteName: SITE.name,
       images,
@@ -62,7 +79,7 @@ export function buildPageMetadata({
     twitter: {
       card: "summary_large_image",
       title: shareTitle,
-      description,
+      description: descriptionOut,
       images: twitterImages,
     },
   };

@@ -1,4 +1,5 @@
 import type { BlogPost, BlogPostSummary } from "./types";
+import { sanitizeWpPostHtml } from "@/lib/wp-post-html";
 
 const DEFAULT_ENDPOINT = "https://blog.pinshiacademy.com/graphql";
 
@@ -260,10 +261,13 @@ export async function wpGetPostBySlug(slug: string): Promise<BlogPost> {
   const tags =
     post.tags?.nodes?.map((t) => t.name).filter(Boolean) as string[] | undefined;
 
+  const title = post.title ?? post.slug;
+  const rawHtml = post.content ?? "";
+
   return {
     slug: post.slug,
     frontmatter: {
-      title: post.title ?? post.slug,
+      title,
       description,
       date: normalizeDate(post.date),
       category,
@@ -272,7 +276,7 @@ export async function wpGetPostBySlug(slug: string): Promise<BlogPost> {
       authorName,
       authorAvatar,
     },
-    content: post.content ?? "",
+    content: sanitizeWpPostHtml(rawHtml, title),
   };
 }
 

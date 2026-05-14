@@ -178,10 +178,29 @@ export function HomeClient() {
                 <br />
                 而是方法不對
               </h1>
-              <p className="text-lg text-muted-foreground mb-8 max-w-xl">
+              <p className="text-lg text-muted-foreground mb-4 max-w-xl">
                 我們不做填鴨式教學
                 <br />
                 而是幫學生找到能持續進步的讀書方法
+              </p>
+              <p className="text-base text-muted-foreground mb-8 max-w-xl leading-relaxed">
+                想先了解教學理念可閱讀
+                <Link href="/about" className="text-primary font-medium hover:underline mx-0.5">
+                  關於品識學苑
+                </Link>
+                ，需要科目與升學規劃請至
+                <Link href="/courses" className="text-primary font-medium hover:underline mx-0.5">
+                  課程介紹
+                </Link>
+                ；也歡迎到
+                <Link href="/blog" className="text-primary font-medium hover:underline mx-0.5">
+                  學習專欄
+                </Link>
+                看實用文章，或透過
+                <Link href="/contact" className="text-primary font-medium hover:underline mx-0.5">
+                  聯絡我們
+                </Link>
+                預約諮詢。
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button

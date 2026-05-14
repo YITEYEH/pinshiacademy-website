@@ -129,6 +129,19 @@ export function AboutClient() {
               </p>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                 透過專業診斷、個人化教學與持續陪伴，我們幫助學生找到最適合自己的學習方式，建立自信，培養終身學習的能力。
+                若您想先了解實際教學內容，建議同步瀏覽
+                <Link href="/courses" className="text-primary font-medium hover:underline mx-0.5">
+                  課程介紹
+                </Link>
+                與
+                <Link href="/teachers" className="text-primary font-medium hover:underline mx-0.5">
+                  師資團隊
+                </Link>
+                ；需要預約升學節奏討論，請至
+                <Link href="/contact" className="text-primary font-medium hover:underline mx-0.5">
+                  聯絡我們
+                </Link>
+                。
               </p>
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center gap-2 bg-white rounded-lg px-4 py-2 shadow-sm">

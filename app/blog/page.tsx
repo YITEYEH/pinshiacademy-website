@@ -35,9 +35,10 @@ export async function generateMetadata({
   void _searchParams;
   return buildPageMetadata({
     path: "/blog",
-    title: "學習專欄",
+    title: "學習專欄｜教育理念、升學策略與親子溝通實用文章",
     description:
-      "分享教育理念、學習方法與親子溝通的文章，幫助家長與學生建立更好的學習體驗。",
+      "收錄品識學苑關於12年國教升學規劃、學習方法、親子溝通與教學現場觀察等文章，協助家長與學生建立更穩定的學習節奏與升學準備。",
+    titleAbsolute: true,
   });
 }
 

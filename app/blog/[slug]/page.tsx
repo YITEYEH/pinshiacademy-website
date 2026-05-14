@@ -25,12 +25,19 @@ export async function generateMetadata({
   const { slug } = await params;
   try {
     const post = await getPostBySlug(slug);
+    const rawTitle = post.frontmatter.title.trim();
+    const seoTitle =
+      rawTitle.length >= 20
+        ? rawTitle
+        : `${rawTitle}｜12年國教與升學觀點｜品識學苑學習專欄`;
+
     return buildPageMetadata({
       path: `/blog/${post.slug}`,
-      title: post.frontmatter.title,
+      title: seoTitle,
       description: post.frontmatter.description,
       openGraphType: "article",
       ogImages: post.frontmatter.cover ? [post.frontmatter.cover] : undefined,
+      titleAbsolute: true,
     });
   } catch {
     return {};

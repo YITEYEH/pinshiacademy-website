@@ -4,9 +4,10 @@ import { TermsClient } from "./TermsClient";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/terms",
-  title: "使用條款",
+  title: "使用條款｜品識學苑官網與服務之權利義務說明",
   description:
-    "品識學苑結合12年國教升學策略與AI個人化學習系統，提供國高中完整課程與長期學習規劃，協助學生穩定提升成績與建立終身學習能力",
+    "說明您使用品識學苑官網、預約諮詢與相關教育服務時應遵守的規範，包含內容使用、免責聲明與爭議處理等事項，以保障雙方權益。",
+  titleAbsolute: true,
 });
 
 export default function TermsPage() {

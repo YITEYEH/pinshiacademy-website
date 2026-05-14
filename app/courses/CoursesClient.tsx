@@ -154,8 +154,27 @@ export function CoursesClient() {
             <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
               孩子努力了，成績卻還是上不來？
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+            <p className="text-xl text-muted-foreground mb-4 leading-relaxed">
               我們不只是教科目，而是幫孩子建立真正能進步的學習方法
+            </p>
+            <p className="text-base text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
+              想了解教學現場與成果，可參考
+              <Link href="/student-success" className="text-primary font-medium hover:underline mx-0.5">
+                學生成果
+              </Link>
+              與
+              <Link href="/teachers" className="text-primary font-medium hover:underline mx-0.5">
+                師資介紹
+              </Link>
+              ；排課與費用等常見問題請見
+              <Link href="/faq" className="text-primary font-medium hover:underline mx-0.5">
+                常見問題
+              </Link>
+              ，需要一對一談學習規劃歡迎
+              <Link href="/contact" className="text-primary font-medium hover:underline mx-0.5">
+                聯絡品識學苑
+              </Link>
+              。
             </p>
 
             <div className="flex justify-center gap-4 mb-8">

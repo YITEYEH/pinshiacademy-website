@@ -4,9 +4,10 @@ import { TeamClient } from "./TeamClient";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/team",
-  title: "營運團隊介紹",
+  title: "營運團隊介紹｜品識學苑課程營運與教學設計幕後推手",
   description:
-    "品識學苑由專業營運團隊共同組成，專注於12年國教升學規劃與課程架構發展，打造穩定成長的教育品牌",
+    "了解品識學苑營運與教學設計團隊如何支撐課程品質、家長服務與品牌發展，專注12年國教升學規劃與長期教育願景的落實。",
+  titleAbsolute: true,
 });
 
 export default function TeamPage() {
