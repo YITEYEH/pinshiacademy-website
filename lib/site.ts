@@ -1,4 +1,5 @@
-const DEFAULT_SITE_URL = "https://pinshiacademy.com";
+/** 與 Vercel 網域設定一致：apex 會轉到 www，canonical／sitemap 應以 www 為準。 */
+const DEFAULT_SITE_URL = "https://www.pinshiacademy.com";
 
 function normalizeSiteUrl(raw: string | undefined): string {
   const trimmed = raw?.trim();
