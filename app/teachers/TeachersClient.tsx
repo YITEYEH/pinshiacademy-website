@@ -42,7 +42,8 @@ const teachers = [
     subject: "國文",
     tags: ["國中國文", "高中國文"],
     image: "/teacher-jiang-jiqin.jpg",
-    philosophy: "讓閱讀成為力量，讓表達成為自信",
+    philosophy:
+      "讓閱讀成為力量，讓表達成為自信。我相信每個孩子都能在文字裡，找到理解世界與認識自己的能力。",
     studentReview:
       "蔣老師總能用清楚的架構帶我讀懂文章，也會一步步引導我把想法寫出來，現在寫作更有自信了。",
     experience: "三年教學經驗",

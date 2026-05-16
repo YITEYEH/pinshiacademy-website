@@ -69,7 +69,7 @@ export function TeamClient() {
             >
               <div className="rounded-2xl overflow-hidden shadow-2xl">
                 <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800"
+                  src="/team-hero.jpg"
                   alt="營運團隊"
                   className="w-full h-auto"
                 />
