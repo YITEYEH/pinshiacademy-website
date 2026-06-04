@@ -1,5 +1,12 @@
 import Link from "next/link";
-import { Mail, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
+import {
+  Mail,
+  MapPin,
+  Building2,
+  Facebook,
+  Instagram,
+  Youtube,
+} from "lucide-react";
 
 const coreValues = [
   { icon: "品", title: "品德", description: "培養良好品格" },
@@ -89,21 +96,38 @@ export function Footer() {
 
           <div>
             <h3 className="font-semibold mb-4">聯絡我們</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2 text-sm text-white/80">
-                <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" />
+            <ul className="space-y-3.5">
+              <li className="flex items-start gap-3 text-sm text-white/80">
+                <Mail className="w-4 h-4 mt-0.5 shrink-0 text-white/60" />
                 <a
                   href="mailto:contact@pinshiacademy.com"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors break-all"
                 >
                   contact@pinshiacademy.com
                 </a>
               </li>
-              <li className="flex items-start gap-2 text-sm text-white/80">
-                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>台北市信義區信義路四段415號14樓之一</span>
+              <li className="flex items-start gap-3 text-sm text-white/80">
+                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-white/60" />
+                <span className="leading-relaxed">
+                  台北市信義區信義路四段415號14樓之一
+                </span>
               </li>
             </ul>
+
+            <div className="mt-4 pt-4 border-t border-white/10">
+              <div className="flex items-start gap-3 text-sm">
+                <Building2 className="w-4 h-4 mt-0.5 shrink-0 text-white/60" />
+                <div className="space-y-1 leading-relaxed">
+                  <p className="text-white/90 font-medium">
+                    品識教育科技有限公司
+                  </p>
+                  <p className="text-white/70">
+                    統一編號{" "}
+                    <span className="tabular-nums tracking-wide">62160059</span>
+                  </p>
+                </div>
+              </div>
+            </div>
 
             <div className="flex gap-3 mt-6">
               <a
