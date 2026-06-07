@@ -6,6 +6,7 @@ import { ArrowRight, Star, Award, BookOpen, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LINE_LINKS } from "@/lib/line-links";
 
 const teacherCulture = [
   {
@@ -217,7 +218,7 @@ export function TeachersClient() {
               className="bg-white text-primary hover:bg-white/90 text-lg px-8"
               asChild
             >
-              <ExternalLinkOnce href="https://lin.ee/8nQNuYl">
+              <ExternalLinkOnce href={LINE_LINKS.consult}>
                 預約免費諮詢
                 <ArrowRight className="ml-2 w-5 h-5" />
               </ExternalLinkOnce>

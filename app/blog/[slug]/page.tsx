@@ -10,7 +10,7 @@ import { buildBlogPostJsonLd, pickRelatedPosts } from "@/lib/blog-schema";
 import { SITE } from "@/lib/site";
 import { buildPageMetadata } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 function isGenericGravatar(url: string) {
   try {

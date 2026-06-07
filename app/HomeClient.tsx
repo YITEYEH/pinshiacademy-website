@@ -22,6 +22,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LINE_LINKS } from "@/lib/line-links";
 import { useState } from "react";
 
 const coreValues = [
@@ -119,7 +120,7 @@ const stats = [
   { value: "95%", label: "學生在3個月內看到進步" },
   { value: "4.8", label: "平均滿意度" },
   { value: "500+", label: "輔導學生數" },
-  { value: "15+", label: "專業師資" },
+  { value: "5", label: "核心學科涵蓋" },
 ];
 
 const testimonials = [
@@ -189,7 +190,7 @@ export function HomeClient() {
                   className="bg-primary hover:bg-primary/90 text-lg px-8"
                   asChild
                 >
-                  <ExternalLinkOnce href="https://lin.ee/8nQNuYl">
+                  <ExternalLinkOnce href={LINE_LINKS.consult}>
                     免費分析學習盲點
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </ExternalLinkOnce>
@@ -606,7 +607,7 @@ export function HomeClient() {
               className="bg-white text-primary hover:bg-white/90 text-lg px-8"
               asChild
             >
-              <ExternalLinkOnce href="https://lin.ee/7j5iJiV">
+              <ExternalLinkOnce href={LINE_LINKS.homeAssessment}>
                 立即預約免費檢測
                 <ArrowRight className="ml-2 w-5 h-5" />
               </ExternalLinkOnce>

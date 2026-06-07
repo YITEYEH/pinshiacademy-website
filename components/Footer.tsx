@@ -7,6 +7,7 @@ import {
   Instagram,
   Youtube,
 } from "lucide-react";
+import { CONTACT } from "@/lib/contact";
 
 const coreValues = [
   { icon: "品", title: "品德", description: "培養良好品格" },
@@ -20,6 +21,7 @@ const quickLinks = [
   { name: "關於我們", path: "/about" },
   { name: "課程介紹", path: "/courses" },
   { name: "師資團隊", path: "/teachers" },
+  { name: "聯絡我們", path: "/contact" },
 ];
 
 const resourceLinks = [
@@ -27,6 +29,8 @@ const resourceLinks = [
   { name: "學生成果", path: "/student-success" },
   { name: "學習專欄", path: "/blog" },
   { name: "常見問題", path: "/faq" },
+  { name: "師資招募", path: "/teacher-recruitment" },
+  { name: "營運團隊招募", path: "/team-recruitment" },
 ];
 
 export function Footer() {
@@ -100,16 +104,16 @@ export function Footer() {
               <li className="flex items-start gap-3 text-sm text-white/80">
                 <Mail className="w-4 h-4 mt-0.5 shrink-0 text-white/60" />
                 <a
-                  href="mailto:pinshiacademy@gmail.com"
+                  href={`mailto:${CONTACT.email}`}
                   className="hover:text-white transition-colors break-all"
                 >
-                  pinshiacademy@gmail.com
+                  {CONTACT.email}
                 </a>
               </li>
               <li className="flex items-start gap-3 text-sm text-white/80">
                 <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-white/60" />
                 <span className="leading-relaxed">
-                  台北市信義區信義路四段415號14樓之一
+                  {CONTACT.registeredAddress}
                 </span>
               </li>
             </ul>
@@ -119,11 +123,13 @@ export function Footer() {
                 <Building2 className="w-4 h-4 mt-0.5 shrink-0 text-white/60" />
                 <div className="space-y-1 leading-relaxed">
                   <p className="text-white/90 font-medium">
-                    品識教育科技有限公司
+                    {CONTACT.companyName}
                   </p>
                   <p className="text-white/70">
                     統一編號{" "}
-                    <span className="tabular-nums tracking-wide">62160059</span>
+                    <span className="tabular-nums tracking-wide">
+                      {CONTACT.taxId}
+                    </span>
                   </p>
                 </div>
               </div>

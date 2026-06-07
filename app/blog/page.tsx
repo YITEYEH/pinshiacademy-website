@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ExternalLink, BookOpen, Lightbulb, Target } from "lucide-react";
 import { getAllPosts } from "@/content/content-api/posts";
 import { buildPageMetadata } from "@/lib/seo";
+import { SITE } from "@/lib/site";
 import type React from "react";
 
 type BlogSearchParams = Record<string, string | string[] | undefined>;
@@ -25,21 +26,35 @@ function isGenericGravatar(url: string) {
   }
 }
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export async function generateMetadata({
-  searchParams: _searchParams,
+  searchParams,
 }: {
   searchParams?: Promise<BlogSearchParams>;
 }): Promise<Metadata> {
-  void _searchParams;
-  return buildPageMetadata({
+  const sp = (await searchParams) ?? {};
+  const hasFilter =
+    (typeof sp.category === "string" && sp.category.length > 0) ||
+    (typeof sp.tag === "string" && sp.tag.length > 0);
+
+  const base = buildPageMetadata({
     path: "/blog",
     title: "學習專欄｜教育理念、升學策略與親子溝通實用文章",
     description:
       "收錄品識學苑關於12年國教升學規劃、學習方法、親子溝通與教學現場觀察等文章，協助家長與學生建立更穩定的學習節奏與升學準備。",
     titleAbsolute: true,
   });
+
+  if (!hasFilter) return base;
+
+  return {
+    ...base,
+    robots: { index: false, follow: true },
+    alternates: {
+      canonical: `${SITE.url}/blog`,
+    },
+  };
 }
 
 export default async function BlogIndexPage({

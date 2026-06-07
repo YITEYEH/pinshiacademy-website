@@ -1,5 +1,6 @@
 import type { BlogPost, BlogPostSummary } from "./types";
 import { prepareArticleHtml } from "@/lib/wp-post-html";
+import { estimateReadTime } from "@/lib/blog-read-time";
 
 const DEFAULT_ENDPOINT = "https://blog.pinshiacademy.com/graphql";
 
@@ -137,10 +138,51 @@ async function graphqlRequest<T>(
   return json.data;
 }
 
-export async function wpGetAllPosts(): Promise<BlogPostSummary[]> {
+function mapNodeToSummary(n: GqlPostNode): BlogPostSummary | null {
+  if (!n.slug) return null;
+
+  const category =
+    n.categories?.nodes?.map((c) => c.name).find(Boolean) ?? undefined;
+  const excerptPlain = stripHtml(n.excerpt ?? "");
+  const description =
+    deriveDescription(excerptPlain, n.content) ||
+    sanitizeExcerpt(stripHtml(n.title ?? ""));
+  const cover = n.featuredImage?.node?.sourceUrl ?? undefined;
+  const authorName = n.author?.node?.name ?? undefined;
+  const authorAvatar = n.author?.node?.avatar?.url ?? undefined;
+  const tags =
+    n.tags?.nodes?.map((t) => t.name).filter(Boolean) as string[] | undefined;
+  const readTime = n.content ? estimateReadTime(n.content) : undefined;
+
+  return {
+    slug: n.slug,
+    frontmatter: {
+      title: n.title ?? n.slug,
+      description,
+      date: normalizeDate(n.date),
+      modifiedDate: normalizeDate(n.modified) || normalizeDate(n.date),
+      category,
+      tags: tags && tags.length > 0 ? tags : undefined,
+      cover,
+      authorName,
+      authorAvatar,
+      readTime: readTime || undefined,
+    },
+  };
+}
+
+async function fetchPostNodesPage(first: number, after?: string | null) {
   const query = /* GraphQL */ `
-    query GetPosts($first: Int!) {
-      posts(first: $first, where: { orderby: { field: DATE, order: DESC } }) {
+    query GetPosts($first: Int!, $after: String) {
+      posts(
+        first: $first
+        after: $after
+        where: { orderby: { field: DATE, order: DESC } }
+      ) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
         nodes {
           slug
           title
@@ -176,39 +218,33 @@ export async function wpGetAllPosts(): Promise<BlogPostSummary[]> {
     }
   `;
 
-  const data = await graphqlRequest<{ posts: { nodes: GqlPostNode[] } }>(query, {
-    first: 50,
-  });
+  const data = await graphqlRequest<{
+    posts: {
+      pageInfo: { hasNextPage: boolean; endCursor: string | null };
+      nodes: GqlPostNode[];
+    };
+  }>(query, { first, after: after ?? null });
 
-  return (data.posts.nodes ?? [])
-    .filter((n) => !!n.slug)
-    .map((n) => {
-      const category =
-        n.categories?.nodes?.map((c) => c.name).find(Boolean) ?? undefined;
-      const excerptPlain = stripHtml(n.excerpt ?? "");
-      const description =
-        deriveDescription(excerptPlain, n.content) ||
-        sanitizeExcerpt(stripHtml(n.title ?? ""));
-      const cover = n.featuredImage?.node?.sourceUrl ?? undefined;
-      const authorName = n.author?.node?.name ?? undefined;
-      const authorAvatar = n.author?.node?.avatar?.url ?? undefined;
-      const tags =
-        n.tags?.nodes?.map((t) => t.name).filter(Boolean) as string[] | undefined;
+  return data.posts;
+}
 
-      return {
-        slug: n.slug,
-        frontmatter: {
-          title: n.title ?? n.slug,
-          description,
-          date: normalizeDate(n.date),
-          category,
-          tags: tags && tags.length > 0 ? tags : undefined,
-          cover,
-          authorName,
-          authorAvatar,
-        },
-      };
-    });
+export async function wpGetAllPosts(): Promise<BlogPostSummary[]> {
+  const all: BlogPostSummary[] = [];
+  let after: string | null = null;
+  const pageSize = 100;
+
+  for (let page = 0; page < 20; page++) {
+    const batch = await fetchPostNodesPage(pageSize, after);
+    for (const node of batch.nodes ?? []) {
+      const summary = mapNodeToSummary(node);
+      if (summary) all.push(summary);
+    }
+    if (!batch.pageInfo.hasNextPage) break;
+    after = batch.pageInfo.endCursor;
+    if (!after) break;
+  }
+
+  return all;
 }
 
 export async function wpGetPostBySlug(slug: string): Promise<BlogPost> {
@@ -267,6 +303,7 @@ export async function wpGetPostBySlug(slug: string): Promise<BlogPost> {
   const title = post.title ?? post.slug;
   const rawHtml = post.content ?? "";
   const { html, toc } = prepareArticleHtml(rawHtml, title);
+  const readTime = estimateReadTime(rawHtml);
 
   return {
     slug: post.slug,
@@ -280,6 +317,7 @@ export async function wpGetPostBySlug(slug: string): Promise<BlogPost> {
       cover,
       authorName,
       authorAvatar,
+      readTime: readTime || undefined,
     },
     content: html,
     toc: toc.length > 0 ? toc : undefined,

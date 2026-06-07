@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LINE_LINKS } from "@/lib/line-links";
 
 const successStories = [
   {
@@ -78,7 +79,7 @@ const successStories = [
       achievements: ["成績進步27分", "通過英檢中級", "敢開口說英文"],
     },
     testimonial:
-      "林老師教的方法讓我終於找到學英文的訣竅，現在看英文文章不再害怕了！",
+      "透過系統化練習，我終於找到學英文的訣竅，現在看英文文章不再害怕了！",
   },
   {
     name: "小芳",
@@ -293,7 +294,7 @@ export function StudentSuccessClient() {
               className="bg-white text-primary hover:bg-white/90 text-lg px-8"
               asChild
             >
-              <ExternalLinkOnce href="https://lin.ee/8nQNuYl">
+              <ExternalLinkOnce href={LINE_LINKS.consult}>
                 預約免費諮詢
                 <ArrowRight className="ml-2 w-5 h-5" />
               </ExternalLinkOnce>

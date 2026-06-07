@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LINE_LINKS } from "@/lib/line-links";
 import { useState } from "react";
 
 const courses = [
@@ -33,7 +34,7 @@ const courses = [
       "考試策略指導：掌握答題技巧與時間分配",
     ],
     highlights: "透過文本分析與討論，培養獨立思考與文學鑑賞能力",
-    lineHref: "https://lin.ee/5itUHpZ",
+    lineHref: LINE_LINKS.humanities,
   },
   {
     icon: Globe,
@@ -49,7 +50,7 @@ const courses = [
       "閱讀策略：掌握長篇文章的理解與分析技巧",
     ],
     highlights: "重視實際應用，讓英文成為溝通工具而非考試科目",
-    lineHref: "https://lin.ee/5itUHpZ",
+    lineHref: LINE_LINKS.humanities,
   },
   {
     icon: Calculator,
@@ -65,7 +66,7 @@ const courses = [
       "靈活應用：將數學概念應用於各類題型",
     ],
     highlights: "從基礎概念出發，循序漸進建立完整的數學思維",
-    lineHref: "https://lin.ee/rl0Wyvh",
+    lineHref: LINE_LINKS.stem,
   },
   {
     icon: Leaf,
@@ -81,7 +82,7 @@ const courses = [
       "記憶技巧：透過理解與聯想，有效記憶重點",
     ],
     highlights: "不只是背誦，更要理解社會現象背後的因果關係",
-    lineHref: "https://lin.ee/rl0Wyvh",
+    lineHref: LINE_LINKS.stem,
   },
   {
     icon: Beaker,
@@ -97,7 +98,7 @@ const courses = [
       "圖表分析：掌握實驗數據與圖表判讀技巧",
     ],
     highlights: "激發好奇心，培養探索自然世界的科學精神",
-    lineHref: "https://lin.ee/rl0Wyvh",
+    lineHref: LINE_LINKS.stem,
   },
   {
     icon: GraduationCap,
@@ -113,7 +114,7 @@ const courses = [
       "時間管理：建立高效率的學習與複習節奏",
     ],
     highlights: "從目標設定到考試準備，完整的升學規劃與諮詢",
-    lineHref: "https://lin.ee/rl0Wyvh",
+    lineHref: LINE_LINKS.stem,
   },
 ];
 
@@ -374,7 +375,7 @@ export function CoursesClient() {
                 className="bg-white text-primary hover:bg-white/90 text-lg px-8"
                 asChild
               >
-                <ExternalLinkOnce href="https://lin.ee/9x27qTh">
+                <ExternalLinkOnce href={LINE_LINKS.coursesConsult}>
                   免費學習診斷
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </ExternalLinkOnce>

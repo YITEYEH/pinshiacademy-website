@@ -3,6 +3,9 @@ import path from "node:path";
 import matter from "gray-matter";
 import type { BlogPost, BlogPostFrontmatter, BlogPostSummary } from "./types";
 import { wpGetAllPosts, wpGetPostBySlug } from "./wpgraphql";
+import { renderMarkdownToHtml } from "@/lib/mdx";
+import { prepareArticleHtml } from "@/lib/wp-post-html";
+import { estimateReadTime } from "@/lib/blog-read-time";
 
 const POSTS_DIR = path.join(process.cwd(), "content", "posts");
 
@@ -40,8 +43,15 @@ function mdxGetAllPostSlugs(): string[] {
 function mdxGetAllPosts(): BlogPostSummary[] {
   const slugs = mdxGetAllPostSlugs();
   const posts = slugs.map((slug) => {
-    const { frontmatter } = readPostFileBySlug(slug);
-    return { slug, frontmatter };
+    const { frontmatter, content } = readPostFileBySlug(slug);
+    const readTime = estimateReadTime(content);
+    return {
+      slug,
+      frontmatter: {
+        ...frontmatter,
+        readTime: readTime || frontmatter.readTime,
+      },
+    };
   });
 
   posts.sort((a, b) => {
@@ -53,19 +63,29 @@ function mdxGetAllPosts(): BlogPostSummary[] {
   return posts;
 }
 
-function mdxGetPostBySlug(slug: string): BlogPost {
+async function mdxGetPostBySlug(slug: string): Promise<BlogPost> {
   const { frontmatter, content } = readPostFileBySlug(slug);
-  return { slug, frontmatter, content };
+  const html = await renderMarkdownToHtml(content);
+  const { html: prepared, toc } = prepareArticleHtml(html, frontmatter.title);
+  const readTime = estimateReadTime(content);
+
+  return {
+    slug,
+    frontmatter: {
+      ...frontmatter,
+      readTime: readTime || frontmatter.readTime,
+    },
+    content: prepared,
+    toc: toc.length > 0 ? toc : undefined,
+  };
 }
 
 function hasWpGraphqlConfigured() {
   if (process.env.WP_GRAPHQL_DISABLED === "1") return false;
-  // default to the production WP endpoint if env is not set
   return true;
 }
 
 export async function getAllPosts(): Promise<BlogPostSummary[]> {
-  // Prefer WordPress when available; fallback to MDX for local/dev
   if (hasWpGraphqlConfigured()) {
     try {
       return await wpGetAllPosts();
@@ -86,5 +106,3 @@ export async function getPostBySlug(slug: string): Promise<BlogPost> {
   }
   return mdxGetPostBySlug(slug);
 }
-
-

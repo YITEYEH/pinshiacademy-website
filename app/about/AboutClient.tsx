@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LINE_LINKS } from "@/lib/line-links";
 
 const coreArchitecture = [
   {
@@ -375,7 +376,7 @@ export function AboutClient() {
                 className="bg-white text-primary hover:bg-white/90 text-lg px-8"
                 asChild
               >
-                <ExternalLinkOnce href="https://lin.ee/5cE2MLo">
+                <ExternalLinkOnce href={LINE_LINKS.about}>
                   免費找出學習盲點
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </ExternalLinkOnce>

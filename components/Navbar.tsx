@@ -7,12 +7,14 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LINE_LINKS } from "@/lib/line-links";
 
 const navLinks = [
   { name: "主頁", path: "/" },
   { name: "關於我們", path: "/about" },
   { name: "課程介紹", path: "/courses" },
   { name: "師資團隊", path: "/teachers" },
+  { name: "聯絡我們", path: "/contact" },
 ];
 
 const resourceLinks = [
@@ -95,7 +97,7 @@ export function Navbar() {
 
           <div className="hidden md:block">
             <Button className="bg-primary hover:bg-primary/90" asChild>
-              <ExternalLinkOnce href="https://lin.ee/8nQNuYl">
+              <ExternalLinkOnce href={LINE_LINKS.consult}>
                 聯繫學習顧問
               </ExternalLinkOnce>
             </Button>
@@ -153,7 +155,7 @@ export function Navbar() {
 
                 <div className="px-4 pt-2">
                   <Button className="w-full bg-primary hover:bg-primary/90" asChild>
-                    <ExternalLinkOnce href="https://lin.ee/8nQNuYl">
+                    <ExternalLinkOnce href={LINE_LINKS.consult}>
                       聯繫學習顧問
                     </ExternalLinkOnce>
                   </Button>
