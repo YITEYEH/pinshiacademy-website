@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
+import { ArticleShare } from "@/components/blog/ArticleShare";
 import { ArticleToc } from "@/components/blog/ArticleToc";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { getAllPosts, getPostBySlug } from "@/content/content-api/posts";
@@ -199,6 +200,8 @@ export default async function BlogPostPage({
         className="article-content max-w-[42rem] mx-auto"
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
+
+      <ArticleShare url={postUrl} title={post.frontmatter.title} />
 
       <RelatedPosts posts={relatedPosts} />
 

@@ -244,8 +244,9 @@
   border-radius: 0.75rem;
 }
 
-/* 覆寫 WordPress 常見 inline 字級，維持閱讀一致性 */
-.article-content [style*="font-size"] {
-  font-size: inherit !important;
-  line-height: inherit !important;
+/* 隱藏 WordPress Jetpack 分享區塊（若 HTML 清理未完全移除） */
+.article-content .sharedaddy,
+.article-content .sd-sharing,
+.article-content .sd-social {
+  display: none !important;
 }

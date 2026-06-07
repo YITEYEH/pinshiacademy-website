@@ -68,8 +68,25 @@ export function prepareArticleHtml(
   );
 
   processed = sanitizeImages(processed, postTitle);
+  processed = removeWpShareBlocks(processed);
 
   return { html: processed, toc };
+}
+
+function removeWpShareBlocks(html: string): string {
+  let prev = "";
+  let out = html;
+
+  while (out !== prev) {
+    prev = out;
+    out = out
+      .replace(/<div[^>]*\bsharedaddy\b[^>]*>[\s\S]*?<\/div>\s*<\/div>/gi, "")
+      .replace(/<div[^>]*\bsharedaddy\b[^>]*>[\s\S]*?<\/div>/gi, "")
+      .replace(/<div[^>]*\bsd-sharing\b[^>]*>[\s\S]*?<\/div>/gi, "")
+      .replace(/<h3[^>]*\bsd-title\b[^>]*>[\s\S]*?<\/h3>/gi, "");
+  }
+
+  return out.trim();
 }
 
 /** @deprecated 請改用 prepareArticleHtml */
