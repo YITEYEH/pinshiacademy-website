@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPostBySlug } from "@/content/content-api/posts";
+import { ArrowLeft } from "lucide-react";
+import { ArticleToc } from "@/components/blog/ArticleToc";
+import { RelatedPosts } from "@/components/blog/RelatedPosts";
+import { getAllPosts, getPostBySlug } from "@/content/content-api/posts";
+import { buildBlogPostJsonLd, pickRelatedPosts } from "@/lib/blog-schema";
 import { SITE } from "@/lib/site";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -17,6 +22,11 @@ function isGenericGravatar(url: string) {
   }
 }
 
+function toIsoDate(date: string) {
+  if (!date) return undefined;
+  return date.length === 10 ? `${date}T00:00:00+08:00` : date;
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -30,6 +40,10 @@ export async function generateMetadata({
       rawTitle.length >= 20
         ? rawTitle
         : `${rawTitle}｜12年國教與升學觀點｜品識學苑學習專欄`;
+    const published = toIsoDate(post.frontmatter.date);
+    const modified = toIsoDate(
+      post.frontmatter.modifiedDate ?? post.frontmatter.date,
+    );
 
     return buildPageMetadata({
       path: `/blog/${post.slug}`,
@@ -38,6 +52,13 @@ export async function generateMetadata({
       openGraphType: "article",
       ogImages: post.frontmatter.cover ? [post.frontmatter.cover] : undefined,
       titleAbsolute: true,
+      articlePublishedTime: published,
+      articleModifiedTime: modified,
+      articleAuthors: post.frontmatter.authorName
+        ? [post.frontmatter.authorName]
+        : undefined,
+      articleSection: post.frontmatter.category,
+      articleTags: post.frontmatter.tags,
     });
   } catch {
     return {};
@@ -57,65 +78,84 @@ export default async function BlogPostPage({
     notFound();
   }
 
+  const allPosts = await getAllPosts();
+  const relatedPosts = pickRelatedPosts(post, allPosts);
+  const postUrl = `${SITE.url}/blog/${post.slug}`;
+  const modifiedLabel =
+    post.frontmatter.modifiedDate &&
+    post.frontmatter.modifiedDate !== post.frontmatter.date
+      ? post.frontmatter.modifiedDate
+      : null;
+
   return (
-    <article className="max-w-3xl mx-auto px-6 py-16">
+    <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12 lg:py-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            headline: post.frontmatter.title,
-            description: post.frontmatter.description,
-            datePublished: post.frontmatter.date,
-            dateModified: post.frontmatter.date,
-            mainEntityOfPage: {
-              "@type": "WebPage",
-              "@id": `${SITE.url}/blog/${post.slug}`,
-            },
-            publisher: {
-              "@type": "Organization",
-              name: SITE.name,
-              url: SITE.url,
-            },
-            author: post.frontmatter.authorName
-              ? {
-                  "@type": "Person",
-                  name: post.frontmatter.authorName,
-                }
-              : undefined,
-          }),
+          __html: JSON.stringify(buildBlogPostJsonLd(post, postUrl)),
         }}
       />
-      <div className="mb-10">
+
+      <nav aria-label="breadcrumb" className="mb-6 text-sm text-muted-foreground">
+        <ol className="flex flex-wrap items-center gap-1.5">
+          <li>
+            <Link href="/" className="hover:text-primary transition-colors">
+              首頁
+            </Link>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li>
+            <Link href="/blog" className="hover:text-primary transition-colors">
+              學習專欄
+            </Link>
+          </li>
+          <li aria-hidden="true">/</li>
+          <li className="text-foreground/80 line-clamp-1">
+            {post.frontmatter.title}
+          </li>
+        </ol>
+      </nav>
+
+      <Link
+        href="/blog"
+        className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors mb-8"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        返回學習專欄
+      </Link>
+
+      <header className="mb-10 pb-10 border-b border-border">
         <div className="text-sm text-muted-foreground">
-          {post.frontmatter.date}
+          發布：{post.frontmatter.date}
+          {modifiedLabel ? ` · 更新：${modifiedLabel}` : ""}
           {post.frontmatter.readTime ? ` · ${post.frontmatter.readTime}` : ""}
         </div>
-        <h1 className="mt-3 text-3xl lg:text-4xl font-bold text-foreground leading-tight">
+        <h1 className="mt-3 text-3xl lg:text-[2.125rem] font-bold text-foreground leading-tight tracking-tight">
           {post.frontmatter.title}
         </h1>
-        <p className="mt-4 text-lg text-muted-foreground">
-          {post.frontmatter.description}
-        </p>
+        {post.frontmatter.description && (
+          <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
+            {post.frontmatter.description}
+          </p>
+        )}
 
         <div className="mt-6 flex flex-wrap gap-2">
           {post.frontmatter.category && (
-            <a
+            <Link
               href={`/blog?category=${encodeURIComponent(post.frontmatter.category)}`}
               className="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full"
             >
               {post.frontmatter.category}
-            </a>
+            </Link>
           )}
           {(post.frontmatter.tags ?? []).slice(0, 20).map((t) => (
-            <a
+            <Link
               key={t}
               href={`/blog?tag=${encodeURIComponent(t)}`}
               className="text-xs text-muted-foreground bg-[#f7f9f7] px-3 py-1 rounded-full"
             >
               #{t}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -139,10 +179,10 @@ export default async function BlogPostPage({
             </div>
           </div>
         )}
-      </div>
+      </header>
 
       {post.frontmatter.cover && (
-        <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-[#f7f9f7] mb-10">
+        <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-[#f7f9f7] mb-12">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={post.frontmatter.cover}
@@ -153,13 +193,24 @@ export default async function BlogPostPage({
         </div>
       )}
 
+      {post.toc && post.toc.length > 0 && <ArticleToc items={post.toc} />}
+
       <div
-        className="space-y-6 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-foreground [&_p]:text-foreground/90 [&_ul]:list-disc [&_ul]:pl-6 [&_li]:text-foreground/90 [&_strong]:text-foreground"
-        // WP content is trusted (owned by us). If you later allow user-generated HTML,
-        // add sanitization here.
+        className="article-content max-w-[42rem] mx-auto"
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
+
+      <RelatedPosts posts={relatedPosts} />
+
+      <footer className="mt-10 pt-8 border-t border-border max-w-[42rem] mx-auto">
+        <Link
+          href="/blog"
+          className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          返回學習專欄
+        </Link>
+      </footer>
     </article>
   );
 }
-

@@ -1,5 +1,9 @@
 import "server-only";
 
+import type { ArticleTocItem } from "@/content/content-api/types";
+
+export type { ArticleTocItem };
+
 function escapeAttr(s: string) {
   return s
     .replace(/&/g, "&amp;")
@@ -7,11 +11,11 @@ function escapeAttr(s: string) {
     .replace(/</g, "&lt;");
 }
 
-/**
- * 文章內文來自 WordPress HTML：補 lazy、缺漏或空白 alt，降低爬蟲「缺 alt」與效能告警。
- * 無法修復遠端 404 圖檔，仍須於後台更新圖片網址。
- */
-export function sanitizeWpPostHtml(html: string, postTitle: string): string {
+function stripHtml(text: string) {
+  return text.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+}
+
+function sanitizeImages(html: string, postTitle: string): string {
   const base = postTitle.trim() || "品識學苑學習專欄";
   const fallbackAlt = escapeAttr(`${base.slice(0, 80)}｜內文附圖`);
 
@@ -31,4 +35,44 @@ export function sanitizeWpPostHtml(html: string, postTitle: string): string {
     }
     return `<img${next}>`;
   });
+}
+
+/**
+ * 文章內文來自 WordPress HTML：SEO 友善標題層級、錨點 id、圖片 alt/lazy。
+ */
+export function prepareArticleHtml(
+  html: string,
+  postTitle: string,
+): { html: string; toc: ArticleTocItem[] } {
+  let processed = html.replace(/<h1\b/gi, "<h2").replace(/<\/h1>/gi, "</h2>");
+
+  const toc: ArticleTocItem[] = [];
+  let headingIndex = 0;
+
+  processed = processed.replace(
+    /<h([23])\b([^>]*)>([\s\S]*?)<\/h\1>/gi,
+    (match, level: string, attrs: string, inner: string) => {
+      const text = stripHtml(inner);
+      if (!text) return match;
+
+      const existingId = attrs.match(/\bid\s*=\s*["']([^"']+)["']/i)?.[1];
+      const id = existingId ?? `section-${++headingIndex}`;
+      const levelNum = Number(level) as 2 | 3;
+
+      toc.push({ id, text, level: levelNum });
+
+      if (existingId) return match;
+
+      return `<h${level}${attrs} id="${escapeAttr(id)}">${inner}</h${level}>`;
+    },
+  );
+
+  processed = sanitizeImages(processed, postTitle);
+
+  return { html: processed, toc };
+}
+
+/** @deprecated 請改用 prepareArticleHtml */
+export function sanitizeWpPostHtml(html: string, postTitle: string): string {
+  return prepareArticleHtml(html, postTitle).html;
 }

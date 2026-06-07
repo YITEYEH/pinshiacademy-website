@@ -1,5 +1,5 @@
 import type { BlogPost, BlogPostSummary } from "./types";
-import { sanitizeWpPostHtml } from "@/lib/wp-post-html";
+import { prepareArticleHtml } from "@/lib/wp-post-html";
 
 const DEFAULT_ENDPOINT = "https://blog.pinshiacademy.com/graphql";
 
@@ -101,6 +101,7 @@ type GqlPostNode = {
   title?: string | null;
   excerpt?: string | null;
   date?: string | null;
+  modified?: string | null;
   content?: string | null;
   author?: { node?: { name?: string | null; avatar?: { url?: string | null } | null } | null } | null;
   featuredImage?: { node?: { sourceUrl?: string | null } | null } | null;
@@ -145,6 +146,7 @@ export async function wpGetAllPosts(): Promise<BlogPostSummary[]> {
           title
           excerpt
           date
+          modified
           content
           author {
             node {
@@ -217,6 +219,7 @@ export async function wpGetPostBySlug(slug: string): Promise<BlogPost> {
         title
         excerpt
         date
+        modified
         content
         author {
           node {
@@ -263,6 +266,7 @@ export async function wpGetPostBySlug(slug: string): Promise<BlogPost> {
 
   const title = post.title ?? post.slug;
   const rawHtml = post.content ?? "";
+  const { html, toc } = prepareArticleHtml(rawHtml, title);
 
   return {
     slug: post.slug,
@@ -270,13 +274,15 @@ export async function wpGetPostBySlug(slug: string): Promise<BlogPost> {
       title,
       description,
       date: normalizeDate(post.date),
+      modifiedDate: normalizeDate(post.modified) || normalizeDate(post.date),
       category,
       tags: tags && tags.length > 0 ? tags : undefined,
       cover,
       authorName,
       authorAvatar,
     },
-    content: sanitizeWpPostHtml(rawHtml, title),
+    content: html,
+    toc: toc.length > 0 ? toc : undefined,
   };
 }
 

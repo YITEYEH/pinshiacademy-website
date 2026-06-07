@@ -38,6 +38,12 @@ export type BuildPageMetadataInput = {
   /** Homepage-style title without layout template */
   titleAbsolute?: boolean;
   openGraphType?: "website" | "article";
+  /** ISO 8601 date (YYYY-MM-DD or full ISO) for article pages */
+  articlePublishedTime?: string;
+  articleModifiedTime?: string;
+  articleAuthors?: string[];
+  articleSection?: string;
+  articleTags?: string[];
 };
 
 function resolvedShareTitle(title: string, titleAbsolute: boolean): string {
@@ -52,6 +58,11 @@ export function buildPageMetadata({
   ogImages,
   titleAbsolute = false,
   openGraphType = "website",
+  articlePublishedTime,
+  articleModifiedTime,
+  articleAuthors,
+  articleSection,
+  articleTags,
 }: BuildPageMetadataInput): Metadata {
   const url = pageCanonical(path);
   const images =
@@ -75,6 +86,15 @@ export function buildPageMetadata({
       locale: OG_LOCALE,
       siteName: SITE.name,
       images,
+      ...(openGraphType === "article"
+        ? {
+            publishedTime: articlePublishedTime,
+            modifiedTime: articleModifiedTime,
+            authors: articleAuthors,
+            section: articleSection,
+            tags: articleTags,
+          }
+        : {}),
     },
     twitter: {
       card: "summary_large_image",

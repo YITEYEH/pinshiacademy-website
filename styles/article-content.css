@@ -1,0 +1,251 @@
+/**
+ * WordPress / MDX 文章內文閱讀排版
+ * 套用於 .article-content 容器內的 HTML
+ */
+.article-content {
+  color: color-mix(in srgb, var(--foreground) 92%, transparent);
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  letter-spacing: 0.01em;
+  word-break: break-word;
+}
+
+.article-content > *:first-child {
+  margin-top: 0;
+}
+
+.article-content > *:last-child {
+  margin-bottom: 0;
+}
+
+/* 段落 */
+.article-content p {
+  margin: 0 0 1.25em;
+}
+
+.article-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* 標題層級 */
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5,
+.article-content h6,
+.article-content .wp-block-heading {
+  color: var(--foreground);
+  font-weight: 700;
+  line-height: 1.35;
+  scroll-margin-top: 5rem;
+}
+
+.article-content h2 {
+  font-size: 1.625rem;
+  margin: 2.25em 0 0.75em;
+  padding-bottom: 0.35em;
+  border-bottom: 2px solid color-mix(in srgb, var(--primary) 18%, transparent);
+}
+
+.article-content h3 {
+  font-size: 1.3125rem;
+  margin: 1.75em 0 0.6em;
+}
+
+.article-content h4 {
+  font-size: 1.125rem;
+  margin: 1.5em 0 0.5em;
+}
+
+.article-content h5,
+.article-content h6 {
+  font-size: 1rem;
+  margin: 1.25em 0 0.4em;
+}
+
+/* 連結 */
+.article-content a {
+  color: var(--primary);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--primary) 35%, transparent);
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.article-content a:hover {
+  text-decoration-color: var(--primary);
+}
+
+/* 強調 */
+.article-content strong,
+.article-content b {
+  color: var(--foreground);
+  font-weight: 700;
+}
+
+.article-content em,
+.article-content i {
+  font-style: italic;
+}
+
+/* 清單 */
+.article-content ul,
+.article-content ol {
+  margin: 0 0 1.25em;
+  padding-left: 1.5em;
+}
+
+.article-content ul {
+  list-style-type: disc;
+}
+
+.article-content ol {
+  list-style-type: decimal;
+}
+
+.article-content li {
+  margin: 0.4em 0;
+  padding-left: 0.25em;
+}
+
+.article-content li::marker {
+  color: var(--primary);
+}
+
+.article-content li > ul,
+.article-content li > ol {
+  margin-top: 0.4em;
+  margin-bottom: 0.4em;
+}
+
+/* 引用 */
+.article-content blockquote,
+.article-content .wp-block-quote {
+  margin: 1.5em 0;
+  padding: 1rem 1.25rem;
+  border-left: 4px solid var(--primary);
+  border-radius: 0 0.5rem 0.5rem 0;
+  background: var(--accent);
+  color: color-mix(in srgb, var(--foreground) 88%, transparent);
+  font-style: normal;
+}
+
+.article-content blockquote p:last-child,
+.article-content .wp-block-quote p:last-child {
+  margin-bottom: 0;
+}
+
+/* 分隔線 */
+.article-content hr,
+.article-content .wp-block-separator {
+  margin: 2em 0;
+  border: none;
+  border-top: 1px solid var(--border);
+}
+
+/* 圖片與 figure */
+.article-content figure,
+.article-content .wp-block-image {
+  margin: 1.75em 0;
+}
+
+.article-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5em auto;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 24px color-mix(in srgb, var(--foreground) 8%, transparent);
+}
+
+.article-content figure img,
+.article-content .wp-block-image img {
+  margin: 0 auto;
+}
+
+.article-content figcaption,
+.article-content .wp-element-caption {
+  margin-top: 0.65em;
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}
+
+/* 表格 */
+.article-content table {
+  width: 100%;
+  margin: 1.5em 0;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.article-content th,
+.article-content td {
+  padding: 0.65em 0.85em;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+
+.article-content th {
+  background: var(--secondary);
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.article-content tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--secondary) 60%, transparent);
+}
+
+/* 程式碼 */
+.article-content pre {
+  margin: 1.5em 0;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  background: var(--secondary);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.article-content code {
+  font-size: 0.9em;
+  padding: 0.15em 0.35em;
+  border-radius: 0.25rem;
+  background: var(--secondary);
+}
+
+.article-content pre code {
+  padding: 0;
+  background: transparent;
+}
+
+/* WordPress 區塊容器 */
+.article-content .wp-block-group,
+.article-content .wp-block-columns {
+  margin: 1.25em 0;
+}
+
+.article-content .wp-block-group > * + *,
+.article-content .wp-block-column > * + * {
+  margin-top: 1em;
+}
+
+/* 嵌入影片 */
+.article-content iframe {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 1.5em 0;
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: 0.75rem;
+}
+
+/* 覆寫 WordPress 常見 inline 字級，維持閱讀一致性 */
+.article-content [style*="font-size"] {
+  font-size: inherit !important;
+  line-height: inherit !important;
+}
