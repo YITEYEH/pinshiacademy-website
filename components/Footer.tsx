@@ -100,10 +100,10 @@ export function Footer() {
               <li className="flex items-start gap-3 text-sm text-white/80">
                 <Mail className="w-4 h-4 mt-0.5 shrink-0 text-white/60" />
                 <a
-                  href="mailto:contact@pinshiacademy.com"
+                  href="mailto:pinshiacademy@gmail.com"
                   className="hover:text-white transition-colors break-all"
                 >
-                  contact@pinshiacademy.com
+                  pinshiacademy@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-3 text-sm text-white/80">
@@ -164,7 +164,7 @@ export function Footer() {
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-white/60">
-              © 2026 品識學苑 Pin Shi Academy. All rights reserved.
+              © 2026 品識學苑 PinShi Academy. All rights reserved.
             </p>
             <div className="flex gap-6">
               <Link

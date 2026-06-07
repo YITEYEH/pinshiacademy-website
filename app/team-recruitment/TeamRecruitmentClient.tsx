@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { ArrowRight, Users, Heart, Zap, Target, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
 
 const teamValues = [
   {
@@ -24,42 +25,6 @@ const teamValues = [
     icon: Target,
     title: "目標導向",
     description: "聚焦成果，持續改善服務品質",
-  },
-];
-
-const positions = [
-  {
-    title: "課程顧問",
-    department: "學生服務",
-    responsibilities: [
-      "為家長提供專業的課程諮詢服務",
-      "協助學生規劃適合的學習方案",
-      "追蹤學生學習進度與滿意度",
-      "維護良好的家長溝通關係",
-    ],
-    requirements: ["具備良好的溝通與說服能力", "熟悉教育產業或相關經驗佳", "細心負責，關注細節"],
-  },
-  {
-    title: "行政專員",
-    department: "行政管理",
-    responsibilities: [
-      "處理日常行政事務與文書作業",
-      "協調師資與教室資源安排",
-      "維護學生資料與課程系統",
-      "支援各項活動與專案執行",
-    ],
-    requirements: ["熟悉行政流程與文書處理", "具備良好的組織與時間管理能力", "細心謹慎，能多工處理"],
-  },
-  {
-    title: "數位行銷專員",
-    department: "行銷企劃",
-    responsibilities: [
-      "經營社群媒體與品牌形象",
-      "規劃與執行數位行銷活動",
-      "撰寫教育相關內容與文案",
-      "分析行銷數據，優化策略",
-    ],
-    requirements: ["熟悉社群媒體經營與數位行銷", "具備文案撰寫與內容企劃能力", "對教育產業有興趣與熱忱"],
   },
 ];
 
@@ -138,77 +103,6 @@ export function TeamRecruitmentClient() {
                   {value.title}
                 </h3>
                 <p className="text-sm text-muted-foreground">{value.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-[#f7f9f7]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              招募職位
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              以下是目前開放的營運團隊職缺
-            </p>
-          </motion.div>
-
-          <div className="space-y-6">
-            {positions.map((position, index) => (
-              <motion.div
-                key={position.title}
-                initial={false}
-                animate={{ opacity: 1, y: 0 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-xl p-6 lg:p-8"
-              >
-                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6">
-                  <div>
-                    <h3 className="text-2xl font-bold text-foreground mb-2">
-                      {position.title}
-                    </h3>
-                    <span className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">
-                      {position.department}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="grid lg:grid-cols-2 gap-8">
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-3">工作內容</h4>
-                    <ul className="space-y-2">
-                      {position.responsibilities.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                          <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-3">應徵條件</h4>
-                    <ul className="space-y-2">
-                      {position.requirements.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                          <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
               </motion.div>
             ))}
           </div>
@@ -302,9 +196,18 @@ export function TeamRecruitmentClient() {
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
               點擊下方按鈕前往人才招募系統，提交您的履歷
             </p>
-            <Button size="lg" className="bg-white text-primary hover:bg-white/90 text-lg px-8">
-              前往人才招募系統
-              <ArrowRight className="ml-2 w-5 h-5" />
+            <Button
+              size="lg"
+              className="bg-white text-primary hover:bg-white/90 text-lg px-8"
+              asChild
+            >
+              <ExternalLinkOnce
+                href="https://www.pinshihire.com/"
+                newTab
+              >
+                前往人才招募系統
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </ExternalLinkOnce>
             </Button>
           </motion.div>
         </div>
