@@ -10,6 +10,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
 
 const coreValues = [
   {
@@ -320,9 +321,15 @@ export function TeacherRecruitmentClient() {
             <Button
               size="lg"
               className="bg-white text-primary hover:bg-white/90 text-lg px-8"
+              asChild
             >
-              前往人才招募系統
-              <ArrowRight className="ml-2 w-5 h-5" />
+              <ExternalLinkOnce
+                href="https://www.pinshihire.com/"
+                newTab
+              >
+                前往人才招募系統
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </ExternalLinkOnce>
             </Button>
           </motion.div>
         </div>
