@@ -10,7 +10,7 @@ import { buildBlogPostJsonLd, pickRelatedPosts } from "@/lib/blog-schema";
 import { SITE } from "@/lib/site";
 import { buildPageMetadata } from "@/lib/seo";
 
-export const revalidate = 300;
+export const revalidate = 60;
 
 function isGenericGravatar(url: string) {
   try {

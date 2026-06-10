@@ -3,6 +3,7 @@ import { prepareArticleHtml } from "@/lib/wp-post-html";
 import { estimateReadTime } from "@/lib/blog-read-time";
 
 const DEFAULT_ENDPOINT = "https://blog.pinshiacademy.com/graphql";
+export const WP_POSTS_CACHE_TAG = "wordpress-posts";
 
 /** 避免 WP 連線卡住時，整頁（含 RSC / prefetch）永遠轉圈 */
 const WP_FETCH_TIMEOUT_MS = 12_000;
@@ -120,8 +121,8 @@ async function graphqlRequest<T>(
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ query, variables }),
     signal: fetchTimeoutSignal(),
-    // cache on Vercel edge/runtime; keep fresh-ish for SEO posts
-    next: { revalidate: 300 },
+    // ISR + on-demand revalidate via /api/revalidate (tag: wordpress-posts)
+    next: { revalidate: 60, tags: [WP_POSTS_CACHE_TAG] },
   });
 
   if (!res.ok) {
