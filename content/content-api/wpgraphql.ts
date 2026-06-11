@@ -30,6 +30,7 @@ function decodeCommonEntities(text: string) {
       // common ellipsis entities produced by WP
       .replace(/&hellip;|&#8230;|&#x2026;/gi, "…")
       // wp often uses a bracketed ellipsis marker
+      .replace(/\[\s*&hellip;\s*\]|\[\s*&#8230;\s*\]/gi, "…")
       .replace(/\[\s*…\s*\]|\[\s*\.\.\.\s*\]/g, "…")
       .replace(/&nbsp;|&#160;/gi, " ")
       .trim()
@@ -62,34 +63,61 @@ function sanitizeExcerpt(text: string) {
     .trim();
 }
 
+const MIN_LEAD_CHARS = 40;
+const MAX_LEAD_BLOCKS = 4;
+const MAX_DESCRIPTION_CHARS = 320;
+
+function clampDescription(text: string) {
+  const cleaned = text.trim();
+  if (!cleaned) return "";
+  return cleaned.length > MAX_DESCRIPTION_CHARS
+    ? `${cleaned.slice(0, MAX_DESCRIPTION_CHARS).trimEnd()}…`
+    : cleaned;
+}
+
+/** 合併標題前的前幾段 p / blockquote，避免只抓到「就是：」這類短句 */
 function deriveDescriptionFromContent(contentHtml: string) {
   const html = contentHtml ?? "";
+  const introHtml = html.split(/<h[1-6]\b/i)[0] ?? html;
+  const blockRegex = /<(p|blockquote)\b[^>]*>([\s\S]*?)<\/\1>/gi;
+  const parts: string[] = [];
 
-  // Prefer the first <p> as the excerpt source (avoids pulling in headings like "一、...")
-  const pMatch = html.match(/<p\b[^>]*>([\s\S]*?)<\/p>/i);
-  const firstParagraphHtml = pMatch?.[1] ?? "";
-  const plainFromP = sanitizeExcerpt(stripHtml(firstParagraphHtml));
+  for (
+    let match = blockRegex.exec(introHtml);
+    match !== null && parts.length < MAX_LEAD_BLOCKS;
+    match = blockRegex.exec(introHtml)
+  ) {
+    const text = sanitizeExcerpt(stripHtml(match[2] ?? ""));
+    if (!text) continue;
+    parts.push(text);
+    if (parts.join(" ").length >= MIN_LEAD_CHARS) break;
+  }
 
-  const plain = plainFromP || sanitizeExcerpt(stripHtml(html));
-  if (!plain) return "";
+  return clampDescription(parts.join(" "));
+}
 
-  const cleaned = plain.trim();
-  return cleaned.length > 320 ? cleaned.slice(0, 320).trimEnd() + "…" : cleaned;
+function excerptCoreText(excerpt: string) {
+  return excerpt
+    .replace(/\s*…\s*$/u, "")
+    .replace(/\s*\.\.\.\s*$/u, "")
+    .trim();
 }
 
 function deriveDescription(excerptText: string, contentHtml: string | null | undefined) {
   const excerpt = sanitizeExcerpt(excerptText);
-  // If WP excerpt is truncated (…/[…] marker), prefer first paragraph from content.
-  const looksTruncated =
-    excerpt.endsWith("…") ||
-    excerpt.endsWith("...") ||
-    excerpt.includes(" […]") ||
-    excerpt.includes("[…]");
-  if (looksTruncated && contentHtml) {
-    const fromContent = deriveDescriptionFromContent(contentHtml);
-    if (fromContent) return fromContent;
+  const excerptCore = excerptCoreText(excerpt);
+  const fromContent = contentHtml ? deriveDescriptionFromContent(contentHtml) : "";
+
+  // WP 摘要夠長就優先使用（即使尾端有 … 也保留完整導讀）
+  if (excerptCore.length >= MIN_LEAD_CHARS) {
+    return clampDescription(excerpt);
   }
-  return excerpt;
+
+  if (fromContent.length >= MIN_LEAD_CHARS) {
+    return fromContent;
+  }
+
+  return clampDescription(fromContent || excerpt);
 }
 
 function normalizeDate(input: string | null | undefined) {
