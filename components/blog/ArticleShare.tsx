@@ -38,7 +38,8 @@ export function ArticleShare({ url, title }: Props) {
   };
 
   return (
-    <aside
+    <div
+      role="complementary"
       aria-label="分享文章"
       className="mt-12 max-w-[42rem] mx-auto rounded-xl border border-border bg-[#f7f9f7] p-6"
     >
@@ -79,6 +80,6 @@ export function ArticleShare({ url, title }: Props) {
           <span className="text-xs font-bold tracking-wide">LINE</span>
         </button>
       </div>
-    </aside>
+    </div>
   );
 }

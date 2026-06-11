@@ -69,24 +69,68 @@ export function prepareArticleHtml(
 
   processed = sanitizeImages(processed, postTitle);
   processed = removeWpShareBlocks(processed);
+  processed = stripTrailingOrphanCloseTags(processed);
 
-  return { html: processed, toc };
+  const filteredToc = toc.filter((item) => !isShareHeading(item.text));
+
+  return { html: processed, toc: filteredToc };
 }
 
+function isShareHeading(text: string) {
+  return /分享此文|分享到|Share this|Share on/i.test(text);
+}
+
+/** WordPress Jetpack 分享區塊殘留會破壞 DOM，導致後續 React 元件 hydration 失敗 */
 function removeWpShareBlocks(html: string): string {
-  let prev = "";
   let out = html;
 
+  const cutFromShare = [
+    /<h[23][^>]*>\s*分享此文[\s\S]*$/i,
+    /<h[23][^>]*\bsd-title\b[^>]*>[\s\S]*$/i,
+    /<div[^>]*\bsharedaddy\b[^>]*>[\s\S]*$/i,
+    /<div[^>]*\bsd-sharing\b[^>]*>[\s\S]*$/i,
+    /<div[^>]*\brobots-nocontent\b[^>]*\bsd-social\b[^>]*>[\s\S]*$/i,
+  ];
+  for (const pattern of cutFromShare) {
+    out = out.replace(pattern, "");
+  }
+
+  let prev = "";
   while (out !== prev) {
     prev = out;
     out = out
       .replace(/<div[^>]*\bsharedaddy\b[^>]*>[\s\S]*?<\/div>\s*<\/div>/gi, "")
       .replace(/<div[^>]*\bsharedaddy\b[^>]*>[\s\S]*?<\/div>/gi, "")
       .replace(/<div[^>]*\bsd-sharing\b[^>]*>[\s\S]*?<\/div>/gi, "")
+      .replace(/<ul[^>]*>[\s\S]*?<li[^>]*\bshare-(?:twitter|facebook|line)\b[\s\S]*?<\/ul>/gi, "")
       .replace(/<h3[^>]*\bsd-title\b[^>]*>[\s\S]*?<\/h3>/gi, "");
   }
 
   return out.trim();
+}
+
+/** 移除 WP 內文尾端多餘的闭合標籤，避免瀏覽器提前關閉 article-content 容器 */
+function stripTrailingOrphanCloseTags(html: string): string {
+  let out = html.trim();
+
+  while (true) {
+    const before = out;
+    const tags = ["div", "p", "section", "article", "aside"] as const;
+
+    for (const tag of tags) {
+      const open = (out.match(new RegExp(`<${tag}\\b`, "gi")) ?? []).length;
+      const close = (out.match(new RegExp(`</${tag}>`, "gi")) ?? []).length;
+      const trailing = new RegExp(`</${tag}>\\s*$`, "i");
+
+      if (close > open && trailing.test(out)) {
+        out = out.replace(trailing, "").trim();
+      }
+    }
+
+    if (out === before) break;
+  }
+
+  return out;
 }
 
 /** @deprecated 請改用 prepareArticleHtml */
