@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
 import { CONTACT } from "@/lib/contact";
 import { LINE_LINKS } from "@/lib/line-links";
+import { trackContactEmail } from "@/lib/analytics";
 
 export function ContactClient() {
   return (
@@ -50,6 +51,7 @@ export function ContactClient() {
                   <a
                     href={`mailto:${CONTACT.email}`}
                     className="text-muted-foreground hover:text-primary transition-colors break-all"
+                    onClick={() => trackContactEmail()}
                   >
                     {CONTACT.email}
                   </a>
@@ -94,7 +96,10 @@ export function ContactClient() {
                 className="bg-primary hover:bg-primary/90 w-full sm:w-auto"
                 asChild
               >
-                <ExternalLinkOnce href={LINE_LINKS.consult}>
+                <ExternalLinkOnce
+                  href={LINE_LINKS.consult}
+                  analyticsLabel="contact_line_consult"
+                >
                   <MessageCircle className="w-5 h-5 mr-2" />
                   LINE 聯繫學習顧問
                   <ArrowRight className="ml-2 w-5 h-5" />

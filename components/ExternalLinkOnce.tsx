@@ -1,5 +1,6 @@
 "use client";
 
+import { trackOutboundClick } from "@/lib/analytics";
 import { useRef } from "react";
 import type React from "react";
 
@@ -11,6 +12,8 @@ type Props = Omit<
   cooldownMs?: number;
   newTab?: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  /** GA4 事件標籤 */
+  analyticsLabel?: string;
 };
 
 export function ExternalLinkOnce({
@@ -18,6 +21,7 @@ export function ExternalLinkOnce({
   cooldownMs = 1200,
   newTab = false,
   onClick,
+  analyticsLabel,
   ...props
 }: Props) {
   const lockRef = useRef(false);
@@ -59,6 +63,10 @@ export function ExternalLinkOnce({
           return;
         }
 
+        if (analyticsLabel) {
+          trackOutboundClick(analyticsLabel, href);
+        }
+
         if (newTab) {
           window.open(href, "_blank", "noopener,noreferrer");
         } else {
@@ -76,6 +84,9 @@ export function ExternalLinkOnce({
         const now = Date.now();
         if (globalLockIfNeeded(now)) {
           return;
+        }
+        if (analyticsLabel) {
+          trackOutboundClick(analyticsLabel, href);
         }
         if (newTab) {
           window.open(href, "_blank", "noopener,noreferrer");

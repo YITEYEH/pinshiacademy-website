@@ -39,7 +39,7 @@ export function Navbar() {
             <img
               src="/brand/logo.png"
               alt="品識學苑"
-              className="w-10 h-10"
+              className="w-10 h-10 object-contain"
             />
             <span className="text-xl font-semibold text-foreground">
               品識學苑
@@ -97,7 +97,10 @@ export function Navbar() {
 
           <div className="hidden md:block">
             <Button className="bg-primary hover:bg-primary/90" asChild>
-              <ExternalLinkOnce href={LINE_LINKS.consult}>
+              <ExternalLinkOnce
+                href={LINE_LINKS.consult}
+                analyticsLabel="navbar_line_consult"
+              >
                 聯繫學習顧問
               </ExternalLinkOnce>
             </Button>
@@ -155,7 +158,10 @@ export function Navbar() {
 
                 <div className="px-4 pt-2">
                   <Button className="w-full bg-primary hover:bg-primary/90" asChild>
-                    <ExternalLinkOnce href={LINE_LINKS.consult}>
+                    <ExternalLinkOnce
+                href={LINE_LINKS.consult}
+                analyticsLabel="navbar_line_consult"
+              >
                       聯繫學習顧問
                     </ExternalLinkOnce>
                   </Button>

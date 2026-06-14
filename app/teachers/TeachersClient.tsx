@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
 import { LINE_LINKS } from "@/lib/line-links";
+import { teachers } from "@/content/teachers-data";
 
 const teacherCulture = [
   {
@@ -26,30 +27,7 @@ const teacherCulture = [
   },
 ];
 
-const teachers = [
-  {
-    name: "葉以德",
-    subject: "數學",
-    tags: ["國中數學", "高中數學", "邏輯思維"],
-    image: "/teacher-yeh-yide.jpg",
-    philosophy:
-      "數學不是背公式，而是建立邏輯思維。我相信每個孩子都能找到自己的解題方式。",
-    studentReview:
-      "葉老師讓我從害怕數學到喜歡數學，他總是很有耐心地解釋道我真的懂為止。",
-    experience: "五年教學經驗",
-  },
-  {
-    name: "蔣季芹",
-    subject: "國文",
-    tags: ["國中國文", "高中國文"],
-    image: "/teacher-jiang-jiqin.jpg",
-    philosophy:
-      "讓閱讀成為力量，讓表達成為自信。我相信每個孩子都能在文字裡，找到理解世界與認識自己的能力。",
-    studentReview:
-      "蔣老師總能用清楚的架構帶我讀懂文章，也會一步步引導我把想法寫出來，現在寫作更有自信了。",
-    experience: "三年教學經驗",
-  },
-];
+const teacherCultureItems = teacherCulture;
 
 export function TeachersClient() {
   return (
@@ -71,7 +49,7 @@ export function TeachersClient() {
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {teacherCulture.map((item, index) => (
+            {teacherCultureItems.map((item, index) => (
               <motion.div
                 key={item.title}
                 initial={false}
@@ -218,7 +196,10 @@ export function TeachersClient() {
               className="bg-white text-primary hover:bg-white/90 text-lg px-8"
               asChild
             >
-              <ExternalLinkOnce href={LINE_LINKS.consult}>
+              <ExternalLinkOnce
+                href={LINE_LINKS.consult}
+                analyticsLabel="teachers_line_consult"
+              >
                 預約免費諮詢
                 <ArrowRight className="ml-2 w-5 h-5" />
               </ExternalLinkOnce>

@@ -40,7 +40,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-6">
-              <img src="/brand/logo.png" alt="品識學苑" className="w-10 h-10" />
+              <img
+                src="/brand/logo.png"
+                alt="品識學苑"
+                className="w-10 h-10 object-contain"
+              />
               <span className="text-xl font-semibold">品識學苑</span>
             </Link>
             <p className="text-sm text-white/80 mb-6">

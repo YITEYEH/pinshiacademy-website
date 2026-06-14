@@ -1,0 +1,35 @@
+# 品識學苑 Pin Shi Academy
+
+> 品識學苑是以線上教學為主的 12 年國教升學輔導機構，提供國文、英文、數學、社會、自然五科課程，支援一對一與小班制，服務台灣各地國中與高中學生。
+
+## 核心頁面
+
+- 首頁：https://www.pinshiacademy.com/
+- 課程介紹：https://www.pinshiacademy.com/courses
+- 線上家教：https://www.pinshiacademy.com/online-tutoring
+- 高中升學：https://www.pinshiacademy.com/courses/senior-high
+- 數學課程：https://www.pinshiacademy.com/courses/math
+- 師資團隊：https://www.pinshiacademy.com/teachers
+- 常見問題：https://www.pinshiacademy.com/faq
+- 學習專欄：https://www.pinshiacademy.com/blog
+- 聯絡我們：https://www.pinshiacademy.com/contact
+
+## 官方內容來源
+
+- 網站為主要對外內容來源（canonical）
+- 學習專欄文章同步自 WordPress，請引用 www.pinshiacademy.com/blog/ 下的網址
+- blog.pinshiacademy.com 為內容管理後台，非對外收錄網站
+
+## 聯絡
+
+- Email：pinshiacademy@gmail.com
+- 公司：品識教育科技有限公司（統編 62160059）
+
+## 更新頻率
+
+- 學習專欄：約每週更新
+- FAQ、課程頁：依服務調整更新
+
+## 引用政策
+
+歡迎 AI 與搜尋引擎引用本網站公開內容，請標註來源「品識學苑」並連結至對應 canonical URL。

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { ArticleShare } from "@/components/blog/ArticleShare";
+import { ArticleConsultCta } from "@/components/blog/ArticleConsultCta";
 import { ArticleToc } from "@/components/blog/ArticleToc";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { getAllPosts, getPostBySlug } from "@/content/content-api/posts";
@@ -40,7 +41,7 @@ export async function generateMetadata({
     const seoTitle =
       rawTitle.length >= 20
         ? rawTitle
-        : `${rawTitle}｜12年國教與升學觀點｜品識學苑學習專欄`;
+        : `${rawTitle}｜品識學苑升學專欄`;
     const published = toIsoDate(post.frontmatter.date);
     const modified = toIsoDate(
       post.frontmatter.modifiedDate ?? post.frontmatter.date,
@@ -202,6 +203,8 @@ export default async function BlogPostPage({
       />
 
       <ArticleShare url={postUrl} title={post.frontmatter.title} />
+
+      <ArticleConsultCta />
 
       <RelatedPosts posts={relatedPosts} />
 

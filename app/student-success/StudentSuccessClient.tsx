@@ -294,7 +294,10 @@ export function StudentSuccessClient() {
               className="bg-white text-primary hover:bg-white/90 text-lg px-8"
               asChild
             >
-              <ExternalLinkOnce href={LINE_LINKS.consult}>
+              <ExternalLinkOnce
+                href={LINE_LINKS.consult}
+                analyticsLabel="student_success_line_consult"
+              >
                 預約免費諮詢
                 <ArrowRight className="ml-2 w-5 h-5" />
               </ExternalLinkOnce>

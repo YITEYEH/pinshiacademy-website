@@ -339,7 +339,10 @@ export function CoursesClient() {
                       className="border-primary text-primary hover:bg-primary hover:text-white"
                       asChild
                     >
-                      <ExternalLinkOnce href={course.lineHref}>
+                      <ExternalLinkOnce
+                        href={course.lineHref}
+                        analyticsLabel={`courses_${course.name}_line`}
+                      >
                         了解更多
                         <ArrowRight className="ml-2 w-4 h-4" />
                       </ExternalLinkOnce>
@@ -375,7 +378,10 @@ export function CoursesClient() {
                 className="bg-white text-primary hover:bg-white/90 text-lg px-8"
                 asChild
               >
-                <ExternalLinkOnce href={LINE_LINKS.coursesConsult}>
+                <ExternalLinkOnce
+                  href={LINE_LINKS.coursesConsult}
+                  analyticsLabel="courses_line_consult"
+                >
                   免費學習診斷
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </ExternalLinkOnce>

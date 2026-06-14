@@ -64,7 +64,14 @@ export function FaqClient() {
                         </span>
                       </AccordionTrigger>
                       <AccordionContent className="text-muted-foreground pb-4">
-                        {item.a}
+                        {item.aHtml ? (
+                          <div
+                            className="[&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2"
+                            dangerouslySetInnerHTML={{ __html: item.aHtml }}
+                          />
+                        ) : (
+                          item.a
+                        )}
                       </AccordionContent>
                     </AccordionItem>
                   ))}
@@ -91,7 +98,10 @@ export function FaqClient() {
                 className="bg-white text-primary hover:bg-white/90"
                 asChild
               >
-                <ExternalLinkOnce href={LINE_LINKS.consult}>
+                <ExternalLinkOnce
+                  href={LINE_LINKS.consult}
+                  analyticsLabel="faq_line_consult"
+                >
                   預約免費諮詢
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </ExternalLinkOnce>

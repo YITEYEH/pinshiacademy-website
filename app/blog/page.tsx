@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ExternalLink, BookOpen, Lightbulb, Target } from "lucide-react";
 import { getAllPosts } from "@/content/content-api/posts";
 import { buildPageMetadata } from "@/lib/seo";
+import { buildBlogIndexJsonLd } from "@/lib/blog-index-schema";
 import { SITE } from "@/lib/site";
 import type React from "react";
 
@@ -40,9 +41,9 @@ export async function generateMetadata({
 
   const base = buildPageMetadata({
     path: "/blog",
-    title: "學習專欄｜教育理念、升學策略與親子溝通實用文章",
+    title: "學習專欄｜會考、學測、分科與讀書方法｜品識學苑",
     description:
-      "收錄品識學苑關於12年國教升學規劃、學習方法、親子溝通與教學現場觀察等文章，協助家長與學生建立更穩定的學習節奏與升學準備。",
+      "收錄品識學苑關於會考、學測、分科測驗、各科讀書方法與親子溝通的文章，協助家長與學生建立更穩定的學習節奏與升學準備。",
     titleAbsolute: true,
   });
 
@@ -99,8 +100,15 @@ export default async function BlogIndexPage({
     .map(([name, count]) => ({ name, count }))
     .sort((a, b) => b.count - a.count);
 
+  const blogJsonLd = buildBlogIndexJsonLd(posts);
+
   return (
-    <div className="w-full">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
+      />
+      <div className="w-full">
       <section className="py-20 lg:py-28 bg-gradient-to-br from-[#e8f5ee] to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
@@ -273,6 +281,7 @@ export default async function BlogIndexPage({
         </div>
       </section>
     </div>
+    </>
   );
 }
 

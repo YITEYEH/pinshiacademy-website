@@ -4,6 +4,7 @@ import { getGa4MeasurementId, getGoogleSiteVerificationToken } from "@/lib/analy
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { buildSiteJsonLdGraph } from "@/lib/organization-schema";
 import "./globals.css";
 
 const googleSiteVerification = getGoogleSiteVerificationToken();
@@ -22,6 +23,9 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: SITE.url,
+    types: {
+      "application/rss+xml": `${SITE.url}/feed.xml`,
+    },
   },
   icons: {
     icon: [{ url: "/brand/logo.png", type: "image/png" }],
@@ -35,33 +39,9 @@ export const metadata: Metadata = {
     : {}),
 };
 
-const jsonLdGraph = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      name: SITE.name,
-      alternateName: SITE.englishName,
-      url: SITE.url,
-      logo: `${SITE.url}/brand/logo.png`,
-    },
-    {
-      "@type": "WebSite",
-      url: SITE.url,
-      name: SITE.name,
-      inLanguage: "zh-Hant",
-      publisher: {
-        "@type": "Organization",
-        name: SITE.name,
-        url: SITE.url,
-        logo: `${SITE.url}/brand/logo.png`,
-      },
-    },
-  ],
-};
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const ga4Id = getGa4MeasurementId();
+  const jsonLdGraph = buildSiteJsonLdGraph();
 
   return (
     <html lang="zh-Hant" suppressHydrationWarning>
@@ -80,4 +60,3 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
-

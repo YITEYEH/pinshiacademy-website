@@ -2,6 +2,7 @@ import "server-only";
 
 import type { Metadata } from "next";
 import { SITE } from "@/lib/site";
+import { defaultOgImageUrl } from "@/lib/site-assets";
 
 const OG_LOCALE = "zh_TW";
 
@@ -20,8 +21,6 @@ function finalizeDescription(raw: string): string {
   const merged = `${t}${joiner}${DESCRIPTION_SUFFIX}`;
   return merged.length > 320 ? `${merged.slice(0, 319)}…` : merged;
 }
-
-const defaultOgImageUrl = () => `${SITE.url}/brand/logo.png`;
 
 function pageCanonical(path: string): string {
   const normalized = path.startsWith("/") ? path : `/${path}`;
@@ -77,7 +76,9 @@ export function buildPageMetadata({
   return {
     ...(titleAbsolute ? { title: { absolute: title } } : { title }),
     description: descriptionOut,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
       type: openGraphType,
       url,

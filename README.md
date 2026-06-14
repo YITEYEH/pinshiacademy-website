@@ -58,8 +58,39 @@ cp .env.example .env.local
 - `WP_GRAPHQL_URL`: WordPress WPGraphQL endpoint（預設：`https://blog.pinshiacademy.com/graphql`）
 
 （已內建「用環境變數開關」）
-- **GA4**：`NEXT_PUBLIC_GA4_ID`（例如 `G-XXXXXXX`）— 會在 `app/layout.tsx` 自動載入 gtag
+- **GA4**：`NEXT_PUBLIC_GA4_ID`（例如 `G-XXXXXXX`）— 會在 `app/layout.tsx` 自動載入 gtag；已追蹤 `outbound_click`（LINE 等外部 CTA）、`contact_email_click`（聯絡頁 Email）
 - **Google Search Console（HTML 標記驗證）**：`NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`（或 `GOOGLE_SITE_VERIFICATION`）— 會寫入 Next.js `metadata.verification.google`
+
+## SEO 與 AI 可發現性
+
+本站已具備：
+
+- 集中式 metadata（`lib/seo.ts`）、`sitemap.xml`、`robots.txt`（封鎖 `/api/`）
+- JSON-LD：`EducationalOrganization`、`Course`、`Person`、`FAQPage`、`Article`、`Blog` 等
+- RSS 全文 feed：`/feed.xml`（含 `content:encoded`），head 有 RSS autodiscovery
+- AI 指引：`/llms.txt`（核心頁面、引用政策、聯絡方式）
+
+### Search Console 建議流程
+
+1. 在 [Google Search Console](https://search.google.com/search-console) 新增資源 `https://www.pinshiacademy.com`
+2. 設定 `.env.local` 的 `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`，部署後以 HTML 標記驗證
+3. 提交 Sitemap：`https://www.pinshiacademy.com/sitemap.xml`
+4. 每週檢視「效能 → 查詢」：曝光、CTR、排名；依數據調整 title/description 與 Blog 主題
+
+### GA4 建議事件（已部分實作）
+
+| 事件 | 觸發 |
+|------|------|
+| `outbound_click` | LINE 諮詢等外部連結（`analyticsLabel` 區分位置） |
+| `contact_email_click` | 聯絡頁 Email 點擊 |
+
+可在 GA4 建立自訂探索，觀察諮詢轉換路徑。
+
+### 內容與站外（營運）
+
+- **Blog**：建議每週 1–2 篇，主題對準會考、學測、分科、各科讀書方法
+- **WordPress**：`blog.pinshiacademy.com` 維持 noindex；對外 canonical 為 `www.pinshiacademy.com/blog/`
+- **Backlinks**：教育媒體投稿、家長社團、升學講座；Google 商家檔案用「服務區域」型態，勿填假實體教室地址
 
 ## Blog（MDX/Markdown）
 

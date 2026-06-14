@@ -6,9 +6,9 @@ import { FaqClient } from "./FaqClient";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/faq",
-  title: "常見問題｜課程、排課與12年國教升學諮詢一次看懂",
+  title: "補習常見問題｜線上一對一、會考學測、費用與排課｜品識學苑",
   description:
-    "整理家長最常詢問的排課方式、課程費用、學習診斷與12年國教升學規劃等問題，協助您快速了解品識學苑的教學理念與服務流程。",
+    "整理線上補習、一對一與小班制、會考學測準備、課程費用與排課等常見問題，協助家長快速了解品識學苑的教學方式與服務流程。",
   titleAbsolute: true,
 });
 

@@ -1,0 +1,71 @@
+import { CONTACT } from "@/lib/contact";
+import { SOCIAL_SAME_AS } from "@/lib/social-links";
+import { SITE } from "@/lib/site";
+import { defaultOgImageUrl } from "@/lib/site-assets";
+
+const ORG_ID = `${SITE.url}/#organization`;
+const WEBSITE_ID = `${SITE.url}/#website`;
+
+export function buildSiteJsonLdGraph() {
+  const organization = {
+    "@type": ["Organization", "EducationalOrganization"],
+    "@id": ORG_ID,
+    name: SITE.name,
+    alternateName: SITE.englishName,
+    url: SITE.url,
+    logo: `${SITE.url}/brand/logo.png`,
+    description: SITE.defaultDescription,
+    email: CONTACT.email,
+    sameAs: SOCIAL_SAME_AS,
+    areaServed: {
+      "@type": "Country",
+      name: "Taiwan",
+    },
+    knowsAbout: [
+      "12年國教",
+      "會考",
+      "學測",
+      "分科測驗",
+      "國文",
+      "英文",
+      "數學",
+      "自然",
+      "社會",
+      "線上教學",
+      "升學輔導",
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      email: CONTACT.email,
+      availableLanguage: ["zh-TW"],
+    },
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: CONTACT.registeredAddress,
+      addressLocality: "台北市",
+      addressCountry: "TW",
+      description: CONTACT.registeredAddressNote,
+    },
+  };
+
+  const website = {
+    "@type": "WebSite",
+    "@id": WEBSITE_ID,
+    url: SITE.url,
+    name: SITE.name,
+    inLanguage: "zh-Hant",
+    publisher: { "@id": ORG_ID },
+  };
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [organization, website],
+  };
+}
+
+export function organizationRef() {
+  return { "@id": ORG_ID };
+}
+
+export { ORG_ID, WEBSITE_ID };

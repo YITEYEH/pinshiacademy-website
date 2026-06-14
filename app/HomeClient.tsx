@@ -23,7 +23,14 @@ import { Button } from "@/components/ui/button";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
 import { LINE_LINKS } from "@/lib/line-links";
+import type { BlogPostSummary } from "@/content/content-api/types";
+import type { FaqItem } from "@/content/faq-data";
 import { useState } from "react";
+
+type HomeClientProps = {
+  latestPosts: BlogPostSummary[];
+  faqPreview: FaqItem[];
+};
 
 const coreValues = [
   {
@@ -149,7 +156,7 @@ const testimonials = [
   },
 ];
 
-export function HomeClient() {
+export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   const nextTestimonial = () => {
@@ -190,7 +197,10 @@ export function HomeClient() {
                   className="bg-primary hover:bg-primary/90 text-lg px-8"
                   asChild
                 >
-                  <ExternalLinkOnce href={LINE_LINKS.consult}>
+                  <ExternalLinkOnce
+                    href={LINE_LINKS.consult}
+                    analyticsLabel="home_hero_line_consult"
+                  >
                     免費分析學習盲點
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </ExternalLinkOnce>
@@ -587,6 +597,76 @@ export function HomeClient() {
         </div>
       </section>
 
+      {(latestPosts.length > 0 || faqPreview.length > 0) && (
+        <section className="py-20 bg-[#f7f9f7]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-12">
+              {latestPosts.length > 0 && (
+                <div>
+                  <h2 className="text-2xl font-bold text-foreground mb-6">
+                    最新學習專欄
+                  </h2>
+                  <ul className="space-y-4">
+                    {latestPosts.map((post) => (
+                      <li key={post.slug}>
+                        <Link
+                          href={`/blog/${post.slug}`}
+                          className="block rounded-lg border border-border bg-white p-4 hover:border-primary/30 hover:shadow-sm transition-all"
+                        >
+                          <div className="text-xs text-muted-foreground mb-1">
+                            {post.frontmatter.date}
+                          </div>
+                          <div className="font-medium text-foreground group-hover:text-primary leading-snug">
+                            {post.frontmatter.title}
+                          </div>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    href="/blog"
+                    className="inline-flex items-center gap-2 mt-6 text-sm font-medium text-primary hover:underline"
+                  >
+                    瀏覽全部文章
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              )}
+
+              {faqPreview.length > 0 && (
+                <div>
+                  <h2 className="text-2xl font-bold text-foreground mb-6">
+                    常見問題
+                  </h2>
+                  <ul className="space-y-4">
+                    {faqPreview.map((item) => (
+                      <li
+                        key={item.q}
+                        className="rounded-lg border border-border bg-white p-4"
+                      >
+                        <p className="font-medium text-foreground mb-2">
+                          {item.q}
+                        </p>
+                        <p className="text-sm text-muted-foreground line-clamp-2">
+                          {item.a}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    href="/faq"
+                    className="inline-flex items-center gap-2 mt-6 text-sm font-medium text-primary hover:underline"
+                  >
+                    查看全部 FAQ
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="py-20 bg-gradient-to-br from-primary to-[#1a4d2e]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
@@ -607,7 +687,10 @@ export function HomeClient() {
               className="bg-white text-primary hover:bg-white/90 text-lg px-8"
               asChild
             >
-              <ExternalLinkOnce href={LINE_LINKS.homeAssessment}>
+              <ExternalLinkOnce
+                href={LINE_LINKS.homeAssessment}
+                analyticsLabel="home_cta_line_assessment"
+              >
                 立即預約免費檢測
                 <ArrowRight className="ml-2 w-5 h-5" />
               </ExternalLinkOnce>
