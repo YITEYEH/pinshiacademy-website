@@ -74,8 +74,9 @@ cp .env.example .env.local
 
 1. 在 [Google Search Console](https://search.google.com/search-console) 新增資源 `https://www.pinshiacademy.com`
 2. 設定 `.env.local` 的 `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`，部署後以 HTML 標記驗證
-3. 提交 Sitemap：`https://www.pinshiacademy.com/sitemap.xml`
-4. 每週檢視「效能 → 查詢」：曝光、CTR、排名；依數據調整 title/description 與 Blog 主題
+3. 提交 Sitemap：**必須含 `.xml`** → `https://www.pinshiacademy.com/sitemap.xml`（勿填 `/sitemap`，否則 GSC 會收到 404 HTML）
+4. Vercel 的 `NEXT_PUBLIC_SITE_URL` 請設 `https://www.pinshiacademy.com`（與慣用網域一致）
+5. 每週檢視「效能 → 查詢」：曝光、CTR、排名；依數據調整 title/description 與 Blog 主題
 
 ### GA4 建議事件（已實作）
 

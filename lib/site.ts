@@ -9,7 +9,14 @@ function normalizeSiteUrl(raw: string | undefined): string {
     if (u.protocol !== "http:" && u.protocol !== "https:") {
       return DEFAULT_SITE_URL;
     }
-    return trimmed.endsWith("/") ? trimmed.slice(0, -1) : trimmed;
+    const withoutTrailingSlash = trimmed.endsWith("/")
+      ? trimmed.slice(0, -1)
+      : trimmed;
+    // Vercel 將 apex 301 到 www；sitemap / canonical 應與慣用網址一致
+    if (withoutTrailingSlash === "https://pinshiacademy.com") {
+      return DEFAULT_SITE_URL;
+    }
+    return withoutTrailingSlash;
   } catch {
     return DEFAULT_SITE_URL;
   }

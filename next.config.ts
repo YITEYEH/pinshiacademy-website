@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
    * 與 Next redirects 疊加會造成 ERR_TOO_MANY_REDIRECTS。
    * 請在託管後台只保留一組 301，並讓 NEXT_PUBLIC_SITE_URL 與該慣用網址一致。
    */
+  async redirects() {
+    return [
+      // GSC 常誤填 /sitemap；若回 404 HTML 會報「Sitemap 為 HTML 檔案」
+      { source: "/sitemap", destination: "/sitemap.xml", permanent: true },
+    ];
+  },
   async rewrites() {
     return [{ source: "/favicon.ico", destination: "/brand/logo.png" }];
   },
