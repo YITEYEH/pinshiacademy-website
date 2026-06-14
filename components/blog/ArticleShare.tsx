@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Check, Copy, Facebook } from "lucide-react";
+import { trackShareClick } from "@/lib/analytics";
 
 type Props = {
   url: string;
@@ -20,6 +21,7 @@ export function ArticleShare({ url, title }: Props) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
+    trackShareClick("copy", url);
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
@@ -30,6 +32,7 @@ export function ArticleShare({ url, title }: Props) {
   };
 
   const openShare = (platform: "facebook" | "line") => {
+    trackShareClick(platform, url);
     window.open(
       shareUrl(platform, url),
       "_blank",

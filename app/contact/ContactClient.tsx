@@ -51,7 +51,7 @@ export function ContactClient() {
                   <a
                     href={`mailto:${CONTACT.email}`}
                     className="text-muted-foreground hover:text-primary transition-colors break-all"
-                    onClick={() => trackContactEmail()}
+                    onClick={() => trackContactEmail("contact_page")}
                   >
                     {CONTACT.email}
                   </a>

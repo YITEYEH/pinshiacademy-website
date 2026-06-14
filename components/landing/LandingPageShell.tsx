@@ -13,6 +13,8 @@ type Props = {
   children: React.ReactNode;
   lineHref?: string;
   ctaLabel?: string;
+  /** GA4 outbound_click 的 link_label；未填時用 ctaLabel */
+  analyticsLabel?: string;
 };
 
 export function LandingPageShell({
@@ -21,7 +23,9 @@ export function LandingPageShell({
   children,
   lineHref = LINE_LINKS.consult,
   ctaLabel = "預約免費學習諮詢",
+  analyticsLabel,
 }: Props) {
+  const outboundLabel = analyticsLabel ?? ctaLabel;
   return (
     <div className="w-full">
       <section className="py-20 lg:py-28 bg-gradient-to-br from-[#e8f5ee] to-white">
@@ -49,7 +53,7 @@ export function LandingPageShell({
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button size="lg" className="bg-primary hover:bg-primary/90" asChild>
-              <ExternalLinkOnce href={lineHref} analyticsLabel={ctaLabel}>
+              <ExternalLinkOnce href={lineHref} analyticsLabel={outboundLabel}>
                 {ctaLabel}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </ExternalLinkOnce>

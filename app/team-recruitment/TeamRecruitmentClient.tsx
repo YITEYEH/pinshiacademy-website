@@ -204,6 +204,7 @@ export function TeamRecruitmentClient() {
               <ExternalLinkOnce
                 href="https://www.pinshihire.com/"
                 newTab
+                analyticsLabel="team_recruitment_apply"
               >
                 前往人才招募系統
                 <ArrowRight className="ml-2 w-5 h-5" />

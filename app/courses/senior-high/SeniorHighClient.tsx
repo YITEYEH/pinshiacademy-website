@@ -6,6 +6,7 @@ export function SeniorHighClient() {
     <LandingPageShell
       title="高中升學輔導"
       subtitle="針對學測與分科測驗，提供系統化觀念建立與解題訓練，協助高中生穩定提升。"
+      analyticsLabel="landing_senior_high_line_consult"
     >
       <h2>高中升學的關鍵挑戰</h2>
       <p>

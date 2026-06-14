@@ -9,6 +9,7 @@ export function MathCourseClient() {
       subtitle="從國中基礎到高中進階，建立邏輯思維，讓數學不再是壓力來源。"
       lineHref={LINE_LINKS.stem}
       ctaLabel="預約數學學習諮詢"
+      analyticsLabel="landing_math_line_consult"
     >
       <h2>為什麼高中數學特別容易卡住？</h2>
       <p>

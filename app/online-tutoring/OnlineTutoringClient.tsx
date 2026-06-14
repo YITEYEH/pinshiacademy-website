@@ -5,6 +5,7 @@ export function OnlineTutoringClient() {
     <LandingPageShell
       title="線上家教・線上補習"
       subtitle="品識學苑以線上教學為主，提供一對一與小班制，讓全台學生都能獲得專業升學輔導。"
+      analyticsLabel="landing_online_tutoring_line_consult"
     >
       <h2>為什麼選擇線上學習？</h2>
       <p>

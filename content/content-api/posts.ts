@@ -3,6 +3,7 @@ import path from "node:path";
 import matter from "gray-matter";
 import type { BlogPost, BlogPostFrontmatter, BlogPostSummary } from "./types";
 import { wpGetAllPosts, wpGetPostBySlug } from "./wpgraphql";
+import { logWpFallback } from "./wp-fallback";
 import { renderMarkdownToHtml } from "@/lib/mdx";
 import { prepareArticleHtml } from "@/lib/wp-post-html";
 import { estimateReadTime } from "@/lib/blog-read-time";
@@ -89,7 +90,8 @@ export async function getAllPosts(): Promise<BlogPostSummary[]> {
   if (hasWpGraphqlConfigured()) {
     try {
       return await wpGetAllPosts();
-    } catch {
+    } catch (error) {
+      await logWpFallback("getAllPosts", error);
       return mdxGetAllPosts();
     }
   }
@@ -100,7 +102,8 @@ export async function getPostBySlug(slug: string): Promise<BlogPost> {
   if (hasWpGraphqlConfigured()) {
     try {
       return await wpGetPostBySlug(slug);
-    } catch {
+    } catch (error) {
+      await logWpFallback("getPostBySlug", error, { slug });
       return mdxGetPostBySlug(slug);
     }
   }

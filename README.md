@@ -77,14 +77,17 @@ cp .env.example .env.local
 3. 提交 Sitemap：`https://www.pinshiacademy.com/sitemap.xml`
 4. 每週檢視「效能 → 查詢」：曝光、CTR、排名；依數據調整 title/description 與 Blog 主題
 
-### GA4 建議事件（已部分實作）
+### GA4 建議事件（已實作）
+
+測量 ID：`G-CKT21WVCLP`。設定方式見 [`docs/analytics-setup.md`](docs/analytics-setup.md)。
 
 | 事件 | 觸發 |
 |------|------|
-| `outbound_click` | LINE 諮詢等外部連結（`analyticsLabel` 區分位置） |
-| `contact_email_click` | 聯絡頁 Email 點擊 |
+| `outbound_click` | LINE 諮詢、招募外連、Footer 社群（`link_label` 區分位置） |
+| `contact_email_click` | 聯絡頁 / Footer Email（`link_label`: `contact_page` / `footer_email`） |
+| `share_click` | 文章分享：複製連結、Facebook、LINE（`share_method`） |
 
-可在 GA4 建立自訂探索，觀察諮詢轉換路徑。
+可在 GA4 建立自訂探索，觀察諮詢轉換路徑；建議將 `outbound_click` 標為 Key event。
 
 ### 內容與站外（營運）
 

@@ -4,12 +4,20 @@ import { Button } from "@/components/ui/button";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
 import { LINE_LINKS } from "@/lib/line-links";
 
-export function ArticleConsultCta() {
+type Props = {
+  analyticsLabel?: string;
+  className?: string;
+};
+
+export function ArticleConsultCta({
+  analyticsLabel = "blog_article_line_consult",
+  className = "mt-12 max-w-[42rem] mx-auto",
+}: Props) {
   return (
     <div
       role="complementary"
       aria-label="升學諮詢"
-      className="mt-12 max-w-[42rem] mx-auto rounded-xl border border-primary/20 bg-primary/5 p-6"
+      className={`rounded-xl border border-primary/20 bg-primary/5 p-6 ${className}`}
     >
       <p className="text-sm font-semibold text-foreground mb-1">
         想進一步規劃學習方向？
@@ -21,7 +29,7 @@ export function ArticleConsultCta() {
         <Button size="sm" className="bg-primary hover:bg-primary/90" asChild>
           <ExternalLinkOnce
             href={LINE_LINKS.consult}
-            analyticsLabel="blog_article_line_consult"
+            analyticsLabel={analyticsLabel}
           >
             預約免費諮詢
             <ArrowRight className="ml-2 w-4 h-4" />
