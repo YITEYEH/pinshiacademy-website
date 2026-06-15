@@ -68,6 +68,7 @@ export function prepareArticleHtml(
   );
 
   processed = sanitizeImages(processed, postTitle);
+  processed = stripEmbeddedSeoTags(processed);
   processed = removeWpShareBlocks(processed);
   processed = stripTrailingOrphanCloseTags(processed);
 
@@ -78,6 +79,14 @@ export function prepareArticleHtml(
 
 function isShareHeading(text: string) {
   return /分享此文|分享到|Share this|Share on/i.test(text);
+}
+
+/** WP 內文若殘留 canonical／meta robots，會與 Next metadata 衝突 */
+function stripEmbeddedSeoTags(html: string): string {
+  return html
+    .replace(/<link\b[^>]*\brel\s*=\s*["']canonical["'][^>]*>/gi, "")
+    .replace(/<meta\b[^>]*\bname\s*=\s*["']robots["'][^>]*>/gi, "")
+    .replace(/<!--\s*notionvc:[^>]*-->/gi, "");
 }
 
 /** WordPress Jetpack 分享區塊殘留會破壞 DOM，導致後續 React 元件 hydration 失敗 */

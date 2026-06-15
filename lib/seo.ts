@@ -43,6 +43,8 @@ export type BuildPageMetadataInput = {
   articleAuthors?: string[];
   articleSection?: string;
   articleTags?: string[];
+  /** 預設允許索引；篩選頁、404 等可設為 false */
+  index?: boolean;
 };
 
 function resolvedShareTitle(title: string, titleAbsolute: boolean): string {
@@ -62,6 +64,7 @@ export function buildPageMetadata({
   articleAuthors,
   articleSection,
   articleTags,
+  index = true,
 }: BuildPageMetadataInput): Metadata {
   const url = pageCanonical(path);
   const images =
@@ -76,6 +79,7 @@ export function buildPageMetadata({
   return {
     ...(titleAbsolute ? { title: { absolute: title } } : { title }),
     description: descriptionOut,
+    robots: { index, follow: true },
     alternates: {
       canonical: url,
     },

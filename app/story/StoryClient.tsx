@@ -29,7 +29,7 @@ export function StoryClient() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm font-medium text-primary mb-3">品牌故事</p>
           <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 leading-tight">
-            創辦人的初心與品識學苑的理念
+            創辦人初心與品識學苑理念
           </h1>
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
             從一位學生的困惑，到一座願意陪伴理解的教育品牌。

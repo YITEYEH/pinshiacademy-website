@@ -21,8 +21,8 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     locale: "zh_TW",
   },
+  // 勿在此設全站 canonical：子頁會各自透過 buildPageMetadata 指定，避免與首頁 URL 混淆。
   alternates: {
-    canonical: SITE.url,
     types: {
       "application/rss+xml": `${SITE.url}/feed.xml`,
     },

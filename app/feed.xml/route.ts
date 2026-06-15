@@ -65,6 +65,8 @@ ${items.join("\n")}
     headers: {
       "Content-Type": "application/rss+xml; charset=utf-8",
       "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120",
+      // 全文 RSS 與文章頁內容重複；避免 Google 將 feed 當成另一套可索引頁面
+      "X-Robots-Tag": "noindex, follow",
     },
   });
 }
