@@ -9,7 +9,6 @@ import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
 import { LINE_LINKS } from "@/lib/line-links";
 import {
   academyOrigin,
-  coreValues,
   founderStory,
 } from "@/content/story-content";
 
@@ -72,31 +71,29 @@ export function StoryClient() {
               </div>
             </header>
 
-            <p className="mb-8 sm:mb-10 text-lg sm:text-xl text-foreground leading-relaxed font-medium">
-              分數是過程，理解才是底氣。
-            </p>
-
             <StoryParagraphs paragraphs={founderStory.paragraphs} />
 
-            <div className="my-8 sm:my-10 space-y-5 border-l-2 border-primary/25 pl-5 sm:pl-6">
-              {founderStory.beliefs.map((belief) => (
-                <p
-                  key={belief}
-                  className="text-base sm:text-[1.0625rem] text-foreground leading-[1.85]"
-                >
-                  {belief}
-                </p>
-              ))}
+            <div className="my-8 sm:my-10">
+              <p className="text-base sm:text-[1.0625rem] text-muted-foreground leading-[1.85] mb-4">
+                {founderStory.beliefsIntro}
+              </p>
+              <div className="space-y-5 border-l-2 border-primary/25 pl-5 sm:pl-6">
+                {founderStory.beliefs.map((belief) => (
+                  <p
+                    key={belief}
+                    className="text-base sm:text-[1.0625rem] text-foreground leading-[1.85]"
+                  >
+                    {belief}
+                  </p>
+                ))}
+              </div>
             </div>
 
             <StoryParagraphs paragraphs={founderStory.closing} />
 
             <footer className="mt-10 sm:mt-12 pt-6 text-right">
               <p className="text-base font-semibold text-foreground">
-                — {founderStory.signature.name}
-              </p>
-              <p className="text-sm text-muted-foreground mt-1">
-                {founderStory.signature.title}
+                — {founderStory.signature.title} {founderStory.signature.name}
               </p>
             </footer>
           </motion.article>
@@ -119,41 +116,61 @@ export function StoryClient() {
               </h2>
             </header>
             <StoryParagraphs paragraphs={academyOrigin.paragraphs} />
-          </motion.article>
-        </div>
-      </section>
 
-      <section className="py-12 sm:py-16 lg:py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 sm:mb-12 max-w-2xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
-              我們的教育理念
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground">
-              品德 × 知識 × 見識 × 膽識
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
-            {coreValues.map((value) => (
-              <div
-                key={value.title}
-                className="rounded-xl border border-border/60 bg-[#f7f9f7] p-4 sm:p-6 text-center"
-              >
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                  <span className="text-white text-sm sm:text-base font-bold">
-                    {value.icon}
-                  </span>
-                </div>
-                <h3 className="text-base sm:text-lg font-bold text-foreground mb-1">
-                  {value.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  {value.description}
-                </p>
+            <div className="my-8 sm:my-10">
+              <p className="text-base sm:text-[1.0625rem] text-muted-foreground leading-[1.85] mb-4">
+                {academyOrigin.reflectionIntro}
+              </p>
+              <div className="space-y-3 border-l-2 border-primary/25 pl-5 sm:pl-6 mb-8 sm:mb-10">
+                {academyOrigin.questions.map((question) => (
+                  <p
+                    key={question}
+                    className="text-base sm:text-[1.0625rem] text-foreground leading-[1.85]"
+                  >
+                    {question}
+                  </p>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+
+            <StoryParagraphs paragraphs={academyOrigin.afterQuestions} />
+
+            <div className="my-8 sm:my-10 space-y-6">
+              {academyOrigin.pillars.map((pillar) => (
+                <div key={pillar.title} className="flex gap-4">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 bg-primary rounded-lg flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="text-white text-sm font-bold">{pillar.icon}</span>
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-base sm:text-[1.0625rem] font-semibold text-foreground leading-relaxed mb-1.5">
+                      {pillar.title}，{pillar.tagline}
+                    </p>
+                    <p className="text-base sm:text-[1.0625rem] text-muted-foreground leading-[1.85]">
+                      {pillar.body}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <StoryParagraphs paragraphs={academyOrigin.closing} />
+
+            <div className="mt-8 sm:mt-10">
+              <p className="text-base sm:text-[1.0625rem] text-muted-foreground leading-[1.85] mb-4">
+                {academyOrigin.beliefsIntro}
+              </p>
+              <div className="space-y-5 border-l-2 border-primary/25 pl-5 sm:pl-6">
+                {academyOrigin.beliefs.map((belief) => (
+                  <p
+                    key={belief}
+                    className="text-base sm:text-[1.0625rem] text-foreground leading-[1.85]"
+                  >
+                    {belief}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </motion.article>
         </div>
       </section>
 
