@@ -22,6 +22,7 @@ const quickLinks = [
 ];
 
 const resourceLinks = [
+  { name: "品牌故事", path: "/story" },
   { name: "營運團隊", path: "/team" },
   { name: "學生成果", path: "/student-success" },
   { name: "學習專欄", path: "/blog" },

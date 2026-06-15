@@ -50,7 +50,7 @@ NEXT_PUBLIC_GA4_ID=G-CKT21WVCLP
 - `landing_online_tutoring_line_consult` — 線上家教 landing
 - `landing_senior_high_line_consult` — 高中升學 landing
 - `landing_math_line_consult` — 數學課程 landing
-- `blog_index_line_consult` — 學習專欄列表底
+- `story_line_consult` — 品牌故事頁 CTA
 - `blog_article_line_consult` — 文章內諮詢 CTA
 - `teacher_recruitment_apply` / `team_recruitment_apply` — 招募外連
 - `footer_social_facebook` / `instagram` / `youtube` — Footer 社群

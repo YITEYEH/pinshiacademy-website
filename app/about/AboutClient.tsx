@@ -131,7 +131,7 @@ export function AboutClient() {
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                 透過專業診斷、個人化教學與持續陪伴，我們幫助學生找到最適合自己的學習方式，建立自信，培養終身學習的能力。
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-4 mb-8">
                 <div className="flex items-center gap-2 bg-white rounded-lg px-4 py-2 shadow-sm">
                   <CheckCircle2 className="w-5 h-5 text-primary" />
                   <span className="text-foreground">個人化教學</span>
@@ -145,6 +145,12 @@ export function AboutClient() {
                   <span className="text-foreground">專業師資</span>
                 </div>
               </div>
+              <Button variant="outline" className="border-primary/30" asChild>
+                <Link href="/story">
+                  閱讀創辦人故事
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Link>
+              </Button>
             </motion.div>
 
             <motion.div
