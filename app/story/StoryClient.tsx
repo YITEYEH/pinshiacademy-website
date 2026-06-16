@@ -99,9 +99,10 @@ export function StoryClient({ signatureNameClassName }: StoryClientProps) {
               <p className="text-base font-semibold text-foreground">
                 — {founderStory.signature.title}{" "}
                 <span
-                  className={`${signatureNameClassName} text-[1.65rem] sm:text-[1.85rem] font-normal text-black inline-block translate-y-0.5`}
+                  className={`${signatureNameClassName} text-[2.15rem] sm:text-[2.45rem] font-normal text-black inline-block leading-none`}
+                  aria-label={founderStory.signature.name}
                 >
-                  {founderStory.signature.name}
+                  {founderStory.signature.signName}
                 </span>
               </p>
             </footer>

@@ -1,10 +1,7 @@
-import { LXGW_WenKai_TC } from "next/font/google";
+import { Zhi_Mang_Xing } from "next/font/google";
 
-/**
- * 創辦人署名用行楷字體（霞鶩文楷 TC），支援繁體「葉以德」。
- * 志芒行等簡體行書字體不含「葉」，會退回系統字而顯得怪異。
- */
-export const founderSignatureFont = LXGW_WenKai_TC({
+/** 署名「以德」用行書書法字體。 */
+export const founderSignatureFont = Zhi_Mang_Xing({
   weight: "400",
   subsets: ["latin"],
   display: "swap",

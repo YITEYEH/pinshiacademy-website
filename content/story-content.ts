@@ -32,6 +32,7 @@ export const founderStory = {
   ],
   signature: {
     name: "葉以德",
+    signName: "以德",
     title: "品識學苑創辦人",
     image: "/teacher-yeh-yide.jpg",
   },
