@@ -12,6 +12,10 @@ import {
   founderStory,
 } from "@/content/story-content";
 
+type StoryClientProps = {
+  signatureNameClassName: string;
+};
+
 function StoryParagraphs({ paragraphs }: { paragraphs: readonly string[] }) {
   return (
     <div className="space-y-5 text-base sm:text-[1.0625rem] text-muted-foreground leading-[1.85]">
@@ -22,7 +26,7 @@ function StoryParagraphs({ paragraphs }: { paragraphs: readonly string[] }) {
   );
 }
 
-export function StoryClient() {
+export function StoryClient({ signatureNameClassName }: StoryClientProps) {
   return (
     <div className="w-full overflow-x-hidden">
       <section className="py-12 sm:py-14 lg:py-20 bg-gradient-to-br from-[#e8f5ee] to-white border-b border-border/40">
@@ -93,7 +97,12 @@ export function StoryClient() {
 
             <footer className="mt-10 sm:mt-12 pt-6 text-right">
               <p className="text-base font-semibold text-foreground">
-                — {founderStory.signature.title} {founderStory.signature.name}
+                — {founderStory.signature.title}{" "}
+                <span
+                  className={`${signatureNameClassName} text-[1.65rem] sm:text-[1.85rem] font-normal text-black inline-block translate-y-0.5`}
+                >
+                  {founderStory.signature.name}
+                </span>
               </p>
             </footer>
           </motion.article>

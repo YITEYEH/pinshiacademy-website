@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 import { StoryClient } from "./StoryClient";
+import { founderSignatureFont } from "./fonts";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/story",
@@ -39,7 +40,7 @@ export default function StoryPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <StoryClient />
+      <StoryClient signatureNameClassName={founderSignatureFont.className} />
     </>
   );
 }
