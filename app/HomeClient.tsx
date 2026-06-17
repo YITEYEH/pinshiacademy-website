@@ -22,6 +22,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LearningProcess } from "@/components/LearningProcess";
 import { LINE_LINKS } from "@/lib/line-links";
 import type { BlogPostSummary } from "@/content/content-api/types";
 import type { FaqItem } from "@/content/faq-data";
@@ -484,6 +485,8 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
           </div>
         </div>
       </section>
+
+      <LearningProcess showCta analyticsLabel="home_learning_process_line_consult" />
 
       <section className="py-20 bg-primary text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

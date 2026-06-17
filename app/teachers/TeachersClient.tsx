@@ -6,6 +6,7 @@ import { ArrowRight, Star, Award, BookOpen, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { TeacherSelectionProcess } from "@/components/TeacherSelectionProcess";
 import { LINE_LINKS } from "@/lib/line-links";
 import { teachers } from "@/content/teachers-data";
 
@@ -71,6 +72,8 @@ export function TeachersClient() {
           </div>
         </div>
       </section>
+
+      <TeacherSelectionProcess sectionClassName="bg-[#f7f9f7]" />
 
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
