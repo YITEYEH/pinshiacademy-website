@@ -1,6 +1,6 @@
 /** 全站統一聯絡與登記資訊 */
 export const CONTACT = {
-  email: "pinshiacademy@gmail.com",
+  email: "service@pinshiacademy.com",
   /** 公司登記地址，非實體上課地點 */
   registeredAddress: "台北市信義區信義路四段415號14樓之一",
   registeredAddressNote:
