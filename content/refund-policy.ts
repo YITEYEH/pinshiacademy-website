@@ -229,6 +229,6 @@ export const refundPolicySections: readonly PolicySection[] = [
 ];
 
 export const refundPolicyMeta = {
-  title: "品識學苑課程報名、退費與退款辦法",
+  title: "品識學苑課程報名、退費（款）辦法",
   subtitle: "Refund Policy",
 } as const;
