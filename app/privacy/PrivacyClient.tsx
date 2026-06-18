@@ -1,78 +1,23 @@
 "use client";
 
-import { motion } from "motion/react";
-
-const statement = `請您務必詳細閱讀本條款相關內容以保障權益；當網站使用者已開始使用品識教育科技有限公司（下稱「本公司」）之各項網站服務時，視為已確實閱讀、瞭解本聲明。本公司得隨時就本聲明內容為修改、變更，凡您於本聲明為任何修改或變更後仍繼續使用本公司之各項網站服務時，視為您已確實閱讀、瞭解並同意該等修改或變更。
-
-一、本聲明適用之範圍
-凡由本公司架設，包括但不限於品識學苑線上課程網站、品識學苑教師管理網站、品識學苑家教網站、品識學苑人才招募網站（下簡稱「本公司網站」）及以本公司網站為入口網站之各項服務網站，均適用本聲明。
-
-二、個人資料之蒐集
-當您使用本公司網站及以本公司網站為入口網站之各項服務網站之相關服務、瀏覽本公司網站網頁、加入本公司網站會員、線上活動、Line 官方帳號或其他互動性功能等時，我們可能會請您提供姓名、身分證字號、住址、電子郵件地址、電話、位置資訊或其他相關必要之個人資料。此外，本公司網站亦會保留您在上網瀏覽或查詢時，伺服器自行產生的相關紀錄，包括但不限於您使用連線設備的IP位址、使用時間、瀏覽器資訊及點選紀錄等。
-
-三、本公司網站蒐集資料之運用
-本公司網站所蒐集的個人資料，在本公司所提供的業務範圍內或依法得為交互運用之規範下進行，除法律另有規定外，不會將其做為超出蒐集之特定目的以外之利用。除非在蒐集時有向您告知並徵得您的同意，或法令另有規定外，否則本公司網站所蒐集的個人資料，將不會與他人共同使用、亦不會使用在未告知您的用途上。您所瀏覽之內容，依您個人屬性、購買紀錄或網站瀏覽紀錄等，進行個人化作業或使用服務分析、新服務之行銷、系統升級改進、產品（服務）研發、學術研究、客製化廣告、廣告效果評估及市場調查分析或改善現有服務等，並針對您於民調、活動、留言版等留存之意見，以及其他服務關連事項，與您進行聯繫。您使用本服務時，網頁頁面中將自動顯示會員名稱，並提供內部及外部會員匿名研究或數據報告，以改進本公司的服務，滿足您對產品和服務的要求。您使用本服務所提供之個人資料，本公司謹以上述目的、方式、範圍內為蒐集、儲存、處理、傳輸及使用，並供本公司於營運期間在中華民國境內，依法使用您的個人資料。我們於完成本政策內所述的使用目的之必要期間保留您的資料，除非必要得您允許或依法律規定可保留連續或延展期間。當您停用本公司的帳號時，我們將移除您放置在本公司伺服器中的任何個人資料。
-
-四、個人資料之保護
-本公司網站對個人資料的蒐集、處理、利用及保護，均依中華民國「個人資料保護法」及相關法令辦理。為保護您個人資料之隱密性及完整性，本公司恪遵政府相關法令及資訊管理原則，以避免不法侵入及惡意程式之破壞。
-
-五、Cookie技術之使用
-Cookie 是從 WEB 伺服器傳送到您的瀏覽器並保存在您的電腦硬碟中的簡短資料，本公司網站使用 Cookie 作為與您溝通與辨識的工具，目的在於隨時將您在網頁上所曾進行活動或輸入的字串資料儲存，記錄個人資料及喜好，利於提供個人化服務或遞送符合興趣及嗜好的廣告、了解網頁瀏覽的情況以改善服務品質以及提高本公司網站系統的安全性。大多數個人電腦或行動裝置的瀏覽器，均有設定自動接受網站之Cookie設定，如果您不希望接受本公司網站所運用的 Cookie 並且希望關閉 Cookie，您可以透過所使用的瀏覽器更改 Cookie設定。如您選擇不接受或阻擋本公司網站的 Cookie，可能會導致完全無法使用或僅能使用本公司網站為您提供的部分服務功能。
-
-六、本公司網站提供個人資料予第三者之聲明
-本公司網站對於資料的蒐集、處理與利用，將運用在本公司所提供之服務業務範圍內。若本公司因業務需求有必要提供、揭露或轉介予所屬之關係企業或合作之第三人(包括且不限於經銷商)為蒐集、處理及利用，會嚴格要求第三者遵守資料保密承諾。本公司絕不會任意出售、交換、出租或以其他變相之方式，將您的個人資料揭露與其他團體或個人。本公司會在符合法令規範及依循下列原則之前提下，將您的個人資料提供予第三者：
-1. 取得您的明確同意或授權允許時。
-2. 政府相關單位因公益性質或法令要求，正式的程序申請。
-3. 為了提供您其他服務或優惠權益，需要與提供該服務或優惠之第三人共用您的資料時，本公司網站會在活動時提供充分說明並告知，您可以自由選擇是否接受這項服務或優惠。
-4. 其他法令明文規定之情形。
-
-七、本公司網站所蒐集之資訊將依據所蒐集之特定目的、所涉及契約之權利義務、相關法令義務及時效規定、爭端解決等因素予以保留，本公司將於前述因素達成或消滅後，依內部規定將您的個人資料銷毀刪除，或將您的個人資料去識別化且後續無法追蹤到您本人的方式留存。‍‍
-
-八、自我保護措施
-請妥善保管您的憑證、密碼或任何個人資料，不要將任何個人資料提供給任何人或其他機構。在您使用完本公司網站所提供的各項服務功能後，請務必記得登出帳戶，若您是與他人共享電腦或使用公共電腦，切記要關閉瀏覽器視窗，以防止他人讀取您的個人資料。
-
-九、聯絡資訊
-本公司為保護網站使用者個人資料，並維護網路隱私權，特訂定本公司網站隱私保護聲明，若您對於本聲明、或與個人資料有關之相關事項有任何疑問，或欲行使任何當事人權利時，可利用本公司客服信箱 ｢ service@pinshiacademy.com ｣ 聯繫本公司，我們將提供進一步之說明。
-
-十、本聲明之修訂
-本公司網站為因應社會環境變遷、業務需求、科技發展與法令修改等，將不定時修訂與公布本聲明，請您隨時上網參覽本聲明，以保障您的權益。`;
+import { PolicyDocument } from "@/components/PolicyDocument";
+import {
+  privacyPolicyCompanyName,
+  privacyPolicyContactEmail,
+  privacyPolicyIntro,
+  privacyPolicyMeta,
+  privacyPolicySections,
+} from "@/content/privacy-policy";
 
 export function PrivacyClient() {
   return (
-    <div className="w-full">
-      <section className="py-16 bg-gradient-to-br from-[#e8f5ee] to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">
-              隱私權政策
-            </h1>
-            <p className="text-lg text-muted-foreground">Privacy Policy</p>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-10">
-            <motion.div
-              initial={false}
-              animate={{ opacity: 1, y: 0 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-muted-foreground whitespace-pre-line leading-relaxed"
-            >
-              {statement}
-            </motion.div>
-          </div>
-        </div>
-      </section>
-    </div>
+    <PolicyDocument
+      title={privacyPolicyMeta.title}
+      subtitle={privacyPolicyMeta.subtitle}
+      intro={privacyPolicyIntro}
+      sections={privacyPolicySections}
+      contactEmail={privacyPolicyContactEmail}
+      companyName={privacyPolicyCompanyName}
+    />
   );
 }
-

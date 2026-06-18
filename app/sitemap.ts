@@ -23,6 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE.url}/contact`, lastModified: staticLastMod, changeFrequency: "yearly", priority: 0.6 },
     { url: `${SITE.url}/privacy`, lastModified: staticLastMod, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE.url}/terms`, lastModified: staticLastMod, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${SITE.url}/refund`, lastModified: staticLastMod, changeFrequency: "yearly", priority: 0.3 },
   ];
 
   const posts = (await getAllPosts()).map((p) => ({

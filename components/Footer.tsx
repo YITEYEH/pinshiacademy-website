@@ -151,6 +151,12 @@ export function Footer() {
               >
                 使用政策
               </Link>
+              <Link
+                href="/refund"
+                className="text-sm text-white/60 hover:text-white transition-colors"
+              >
+                退款條款
+              </Link>
             </div>
           </div>
         </div>
