@@ -27,6 +27,7 @@ const resourceLinks = [
   { name: "學生成果", path: "/student-success" },
   { name: "學習專欄", path: "/blog" },
   { name: "常見問題", path: "/faq" },
+  { name: "課程費用", path: "/pricing" },
   { name: "師資招募", path: "/teacher-recruitment" },
   { name: "營運團隊招募", path: "/team-recruitment" },
 ];

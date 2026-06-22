@@ -391,6 +391,13 @@ export function CoursesClient() {
                 className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary text-lg px-8 transition-colors"
                 asChild
               >
+                <Link href="/pricing">查看課程費用</Link>
+              </Button>
+              <Button
+                size="lg"
+                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary text-lg px-8 transition-colors"
+                asChild
+              >
                 <Link href="/teachers">認識師資團隊</Link>
               </Button>
             </div>

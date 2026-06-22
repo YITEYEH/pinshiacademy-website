@@ -25,6 +25,7 @@ const resourceLinks = [
   { name: "師資招募", path: "/teacher-recruitment" },
   { name: "營運團隊招募", path: "/team-recruitment" },
   { name: "常見問題", path: "/faq" },
+  { name: "課程費用", path: "/pricing" },
 ];
 
 export function Navbar() {
