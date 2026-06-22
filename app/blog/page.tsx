@@ -4,7 +4,6 @@ import { ExternalLink, BookOpen, Lightbulb, Target } from "lucide-react";
 import { getAllPosts } from "@/content/content-api/posts";
 import { buildPageMetadata } from "@/lib/seo";
 import { buildBlogIndexJsonLd } from "@/lib/blog-index-schema";
-import { ArticleConsultCta } from "@/components/blog/ArticleConsultCta";
 import { SITE } from "@/lib/site";
 import type React from "react";
 
@@ -278,13 +277,6 @@ export default async function BlogIndexPage({
                 })}
               </div>
             </div>
-          </div>
-
-          <div className="mt-16 max-w-3xl mx-auto">
-            <ArticleConsultCta
-              analyticsLabel="blog_index_line_consult"
-              className="mx-auto"
-            />
           </div>
         </div>
       </section>
