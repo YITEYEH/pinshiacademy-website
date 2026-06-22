@@ -12,9 +12,13 @@ import { LINE_LINKS } from "@/lib/line-links";
 const navLinks = [
   { name: "主頁", path: "/" },
   { name: "關於我們", path: "/about" },
-  { name: "課程介紹", path: "/courses" },
   { name: "師資團隊", path: "/teachers" },
   { name: "聯絡我們", path: "/contact" },
+];
+
+const courseLinks = [
+  { name: "課程介紹", path: "/courses" },
+  { name: "課程費用", path: "/pricing" },
 ];
 
 const resourceLinks = [
@@ -25,13 +29,22 @@ const resourceLinks = [
   { name: "師資招募", path: "/teacher-recruitment" },
   { name: "營運團隊招募", path: "/team-recruitment" },
   { name: "常見問題", path: "/faq" },
-  { name: "課程費用", path: "/pricing" },
 ];
+
+function isCourseNavActive(pathname: string) {
+  return (
+    pathname === "/courses" ||
+    pathname === "/pricing" ||
+    pathname.startsWith("/courses/")
+  );
+}
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [coursesOpen, setCoursesOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const pathname = usePathname();
+  const courseNavActive = isCourseNavActive(pathname);
 
   return (
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border">
@@ -49,7 +62,64 @@ export function Navbar() {
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {navLinks.slice(0, 2).map((link) => (
+              <Link
+                key={link.path}
+                href={link.path}
+                className={`text-sm transition-colors hover:text-primary ${
+                  pathname === link.path
+                    ? "text-primary font-medium"
+                    : "text-foreground"
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+
+            <div
+              className="relative"
+              onMouseEnter={() => setCoursesOpen(true)}
+              onMouseLeave={() => setCoursesOpen(false)}
+            >
+              <button
+                className={`flex items-center gap-1 text-sm transition-colors hover:text-primary ${
+                  courseNavActive
+                    ? "text-primary font-medium"
+                    : "text-foreground"
+                }`}
+              >
+                課程介紹
+                <ChevronDown className="w-4 h-4" />
+              </button>
+
+              <AnimatePresence>
+                {coursesOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-border py-2"
+                  >
+                    {courseLinks.map((link) => (
+                      <Link
+                        key={link.path}
+                        href={link.path}
+                        className={`block px-4 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground ${
+                          pathname === link.path
+                            ? "text-primary font-medium"
+                            : "text-foreground"
+                        }`}
+                      >
+                        {link.name}
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {navLinks.slice(2).map((link) => (
               <Link
                 key={link.path}
                 href={link.path}
@@ -127,7 +197,42 @@ export function Navbar() {
               className="md:hidden overflow-hidden"
             >
               <div className="py-4 space-y-2">
-                {navLinks.map((link) => (
+                {navLinks.slice(0, 2).map((link) => (
+                  <Link
+                    key={link.path}
+                    href={link.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                      pathname === link.path
+                        ? "bg-accent text-accent-foreground"
+                        : "text-foreground hover:bg-accent"
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+
+                <div className="px-4 py-2">
+                  <div className="text-sm font-medium text-muted-foreground mb-2">
+                    課程介紹
+                  </div>
+                  {courseLinks.map((link) => (
+                    <Link
+                      key={link.path}
+                      href={link.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                        pathname === link.path
+                          ? "bg-accent text-accent-foreground"
+                          : "text-foreground hover:text-primary"
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                </div>
+
+                {navLinks.slice(2).map((link) => (
                   <Link
                     key={link.path}
                     href={link.path}
@@ -161,9 +266,9 @@ export function Navbar() {
                 <div className="px-4 pt-2">
                   <Button className="w-full bg-primary hover:bg-primary/90" asChild>
                     <ExternalLinkOnce
-                href={LINE_LINKS.consult}
-                analyticsLabel="navbar_line_consult"
-              >
+                      href={LINE_LINKS.consult}
+                      analyticsLabel="navbar_line_consult"
+                    >
                       聯繫學習顧問
                     </ExternalLinkOnce>
                   </Button>
@@ -176,4 +281,3 @@ export function Navbar() {
     </nav>
   );
 }
-
