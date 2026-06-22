@@ -13,7 +13,6 @@ const navLinks = [
   { name: "主頁", path: "/" },
   { name: "關於我們", path: "/about" },
   { name: "師資團隊", path: "/teachers" },
-  { name: "聯絡我們", path: "/contact" },
 ];
 
 const courseLinks = [
@@ -28,6 +27,7 @@ const resourceLinks = [
   { name: "學習專欄", path: "/blog" },
   { name: "師資招募", path: "/teacher-recruitment" },
   { name: "營運團隊招募", path: "/team-recruitment" },
+  { name: "聯絡我們", path: "/contact" },
   { name: "常見問題", path: "/faq" },
 ];
 
