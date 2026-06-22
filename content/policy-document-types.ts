@@ -4,8 +4,7 @@ export type PolicyBlock =
   | { type: "ul"; items: readonly string[] }
   | { type: "ol"; items: readonly string[] }
   | { type: "internalLink"; before: string; href: string; linkText: string; after: string }
-  | { type: "contact" }
-  | { type: "divider" };
+  | { type: "contact" };
 
 export type PolicySection = {
   title: string;

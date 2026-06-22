@@ -63,10 +63,6 @@ function PolicyBlockView({
     );
   }
 
-  if (block.type === "divider") {
-    return <hr className="border-border/60 my-2" aria-hidden />;
-  }
-
   if (!contactEmail || !companyName) return null;
 
   return (

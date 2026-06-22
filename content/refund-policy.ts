@@ -77,7 +77,6 @@ export const refundPolicySections: readonly PolicySection[] = [
         type: "p",
         text: "逾期未使用之課程，除因不可歸責於學員之事由外，原則上不予退費。",
       },
-      { type: "divider" },
     ],
   },
   {
