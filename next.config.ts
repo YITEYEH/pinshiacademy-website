@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
     return [
       // GSC 常誤填 /sitemap；若回 404 HTML 會報「Sitemap 為 HTML 檔案」
       { source: "/sitemap", destination: "/sitemap.xml", permanent: true },
+      { source: "/online-tutoring", destination: "/courses", permanent: true },
+      { source: "/courses/math", destination: "/courses", permanent: true },
+      { source: "/courses/senior-high", destination: "/courses", permanent: true },
     ];
   },
   async rewrites() {
