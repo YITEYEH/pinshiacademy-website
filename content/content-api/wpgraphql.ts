@@ -167,6 +167,14 @@ async function graphqlRequest<T>(
   return json.data;
 }
 
+function resolveReadTime(node: {
+  content?: string | null;
+  excerpt?: string | null;
+}): string | undefined {
+  const source = (node.content ?? node.excerpt ?? "").trim();
+  return source ? estimateReadTime(source) : undefined;
+}
+
 function mapNodeToSummary(n: GqlPostNode): BlogPostSummary | null {
   if (!n.slug) return null;
 
@@ -174,7 +182,7 @@ function mapNodeToSummary(n: GqlPostNode): BlogPostSummary | null {
     n.categories?.nodes?.map((c) => c.name).find(Boolean) ?? undefined;
   const excerptPlain = stripHtml(n.excerpt ?? "");
   const description =
-    deriveDescription(excerptPlain, n.content) ||
+    deriveDescription(excerptPlain, undefined) ||
     sanitizeExcerpt(stripHtml(n.title ?? ""));
   const coverRaw = n.featuredImage?.node?.sourceUrl ?? undefined;
   const cover = coverRaw ? normalizeWpImageUrl(coverRaw) : undefined;
@@ -182,7 +190,7 @@ function mapNodeToSummary(n: GqlPostNode): BlogPostSummary | null {
   const authorAvatar = n.author?.node?.avatar?.url ?? undefined;
   const tags =
     n.tags?.nodes?.map((t) => t.name).filter(Boolean) as string[] | undefined;
-  const readTime = n.content ? estimateReadTime(n.content) : undefined;
+  const readTime = resolveReadTime(n);
 
   return {
     slug: n.slug,
@@ -258,6 +266,106 @@ async function fetchPostNodesPage(first: number, after?: string | null) {
   return data.posts;
 }
 
+async function fetchPostNodesPageWithContent(
+  first: number,
+  after?: string | null,
+) {
+  const query = /* GraphQL */ `
+    query GetPostsWithContent($first: Int!, $after: String) {
+      posts(
+        first: $first
+        after: $after
+        where: { orderby: { field: DATE, order: DESC } }
+      ) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          slug
+          title
+          excerpt
+          date
+          modified
+          content
+          author {
+            node {
+              name
+              avatar {
+                url
+              }
+            }
+          }
+          featuredImage {
+            node {
+              sourceUrl
+            }
+          }
+          categories {
+            nodes {
+              name
+            }
+          }
+          tags {
+            nodes {
+              name
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const data = await graphqlRequest<{
+    posts: {
+      pageInfo: { hasNextPage: boolean; endCursor: string | null };
+      nodes: GqlPostNode[];
+    };
+  }>(query, { first, after: after ?? null });
+
+  return data.posts;
+}
+
+function mapNodeToBlogPost(post: GqlPostNode): BlogPost | null {
+  if (!post.slug) return null;
+
+  const category =
+    post.categories?.nodes?.map((c) => c.name).find(Boolean) ?? undefined;
+  const excerptPlain = stripHtml(post.excerpt ?? "");
+  const description =
+    deriveDescription(excerptPlain, post.content) ||
+    sanitizeExcerpt(stripHtml(post.title ?? ""));
+  const coverRaw = post.featuredImage?.node?.sourceUrl ?? undefined;
+  const cover = coverRaw ? normalizeWpImageUrl(coverRaw) : undefined;
+  const authorName = post.author?.node?.name ?? undefined;
+  const authorAvatar = post.author?.node?.avatar?.url ?? undefined;
+  const tags =
+    post.tags?.nodes?.map((t) => t.name).filter(Boolean) as string[] | undefined;
+
+  const title = post.title ?? post.slug;
+  const rawHtml = post.content ?? "";
+  const { html, toc } = prepareArticleHtml(rawHtml, title);
+  const readTime = resolveReadTime({ content: rawHtml, excerpt: post.excerpt });
+
+  return {
+    slug: post.slug,
+    frontmatter: {
+      title,
+      description,
+      date: normalizeDate(post.date),
+      modifiedDate: normalizeDate(post.modified) || normalizeDate(post.date),
+      category,
+      tags: tags && tags.length > 0 ? tags : undefined,
+      cover,
+      authorName,
+      authorAvatar,
+      readTime: readTime || undefined,
+    },
+    content: html,
+    toc: toc.length > 0 ? toc : undefined,
+  };
+}
+
 export async function wpGetAllPosts(): Promise<BlogPostSummary[]> {
   const all: BlogPostSummary[] = [];
   let after: string | null = null;
@@ -268,6 +376,25 @@ export async function wpGetAllPosts(): Promise<BlogPostSummary[]> {
     for (const node of batch.nodes ?? []) {
       const summary = mapNodeToSummary(node);
       if (summary) all.push(summary);
+    }
+    if (!batch.pageInfo.hasNextPage) break;
+    after = batch.pageInfo.endCursor;
+    if (!after) break;
+  }
+
+  return all;
+}
+
+export async function wpGetAllPostsForFeed(): Promise<BlogPost[]> {
+  const all: BlogPost[] = [];
+  let after: string | null = null;
+  const pageSize = 100;
+
+  for (let page = 0; page < 20; page++) {
+    const batch = await fetchPostNodesPageWithContent(pageSize, after);
+    for (const node of batch.nodes ?? []) {
+      const post = mapNodeToBlogPost(node);
+      if (post) all.push(post);
     }
     if (!batch.pageInfo.hasNextPage) break;
     after = batch.pageInfo.endCursor;
@@ -318,40 +445,9 @@ export async function wpGetPostBySlug(slug: string): Promise<BlogPost> {
   const post = data.post;
   if (!post?.slug) throw new Error("Post not found");
 
-  const category =
-    post.categories?.nodes?.map((c) => c.name).find(Boolean) ?? undefined;
-  const excerptPlain = stripHtml(post.excerpt ?? "");
-  const description =
-    deriveDescription(excerptPlain, post.content) ||
-    sanitizeExcerpt(stripHtml(post.title ?? ""));
-  const coverRaw = post.featuredImage?.node?.sourceUrl ?? undefined;
-  const cover = coverRaw ? normalizeWpImageUrl(coverRaw) : undefined;
-  const authorName = post.author?.node?.name ?? undefined;
-  const authorAvatar = post.author?.node?.avatar?.url ?? undefined;
-  const tags =
-    post.tags?.nodes?.map((t) => t.name).filter(Boolean) as string[] | undefined;
+  const mapped = mapNodeToBlogPost(post);
+  if (!mapped) throw new Error("Post not found");
 
-  const title = post.title ?? post.slug;
-  const rawHtml = post.content ?? "";
-  const { html, toc } = prepareArticleHtml(rawHtml, title);
-  const readTime = estimateReadTime(rawHtml);
-
-  return {
-    slug: post.slug,
-    frontmatter: {
-      title,
-      description,
-      date: normalizeDate(post.date),
-      modifiedDate: normalizeDate(post.modified) || normalizeDate(post.date),
-      category,
-      tags: tags && tags.length > 0 ? tags : undefined,
-      cover,
-      authorName,
-      authorAvatar,
-      readTime: readTime || undefined,
-    },
-    content: html,
-    toc: toc.length > 0 ? toc : undefined,
-  };
+  return mapped;
 }
 

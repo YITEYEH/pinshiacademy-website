@@ -1,7 +1,7 @@
 import { CONTACT } from "@/lib/contact";
 import { SOCIAL_SAME_AS } from "@/lib/social-links";
 import { SITE } from "@/lib/site";
-import { defaultOgImageUrl } from "@/lib/site-assets";
+import { brandLogoUrl, defaultOgImageUrl } from "@/lib/site-assets";
 
 const ORG_ID = `${SITE.url}/#organization`;
 const WEBSITE_ID = `${SITE.url}/#website`;
@@ -13,7 +13,7 @@ export function buildSiteJsonLdGraph() {
     name: SITE.name,
     alternateName: SITE.englishName,
     url: SITE.url,
-    logo: `${SITE.url}/brand/logo.png`,
+    logo: brandLogoUrl(),
     description: SITE.defaultDescription,
     email: CONTACT.email,
     sameAs: SOCIAL_SAME_AS,

@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import type { BlogPost, BlogPostFrontmatter, BlogPostSummary } from "./types";
-import { wpGetAllPosts, wpGetPostBySlug } from "./wpgraphql";
+import { wpGetAllPosts, wpGetAllPostsForFeed, wpGetPostBySlug } from "./wpgraphql";
 import { logWpFallback } from "./wp-fallback";
 import { renderMarkdownToHtml } from "@/lib/mdx";
 import { prepareArticleHtml } from "@/lib/wp-post-html";
@@ -108,4 +108,27 @@ export async function getPostBySlug(slug: string): Promise<BlogPost> {
     }
   }
   return mdxGetPostBySlug(slug);
+}
+
+async function mdxGetAllPostsForFeed(): Promise<BlogPost[]> {
+  const slugs = mdxGetAllPostSlugs();
+  const posts = await Promise.all(slugs.map(mdxGetPostBySlug));
+  posts.sort((a, b) => {
+    const da = new Date(a.frontmatter.date).getTime();
+    const db = new Date(b.frontmatter.date).getTime();
+    return db - da;
+  });
+  return posts;
+}
+
+export async function getAllPostsForFeed(): Promise<BlogPost[]> {
+  if (hasWpGraphqlConfigured()) {
+    try {
+      return await wpGetAllPostsForFeed();
+    } catch (error) {
+      await logWpFallback("getAllPostsForFeed", error);
+      return mdxGetAllPostsForFeed();
+    }
+  }
+  return mdxGetAllPostsForFeed();
 }

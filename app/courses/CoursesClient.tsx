@@ -372,7 +372,7 @@ export function CoursesClient() {
               <br />
               我們用專業診斷，幫你找出最適合的學習路徑
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
               <Button
                 size="lg"
                 className="bg-white text-primary hover:bg-white/90 text-lg px-8"
@@ -392,6 +392,13 @@ export function CoursesClient() {
                 asChild
               >
                 <Link href="/pricing">查看課程費用</Link>
+              </Button>
+              <Button
+                size="lg"
+                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary text-lg px-8 transition-colors"
+                asChild
+              >
+                <Link href="/student-success">學生成果</Link>
               </Button>
               <Button
                 size="lg"

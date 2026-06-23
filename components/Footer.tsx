@@ -5,6 +5,7 @@ import {
   FooterContactEmail,
   FooterSocialLinks,
 } from "@/components/FooterContactLinks";
+import { BRAND_LOGO_PATH } from "@/lib/site-assets";
 
 const coreValues = [
   { icon: "品", title: "品德", description: "培養良好品格" },
@@ -40,7 +41,7 @@ export function Footer() {
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-6">
               <img
-                src="/brand/logo.png"
+                src={BRAND_LOGO_PATH}
                 alt="品識學苑"
                 className="w-10 h-10 object-contain"
               />

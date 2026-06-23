@@ -10,15 +10,29 @@
 - 課程介紹：https://www.pinshiacademy.com/courses
 - 課程費用：https://www.pinshiacademy.com/pricing
 - 師資團隊：https://www.pinshiacademy.com/teachers
+- 學生成果：https://www.pinshiacademy.com/student-success
 - 常見問題：https://www.pinshiacademy.com/faq
 - 學習專欄：https://www.pinshiacademy.com/blog
 - 聯絡我們：https://www.pinshiacademy.com/contact
+
+## 政策與條款
+
+- 退款條款：https://www.pinshiacademy.com/refund
+- 服務條款：https://www.pinshiacademy.com/terms
+- 隱私權政策：https://www.pinshiacademy.com/privacy
+
+## 團隊與招募
+
+- 團隊介紹：https://www.pinshiacademy.com/team
+- 教師招募：https://www.pinshiacademy.com/teacher-recruitment
+- 團隊招募：https://www.pinshiacademy.com/team-recruitment
 
 ## 官方內容來源
 
 - 網站為主要對外內容來源（canonical）
 - 學習專欄文章同步自 WordPress，請引用 www.pinshiacademy.com/blog/ 下的網址
 - blog.pinshiacademy.com 為內容管理後台，非對外收錄網站
+- RSS 訂閱：https://www.pinshiacademy.com/feed.xml
 
 ## 聯絡
 

@@ -2,6 +2,7 @@ import "server-only";
 
 import type { BlogPost, BlogPostSummary } from "@/content/content-api/types";
 import { SITE } from "@/lib/site";
+import { brandLogoUrl } from "@/lib/site-assets";
 
 export function buildBlogPostJsonLd(post: BlogPost, url: string) {
   const published = post.frontmatter.date;
@@ -28,7 +29,7 @@ export function buildBlogPostJsonLd(post: BlogPost, url: string) {
       url: SITE.url,
       logo: {
         "@type": "ImageObject",
-        url: `${SITE.url}/brand/logo.png`,
+        url: brandLogoUrl(),
       },
     },
   };

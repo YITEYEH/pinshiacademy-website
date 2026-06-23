@@ -5,6 +5,7 @@ import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { buildSiteJsonLdGraph } from "@/lib/organization-schema";
+import { BRAND_LOGO_PATH } from "@/lib/site-assets";
 import "./globals.css";
 
 const googleSiteVerification = getGoogleSiteVerificationToken();
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: [{ url: "/brand/logo.png", type: "image/png" }],
+    icon: [{ url: BRAND_LOGO_PATH, type: "image/png" }],
   },
   ...(googleSiteVerification
     ? {

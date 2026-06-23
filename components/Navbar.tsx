@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
 import { LINE_LINKS } from "@/lib/line-links";
+import { BRAND_LOGO_PATH } from "@/lib/site-assets";
 
 const navLinks = [
   { name: "主頁", path: "/" },
@@ -52,7 +53,7 @@ export function Navbar() {
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center gap-2">
             <img
-              src="/brand/logo.png"
+              src={BRAND_LOGO_PATH}
               alt="品識學苑"
               className="w-10 h-10 object-contain"
             />

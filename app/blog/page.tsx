@@ -5,6 +5,7 @@ import { getAllPosts } from "@/content/content-api/posts";
 import { buildPageMetadata } from "@/lib/seo";
 import { buildBlogIndexJsonLd } from "@/lib/blog-index-schema";
 import { SITE } from "@/lib/site";
+import { BRAND_LOGO_PATH } from "@/lib/site-assets";
 import type React from "react";
 
 type BlogSearchParams = Record<string, string | string[] | undefined>;
@@ -251,7 +252,7 @@ export default async function BlogIndexPage({
                                 post.frontmatter.authorAvatar &&
                                 !isGenericGravatar(post.frontmatter.authorAvatar)
                                   ? post.frontmatter.authorAvatar
-                                  : "/brand/logo.png"
+                                  : BRAND_LOGO_PATH
                               }
                               alt={post.frontmatter.authorName}
                               width={28}

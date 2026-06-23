@@ -1,4 +1,4 @@
-import { getAllPosts, getPostBySlug } from "@/content/content-api/posts";
+import { getAllPostsForFeed } from "@/content/content-api/posts";
 import { SITE } from "@/lib/site";
 
 function escapeXml(text: string) {
@@ -15,19 +15,12 @@ function escapeCdata(text: string) {
 }
 
 export async function GET() {
-  const summaries = await getAllPosts();
+  const posts = await getAllPostsForFeed();
 
-  const items = await Promise.all(
-    summaries.map(async (post) => {
+  const items = posts.map((post) => {
       const url = `${SITE.url}/blog/${post.slug}`;
       const pubDate = new Date(post.frontmatter.date).toUTCString();
-      let contentEncoded = "";
-      try {
-        const full = await getPostBySlug(post.slug);
-        contentEncoded = full.content;
-      } catch {
-        contentEncoded = `<p>${escapeXml(post.frontmatter.description)}</p>`;
-      }
+      const contentEncoded = post.content;
 
       const category = post.frontmatter.category
         ? `\n      <category>${escapeXml(post.frontmatter.category)}</category>`
@@ -44,8 +37,7 @@ export async function GET() {
       <description>${escapeXml(post.frontmatter.description)}</description>${category}${author}
       <content:encoded><![CDATA[${escapeCdata(contentEncoded)}]]></content:encoded>
     </item>`;
-    }),
-  );
+    });
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"

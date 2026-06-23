@@ -574,7 +574,7 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
             </div>
           </div>
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-12 space-y-4">
             <Button
               size="lg"
               variant="outline"
@@ -586,6 +586,15 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
             </Button>
+            <div>
+              <Link
+                href="/student-success"
+                className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+              >
+                查看更多學生成果
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

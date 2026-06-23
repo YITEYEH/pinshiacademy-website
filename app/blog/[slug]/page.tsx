@@ -10,6 +10,7 @@ import { getAllPosts, getPostBySlug } from "@/content/content-api/posts";
 import { buildBlogPostJsonLd, pickRelatedPosts } from "@/lib/blog-schema";
 import { SITE } from "@/lib/site";
 import { buildPageMetadata } from "@/lib/seo";
+import { BRAND_LOGO_PATH } from "@/lib/site-assets";
 
 export const revalidate = 60;
 
@@ -169,7 +170,7 @@ export default async function BlogPostPage({
                 post.frontmatter.authorAvatar &&
                 !isGenericGravatar(post.frontmatter.authorAvatar)
                   ? post.frontmatter.authorAvatar
-                  : "/brand/logo.png"
+                  : BRAND_LOGO_PATH
               }
               alt={post.frontmatter.authorName}
               width={36}

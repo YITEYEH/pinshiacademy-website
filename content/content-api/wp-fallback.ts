@@ -33,7 +33,7 @@ async function notifyWebhook(payload: Record<string, unknown>) {
 
 /** WP GraphQL 失敗、退回 MDX 時記錄並可選發送 webhook 告警 */
 export async function logWpFallback(
-  operation: "getAllPosts" | "getPostBySlug",
+  operation: "getAllPosts" | "getAllPostsForFeed" | "getPostBySlug",
   error: unknown,
   context?: { slug?: string },
 ) {
