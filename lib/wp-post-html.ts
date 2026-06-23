@@ -15,12 +15,70 @@ function stripHtml(text: string) {
   return text.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
 }
 
+const WP_ORIGIN = "https://blog.pinshiacademy.com";
+const WP_PHOTON_PREFIX =
+  /^https?:\/\/(?:i[0-3]|c[0-1])\.wp\.com\/blog\.pinshiacademy\.com/i;
+
+/** 將 WP Photon CDN 網址改為來源站直連，避免爬蟲對 CDN／查詢參數回 404 */
+export function normalizeWpImageUrl(url: string): string {
+  let normalized = url
+    .trim()
+    .replace(/&#0*38;/gi, "&")
+    .replace(/&amp;/gi, "&");
+
+  if (WP_PHOTON_PREFIX.test(normalized)) {
+    normalized = normalized.replace(WP_PHOTON_PREFIX, WP_ORIGIN);
+  }
+
+  try {
+    const parsed = new URL(normalized);
+    if (
+      parsed.hostname === "blog.pinshiacademy.com" &&
+      parsed.pathname.includes("/wp-content/uploads/")
+    ) {
+      parsed.search = "";
+      parsed.hash = "";
+      return parsed.toString();
+    }
+  } catch {
+    // 保留原 URL
+  }
+
+  return normalized;
+}
+
+function normalizeImageAttrValue(attr: string, value: string): string {
+  if (attr.toLowerCase() === "srcset") {
+    return value
+      .split(",")
+      .map((part) => {
+        const bits = part.trim().split(/\s+/);
+        if (bits[0]) bits[0] = normalizeWpImageUrl(bits[0]);
+        return bits.join(" ");
+      })
+      .join(", ");
+  }
+
+  return normalizeWpImageUrl(value);
+}
+
+function normalizeImageAttrs(attrs: string): string {
+  return attrs.replace(
+    /\b(src|srcset)=(["'])([\s\S]*?)\2/gi,
+    (match, attr: string, quote: string, value: string) => {
+      const normalized = normalizeImageAttrValue(attr, value);
+      if (normalized === value) return match;
+      return `${attr}=${quote}${normalized}${quote}`;
+    },
+  );
+}
+
 function sanitizeImages(html: string, postTitle: string): string {
   const base = postTitle.trim() || "品識學苑學習專欄";
   const fallbackAlt = escapeAttr(`${base.slice(0, 80)}｜內文附圖`);
 
   return html.replace(/<img\b([^>]*)>/gi, (_full, attrs: string) => {
-    let next = attrs;
+    let next = normalizeImageAttrs(attrs);
     if (!/\bloading\s*=/i.test(next)) {
       next = `${next} loading="lazy"`;
     }

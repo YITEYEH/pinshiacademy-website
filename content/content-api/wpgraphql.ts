@@ -1,5 +1,5 @@
 import type { BlogPost, BlogPostSummary } from "./types";
-import { prepareArticleHtml } from "@/lib/wp-post-html";
+import { normalizeWpImageUrl, prepareArticleHtml } from "@/lib/wp-post-html";
 import { estimateReadTime } from "@/lib/blog-read-time";
 
 const DEFAULT_ENDPOINT = "https://blog.pinshiacademy.com/graphql";
@@ -176,7 +176,8 @@ function mapNodeToSummary(n: GqlPostNode): BlogPostSummary | null {
   const description =
     deriveDescription(excerptPlain, n.content) ||
     sanitizeExcerpt(stripHtml(n.title ?? ""));
-  const cover = n.featuredImage?.node?.sourceUrl ?? undefined;
+  const coverRaw = n.featuredImage?.node?.sourceUrl ?? undefined;
+  const cover = coverRaw ? normalizeWpImageUrl(coverRaw) : undefined;
   const authorName = n.author?.node?.name ?? undefined;
   const authorAvatar = n.author?.node?.avatar?.url ?? undefined;
   const tags =
@@ -323,7 +324,8 @@ export async function wpGetPostBySlug(slug: string): Promise<BlogPost> {
   const description =
     deriveDescription(excerptPlain, post.content) ||
     sanitizeExcerpt(stripHtml(post.title ?? ""));
-  const cover = post.featuredImage?.node?.sourceUrl ?? undefined;
+  const coverRaw = post.featuredImage?.node?.sourceUrl ?? undefined;
+  const cover = coverRaw ? normalizeWpImageUrl(coverRaw) : undefined;
   const authorName = post.author?.node?.name ?? undefined;
   const authorAvatar = post.author?.node?.avatar?.url ?? undefined;
   const tags =
