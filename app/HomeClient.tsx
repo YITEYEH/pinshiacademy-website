@@ -83,43 +83,31 @@ const subjects = [
   {
     icon: Book,
     name: "國文",
-    color: "bg-[#e8f5ee]",
-    textColor: "text-[#2D7A4F]",
     description: "理解文意，培養閱讀與表達能力",
   },
   {
     icon: Globe,
     name: "英文",
-    color: "bg-blue-50",
-    textColor: "text-blue-600",
     description: "建立語感，活用而非死背單字",
   },
   {
     icon: Calculator,
     name: "數學",
-    color: "bg-purple-50",
-    textColor: "text-purple-600",
     description: "理解概念，建立解題思維",
   },
   {
     icon: Leaf,
     name: "社會",
-    color: "bg-amber-50",
-    textColor: "text-amber-600",
     description: "連結時事，理解脈絡而非背誦",
   },
   {
     icon: Beaker,
     name: "自然",
-    color: "bg-teal-50",
-    textColor: "text-teal-600",
     description: "理解原理，題目不再靠猜",
   },
   {
     icon: GraduationCap,
     name: "升學策略",
-    color: "bg-rose-50",
-    textColor: "text-rose-600",
     description: "規劃升學方向，掌握考試策略",
   },
 ];
@@ -367,7 +355,7 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
             {subjects.map((subject, index) => (
               <motion.div
                 key={subject.name}
@@ -375,20 +363,22 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
                 animate={{ opacity: 1, y: 0 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`${subject.color} rounded-xl p-8 hover:shadow-lg transition-shadow`}
+                transition={{ duration: 0.5, delay: index * 0.06 }}
+                className="h-full rounded-xl border border-border bg-[#f7f9f7] p-6"
               >
-                <div className="flex items-center gap-4 mb-4">
-                  <div
-                    className={`w-12 h-12 ${subject.textColor} bg-white rounded-lg flex items-center justify-center`}
-                  >
-                    <subject.icon className="w-6 h-6" />
+                <div className="flex items-start gap-4">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-border/70 bg-white">
+                    <subject.icon className="h-5 w-5 text-primary" />
                   </div>
-                  <h3 className={`text-2xl font-bold ${subject.textColor}`}>
-                    {subject.name}
-                  </h3>
+                  <div className="min-w-0">
+                    <h3 className="mb-1.5 text-lg font-semibold text-foreground">
+                      {subject.name}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {subject.description}
+                    </p>
+                  </div>
                 </div>
-                <p className="text-foreground/80">{subject.description}</p>
               </motion.div>
             ))}
           </div>
