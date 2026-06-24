@@ -15,6 +15,9 @@ export const metadata: Metadata = buildPageMetadata({
   titleAbsolute: true,
 });
 
+/** 與 WP fetch 快取一致；WordPress 發布時另由 /api/revalidate 即時清除 */
+export const revalidate = 60;
+
 export default async function HomePage() {
   const latestPosts = (await getAllPosts()).slice(0, 3);
   const faqPreview = faqCategories.flatMap((c) => c.questions).slice(0, 3);
