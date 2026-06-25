@@ -6,7 +6,6 @@ Allow: /
 Disallow: /api/
 
 Sitemap: ${SITE.url}/sitemap.xml
-Llms-Txt: ${SITE.url}/llms.txt
 `;
 
   return new Response(body, {
