@@ -5,6 +5,6 @@ export const SITE_ANNOUNCEMENT = {
   highlights: [
     { value: "8 位", label: "錄取第一志願" },
     { value: "1 位", label: "數學滿分" },
-    { value: "5+ 位", label: "突破個人最佳成績" },
+    { value: "12 位", label: "突破個人最佳成績" },
   ],
 } as const;
