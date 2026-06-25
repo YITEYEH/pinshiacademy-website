@@ -3,6 +3,7 @@ import { SITE } from "@/lib/site";
 import { getGa4MeasurementId, getGoogleSiteVerificationToken } from "@/lib/analytics-env";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { Navbar } from "@/components/Navbar";
+import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { Footer } from "@/components/Footer";
 import { buildSiteJsonLdGraph } from "@/lib/organization-schema";
 import { BRAND_LOGO_PATH } from "@/lib/site-assets";
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {ga4Id ? <GoogleAnalytics measurementId={ga4Id} /> : null}
         <div className="min-h-screen flex flex-col">
           <Navbar />
+          <AnnouncementBar />
           <main className="flex-1">{children}</main>
           <Footer />
         </div>
