@@ -1,10 +1,9 @@
-import { Trophy } from "lucide-react";
 import { SITE_ANNOUNCEMENT } from "@/lib/site-announcement";
 
 export function AnnouncementBar() {
   if (!SITE_ANNOUNCEMENT.enabled) return null;
 
-  const { badge, highlights } = SITE_ANNOUNCEMENT;
+  const { headline, highlights } = SITE_ANNOUNCEMENT;
 
   return (
     <aside
@@ -26,15 +25,10 @@ export function AnnouncementBar() {
 
       <div className="relative mx-auto max-w-7xl px-4 py-2.5 sm:px-6 sm:py-3 lg:px-8">
         <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-5">
-          <div className="flex shrink-0 items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary shadow-md shadow-primary/25">
-              <Trophy className="h-5 w-5 text-white" aria-hidden />
-            </div>
-            <div className="text-left leading-tight">
-              <p className="text-sm font-bold text-foreground sm:text-base">
-                恭喜學員 · {badge}
-              </p>
-            </div>
+          <div className="shrink-0 text-left leading-tight">
+            <p className="text-sm font-bold text-foreground sm:text-base">
+              {headline}
+            </p>
           </div>
 
           <div className="w-full max-w-2xl rounded-2xl border border-white/90 bg-white/95 p-1 shadow-sm backdrop-blur-sm sm:w-auto sm:max-w-none">
