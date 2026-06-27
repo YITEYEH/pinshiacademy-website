@@ -26,8 +26,14 @@ export function ArticleConsultCta({
       aria-label="升學諮詢"
       className={`rounded-xl border border-primary/20 bg-primary/5 p-6 ${className}`}
     >
-      <p className="text-sm font-semibold text-foreground mb-1">{cta.title}</p>
-      <p className="text-sm text-muted-foreground mb-4">{cta.description}</p>
+      <p
+        className={`text-sm font-semibold text-foreground ${cta.description ? "mb-1" : "mb-4"}`}
+      >
+        {cta.title}
+      </p>
+      {cta.description ? (
+        <p className="text-sm text-muted-foreground mb-4">{cta.description}</p>
+      ) : null}
       <div className="flex flex-wrap gap-3">
         <Button size="sm" className="bg-primary hover:bg-primary/90" asChild>
           <ExternalLinkOnce href={LINE_LINKS.consult} analyticsLabel={label}>

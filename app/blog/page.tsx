@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ExternalLink, BookOpen, Lightbulb, Target } from "lucide-react";
+import { ExternalLink, BookOpen, Lightbulb, Target, GraduationCap } from "lucide-react";
 import { getAllPosts } from "@/content/content-api/posts";
 import { buildPageMetadata } from "@/lib/seo";
 import { buildBlogIndexJsonLd } from "@/lib/blog-index-schema";
@@ -12,9 +12,10 @@ type BlogSearchParams = Record<string, string | string[] | undefined>;
 
 const categoryIcon: Record<string, React.ComponentType<{ className?: string }>> =
   {
-    學習方法: Lightbulb,
-    教育觀點: Target,
-    親子溝通: BookOpen,
+    國小萬試通: BookOpen,
+    國中好試多: Target,
+    學習技巧: Lightbulb,
+    高中芝士補給站: GraduationCap,
   };
 
 function isGenericGravatar(url: string) {
