@@ -205,7 +205,7 @@ export default async function BlogPostPage({
 
       <ArticleShare url={postUrl} title={post.frontmatter.title} />
 
-      <ArticleConsultCta />
+      <ArticleConsultCta category={post.frontmatter.category} />
 
       <RelatedPosts posts={relatedPosts} />
 
