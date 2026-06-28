@@ -18,6 +18,8 @@ const quickLinks = [
   { name: "主頁", path: "/" },
   { name: "關於我們", path: "/about" },
   { name: "課程介紹", path: "/courses" },
+  { name: "線上預錄課程", path: "/online-courses" },
+  { name: "直播公開課", path: "/live-events" },
   { name: "師資團隊", path: "/teachers" },
   { name: "聯絡我們", path: "/contact" },
 ];
@@ -33,11 +35,26 @@ const resourceLinks = [
   { name: "營運團隊招募", path: "/team-recruitment" },
 ];
 
+const examLinks = [
+  {
+    name: "國中會考",
+    href: "https://cap.rcpet.edu.tw/examination.html",
+  },
+  {
+    name: "高中學測",
+    href: "https://www.ceec.edu.tw/xmfile?xsmsid=0J052424829869345634",
+  },
+  {
+    name: "高中分科",
+    href: "https://www.ceec.edu.tw/xmfile?xsmsid=0J052427633128416650",
+  },
+];
+
 export function Footer() {
   return (
     <footer className="bg-[#1a4d2e] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-6">
               <img
@@ -97,6 +114,24 @@ export function Footer() {
                   >
                     {link.name}
                   </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-semibold mb-4">歷屆試題</h3>
+            <ul className="space-y-2">
+              {examLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-white/80 hover:text-white transition-colors"
+                  >
+                    {link.name}
+                  </a>
                 </li>
               ))}
             </ul>

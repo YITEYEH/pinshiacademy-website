@@ -16,7 +16,6 @@ export type PricingLevel = {
 
 export const pricingMeta = {
   title: "課程費用參考",
-  subtitle: "Course Pricing",
   intro:
     "以下為品識學苑線上一對一、單堂課程之參考價格（每堂 50 分鐘）。小班制與期班方案請洽課程顧問取得報價。",
 } as const;

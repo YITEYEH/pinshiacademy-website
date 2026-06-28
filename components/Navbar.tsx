@@ -16,36 +16,94 @@ const navLinks = [
   { name: "師資團隊", path: "/teachers" },
 ];
 
-const courseLinks = [
+const courseSubLinks = [
   { name: "課程介紹", path: "/courses" },
   { name: "課程費用", path: "/pricing" },
+  { name: "線上預錄課程", path: "/online-courses" },
+  { name: "直播公開課", path: "/live-events" },
 ];
 
-const resourceLinks = [
-  { name: "品牌故事", path: "/story" },
-  { name: "營運團隊", path: "/team" },
-  { name: "學生成果", path: "/student-success" },
-  { name: "學習專欄", path: "/blog" },
-  { name: "師資招募", path: "/teacher-recruitment" },
-  { name: "營運團隊招募", path: "/team-recruitment" },
-  { name: "聯絡我們", path: "/contact" },
-  { name: "常見問題", path: "/faq" },
+const resourceGroups = [
+  {
+    label: "認識我們",
+    links: [
+      { name: "品牌故事", path: "/story" },
+      { name: "營運團隊", path: "/team" },
+      { name: "學生成果", path: "/student-success" },
+    ],
+  },
+  {
+    label: "學習內容",
+    links: [{ name: "學習專欄", path: "/blog" }],
+  },
+  {
+    label: "加入我們",
+    links: [
+      { name: "師資招募", path: "/teacher-recruitment" },
+      { name: "營運團隊招募", path: "/team-recruitment" },
+    ],
+  },
+  {
+    label: "需要協助",
+    links: [
+      { name: "聯絡我們", path: "/contact" },
+      { name: "常見問題", path: "/faq" },
+    ],
+  },
 ];
+
+const resourceLinks = resourceGroups.flatMap((group) => group.links);
 
 function isCourseNavActive(pathname: string) {
   return (
     pathname === "/courses" ||
     pathname === "/pricing" ||
+    pathname === "/online-courses" ||
+    pathname === "/live-events" ||
     pathname.startsWith("/courses/")
   );
 }
 
+function isResourceNavActive(pathname: string) {
+  return resourceLinks.some(
+    (link) =>
+      pathname === link.path ||
+      (link.path !== "/" && pathname.startsWith(`${link.path}/`)),
+  );
+}
+
+function mobileNavLinkClass(active: boolean) {
+  return `block rounded-lg px-3 py-2.5 text-sm transition-colors ${
+    active
+      ? "bg-accent font-medium text-accent-foreground"
+      : "text-foreground hover:bg-accent/60"
+  }`;
+}
+
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileCoursesOpen, setMobileCoursesOpen] = useState(false);
+  const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
   const [coursesOpen, setCoursesOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const pathname = usePathname();
   const courseNavActive = isCourseNavActive(pathname);
+  const resourceNavActive = isResourceNavActive(pathname);
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+    setMobileCoursesOpen(false);
+    setMobileResourcesOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    if (mobileMenuOpen) {
+      closeMobileMenu();
+      return;
+    }
+
+    setMobileMenuOpen(true);
+  };
 
   return (
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border">
@@ -102,7 +160,7 @@ export function Navbar() {
                     transition={{ duration: 0.2 }}
                     className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-border py-2"
                   >
-                    {courseLinks.map((link) => (
+                    {courseSubLinks.map((link) => (
                       <Link
                         key={link.path}
                         href={link.path}
@@ -181,7 +239,7 @@ export function Navbar() {
 
           <button
             className="md:hidden text-foreground"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={toggleMobileMenu}
             aria-label={mobileMenuOpen ? "關閉選單" : "開啟選單"}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -197,74 +255,105 @@ export function Navbar() {
               transition={{ duration: 0.3 }}
               className="md:hidden overflow-hidden"
             >
-              <div className="py-4 space-y-2">
-                {navLinks.slice(0, 2).map((link) => (
-                  <Link
-                    key={link.path}
-                    href={link.path}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
-                      pathname === link.path
-                        ? "bg-accent text-accent-foreground"
-                        : "text-foreground hover:bg-accent"
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
+              <div className="border-t border-border py-2">
+                <div className="px-2">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.path}
+                      href={link.path}
+                      onClick={closeMobileMenu}
+                      className={mobileNavLinkClass(pathname === link.path)}
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                </div>
 
-                <div className="px-4 py-2">
-                  <div className="text-sm font-medium text-muted-foreground mb-2">
+                <div className="mt-1 border-t border-border/60">
+                  <button
+                    type="button"
+                    onClick={() => setMobileCoursesOpen((open) => !open)}
+                    className={`flex w-full items-center justify-between px-4 py-3 text-sm font-medium transition-colors ${
+                      courseNavActive ? "text-primary" : "text-foreground"
+                    }`}
+                    aria-expanded={mobileCoursesOpen}
+                  >
                     課程介紹
-                  </div>
-                  {courseLinks.map((link) => (
-                    <Link
-                      key={link.path}
-                      href={link.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
-                        pathname === link.path
-                          ? "bg-accent text-accent-foreground"
-                          : "text-foreground hover:text-primary"
+                    <ChevronDown
+                      className={`h-4 w-4 shrink-0 transition-transform duration-200 ${
+                        mobileCoursesOpen ? "rotate-180" : ""
                       }`}
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
+                    />
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {mobileCoursesOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="space-y-0.5 px-2 pb-2 pl-6">
+                          {courseSubLinks.map((link) => (
+                            <Link
+                              key={link.path}
+                              href={link.path}
+                              onClick={closeMobileMenu}
+                              className={mobileNavLinkClass(pathname === link.path)}
+                            >
+                              {link.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
 
-                {navLinks.slice(2).map((link) => (
-                  <Link
-                    key={link.path}
-                    href={link.path}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
-                      pathname === link.path
-                        ? "bg-accent text-accent-foreground"
-                        : "text-foreground hover:bg-accent"
+                <div className="border-t border-border/60">
+                  <button
+                    type="button"
+                    onClick={() => setMobileResourcesOpen((open) => !open)}
+                    className={`flex w-full items-center justify-between px-4 py-3 text-sm font-medium transition-colors ${
+                      resourceNavActive ? "text-primary" : "text-foreground"
                     }`}
+                    aria-expanded={mobileResourcesOpen}
                   >
-                    {link.name}
-                  </Link>
-                ))}
-
-                <div className="px-4 py-2">
-                  <div className="text-sm font-medium text-muted-foreground mb-2">
                     學習資源
-                  </div>
-                  {resourceLinks.map((link) => (
-                    <Link
-                      key={link.path}
-                      href={link.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block px-4 py-2 text-sm text-foreground hover:text-primary"
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
+                    <ChevronDown
+                      className={`h-4 w-4 shrink-0 transition-transform duration-200 ${
+                        mobileResourcesOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {mobileResourcesOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="space-y-0.5 px-2 pb-2 pl-6">
+                          {resourceLinks.map((link) => (
+                            <Link
+                              key={link.path}
+                              href={link.path}
+                              onClick={closeMobileMenu}
+                              className={mobileNavLinkClass(pathname === link.path)}
+                            >
+                              {link.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
 
-                <div className="px-4 pt-2">
+                <div className="border-t border-border px-4 pt-3 pb-1">
                   <Button className="w-full bg-primary hover:bg-primary/90" asChild>
                     <ExternalLinkOnce
                       href={LINE_LINKS.consult}

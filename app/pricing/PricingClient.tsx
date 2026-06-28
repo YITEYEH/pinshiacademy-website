@@ -31,9 +31,6 @@ export function PricingClient() {
             <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">
               {pricingMeta.title}
             </h1>
-            <p className="text-lg text-muted-foreground mb-6">
-              {pricingMeta.subtitle}
-            </p>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
               {pricingMeta.intro}
             </p>
