@@ -5,6 +5,7 @@ import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { Navbar } from "@/components/Navbar";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { Footer } from "@/components/Footer";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { buildSiteJsonLdGraph } from "@/lib/organization-schema";
 import { BRAND_LOGO_PATH } from "@/lib/site-assets";
 import "./globals.css";
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph) }}
         />
         {ga4Id ? <GoogleAnalytics measurementId={ga4Id} /> : null}
+        <ScrollToTop />
         <div className="min-h-screen flex flex-col">
           <Navbar />
           <AnnouncementBar />
