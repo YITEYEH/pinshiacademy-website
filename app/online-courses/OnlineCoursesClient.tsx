@@ -205,7 +205,7 @@ export function OnlineCoursesClient({ courses }: Props) {
           <div className="mb-10 text-center">
             <h2 className="text-2xl font-bold text-foreground lg:text-3xl">精選課程</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              點選課程卡片前往 Teachify 選擇方案並完成購買
+              點選課程卡片，前往品識學苑官方課程平台查看詳情並完成購買
             </p>
           </div>
 
