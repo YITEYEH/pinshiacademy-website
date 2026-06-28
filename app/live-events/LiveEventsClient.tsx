@@ -61,14 +61,14 @@ function EventCard({ event }: { event: LiveEventView }) {
         href={registerHref}
         target="_blank"
         rel="noopener noreferrer"
-        className="group/cover relative block aspect-video w-full overflow-hidden bg-[#e8f5ee]"
+        className="group/cover relative block aspect-[1731/909] w-full overflow-hidden bg-[#e8f5ee]"
       >
         {event.coverImageUrl ? (
           /* eslint-disable-next-line @next/next/no-img-element */
           <img
             src={event.coverImageUrl}
             alt={event.title}
-            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover/cover:scale-[1.02]"
+            className="h-full w-full object-contain object-center transition-transform duration-500 group-hover/cover:scale-[1.02]"
             loading="lazy"
           />
         ) : (

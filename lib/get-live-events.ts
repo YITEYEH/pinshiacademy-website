@@ -9,11 +9,15 @@ export type LiveEventView = TeachifyEvent & {
 };
 
 export async function getLiveEvents(): Promise<LiveEventView[]> {
-  return Promise.all(
+  const events = await Promise.all(
     TEACHIFY_EVENTS.map(async (event) => {
       const coverImageUrl =
         event.coverImageUrl ?? (await fetchTeachifyOgImage(event.eventUrl));
       return { ...event, coverImageUrl };
     }),
+  );
+
+  return events.sort(
+    (a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime(),
   );
 }
