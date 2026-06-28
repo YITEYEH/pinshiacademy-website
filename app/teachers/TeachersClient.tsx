@@ -75,9 +75,9 @@ export function TeachersClient() {
 
       <TeacherSelectionProcess sectionClassName="bg-[#f7f9f7]" />
 
-      <section className="py-20 bg-white">
+      <section className="py-16 sm:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid gap-5 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
             {teachers.map((teacher, index) => (
               <motion.div
                 key={teacher.name}
@@ -86,59 +86,92 @@ export function TeachersClient() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg transition-shadow"
+                className="overflow-hidden rounded-xl border border-border bg-white transition-shadow hover:shadow-lg"
               >
-                <div className="aspect-[4/3] overflow-hidden bg-[#f7f9f7]">
-                  <ImageWithFallback
-                    src={teacher.image}
-                    alt={teacher.name}
-                    className="w-full h-full object-cover"
-                  />
+                <div className="flex gap-4 p-4 md:block md:p-0">
+                  <div className="aspect-[3/4] w-28 shrink-0 overflow-hidden rounded-lg bg-[#f7f9f7] sm:w-32 md:aspect-[3/4] md:w-full md:rounded-none">
+                    <ImageWithFallback
+                      src={teacher.image}
+                      alt={teacher.name}
+                      className="h-full w-full object-cover object-[50%_18%]"
+                    />
+                  </div>
+
+                  <div className="min-w-0 flex-1 md:hidden">
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <h3 className="text-lg font-bold text-foreground">
+                          {teacher.name}
+                        </h3>
+                        <div className="text-sm text-muted-foreground">
+                          {teacher.experience}
+                        </div>
+                      </div>
+                      <div className="shrink-0 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                        {teacher.subject}
+                      </div>
+                    </div>
+
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {teacher.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded bg-[#f7f9f7] px-2 py-0.5 text-xs text-muted-foreground"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <p className="mt-2 line-clamp-3 text-sm italic leading-relaxed text-foreground/80">
+                      {teacher.philosophy}
+                    </p>
+                  </div>
                 </div>
 
-                <div className="p-6">
-                  <div className="flex items-start justify-between mb-3">
+                <div className="px-4 pb-4 md:p-6">
+                  <div className="mb-3 hidden items-start justify-between gap-3 md:flex">
                     <div>
-                      <h3 className="text-xl font-bold text-foreground mb-1">
+                      <h3 className="text-xl font-bold text-foreground">
                         {teacher.name}
                       </h3>
                       <div className="text-sm text-muted-foreground">
                         {teacher.experience}
                       </div>
                     </div>
-                    <div className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
+                    <div className="shrink-0 rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
                       {teacher.subject}
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="mb-3 hidden flex-wrap gap-2 md:mb-4 md:flex">
                     {teacher.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-xs bg-[#f7f9f7] text-muted-foreground px-2 py-1 rounded"
+                        className="rounded bg-[#f7f9f7] px-2 py-1 text-xs text-muted-foreground"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  <p className="text-sm text-foreground/80 mb-4 italic border-l-2 border-primary pl-3">
+                  <p className="mb-3 hidden border-l-2 border-primary pl-3 text-sm italic leading-relaxed text-foreground/80 md:mb-4 md:block">
                     {teacher.philosophy}
                   </p>
 
-                  <div className="bg-[#e8f5ee] rounded-lg p-4">
-                    <div className="flex items-center gap-1 mb-2">
+                  <div className="rounded-lg bg-[#e8f5ee] p-3 md:p-4">
+                    <div className="mb-1.5 flex items-center gap-1 md:mb-2">
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className="w-3 h-3 fill-amber-400 text-amber-400"
+                          className="h-3 w-3 fill-amber-400 text-amber-400"
                         />
                       ))}
                     </div>
-                    <p className="text-sm text-foreground/80">
+                    <p className="text-sm leading-relaxed text-foreground/80">
                       {teacher.studentReview}
                     </p>
-                    <div className="text-xs text-muted-foreground mt-2">
+                    <div className="mt-2 text-xs text-muted-foreground">
                       — 學生評價
                     </div>
                   </div>
