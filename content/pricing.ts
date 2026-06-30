@@ -14,11 +14,39 @@ export type PricingLevel = {
   groups: readonly PricingGroup[];
 };
 
+export type PricingPlan = {
+  name: string;
+  billing: string;
+  description: string;
+  priceHint: string;
+};
+
 export const pricingMeta = {
   title: "課程費用參考",
   intro:
     "以下為品識學苑線上一對一、單堂課程之參考價格（每堂 50 分鐘）。小班制與期班方案請洽課程顧問取得報價。",
 } as const;
+
+export const pricingPlans: readonly PricingPlan[] = [
+  {
+    name: "一對一",
+    billing: "單堂計費",
+    description: "專屬教學進度，適合對症加強或衝刺的學生",
+    priceHint: "見下方參考價目",
+  },
+  {
+    name: "小班制",
+    billing: "期班計費",
+    description: "2–6 人互動學習，兼顧同儕激勵與老師關注",
+    priceHint: "依班級人數洽詢報價",
+  },
+  {
+    name: "期班方案",
+    billing: "多堂優惠",
+    description: "固定上課頻率，協助建立穩定複習節奏",
+    priceHint: "依堂數享有優惠",
+  },
+];
 
 export const pricingStructureDimensions = [
   {
@@ -43,8 +71,8 @@ export const pricingStructureNote =
 
 export const pricingLevels: readonly PricingLevel[] = [
   {
-    level: "國小課程",
-    sessionDuration: "50分鐘／堂",
+    level: "國小",
+    sessionDuration: "50 分鐘／堂",
     groups: [
       {
         rows: [
@@ -58,8 +86,8 @@ export const pricingLevels: readonly PricingLevel[] = [
     ],
   },
   {
-    level: "國中課程",
-    sessionDuration: "50分鐘／堂",
+    level: "國中",
+    sessionDuration: "50 分鐘／堂",
     groups: [
       {
         subtitle: "國文、英文、數學",
@@ -88,15 +116,15 @@ export const pricingLevels: readonly PricingLevel[] = [
     ],
   },
   {
-    level: "高中課程",
-    sessionDuration: "50分鐘／堂",
+    level: "高中",
+    sessionDuration: "50 分鐘／堂",
     groups: [
       {
         subtitle: "國文、英文、數學",
         rows: [
           { subject: "國文", price: "NT$900－1,400" },
           { subject: "英文", price: "NT$1,000－1,600" },
-          { subject: "數A／數B", price: "NT$1,200－2,000" },
+          { subject: "高一數學／數A／數B／數甲／數乙", price: "NT$1,200－2,000" },
         ],
       },
       {
@@ -121,11 +149,11 @@ export const pricingLevels: readonly PricingLevel[] = [
 ];
 
 export const pricingIncludes = [
-  "50分鐘一對一授課",
+  "50 分鐘一對一授課",
   "課後作業檢討",
   "學習弱點分析",
   "學習方向建議",
-  "LINE課業問題回覆",
+  "LINE 課業問題回覆",
   "段考／會考／學測學習規劃",
   "免費學習診斷",
 ] as const;
