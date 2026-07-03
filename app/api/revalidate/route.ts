@@ -1,6 +1,9 @@
 import { revalidatePath, revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { WP_POSTS_CACHE_TAG } from "@/content/content-api/wpgraphql";
+import { TEACHIFY_CACHE_TAG } from "@/lib/teachify-cache";
+
+const TEACHIFY_PATHS = ["/live-events", "/online-courses"] as const;
 
 function getConfiguredSecret() {
   return process.env.REVALIDATE_SECRET?.trim() || "";
@@ -62,10 +65,44 @@ function revalidatePaths(paths: string[]) {
   }
 }
 
-function runRevalidation(slug?: string) {
+function extractTarget(request: NextRequest, body: unknown): string | undefined {
+  const fromQuery = request.nextUrl.searchParams.get("target");
+  if (fromQuery?.trim()) return fromQuery.trim();
+
+  if (!body || typeof body !== "object") return undefined;
+  const record = body as Record<string, unknown>;
+  if (typeof record.target === "string" && record.target.trim()) {
+    return record.target.trim();
+  }
+  return undefined;
+}
+
+function revalidateWordPress(slug?: string) {
   revalidateTag(WP_POSTS_CACHE_TAG);
   revalidatePaths(["/", "/blog", "/feed.xml", "/sitemap.xml"]);
   if (slug) revalidatePaths([`/blog/${slug}`]);
+}
+
+function revalidateTeachify() {
+  revalidateTag(TEACHIFY_CACHE_TAG);
+  revalidatePaths([...TEACHIFY_PATHS]);
+}
+
+function runRevalidation(target: string | undefined, slug?: string) {
+  const mode = target ?? "all";
+
+  if (mode === "wordpress" || mode === "wp") {
+    revalidateWordPress(slug);
+    return;
+  }
+
+  if (mode === "teachify") {
+    revalidateTeachify();
+    return;
+  }
+
+  revalidateWordPress(slug);
+  revalidateTeachify();
 }
 
 async function handleRevalidate(request: NextRequest) {
@@ -97,14 +134,30 @@ async function handleRevalidate(request: NextRequest) {
   }
 
   const slug = extractSlug(request, body);
-  runRevalidation(slug);
+  const target = extractTarget(request, body);
+  runRevalidation(target, slug);
+
+  const paths = [
+    ...(target === "teachify" ? [...TEACHIFY_PATHS] : []),
+    ...(target === "wordpress" || target === "wp"
+      ? ["/", "/blog", "/feed.xml", "/sitemap.xml", slug ? `/blog/${slug}` : null]
+      : target
+        ? []
+        : [
+            "/",
+            "/blog",
+            "/feed.xml",
+            "/sitemap.xml",
+            ...TEACHIFY_PATHS,
+            slug ? `/blog/${slug}` : null,
+          ]),
+  ].filter(Boolean);
 
   return NextResponse.json({
     revalidated: true,
+    target: target ?? "all",
     slug: slug ?? null,
-    paths: ["/", "/blog", "/feed.xml", "/sitemap.xml", slug ? `/blog/${slug}` : null].filter(
-      Boolean,
-    ),
+    paths,
     at: new Date().toISOString(),
   });
 }

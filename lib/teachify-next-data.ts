@@ -1,5 +1,10 @@
 import "server-only";
 
+import {
+  TEACHIFY_CACHE_TAG,
+  TEACHIFY_REVALIDATE_SECONDS,
+} from "@/lib/teachify-cache";
+
 type ApolloRef = { __ref: string };
 
 type ApolloEntity = Record<string, unknown> & {
@@ -71,10 +76,13 @@ function rootQueryValue(state: TeachifyApolloState, key: string): unknown {
 }
 
 export const TEACHIFY_FETCH_OPTIONS = {
-  next: { revalidate: 86_400 },
+  next: {
+    revalidate: TEACHIFY_REVALIDATE_SECONDS,
+    tags: [TEACHIFY_CACHE_TAG],
+  },
   signal: AbortSignal.timeout(15_000),
   headers: { Accept: "text/html" },
-} as const;
+};
 
 export async function fetchTeachifyHtml(url: string): Promise<string | null> {
   try {

@@ -1,17 +1,25 @@
 import "server-only";
 
+import {
+  TEACHIFY_CACHE_TAG,
+  TEACHIFY_REVALIDATE_SECONDS,
+} from "@/lib/teachify-cache";
+
 const OG_IMAGE_PATTERNS = [
   /property="og:image"[^>]*content="([^"]+)"/i,
   /content="([^"]+)"[^>]*property="og:image"/i,
 ];
 
-/** 從 Teachify 頁面 og:image 取得封面（每日快取） */
+/** 從 Teachify 頁面 og:image 取得封面（與目錄快取同步） */
 export async function fetchTeachifyOgImage(
   pageUrl: string,
 ): Promise<string | undefined> {
   try {
     const res = await fetch(pageUrl, {
-      next: { revalidate: 86_400 },
+      next: {
+        revalidate: TEACHIFY_REVALIDATE_SECONDS,
+        tags: [TEACHIFY_CACHE_TAG],
+      },
       signal: AbortSignal.timeout(10_000),
       headers: { Accept: "text/html" },
     });
