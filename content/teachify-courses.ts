@@ -8,7 +8,7 @@ export type TeachifyCourse = {
   description: string;
   /** 完整課程購買頁 URL */
   purchaseUrl: string;
-  /** 可手動指定；未填則由伺服器從 Teachify 課程頁 og:image 抓取 */
+  /** 可手動指定；未填則由伺服器從 Teachify 抓取 */
   coverImageUrl?: string;
   category: string;
   tags: string[];
@@ -22,29 +22,46 @@ export type TeachifyCourse = {
   badge?: string;
 };
 
-export const TEACHIFY_COURSES: TeachifyCourse[] = [
+/** 依 Teachify slug 覆寫自動抓取的欄位（選用） */
+export type TeachifyCourseOverride = Partial<
+  Pick<
+    TeachifyCourse,
+    | "subtitle"
+    | "description"
+    | "coverImageUrl"
+    | "category"
+    | "tags"
+    | "instructors"
+    | "badge"
+    | "featured"
+  >
+>;
+
+/** Teachify 導覽列課程分類，用於掃描所有上架課程 */
+export const TEACHIFY_COURSE_CATEGORY_SLUGS = [
+  "junior-high-school-progress-class",
+  "junior-high-school-entrance-examination-review-class",
+  "high-school-progress-class",
+  "high-school-academic-assessment-review-class",
+  "high-school-subject-review-class",
+] as const;
+
+/**
+ * 選用：針對特定課程微調文案。未列出的課程會完全依 Teachify 自動同步。
+ */
+export const TEACHIFY_COURSE_OVERRIDES: Record<string, TeachifyCourseOverride> =
   {
-    id: "114-mathematics-in-the-junior-high-school-education-examination",
-    title: "A++計畫｜114會考數學歷屆試題完全解析班",
-    subtitle: "針對歷屆題型與最新素養趨勢設計，完整掌握會考高分關鍵",
-    description:
-      "13 堂精選解析，從選擇題到非選題，帶你讀懂會考數學出題邏輯。含補充講義，可重複觀看，另有陪跑與衝刺方案可於購課頁選擇。",
-    purchaseUrl:
-      "https://pinshiacademy.tw/courses/114-mathematics-in-the-junior-high-school-education-examination",
-    category: "國中會考總複習",
-    tags: ["會考總複習", "114會考總複習", "數學"],
-    lectureCount: 13,
-    videoHours: "0.6 小時",
-    instructors: [
-      { name: "葉以德", role: "品識學苑創辦人／資深數學授課師" },
-      { name: "葉學貞", role: "教學設計師（數學組）" },
-    ],
-    priceFrom: 1980,
-    priceOriginal: 2980,
-    featured: true,
-    badge: "會考數學",
-  },
-];
+    "114-mathematics-in-the-junior-high-school-education-examination": {
+      description:
+        "13 堂精選解析，從選擇題到非選題，帶你讀懂會考數學出題邏輯。含補充講義，可重複觀看，另有陪跑與衝刺方案可於購課頁選擇。",
+      instructors: [
+        { name: "葉以德", role: "品識學苑創辦人／資深數學授課師" },
+        { name: "葉學貞", role: "教學設計師（數學組）" },
+      ],
+      tags: ["會考總複習", "114會考總複習", "數學"],
+      badge: "會考數學",
+    },
+  };
 
 export function teachifyPurchaseUrl(
   courseUrl: string,

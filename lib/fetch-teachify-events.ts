@@ -9,17 +9,12 @@ import {
 } from "@/content/teachify-events";
 import { TEACHIFY_PLATFORM_URL } from "@/content/teachify-courses";
 import {
+  fetchTeachifyHtml,
   getSessionEventRefs,
   parseTeachifyNextData,
   resolveApolloRef,
   type TeachifyApolloState,
 } from "@/lib/teachify-next-data";
-
-const FETCH_OPTIONS = {
-  next: { revalidate: 86_400 },
-  signal: AbortSignal.timeout(15_000),
-  headers: { Accept: "text/html" },
-} as const;
 
 type ApolloEvent = {
   __typename: "Event";
@@ -108,16 +103,6 @@ function inferSubtitle(title: string): string {
     return "聚焦會考重點題型與解題策略，掌握歷屆試題解題關鍵";
   }
   return "品識學苑直播公開課，歡迎報名參與";
-}
-
-async function fetchTeachifyHtml(url: string): Promise<string | null> {
-  try {
-    const res = await fetch(url, FETCH_OPTIONS);
-    if (!res.ok) return null;
-    return res.text();
-  } catch {
-    return null;
-  }
 }
 
 function resolveTickets(

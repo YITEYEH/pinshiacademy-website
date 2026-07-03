@@ -69,3 +69,38 @@ function rootQueryValue(state: TeachifyApolloState, key: string): unknown {
   if (!root) return undefined;
   return root[key];
 }
+
+export const TEACHIFY_FETCH_OPTIONS = {
+  next: { revalidate: 86_400 },
+  signal: AbortSignal.timeout(15_000),
+  headers: { Accept: "text/html" },
+} as const;
+
+export async function fetchTeachifyHtml(url: string): Promise<string | null> {
+  try {
+    const res = await fetch(url, TEACHIFY_FETCH_OPTIONS);
+    if (!res.ok) return null;
+    return res.text();
+  } catch {
+    return null;
+  }
+}
+
+export function getCourseRefsFromCategoryPage(
+  state: TeachifyApolloState,
+): ApolloRef[] {
+  const category = Object.values(state).find(
+    (entity) =>
+      entity.__typename === "Category" &&
+      Object.keys(entity).some((key) => key.startsWith("courses(")),
+  );
+  if (!category) return [];
+
+  const coursesKey = Object.keys(category).find((key) =>
+    key.startsWith("courses("),
+  );
+  if (!coursesKey) return [];
+
+  const page = category[coursesKey] as { nodes?: ApolloRef[] } | undefined;
+  return page?.nodes ?? [];
+}
