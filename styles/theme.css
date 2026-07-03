@@ -179,11 +179,3 @@
     line-height: 1.5;
   }
 }
-
-#pricing-level-0:checked ~ .pricing-level-tabs-header label[for="pricing-level-0"],
-#pricing-level-1:checked ~ .pricing-level-tabs-header label[for="pricing-level-1"],
-#pricing-level-2:checked ~ .pricing-level-tabs-header label[for="pricing-level-2"] {
-  background-color: var(--primary);
-  color: var(--primary-foreground);
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-}
