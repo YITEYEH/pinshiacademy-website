@@ -17,6 +17,7 @@ const coreValues = [
 const quickLinks = [
   { name: "主頁", path: "/" },
   { name: "關於我們", path: "/about" },
+  { name: "品牌故事", path: "/story" },
   { name: "課程介紹", path: "/courses" },
   { name: "線上預錄課程", path: "/online-courses" },
   { name: "直播公開課", path: "/live-events" },
@@ -25,7 +26,6 @@ const quickLinks = [
 ];
 
 const resourceLinks = [
-  { name: "品牌故事", path: "/story" },
   { name: "營運團隊", path: "/team" },
   { name: "學生成果", path: "/student-success" },
   { name: "學習專欄", path: "/blog" },

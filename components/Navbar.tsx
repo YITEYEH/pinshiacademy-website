@@ -10,10 +10,9 @@ import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
 import { LINE_LINKS } from "@/lib/line-links";
 import { BRAND_LOGO_PATH } from "@/lib/site-assets";
 
-const navLinks = [
-  { name: "主頁", path: "/" },
+const aboutSubLinks = [
   { name: "關於我們", path: "/about" },
-  { name: "師資團隊", path: "/teachers" },
+  { name: "品牌故事", path: "/story" },
 ];
 
 const courseSubLinks = [
@@ -23,36 +22,23 @@ const courseSubLinks = [
   { name: "直播公開課", path: "/live-events" },
 ];
 
-const resourceGroups = [
-  {
-    label: "認識我們",
-    links: [
-      { name: "品牌故事", path: "/story" },
-      { name: "營運團隊", path: "/team" },
-      { name: "學生成果", path: "/student-success" },
-    ],
-  },
-  {
-    label: "學習內容",
-    links: [{ name: "學習專欄", path: "/blog" }],
-  },
-  {
-    label: "加入我們",
-    links: [
-      { name: "師資招募", path: "/teacher-recruitment" },
-      { name: "營運團隊招募", path: "/team-recruitment" },
-    ],
-  },
-  {
-    label: "需要協助",
-    links: [
-      { name: "聯絡我們", path: "/contact" },
-      { name: "常見問題", path: "/faq" },
-    ],
-  },
+const resourceLinks = [
+  { name: "營運團隊", path: "/team" },
+  { name: "學生成果", path: "/student-success" },
+  { name: "學習專欄", path: "/blog" },
+  { name: "師資招募", path: "/teacher-recruitment" },
+  { name: "營運團隊招募", path: "/team-recruitment" },
+  { name: "聯絡我們", path: "/contact" },
+  { name: "常見問題", path: "/faq" },
 ];
 
-const resourceLinks = resourceGroups.flatMap((group) => group.links);
+function isAboutNavActive(pathname: string) {
+  return aboutSubLinks.some(
+    (link) =>
+      pathname === link.path ||
+      (link.path !== "/" && pathname.startsWith(`${link.path}/`)),
+  );
+}
 
 function isCourseNavActive(pathname: string) {
   return (
@@ -80,18 +66,28 @@ function mobileNavLinkClass(active: boolean) {
   }`;
 }
 
+function dropdownLinkClass(active: boolean) {
+  return `block px-4 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground ${
+    active ? "text-primary font-medium" : "text-foreground"
+  }`;
+}
+
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const [mobileCoursesOpen, setMobileCoursesOpen] = useState(false);
   const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const [coursesOpen, setCoursesOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const pathname = usePathname();
+  const aboutNavActive = isAboutNavActive(pathname);
   const courseNavActive = isCourseNavActive(pathname);
   const resourceNavActive = isResourceNavActive(pathname);
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
+    setMobileAboutOpen(false);
     setMobileCoursesOpen(false);
     setMobileResourcesOpen(false);
   };
@@ -121,19 +117,55 @@ export function Navbar() {
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.slice(0, 2).map((link) => (
-              <Link
-                key={link.path}
-                href={link.path}
-                className={`text-sm transition-colors hover:text-primary ${
-                  pathname === link.path
+            <Link
+              href="/"
+              className={`text-sm transition-colors hover:text-primary ${
+                pathname === "/"
+                  ? "text-primary font-medium"
+                  : "text-foreground"
+              }`}
+            >
+              主頁
+            </Link>
+
+            <div
+              className="relative"
+              onMouseEnter={() => setAboutOpen(true)}
+              onMouseLeave={() => setAboutOpen(false)}
+            >
+              <button
+                className={`flex items-center gap-1 text-sm transition-colors hover:text-primary ${
+                  aboutNavActive
                     ? "text-primary font-medium"
                     : "text-foreground"
                 }`}
               >
-                {link.name}
-              </Link>
-            ))}
+                關於我們
+                <ChevronDown className="w-4 h-4" />
+              </button>
+
+              <AnimatePresence>
+                {aboutOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-border py-2"
+                  >
+                    {aboutSubLinks.map((link) => (
+                      <Link
+                        key={link.path}
+                        href={link.path}
+                        className={dropdownLinkClass(pathname === link.path)}
+                      >
+                        {link.name}
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
             <div
               className="relative"
@@ -164,11 +196,7 @@ export function Navbar() {
                       <Link
                         key={link.path}
                         href={link.path}
-                        className={`block px-4 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground ${
-                          pathname === link.path
-                            ? "text-primary font-medium"
-                            : "text-foreground"
-                        }`}
+                        className={dropdownLinkClass(pathname === link.path)}
                       >
                         {link.name}
                       </Link>
@@ -178,26 +206,29 @@ export function Navbar() {
               </AnimatePresence>
             </div>
 
-            {navLinks.slice(2).map((link) => (
-              <Link
-                key={link.path}
-                href={link.path}
-                className={`text-sm transition-colors hover:text-primary ${
-                  pathname === link.path
-                    ? "text-primary font-medium"
-                    : "text-foreground"
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
+            <Link
+              href="/teachers"
+              className={`text-sm transition-colors hover:text-primary ${
+                pathname === "/teachers"
+                  ? "text-primary font-medium"
+                  : "text-foreground"
+              }`}
+            >
+              師資團隊
+            </Link>
 
             <div
               className="relative"
               onMouseEnter={() => setResourcesOpen(true)}
               onMouseLeave={() => setResourcesOpen(false)}
             >
-              <button className="flex items-center gap-1 text-sm text-foreground hover:text-primary transition-colors">
+              <button
+                className={`flex items-center gap-1 text-sm transition-colors hover:text-primary ${
+                  resourceNavActive
+                    ? "text-primary font-medium"
+                    : "text-foreground"
+                }`}
+              >
                 學習資源
                 <ChevronDown className="w-4 h-4" />
               </button>
@@ -215,7 +246,7 @@ export function Navbar() {
                       <Link
                         key={link.path}
                         href={link.path}
-                        className="block px-4 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                        className={dropdownLinkClass(pathname === link.path)}
                       >
                         {link.name}
                       </Link>
@@ -257,19 +288,58 @@ export function Navbar() {
             >
               <div className="border-t border-border py-2">
                 <div className="px-2">
-                  {navLinks.map((link) => (
-                    <Link
-                      key={link.path}
-                      href={link.path}
-                      onClick={closeMobileMenu}
-                      className={mobileNavLinkClass(pathname === link.path)}
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
+                  <Link
+                    href="/"
+                    onClick={closeMobileMenu}
+                    className={mobileNavLinkClass(pathname === "/")}
+                  >
+                    主頁
+                  </Link>
                 </div>
 
                 <div className="mt-1 border-t border-border/60">
+                  <button
+                    type="button"
+                    onClick={() => setMobileAboutOpen((open) => !open)}
+                    className={`flex w-full items-center justify-between px-4 py-3 text-sm font-medium transition-colors ${
+                      aboutNavActive ? "text-primary" : "text-foreground"
+                    }`}
+                    aria-expanded={mobileAboutOpen}
+                  >
+                    關於我們
+                    <ChevronDown
+                      className={`h-4 w-4 shrink-0 transition-transform duration-200 ${
+                        mobileAboutOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {mobileAboutOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="space-y-0.5 px-2 pb-2 pl-6">
+                          {aboutSubLinks.map((link) => (
+                            <Link
+                              key={link.path}
+                              href={link.path}
+                              onClick={closeMobileMenu}
+                              className={mobileNavLinkClass(pathname === link.path)}
+                            >
+                              {link.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                <div className="border-t border-border/60">
                   <button
                     type="button"
                     onClick={() => setMobileCoursesOpen((open) => !open)}
@@ -309,6 +379,16 @@ export function Navbar() {
                       </motion.div>
                     )}
                   </AnimatePresence>
+                </div>
+
+                <div className="px-2 border-t border-border/60 pt-1">
+                  <Link
+                    href="/teachers"
+                    onClick={closeMobileMenu}
+                    className={mobileNavLinkClass(pathname === "/teachers")}
+                  >
+                    師資團隊
+                  </Link>
                 </div>
 
                 <div className="border-t border-border/60">
