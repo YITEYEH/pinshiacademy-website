@@ -1,12 +1,15 @@
 import "server-only";
 
 import type { BlogPost, BlogPostSummary } from "@/content/content-api/types";
+import { effectiveModifiedDate } from "@/lib/blog-dates";
 import { SITE } from "@/lib/site";
 import { brandLogoUrl } from "@/lib/site-assets";
 
 export function buildBlogPostJsonLd(post: BlogPost, url: string) {
   const published = post.frontmatter.date;
-  const modified = post.frontmatter.modifiedDate ?? published;
+  const modified =
+    effectiveModifiedDate(post.frontmatter.date, post.frontmatter.modifiedDate) ??
+    published;
 
   const article: Record<string, unknown> = {
     "@type": "Article",

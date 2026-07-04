@@ -8,6 +8,7 @@ import { ArticleToc } from "@/components/blog/ArticleToc";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { getAllPosts, getPostBySlug } from "@/content/content-api/posts";
 import { buildBlogPostJsonLd, pickRelatedPosts } from "@/lib/blog-schema";
+import { effectiveModifiedDate } from "@/lib/blog-dates";
 import { SITE } from "@/lib/site";
 import { buildPageMetadata } from "@/lib/seo";
 import { BRAND_LOGO_PATH } from "@/lib/site-assets";
@@ -45,7 +46,10 @@ export async function generateMetadata({
         : `${rawTitle}｜品識學苑升學專欄`;
     const published = toIsoDate(post.frontmatter.date);
     const modified = toIsoDate(
-      post.frontmatter.modifiedDate ?? post.frontmatter.date,
+      effectiveModifiedDate(
+        post.frontmatter.date,
+        post.frontmatter.modifiedDate,
+      ) ?? post.frontmatter.date,
     );
 
     return buildPageMetadata({
@@ -84,11 +88,10 @@ export default async function BlogPostPage({
   const allPosts = await getAllPosts();
   const relatedPosts = pickRelatedPosts(post, allPosts);
   const postUrl = `${SITE.url}/blog/${post.slug}`;
-  const modifiedLabel =
-    post.frontmatter.modifiedDate &&
-    post.frontmatter.modifiedDate !== post.frontmatter.date
-      ? post.frontmatter.modifiedDate
-      : null;
+  const modifiedLabel = effectiveModifiedDate(
+    post.frontmatter.date,
+    post.frontmatter.modifiedDate,
+  );
 
   return (
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12 lg:py-16">
