@@ -22,12 +22,16 @@ const courseSubLinks = [
   { name: "直播公開課", path: "/live-events" },
 ];
 
-const resourceLinks = [
+const teamSubLinks = [
+  { name: "師資團隊", path: "/teachers" },
   { name: "營運團隊", path: "/team" },
+  { name: "師資團隊招募", path: "/teacher-recruitment" },
+  { name: "營運團隊招募", path: "/team-recruitment" },
+];
+
+const resourceLinks = [
   { name: "學生成果", path: "/student-success" },
   { name: "學習專欄", path: "/blog" },
-  { name: "師資招募", path: "/teacher-recruitment" },
-  { name: "營運團隊招募", path: "/team-recruitment" },
   { name: "聯絡我們", path: "/contact" },
   { name: "常見問題", path: "/faq" },
 ];
@@ -47,6 +51,14 @@ function isCourseNavActive(pathname: string) {
     pathname === "/online-courses" ||
     pathname === "/live-events" ||
     pathname.startsWith("/courses/")
+  );
+}
+
+function isTeamNavActive(pathname: string) {
+  return teamSubLinks.some(
+    (link) =>
+      pathname === link.path ||
+      (link.path !== "/" && pathname.startsWith(`${link.path}/`)),
   );
 }
 
@@ -76,19 +88,23 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const [mobileCoursesOpen, setMobileCoursesOpen] = useState(false);
+  const [mobileTeamOpen, setMobileTeamOpen] = useState(false);
   const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [coursesOpen, setCoursesOpen] = useState(false);
+  const [teamOpen, setTeamOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const pathname = usePathname();
   const aboutNavActive = isAboutNavActive(pathname);
   const courseNavActive = isCourseNavActive(pathname);
+  const teamNavActive = isTeamNavActive(pathname);
   const resourceNavActive = isResourceNavActive(pathname);
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
     setMobileAboutOpen(false);
     setMobileCoursesOpen(false);
+    setMobileTeamOpen(false);
     setMobileResourcesOpen(false);
   };
 
@@ -206,16 +222,44 @@ export function Navbar() {
               </AnimatePresence>
             </div>
 
-            <Link
-              href="/teachers"
-              className={`text-sm transition-colors hover:text-primary ${
-                pathname === "/teachers"
-                  ? "text-primary font-medium"
-                  : "text-foreground"
-              }`}
+            <div
+              className="relative"
+              onMouseEnter={() => setTeamOpen(true)}
+              onMouseLeave={() => setTeamOpen(false)}
             >
-              師資團隊
-            </Link>
+              <button
+                className={`flex items-center gap-1 text-sm transition-colors hover:text-primary ${
+                  teamNavActive
+                    ? "text-primary font-medium"
+                    : "text-foreground"
+                }`}
+              >
+                團隊介紹
+                <ChevronDown className="w-4 h-4" />
+              </button>
+
+              <AnimatePresence>
+                {teamOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-border py-2"
+                  >
+                    {teamSubLinks.map((link) => (
+                      <Link
+                        key={link.path}
+                        href={link.path}
+                        className={dropdownLinkClass(pathname === link.path)}
+                      >
+                        {link.name}
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
             <div
               className="relative"
@@ -381,14 +425,46 @@ export function Navbar() {
                   </AnimatePresence>
                 </div>
 
-                <div className="px-2 border-t border-border/60 pt-1">
-                  <Link
-                    href="/teachers"
-                    onClick={closeMobileMenu}
-                    className={mobileNavLinkClass(pathname === "/teachers")}
+                <div className="border-t border-border/60">
+                  <button
+                    type="button"
+                    onClick={() => setMobileTeamOpen((open) => !open)}
+                    className={`flex w-full items-center justify-between px-4 py-3 text-sm font-medium transition-colors ${
+                      teamNavActive ? "text-primary" : "text-foreground"
+                    }`}
+                    aria-expanded={mobileTeamOpen}
                   >
-                    師資團隊
-                  </Link>
+                    團隊介紹
+                    <ChevronDown
+                      className={`h-4 w-4 shrink-0 transition-transform duration-200 ${
+                        mobileTeamOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {mobileTeamOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="space-y-0.5 px-2 pb-2 pl-6">
+                          {teamSubLinks.map((link) => (
+                            <Link
+                              key={link.path}
+                              href={link.path}
+                              onClick={closeMobileMenu}
+                              className={mobileNavLinkClass(pathname === link.path)}
+                            >
+                              {link.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
 
                 <div className="border-t border-border/60">

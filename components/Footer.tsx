@@ -22,17 +22,17 @@ const quickLinks = [
   { name: "線上預錄課程", path: "/online-courses" },
   { name: "直播公開課", path: "/live-events" },
   { name: "師資團隊", path: "/teachers" },
+  { name: "營運團隊", path: "/team" },
+  { name: "師資團隊招募", path: "/teacher-recruitment" },
+  { name: "營運團隊招募", path: "/team-recruitment" },
   { name: "聯絡我們", path: "/contact" },
 ];
 
 const resourceLinks = [
-  { name: "營運團隊", path: "/team" },
   { name: "學生成果", path: "/student-success" },
   { name: "學習專欄", path: "/blog" },
   { name: "常見問題", path: "/faq" },
   { name: "課程費用", path: "/pricing" },
-  { name: "師資招募", path: "/teacher-recruitment" },
-  { name: "營運團隊招募", path: "/team-recruitment" },
 ];
 
 const examLinks = [
