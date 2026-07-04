@@ -126,6 +126,7 @@ export function prepareArticleHtml(
   );
 
   processed = sanitizeImages(processed, postTitle);
+  processed = stripStrayTailwindClasses(processed);
   processed = stripEmbeddedSeoTags(processed);
   processed = removeWpShareBlocks(processed);
   processed = stripTrailingOrphanCloseTags(processed);
@@ -145,6 +146,20 @@ function stripEmbeddedSeoTags(html: string): string {
     .replace(/<link\b[^>]*\brel\s*=\s*["']canonical["'][^>]*>/gi, "")
     .replace(/<meta\b[^>]*\bname\s*=\s*["']robots["'][^>]*>/gi, "")
     .replace(/<!--\s*notionvc:[^>]*-->/gi, "");
+}
+
+const TAILWIND_CLASS_TOKEN =
+  /^(?:(?:sm|md|lg|xl|2xl):)?(?:text-(?:\[[^\]]+\]|[a-z0-9-]+)|font-(?:\[[^\]]+\]|[a-z0-9-]+)|leading-(?:\[[^\]]+\]|[a-z0-9-]+)|tracking-(?:\[[^\]]+\]|[a-z0-9-]+)|(?:m[trblxy]?|p[trblxy]?)-(?:\[[^\]]+\]|\d+)|text-foreground|text-muted-foreground|text-primary|bg-\S+|border-\S+|rounded-\S+|flex\S*|grid\S*|gap-\S+|items-\S+|justify-\S+|w-\S+|h-\S+|max-w-\S+|mx-\S+|my-\S+|opacity-\S+|transition\S*|hover:\S+|group\S*)$/;
+
+/** WP 內文若殘留本站 React 元件的 Tailwind class，會被套用成標題字級 */
+function stripStrayTailwindClasses(html: string): string {
+  return html.replace(/\sclass=(["'])([\s\S]*?)\1/gi, (_full, quote: string, classValue: string) => {
+    const tokens = classValue.trim().split(/\s+/).filter(Boolean);
+    const kept = tokens.filter((token: string) => !TAILWIND_CLASS_TOKEN.test(token));
+    if (kept.length === 0) return "";
+    if (kept.length === tokens.length) return _full;
+    return ` class=${quote}${kept.join(" ")}${quote}`;
+  });
 }
 
 /** WordPress Jetpack 分享區塊殘留會破壞 DOM，導致後續 React 元件 hydration 失敗 */
