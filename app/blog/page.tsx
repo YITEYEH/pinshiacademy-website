@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ExternalLink, BookOpen, Lightbulb, Target, GraduationCap } from "lucide-react";
+import { BlogPagination } from "@/components/blog/BlogPagination";
 import { getAllPosts } from "@/content/content-api/posts";
 import { buildPageMetadata } from "@/lib/seo";
 import { buildBlogIndexJsonLd } from "@/lib/blog-index-schema";
@@ -9,6 +10,8 @@ import { BRAND_LOGO_PATH } from "@/lib/site-assets";
 import type React from "react";
 
 type BlogSearchParams = Record<string, string | string[] | undefined>;
+
+const POSTS_PER_PAGE = 12;
 
 const categoryIcon: Record<string, React.ComponentType<{ className?: string }>> =
   {
@@ -37,9 +40,15 @@ export async function generateMetadata({
   searchParams?: Promise<BlogSearchParams>;
 }): Promise<Metadata> {
   const sp = (await searchParams) ?? {};
+  const pageRaw = sp.page;
+  const pageNum = parseInt(
+    typeof pageRaw === "string" ? pageRaw : "1",
+    10,
+  );
   const hasFilter =
     (typeof sp.category === "string" && sp.category.length > 0) ||
-    (typeof sp.tag === "string" && sp.tag.length > 0);
+    (typeof sp.tag === "string" && sp.tag.length > 0) ||
+    (Number.isFinite(pageNum) && pageNum > 1);
 
   const base = buildPageMetadata({
     path: "/blog",
@@ -72,6 +81,11 @@ export default async function BlogIndexPage({
     typeof selectedCategoryRaw === "string" ? selectedCategoryRaw : undefined;
   const selectedTag =
     typeof selectedTagRaw === "string" ? selectedTagRaw : undefined;
+  const pageRaw = sp.page;
+  const requestedPage = Math.max(
+    1,
+    parseInt(typeof pageRaw === "string" ? pageRaw : "1", 10) || 1,
+  );
 
   const posts = await getAllPosts();
 
@@ -82,6 +96,19 @@ export default async function BlogIndexPage({
       return false;
     return true;
   });
+
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredPosts.length / POSTS_PER_PAGE),
+  );
+  const currentPage = Math.min(requestedPage, totalPages);
+  const paginatedPosts = filteredPosts.slice(
+    (currentPage - 1) * POSTS_PER_PAGE,
+    currentPage * POSTS_PER_PAGE,
+  );
+  const rangeStart =
+    filteredPosts.length === 0 ? 0 : (currentPage - 1) * POSTS_PER_PAGE + 1;
+  const rangeEnd = Math.min(currentPage * POSTS_PER_PAGE, filteredPosts.length);
 
   const categories = Object.entries(
     posts.reduce<Record<string, number>>((acc, p) => {
@@ -189,8 +216,13 @@ export default async function BlogIndexPage({
             </div>
 
             <div className="lg:col-span-3">
+              {filteredPosts.length > 0 && (
+                <p className="mb-6 text-sm text-muted-foreground">
+                  顯示第 {rangeStart}–{rangeEnd} 篇，共 {filteredPosts.length} 篇
+                </p>
+              )}
               <div className="grid md:grid-cols-2 gap-6">
-                {filteredPosts.map((post) => {
+                {paginatedPosts.map((post) => {
                   const Icon =
                     categoryIcon[post.frontmatter.category ?? ""] ?? Lightbulb;
                   return (
@@ -278,6 +310,12 @@ export default async function BlogIndexPage({
                   );
                 })}
               </div>
+              <BlogPagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                category={selectedCategory}
+                tag={selectedTag}
+              />
             </div>
           </div>
         </div>
