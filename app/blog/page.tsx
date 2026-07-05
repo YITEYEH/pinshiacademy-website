@@ -106,9 +106,6 @@ export default async function BlogIndexPage({
     (currentPage - 1) * POSTS_PER_PAGE,
     currentPage * POSTS_PER_PAGE,
   );
-  const rangeStart =
-    filteredPosts.length === 0 ? 0 : (currentPage - 1) * POSTS_PER_PAGE + 1;
-  const rangeEnd = Math.min(currentPage * POSTS_PER_PAGE, filteredPosts.length);
 
   const categories = Object.entries(
     posts.reduce<Record<string, number>>((acc, p) => {
@@ -216,11 +213,6 @@ export default async function BlogIndexPage({
             </div>
 
             <div className="lg:col-span-3">
-              {filteredPosts.length > 0 && (
-                <p className="mb-6 text-sm text-muted-foreground">
-                  顯示第 {rangeStart}–{rangeEnd} 篇，共 {filteredPosts.length} 篇
-                </p>
-              )}
               <div className="grid md:grid-cols-2 gap-6">
                 {paginatedPosts.map((post) => {
                   const Icon =
