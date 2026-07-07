@@ -11,6 +11,7 @@ import {
   Beaker,
   CheckCircle2,
   GraduationCap,
+  User,
   Video,
   Users,
 } from "lucide-react";
@@ -126,29 +127,73 @@ const courses = [
   },
 ];
 
-const whyChoose = [
+type CourseFormatId = "oneOnOne" | "smallGroup" | "recorded";
+
+const courseFormats: Record<
+  CourseFormatId,
   {
-    title: "彈性學習時間",
-    description: "不是沒時間讀書，而是時間終於能被好好利用",
+    label: string;
+    icon: typeof User;
+    title: string;
+    tagline: string;
+    description: string;
+    features: string[];
+  }
+> = {
+  oneOnOne: {
+    label: "一對一課程",
+    icon: User,
+    title: "一對一課程",
+    tagline: "每一堂課，都只為孩子而設計。",
+    description:
+      "根據學生的程度、學習目標與學習節奏調整教學內容，打造真正適合每位學生的一對一學習體驗。",
+    features: [
+      "即時互動提問，問題當下解決",
+      "客製化教學安排，依程度調整進度",
+      "定期追蹤學習成效",
+      "LINE 課後學習支援",
+    ],
   },
-  {
-    title: "反覆觀看理解",
-    description: "不再聽一次就過，真的搞懂才算學會",
+  smallGroup: {
+    label: "小班互動課程",
+    icon: Users,
+    title: "小班互動課程",
+    tagline: "在互動中學習，在討論中成長。",
+    description:
+      "透過小班教學兼顧老師引導與同儕互動，讓每位學生都有發言、思考與練習的機會。",
+    features: [
+      "小班互動教學，提升學習參與感",
+      "即時提問與課堂討論",
+      "同儕交流，激發學習動力",
+      "老師即時回饋與觀念修正",
+    ],
   },
-  {
-    title: "系統化練習",
-    description: "不是看影片，是一步一步會做題",
+  recorded: {
+    label: "預錄課程",
+    icon: Video,
+    title: "預錄課程",
+    tagline: "不受時間限制，依自己的步調學習。",
+    description:
+      "把學習安排在最適合自己的時間，遇到不懂的地方可以反覆觀看，真正理解每個觀念。",
+    features: [
+      "彈性安排學習時間",
+      "課程可反覆觀看",
+      "系統化章節規劃",
+      "線上課業支援，不怕卡關",
+    ],
   },
-  {
-    title: "線上支援解答",
-    description: "卡住的地方，不再自己撐",
-  },
+};
+
+const courseFormatOrder: CourseFormatId[] = [
+  "oneOnOne",
+  "smallGroup",
+  "recorded",
 ];
 
 export function CoursesClient() {
-  const [courseType, setCourseType] = useState<"recorded" | "tutoring">(
-    "tutoring",
-  );
+  const [courseType, setCourseType] = useState<CourseFormatId>("oneOnOne");
+  const activeFormat = courseFormats[courseType];
+  const FormatIcon = activeFormat.icon;
 
   return (
     <div className="w-full">
@@ -166,108 +211,51 @@ export function CoursesClient() {
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
               我們不只是教科目，而是幫孩子建立真正能進步的學習方法
             </p>
-            <div className="flex justify-center gap-4 mb-8">
-              <button
-                onClick={() => setCourseType("tutoring")}
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all ${
-                  courseType === "tutoring"
-                    ? "bg-primary text-white shadow-lg"
-                    : "bg-white text-muted-foreground hover:bg-white/80"
-                }`}
-              >
-                <Users className="w-5 h-5" />
-                家教制課程
-              </button>
-              <button
-                onClick={() => setCourseType("recorded")}
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all ${
-                  courseType === "recorded"
-                    ? "bg-primary text-white shadow-lg"
-                    : "bg-white text-muted-foreground hover:bg-white/80"
-                }`}
-              >
-                <Video className="w-5 h-5" />
-                預錄課程
-              </button>
+            <div className="mb-8 flex flex-wrap justify-center gap-3">
+              {courseFormatOrder.map((id) => {
+                const format = courseFormats[id];
+                const Icon = format.icon;
+                const isActive = courseType === id;
+
+                return (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => setCourseType(id)}
+                    className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all sm:px-6 sm:py-3 sm:text-base ${
+                      isActive
+                        ? "bg-primary text-white shadow-lg"
+                        : "bg-white text-muted-foreground hover:bg-white/80"
+                    }`}
+                  >
+                    <Icon className="h-5 w-5" />
+                    {format.label}
+                  </button>
+                );
+              })}
             </div>
 
-            <div className="bg-white rounded-xl p-6 mb-8 text-left max-w-3xl mx-auto">
-              {courseType === "tutoring" ? (
-                <div>
-                  <h2 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
-                    <Users className="w-5 h-5 text-primary" />
-                    家教制課程
-                  </h2>
-                  <p className="text-muted-foreground mb-3">
-                    小班互動學習，每個孩子都能被看見
-                  </p>
-                  <div className="grid md:grid-cols-2 gap-3">
-                    <div className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-foreground">即時互動問答</span>
-                    </div>
-                    <div className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-foreground">個人化教學調整</span>
-                    </div>
-                    <div className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-foreground">定期進度追蹤</span>
-                    </div>
-                    <div className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-foreground">課後即時輔導</span>
-                    </div>
+            <div className="mx-auto mb-8 max-w-3xl rounded-2xl bg-white p-6 text-left shadow-sm sm:p-8">
+              <div className="mb-4 flex items-center gap-2">
+                <FormatIcon className="h-5 w-5 text-primary" />
+                <h2 className="text-lg font-semibold text-foreground sm:text-xl">
+                  {activeFormat.title}
+                </h2>
+              </div>
+              <p className="mb-2 text-base font-medium text-foreground">
+                {activeFormat.tagline}
+              </p>
+              <p className="mb-5 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                {activeFormat.description}
+              </p>
+              <div className="grid gap-3 md:grid-cols-2">
+                {activeFormat.features.map((feature) => (
+                  <div key={feature} className="flex items-start gap-2 text-sm">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    <span className="text-foreground">{feature}</span>
                   </div>
-                </div>
-              ) : (
-                <div>
-                  <h2 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
-                    <Video className="w-5 h-5 text-primary" />
-                    預錄課程
-                  </h2>
-                  <p className="text-muted-foreground mb-3">
-                    高品質系統化課程，讓孩子可以反覆理解、不再只是聽過
-                  </p>
-                  <div className="grid md:grid-cols-2 gap-3">
-                    <div className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-foreground">彈性學習時間</span>
-                    </div>
-                    <div className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-foreground">無限次重複觀看</span>
-                    </div>
-                    <div className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-foreground">配套練習題庫</span>
-                    </div>
-                    <div className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-foreground">線上問答支援</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-3xl mx-auto">
-              {whyChoose.map((item, index) => (
-                <motion.div
-                  key={item.title}
-                  initial={false}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-                  className="bg-white rounded-lg p-4 shadow-sm"
-                >
-                  <div className="text-sm font-semibold text-primary mb-1">
-                    {item.title}
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    {item.description}
-                  </div>
-                </motion.div>
-              ))}
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
@@ -299,13 +287,17 @@ export function CoursesClient() {
                     <div className="text-lg text-muted-foreground mb-4">
                       {course.englishName}
                     </div>
-                    <div className="flex gap-2 mb-6">
-                      <span className="inline-flex items-center gap-1 bg-white text-primary px-3 py-1 rounded-full text-sm font-medium">
-                        <Users className="w-3 h-3" />
-                        家教制
+                    <div className="mb-6 flex flex-wrap gap-2">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 text-sm font-medium text-primary">
+                        <User className="h-3 w-3" />
+                        一對一
                       </span>
-                      <span className="inline-flex items-center gap-1 bg-white text-primary px-3 py-1 rounded-full text-sm font-medium">
-                        <Video className="w-3 h-3" />
+                      <span className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 text-sm font-medium text-primary">
+                        <Users className="h-3 w-3" />
+                        小班
+                      </span>
+                      <span className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 text-sm font-medium text-primary">
+                        <Video className="h-3 w-3" />
                         預錄
                       </span>
                     </div>
