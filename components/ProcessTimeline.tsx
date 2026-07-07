@@ -1,9 +1,8 @@
 "use client";
 
 import { motion } from "motion/react";
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LineCtaButton } from "@/components/LineCtaButton";
+import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
 
 export type ProcessStep = {
@@ -22,6 +21,7 @@ type ProcessTimelineProps = {
   };
   showCta?: boolean;
   analyticsLabel?: string;
+  ctaLabel?: string;
   className?: string;
   sectionClassName?: string;
 };
@@ -33,6 +33,7 @@ export function ProcessTimeline({
   parentNote,
   showCta = false,
   analyticsLabel = "process_timeline_line_consult",
+  ctaLabel,
   className = "",
   sectionClassName = "bg-[#f7f9f7]",
 }: ProcessTimelineProps) {
@@ -118,12 +119,11 @@ export function ProcessTimeline({
 
         {showCta && (
           <div className="text-center mt-12">
-            <Button size="lg" className="bg-primary hover:bg-primary/90" asChild>
-              <ExternalLinkOnce href={LINE_LINKS.consult} analyticsLabel={analyticsLabel}>
-                預約免費諮詢
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </ExternalLinkOnce>
-            </Button>
+            <LineCtaButton
+              href={LINE_LINKS.consult}
+              analyticsLabel={analyticsLabel}
+              label={ctaLabel ?? LINE_CTA_LABELS.homeProcess}
+            />
           </div>
         )}
       </div>

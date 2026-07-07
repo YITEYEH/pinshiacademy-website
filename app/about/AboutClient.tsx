@@ -13,8 +13,14 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
-import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LineCtaButton } from "@/components/LineCtaButton";
+import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
+import {
+  CTA_LINE_ON_DARK_CLASS,
+  CTA_ROW_CLASS,
+  CTA_SECONDARY_ON_DARK_CLASS,
+} from "@/lib/cta-button-styles";
 
 const coreArchitecture = [
   {
@@ -376,23 +382,17 @@ export function AboutClient() {
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
               與其一直嘗試錯的方法，不如一次找到真正適合他的學習節奏
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className={CTA_ROW_CLASS}>
+              <LineCtaButton
+                href={LINE_LINKS.about}
+                analyticsLabel="about_line_consult"
+                label={LINE_CTA_LABELS.about}
+                variant="inverse"
+                className={`text-lg px-8 ${CTA_LINE_ON_DARK_CLASS}`}
+              />
               <Button
                 size="lg"
-                className="bg-white text-primary hover:bg-white/90 text-lg px-8"
-                asChild
-              >
-                <ExternalLinkOnce
-                  href={LINE_LINKS.about}
-                  analyticsLabel="about_line_consult"
-                >
-                  免費找出學習盲點
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </ExternalLinkOnce>
-              </Button>
-              <Button
-                size="lg"
-                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary text-lg px-8 transition-colors"
+                className={CTA_SECONDARY_ON_DARK_CLASS}
                 asChild
               >
                 <Link href="/courses">探索課程內容</Link>

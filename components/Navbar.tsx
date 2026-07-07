@@ -6,7 +6,9 @@ import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
+import { LineCtaLabel } from "@/components/LineCtaLabel";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
 import { BRAND_LOGO_PATH } from "@/lib/site-assets";
 
@@ -307,7 +309,7 @@ export function Navbar() {
                 href={LINE_LINKS.consult}
                 analyticsLabel="navbar_line_consult"
               >
-                聯繫學習顧問
+                <LineCtaLabel iconClassName="size-4" label={LINE_CTA_LABELS.navbar} />
               </ExternalLinkOnce>
             </Button>
           </div>
@@ -515,7 +517,7 @@ export function Navbar() {
                       href={LINE_LINKS.consult}
                       analyticsLabel="navbar_line_consult"
                     >
-                      聯繫學習顧問
+                      <LineCtaLabel iconClassName="size-4" label={LINE_CTA_LABELS.navbar} />
                     </ExternalLinkOnce>
                   </Button>
                 </div>

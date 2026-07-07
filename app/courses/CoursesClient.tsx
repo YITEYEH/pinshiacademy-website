@@ -15,8 +15,16 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LineCtaButton } from "@/components/LineCtaButton";
+import { LineCtaLabel } from "@/components/LineCtaLabel";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { courseLineCtaLabel, LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
+import {
+  CTA_LINE_ON_DARK_CLASS,
+  CTA_ROW_CLASS,
+  CTA_SECONDARY_ON_DARK_CLASS,
+} from "@/lib/cta-button-styles";
 import { useState } from "react";
 
 const courses = [
@@ -343,8 +351,10 @@ export function CoursesClient() {
                         href={course.lineHref}
                         analyticsLabel={`courses_${course.name}_line`}
                       >
-                        了解更多
-                        <ArrowRight className="ml-2 w-4 h-4" />
+                        <LineCtaLabel
+                          iconClassName="size-4"
+                          label={courseLineCtaLabel(course.name)}
+                        />
                       </ExternalLinkOnce>
                     </Button>
                   </div>
@@ -372,39 +382,21 @@ export function CoursesClient() {
               <br />
               我們用專業診斷，幫你找出最適合的學習路徑
             </p>
-            <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-white text-primary hover:bg-white/90 text-lg px-8"
-                asChild
-              >
-                <ExternalLinkOnce
-                  href={LINE_LINKS.coursesConsult}
-                  analyticsLabel="courses_line_consult"
-                >
-                  免費學習診斷
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </ExternalLinkOnce>
-              </Button>
-              <Button
-                size="lg"
-                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary text-lg px-8 transition-colors"
-                asChild
-              >
+            <div className={CTA_ROW_CLASS}>
+              <LineCtaButton
+                href={LINE_LINKS.coursesConsult}
+                analyticsLabel="courses_line_consult"
+                label={LINE_CTA_LABELS.coursesBottom}
+                variant="inverse"
+                className={`text-lg px-8 ${CTA_LINE_ON_DARK_CLASS}`}
+              />
+              <Button size="lg" className={CTA_SECONDARY_ON_DARK_CLASS} asChild>
                 <Link href="/pricing">查看課程費用</Link>
               </Button>
-              <Button
-                size="lg"
-                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary text-lg px-8 transition-colors"
-                asChild
-              >
+              <Button size="lg" className={CTA_SECONDARY_ON_DARK_CLASS} asChild>
                 <Link href="/student-success">學生成果</Link>
               </Button>
-              <Button
-                size="lg"
-                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary text-lg px-8 transition-colors"
-                asChild
-              >
+              <Button size="lg" className={CTA_SECONDARY_ON_DARK_CLASS} asChild>
                 <Link href="/teachers">認識師資團隊</Link>
               </Button>
             </div>

@@ -2,10 +2,10 @@
 
 import type React from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LineCtaButton } from "@/components/LineCtaButton";
 import { LINE_LINKS } from "@/lib/line-links";
+import { LINE_CTA_LABELS } from "@/lib/line-cta";
 
 type Props = {
   title: string;
@@ -22,7 +22,7 @@ export function LandingPageShell({
   subtitle,
   children,
   lineHref = LINE_LINKS.consult,
-  ctaLabel = "預約免費學習諮詢",
+  ctaLabel = LINE_CTA_LABELS.landing,
   analyticsLabel,
 }: Props) {
   const outboundLabel = analyticsLabel ?? ctaLabel;
@@ -52,12 +52,7 @@ export function LandingPageShell({
             歡迎預約免費諮詢，我們會依學生程度與目標提供建議。
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button size="lg" className="bg-primary hover:bg-primary/90" asChild>
-              <ExternalLinkOnce href={lineHref} analyticsLabel={outboundLabel}>
-                {ctaLabel}
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </ExternalLinkOnce>
-            </Button>
+            <LineCtaButton href={lineHref} analyticsLabel={outboundLabel} label={ctaLabel} />
             <Button size="lg" variant="outline" asChild>
               <Link href="/courses">查看完整課程</Link>
             </Button>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { LineCtaLabel } from "@/components/LineCtaLabel";
 import { Button } from "@/components/ui/button";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
 import { LINE_LINKS } from "@/lib/line-links";
@@ -37,8 +37,7 @@ export function ArticleConsultCta({
       <div className="flex flex-wrap gap-3">
         <Button size="sm" className="bg-primary hover:bg-primary/90" asChild>
           <ExternalLinkOnce href={LINE_LINKS.consult} analyticsLabel={label}>
-            {cta.lineButtonLabel}
-            <ArrowRight className="ml-2 w-4 h-4" />
+            <LineCtaLabel iconClassName="size-4" label={cta.lineButtonLabel} />
           </ExternalLinkOnce>
         </Button>
         <Button size="sm" variant="outline" asChild>

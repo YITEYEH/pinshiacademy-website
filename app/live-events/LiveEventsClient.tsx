@@ -16,7 +16,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { LineCtaButton } from "@/components/LineCtaButton";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
 import {
   teachifyEventUrl,
@@ -325,19 +327,12 @@ export function LiveEventsClient({ events }: Props) {
             歡迎預約免費諮詢，我們依孩子程度協助規劃適合的課程組合。
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Button
-              size="lg"
-              className="bg-white text-primary hover:bg-white/90"
-              asChild
-            >
-              <ExternalLinkOnce
-                href={LINE_LINKS.consult}
-                analyticsLabel="live_events_line_consult"
-              >
-                預約免費諮詢
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </ExternalLinkOnce>
-            </Button>
+            <LineCtaButton
+              href={LINE_LINKS.consult}
+              analyticsLabel="live_events_line_consult"
+              label={LINE_CTA_LABELS.liveEvents}
+              variant="inverse"
+            />
           </div>
         </div>
       </section>

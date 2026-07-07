@@ -21,9 +21,11 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
-import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LineCtaButton } from "@/components/LineCtaButton";
 import { LearningProcess } from "@/components/LearningProcess";
+import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
+import { CTA_ROW_CLASS } from "@/lib/cta-button-styles";
 import type { BlogPostSummary } from "@/content/content-api/types";
 import type { FaqItem } from "@/content/faq-data";
 import { useState } from "react";
@@ -180,24 +182,17 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
                 <br />
                 而是幫學生找到能持續進步的讀書方法
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="bg-primary hover:bg-primary/90 text-lg px-8"
-                  asChild
-                >
-                  <ExternalLinkOnce
-                    href={LINE_LINKS.consult}
-                    analyticsLabel="home_hero_line_consult"
-                  >
-                    免費分析學習盲點
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </ExternalLinkOnce>
-                </Button>
+              <div className={CTA_ROW_CLASS}>
+                <LineCtaButton
+                  href={LINE_LINKS.consult}
+                  analyticsLabel="home_hero_line_consult"
+                  label={LINE_CTA_LABELS.homeHero}
+                  className="bg-primary hover:bg-primary/90 text-lg px-8 w-full sm:w-auto"
+                />
                 <Button
                   size="lg"
                   variant="outline"
-                  className="text-lg px-8 border-primary text-primary hover:bg-primary/5"
+                  className="h-12 rounded-full text-lg px-8 border-primary text-primary hover:bg-primary/5 w-full sm:w-auto"
                   asChild
                 >
                   <Link href="/courses">探索課程</Link>
@@ -684,19 +679,13 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
               免費學習檢測，幫你找出真正的卡關點，給你明確方向
             </p>
-            <Button
-              size="lg"
-              className="bg-white text-primary hover:bg-white/90 text-lg px-8"
-              asChild
-            >
-              <ExternalLinkOnce
-                href={LINE_LINKS.homeAssessment}
-                analyticsLabel="home_cta_line_assessment"
-              >
-                立即預約免費檢測
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </ExternalLinkOnce>
-            </Button>
+            <LineCtaButton
+              href={LINE_LINKS.homeAssessment}
+              analyticsLabel="home_cta_line_assessment"
+              label={LINE_CTA_LABELS.homeAssessment}
+              variant="inverse"
+              className="text-lg px-8"
+            />
           </motion.div>
         </div>
       </section>

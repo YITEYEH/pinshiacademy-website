@@ -5,8 +5,14 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
-import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LineCtaButton } from "@/components/LineCtaButton";
+import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
+import {
+  CTA_LINE_ON_DARK_CLASS,
+  CTA_ROW_CLASS,
+  CTA_SECONDARY_ON_DARK_CLASS,
+} from "@/lib/cta-button-styles";
 import {
   academyOrigin,
   founderStory,
@@ -192,23 +198,17 @@ export function StoryClient({ signatureNameClassName }: StoryClientProps) {
           <p className="text-base sm:text-lg text-white/90 mb-8 leading-relaxed">
             歡迎預約免費諮詢，我們會依學生程度與目標，協助規劃學習方向。
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <div className={CTA_ROW_CLASS}>
+            <LineCtaButton
+              href={LINE_LINKS.consult}
+              analyticsLabel="story_line_consult"
+              label={LINE_CTA_LABELS.story}
+              variant="inverse"
+              className={CTA_LINE_ON_DARK_CLASS}
+            />
             <Button
               size="lg"
-              className="bg-white text-primary hover:bg-white/90 w-full sm:w-auto"
-              asChild
-            >
-              <ExternalLinkOnce
-                href={LINE_LINKS.consult}
-                analyticsLabel="story_line_consult"
-              >
-                預約免費諮詢
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </ExternalLinkOnce>
-            </Button>
-            <Button
-              size="lg"
-              className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary w-full sm:w-auto"
+              className={CTA_SECONDARY_ON_DARK_CLASS}
               asChild
             >
               <Link href="/teachers">認識師資團隊</Link>

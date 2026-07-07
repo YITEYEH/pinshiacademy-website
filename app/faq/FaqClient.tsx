@@ -10,9 +10,15 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LineCtaButton } from "@/components/LineCtaButton";
 import { faqCategories } from "@/content/faq-data";
+import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
+import {
+  CTA_LINE_ON_DARK_CLASS,
+  CTA_ROW_CLASS,
+  CTA_SECONDARY_ON_DARK_CLASS,
+} from "@/lib/cta-button-styles";
 
 export function FaqClient() {
   return (
@@ -92,24 +98,17 @@ export function FaqClient() {
             <p className="text-white/90 mb-6 max-w-lg mx-auto leading-relaxed">
               歡迎預約免費諮詢，由學習顧問協助評估孩子的學習狀況與適合的課程規劃。
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <div className={CTA_ROW_CLASS}>
+              <LineCtaButton
+                href={LINE_LINKS.consult}
+                analyticsLabel="faq_line_consult"
+                label={LINE_CTA_LABELS.faq}
+                variant="inverse"
+                className={CTA_LINE_ON_DARK_CLASS}
+              />
               <Button
                 size="lg"
-                className="bg-white text-primary hover:bg-white/90"
-                asChild
-              >
-                <ExternalLinkOnce
-                  href={LINE_LINKS.consult}
-                  analyticsLabel="faq_line_consult"
-                >
-                  預約免費諮詢
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </ExternalLinkOnce>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white/10 bg-transparent"
+                className={CTA_SECONDARY_ON_DARK_CLASS}
                 asChild
               >
                 <Link href="/contact">聯絡我們</Link>

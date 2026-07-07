@@ -16,8 +16,15 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { LineCtaButton } from "@/components/LineCtaButton";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
+import {
+  CTA_LINE_ON_DARK_CLASS,
+  CTA_ROW_CLASS,
+  CTA_SECONDARY_ON_DARK_CLASS,
+} from "@/lib/cta-button-styles";
 import {
   teachifyPlatformUrl,
   teachifyPurchaseUrl,
@@ -299,24 +306,17 @@ export function OnlineCoursesClient({ courses }: Props) {
           <p className="mt-4 text-white/85">
             歡迎預約免費諮詢，我們依孩子程度與目標協助規劃。
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <div className={`mt-8 ${CTA_ROW_CLASS}`}>
+            <LineCtaButton
+              href={LINE_LINKS.consult}
+              analyticsLabel="online_courses_line_consult"
+              label={LINE_CTA_LABELS.onlineCourses}
+              variant="inverse"
+              className={CTA_LINE_ON_DARK_CLASS}
+            />
             <Button
               size="lg"
-              className="bg-white text-primary hover:bg-white/90"
-              asChild
-            >
-              <ExternalLinkOnce
-                href={LINE_LINKS.consult}
-                analyticsLabel="online_courses_line_consult"
-              >
-                預約免費諮詢
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </ExternalLinkOnce>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white bg-transparent text-white hover:border-white hover:bg-white hover:text-primary"
+              className={CTA_SECONDARY_ON_DARK_CLASS}
               asChild
             >
               <ExternalLinkOnce

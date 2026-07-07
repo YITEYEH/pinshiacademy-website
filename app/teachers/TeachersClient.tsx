@@ -5,8 +5,9 @@ import Link from "next/link";
 import { ArrowRight, Star, Award, BookOpen, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
-import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LineCtaButton } from "@/components/LineCtaButton";
 import { TeacherSelectionProcess } from "@/components/TeacherSelectionProcess";
+import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
 import { teachers } from "@/content/teachers-data";
 
@@ -227,19 +228,13 @@ export function TeachersClient() {
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
               預約免費諮詢，我們將根據學生的學習需求，為您推薦最適合的師資
             </p>
-            <Button
-              size="lg"
-              className="bg-white text-primary hover:bg-white/90 text-lg px-8"
-              asChild
-            >
-              <ExternalLinkOnce
-                href={LINE_LINKS.consult}
-                analyticsLabel="teachers_line_consult"
-              >
-                預約免費諮詢
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </ExternalLinkOnce>
-            </Button>
+            <LineCtaButton
+              href={LINE_LINKS.consult}
+              analyticsLabel="teachers_line_consult"
+              label={LINE_CTA_LABELS.teachers}
+              variant="inverse"
+              className="text-lg px-8"
+            />
           </motion.div>
         </div>
       </section>

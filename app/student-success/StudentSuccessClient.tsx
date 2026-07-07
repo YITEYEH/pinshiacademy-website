@@ -9,7 +9,8 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { LineCtaButton } from "@/components/LineCtaButton";
+import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
 
 const successStories = [
@@ -289,19 +290,13 @@ export function StudentSuccessClient() {
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
               立即預約免費諮詢，讓我們一起規劃專屬的學習成長計畫
             </p>
-            <Button
-              size="lg"
-              className="bg-white text-primary hover:bg-white/90 text-lg px-8"
-              asChild
-            >
-              <ExternalLinkOnce
-                href={LINE_LINKS.consult}
-                analyticsLabel="student_success_line_consult"
-              >
-                預約免費諮詢
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </ExternalLinkOnce>
-            </Button>
+            <LineCtaButton
+              href={LINE_LINKS.consult}
+              analyticsLabel="student_success_line_consult"
+              label={LINE_CTA_LABELS.studentSuccess}
+              variant="inverse"
+              className="text-lg px-8"
+            />
           </motion.div>
         </div>
       </section>
