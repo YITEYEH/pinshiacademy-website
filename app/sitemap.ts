@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { getAllTeacherSlugs } from "@/content/teachers-data";
 import { SITE, STATIC_SITEMAP_LAST_MODIFIED } from "@/lib/site";
 import { getAllPosts } from "@/content/content-api/posts";
 
@@ -13,6 +14,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE.url}/online-courses`, lastModified: staticLastMod, changeFrequency: "weekly", priority: 0.75 },
     { url: `${SITE.url}/live-events`, lastModified: staticLastMod, changeFrequency: "weekly", priority: 0.75 },
     { url: `${SITE.url}/teachers`, lastModified: staticLastMod, changeFrequency: "monthly", priority: 0.8 },
+    ...getAllTeacherSlugs().map((slug) => ({
+      url: `${SITE.url}/teachers/${slug}`,
+      lastModified: staticLastMod,
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    })),
     { url: `${SITE.url}/team`, lastModified: staticLastMod, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE.url}/student-success`, lastModified: staticLastMod, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE.url}/blog`, lastModified: staticLastMod, changeFrequency: "weekly", priority: 0.7 },

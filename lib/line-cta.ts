@@ -21,6 +21,8 @@ export const LINE_CTA_LABELS = {
   studentSuccess: "預約學習規劃",
   liveEvents: "了解活動與課程",
   onlineCourses: "預約課程規劃",
+  teacherProfileHero: "預約學習評估",
+  teacherProfileFooter: "預約學習評估",
   landing: "預約學習評估",
 } as const;
 
