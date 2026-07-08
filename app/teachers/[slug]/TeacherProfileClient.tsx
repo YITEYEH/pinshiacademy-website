@@ -27,6 +27,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
+import { cn } from "@/components/ui/utils";
 import { TeacherCard } from "@/components/teachers/TeacherCard";
 import { LineCtaButton } from "@/components/LineCtaButton";
 import { LINE_CTA_LABELS } from "@/lib/line-cta";
@@ -101,7 +102,12 @@ export function TeacherProfileClient({
                 <ImageWithFallback
                   src={teacher.image}
                   alt={teacher.name}
-                  className="h-full w-full object-cover object-top"
+                  className={cn(
+                    "h-full w-full object-cover",
+                    teacher.imagePosition === "center"
+                      ? "object-center"
+                      : "object-top",
+                  )}
                 />
               </div>
             </motion.div>

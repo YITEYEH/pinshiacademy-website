@@ -34,6 +34,7 @@ const teamMembers = [
     name: "葉學貞",
     role: "教學設計師",
     image: "/team/ye-xuezhen.jpg",
+    imagePosition: "center",
     description:
       "專責數學教材研發與課程架構設計，將抽象概念拆解為可理解的學習步驟，建立學生穩定成長的解題邏輯系統",
     expertise: ["教學規劃", "師資培訓"],

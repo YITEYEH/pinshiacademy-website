@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
+import { cn } from "@/components/ui/utils";
 import type { Teacher } from "@/content/teachers-data";
 
 type TeacherCardProps = {
@@ -18,7 +19,10 @@ export function TeacherCard({ teacher }: TeacherCardProps) {
           <ImageWithFallback
             src={teacher.image}
             alt={teacher.name}
-            className="absolute inset-0 h-full w-full object-cover object-top"
+            className={cn(
+              "absolute inset-0 h-full w-full object-cover",
+              teacher.imagePosition === "center" ? "object-center" : "object-top",
+            )}
           />
         </div>
 

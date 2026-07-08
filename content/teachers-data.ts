@@ -6,6 +6,8 @@ export type Teacher = {
   grades: string;
   tags: readonly string[];
   image: string;
+  /** 橫式照片建議使用 center，直式人像預設 top */
+  imagePosition?: "top" | "center";
   philosophy: string;
   bio: string;
   teachingHighlights: readonly string[];
@@ -44,6 +46,7 @@ export const teachers = [
     grades: "國小、國中",
     tags: ["國小數學", "國中數學", "教材設計", "課程架構"],
     image: "/team/ye-xuezhen.jpg",
+    imagePosition: "center",
     philosophy:
       "將抽象概念拆解為可理解的學習步驟，幫助每位學生建立穩定成長的解題邏輯。",
     bio: "葉學貞老師專注國小與國中數學教學與課程設計，擅長把複雜的數學概念轉化為清楚、可循序理解的學習步驟。除了第一線教學，她也參與教材研發與師資培訓，讓課堂內容更貼近學生的學習節奏與需求。",

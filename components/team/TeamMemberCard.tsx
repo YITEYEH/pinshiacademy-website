@@ -1,9 +1,11 @@
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
+import { cn } from "@/components/ui/utils";
 
 export type TeamMember = {
   name: string;
   role: string;
   image: string;
+  imagePosition?: "top" | "center";
   description: string;
   expertise: readonly string[];
 };
@@ -19,7 +21,10 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
         <ImageWithFallback
           src={member.image}
           alt={member.name}
-          className="absolute inset-0 h-full w-full object-cover object-top"
+          className={cn(
+            "absolute inset-0 h-full w-full object-cover",
+            member.imagePosition === "center" ? "object-center" : "object-top",
+          )}
         />
       </div>
 
