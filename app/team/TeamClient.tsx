@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { ArrowRight, Heart, Target, Zap, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TeamMemberCard } from "@/components/team/TeamMemberCard";
+import type { TeamMember } from "@/components/team/TeamMemberCard";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 
 const teamValues = [
@@ -29,7 +30,7 @@ const teamValues = [
   },
 ];
 
-const teamMembers = [
+const teamMembers: readonly TeamMember[] = [
   {
     name: "葉學貞",
     role: "教學設計師",
