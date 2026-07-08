@@ -79,7 +79,7 @@ export function TeachersClient() {
               認識我們的老師
             </h2>
             <p className="mx-auto max-w-xl text-muted-foreground">
-              點選老師卡片，了解更多教學理念與專長
+              找到最適合孩子的老師，了解每位老師的教學理念、專長與教學特色。
             </p>
           </div>
 
