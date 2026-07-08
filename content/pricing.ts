@@ -1,16 +1,10 @@
 import { LINE_CTA_LABELS } from "@/lib/line-cta";
 
-export type PricingRow = {
-  subject: string;
-  amount: number;
-};
-
 export type PricingCardTier = {
   id: "elementary" | "junior-high" | "senior-high";
   title: string;
   startingAmount: number;
   sessionLabel: string;
-  rows: readonly PricingRow[];
   ctaLineKey: "homeAssessment" | "coursesConsult";
   ctaLabel: string;
   analyticsLabel: string;
@@ -22,10 +16,10 @@ export const pricingHero = {
 } as const;
 
 export const pricingCardsSection = {
-  title: "一對一課程費用",
+  title: "選擇適合你的課程",
   subtitle: [
     "依年級與科目安排不同課程規劃",
-    "以下為每堂 50 分鐘的參考費用，實際報價依學生需求調整",
+    "以下為每堂 50 分鐘課程起價，實際費用將依科目、授課老師及學習需求安排",
   ],
 } as const;
 
@@ -38,13 +32,6 @@ export const pricingCardTiers: readonly PricingCardTier[] = [
     ctaLineKey: "homeAssessment",
     ctaLabel: LINE_CTA_LABELS.pricingCardElementary,
     analyticsLabel: "pricing_card_elementary",
-    rows: [
-      { subject: "國語", amount: 500 },
-      { subject: "英文", amount: 600 },
-      { subject: "數學", amount: 700 },
-      { subject: "自然", amount: 700 },
-      { subject: "社會", amount: 500 },
-    ],
   },
   {
     id: "junior-high",
@@ -54,17 +41,6 @@ export const pricingCardTiers: readonly PricingCardTier[] = [
     ctaLineKey: "homeAssessment",
     ctaLabel: LINE_CTA_LABELS.pricingCardJuniorHigh,
     analyticsLabel: "pricing_card_junior_high",
-    rows: [
-      { subject: "國文", amount: 700 },
-      { subject: "英文", amount: 800 },
-      { subject: "數學", amount: 1000 },
-      { subject: "歷史", amount: 700 },
-      { subject: "地理", amount: 700 },
-      { subject: "公民", amount: 700 },
-      { subject: "生物", amount: 800 },
-      { subject: "理化", amount: 1000 },
-      { subject: "地球科學", amount: 800 },
-    ],
   },
   {
     id: "senior-high",
@@ -74,18 +50,6 @@ export const pricingCardTiers: readonly PricingCardTier[] = [
     ctaLineKey: "homeAssessment",
     ctaLabel: LINE_CTA_LABELS.pricingCardSeniorHigh,
     analyticsLabel: "pricing_card_senior_high",
-    rows: [
-      { subject: "國文", amount: 900 },
-      { subject: "英文", amount: 1000 },
-      { subject: "數學", amount: 1200 },
-      { subject: "歷史", amount: 900 },
-      { subject: "地理", amount: 900 },
-      { subject: "公民", amount: 900 },
-      { subject: "生物", amount: 1000 },
-      { subject: "化學", amount: 1200 },
-      { subject: "物理", amount: 1400 },
-      { subject: "地球科學", amount: 1000 },
-    ],
   },
 ];
 
