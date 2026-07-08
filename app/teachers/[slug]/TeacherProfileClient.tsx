@@ -153,17 +153,18 @@ export function TeacherProfileClient({
                 {teacher.philosophy}
               </blockquote>
 
-              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <div className="flex flex-row gap-2.5 sm:gap-3">
                 <LineCtaButton
                   href={LINE_LINKS.consult}
                   analyticsLabel={`teacher_profile_${teacher.slug}_hero`}
                   label={LINE_CTA_LABELS.teacherProfileHero}
-                  className="w-full sm:w-auto"
+                  size="default"
+                  className="h-11 min-w-0 flex-1 px-3 text-sm sm:h-12 sm:flex-none sm:px-8 sm:text-lg"
                 />
                 <Button
-                  size="lg"
+                  size="default"
                   variant="outline"
-                  className="h-12 w-full rounded-full border-primary px-8 text-primary hover:bg-primary hover:text-white sm:w-auto"
+                  className="h-11 min-w-0 flex-1 rounded-full border-primary px-3 text-sm text-primary hover:bg-primary hover:text-white sm:h-12 sm:flex-none sm:px-8 sm:text-base"
                   asChild
                 >
                   <Link href="/courses">了解課程</Link>

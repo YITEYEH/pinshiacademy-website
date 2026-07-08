@@ -37,7 +37,7 @@ export function TeacherCard({ teacher }: TeacherCardProps) {
             </span>
           </div>
 
-          <p className="mt-3 line-clamp-2 border-l-2 border-primary pl-3 text-sm italic leading-relaxed text-foreground/80">
+          <p className="mt-3 border-l-2 border-primary pl-3 text-sm italic leading-relaxed text-foreground/80">
             {teacher.philosophy}
           </p>
 

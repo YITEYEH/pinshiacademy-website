@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { ArrowRight, Heart, Target, Zap, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { TeamMemberCard } from "@/components/team/TeamMemberCard";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 
 const teamValues = [
@@ -123,25 +124,25 @@ export function TeamClient() {
         </div>
       </section>
 
-      <section className="py-20 bg-[#f7f9f7]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-[#f7f9f7] py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={false}
             animate={{ opacity: 1, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="mb-10 text-center sm:mb-12"
           >
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+            <h2 className="mb-3 text-3xl font-bold text-foreground">
               團隊成員介紹
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="mx-auto max-w-xl text-muted-foreground">
               認識支援品識學苑運作的專業團隊
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid gap-6 md:grid-cols-2">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={member.name}
@@ -150,40 +151,8 @@ export function TeamClient() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
               >
-                <div className="aspect-[4/3] overflow-hidden bg-[#e8f5ee]">
-                  <ImageWithFallback
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <h3 className="text-xl font-bold text-foreground mb-1">
-                        {member.name}
-                      </h3>
-                    </div>
-                    <div className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap">
-                      {member.role}
-                    </div>
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {member.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {member.expertise.map((skill) => (
-                      <span
-                        key={skill}
-                        className="text-xs bg-[#e8f5ee] text-primary px-2 py-1 rounded"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                <TeamMemberCard member={member} />
               </motion.div>
             ))}
           </div>
