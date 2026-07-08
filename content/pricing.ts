@@ -14,7 +14,6 @@ export type PricingCardTier = {
   ctaLineKey: "homeAssessment" | "coursesConsult";
   ctaLabel: string;
   analyticsLabel: string;
-  featured?: boolean;
 };
 
 export const pricingHero = {
@@ -75,7 +74,6 @@ export const pricingCardTiers: readonly PricingCardTier[] = [
     ctaLineKey: "homeAssessment",
     ctaLabel: LINE_CTA_LABELS.pricingCardSeniorHigh,
     analyticsLabel: "pricing_card_senior_high",
-    featured: true,
     rows: [
       { subject: "國文", amount: 900 },
       { subject: "英文", amount: 1000 },
