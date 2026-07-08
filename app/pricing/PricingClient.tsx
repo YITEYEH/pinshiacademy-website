@@ -45,18 +45,12 @@ export function PricingClient() {
             <p className="mt-5 text-lg leading-relaxed text-muted-foreground sm:text-xl">
               {pricingHero.subtitle}
             </p>
-            <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-              {pricingHero.description}
-            </p>
-            <div className="mt-8 flex flex-col items-center gap-2">
+            <div className="mt-8 flex justify-center">
               <PricingCtaButton
                 href={LINE_LINKS.homeAssessment}
                 analyticsLabel="pricing_hero_assessment"
                 label={LINE_CTA_LABELS.pricingHero}
               />
-              <p className="text-sm text-muted-foreground">
-                {pricingHero.ctaNote}
-              </p>
             </div>
           </motion.div>
         </div>

@@ -20,9 +20,6 @@ export type PricingCardTier = {
 export const pricingHero = {
   title: "課程費用",
   subtitle: "找到適合孩子的學習方式，比找到最便宜的課程更重要",
-  description:
-    "國小、國中、高中一對一線上課程，依學生程度與目標量身規劃，費用透明公開",
-  ctaNote: "首次學習評估免費，專人協助規劃課程",
 } as const;
 
 export const pricingCardsSection = {
