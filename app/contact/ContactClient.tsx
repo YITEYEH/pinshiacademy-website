@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import { Mail, MapPin, Building2 } from "lucide-react";
 import { LineCtaButton } from "@/components/LineCtaButton";
 import { LineIcon } from "@/components/icons/LineIcon";
-import { CONTACT } from "@/lib/contact";
+import { CONTACT, formatRegisteredAddress } from "@/lib/contact";
 import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
 import { trackContactEmail } from "@/lib/analytics";
@@ -138,7 +138,7 @@ export function ContactClient() {
                 delay={0.15}
               >
                 <p className="font-medium text-foreground">
-                  {CONTACT.registeredAddress}
+                  {formatRegisteredAddress()}
                 </p>
                 <p className="mt-2 text-xs leading-relaxed text-muted-foreground/90">
                   {CONTACT.registeredAddressNote}

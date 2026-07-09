@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { MapPin, Building2 } from "lucide-react";
-import { CONTACT } from "@/lib/contact";
+import { CONTACT, formatRegisteredAddress } from "@/lib/contact";
 import { SITE } from "@/lib/site";
 import {
   FooterContactEmail,
@@ -145,7 +145,7 @@ export function Footer() {
               <li className="flex items-start gap-3 text-sm text-white/80">
                 <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-white/60" />
                 <span className="leading-relaxed">
-                  {CONTACT.registeredAddress}
+                  {formatRegisteredAddress()}
                 </span>
               </li>
             </ul>

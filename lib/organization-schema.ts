@@ -54,6 +54,7 @@ export function buildSiteJsonLdGraph() {
     },
     address: {
       "@type": "PostalAddress",
+      postalCode: CONTACT.postalCode,
       streetAddress: CONTACT.registeredAddress,
       addressLocality: "台北市",
       addressCountry: "TW",
