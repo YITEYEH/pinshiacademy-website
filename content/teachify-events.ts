@@ -66,6 +66,24 @@ export const TEACHIFY_EVENT_OVERRIDES: Record<string, TeachifyEventOverride> = {
     host: { name: "葉學貞", role: "教學設計師（數學組）" },
     tags: ["會考", "國三總複習"],
   },
+  "high-school-chinese-open-class": {
+    subtitle:
+      "用結構化解讀帶你真正讀懂古文，掌握〈勸和論〉重點與說理脈絡",
+    description:
+      "適合想突破古文閱讀的國中、高中學生，由蔣季芹老師直播講解〈勸和論〉篇章結構、重點字詞與作者用意，建立有系統的文言文理解方法。",
+    host: { name: "蔣季芹", role: "品識學苑國文教師" },
+    tags: ["古文", "閱讀理解"],
+    category: "高中系列講座",
+  },
+  "548707d1-5cb8-4c9f-9587-bb37ead06c2c": {
+    subtitle:
+      "從歷史背景到文章精華，一堂課讀懂〈鴻門宴〉的關鍵轉折",
+    description:
+      "適合想提升古文閱讀與典故理解的學生，由蔣季芹老師直播解析〈鴻門宴〉的歷史脈絡、人物關係與文章重點，培養深度閱讀能力。",
+    host: { name: "蔣季芹", role: "品識學苑國文教師" },
+    tags: ["古文", "典故"],
+    category: "高中系列講座",
+  },
 };
 
 export function teachifyEventUrl(

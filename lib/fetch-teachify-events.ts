@@ -91,8 +91,12 @@ function inferTags(title: string): string[] {
 }
 
 function inferSubtitle(title: string): string {
+  const bookTopic = title.match(/〈([^〉]+)〉/)?.[1];
   const topic = title.match(/（([^）]+)）/)?.[1];
 
+  if (bookTopic && /古文|讀懂|國文|文言|一堂課/.test(title)) {
+    return `用結構化解讀帶你真正讀懂古文，掌握〈${bookTopic}〉重點與作者用意`;
+  }
   if (title.includes("先修") && topic) {
     return `銜接高中數學的關鍵單元，掌握${topic}核心題型`;
   }
@@ -103,6 +107,18 @@ function inferSubtitle(title: string): string {
     return "聚焦會考重點題型與解題策略，掌握歷屆試題解題關鍵";
   }
   return "品識學苑直播公開課，歡迎報名參與";
+}
+
+function buildSubtitle(title: string, plainDescription: string): string {
+  if (plainDescription) {
+    const firstSentence = plainDescription.split(/[。！？\n]/)[0]?.trim();
+    if (firstSentence && firstSentence.length >= 12) {
+      return firstSentence.length > 80
+        ? `${firstSentence.slice(0, 77)}…`
+        : firstSentence;
+    }
+  }
+  return inferSubtitle(title);
 }
 
 function resolveTickets(
@@ -155,7 +171,7 @@ function mapApolloEvent(
   const base: TeachifyEvent = {
     id: event.slug,
     title,
-    subtitle: inferSubtitle(title),
+    subtitle: buildSubtitle(title, plainDescription),
     description: plainDescription || undefined,
     eventUrl: `${TEACHIFY_PLATFORM_URL}/events/${event.slug}`,
     coverImageUrl: event.coverPhoto,
