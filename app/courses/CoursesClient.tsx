@@ -26,6 +26,7 @@ import {
   CTA_ROW_CLASS,
   CTA_SECONDARY_ON_DARK_CLASS,
 } from "@/lib/cta-button-styles";
+import { scheduleScrollToTop } from "@/lib/scroll-to-top";
 import { useState } from "react";
 
 const courses = [
@@ -195,6 +196,14 @@ export function CoursesClient() {
   const activeFormat = courseFormats[courseType];
   const FormatIcon = activeFormat.icon;
 
+  const handleCourseTypeChange = (id: CourseFormatId) => {
+    setCourseType(id);
+
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      scheduleScrollToTop();
+    }
+  };
+
   return (
     <div className="w-full">
       <section className="py-20 lg:py-28 bg-gradient-to-br from-[#e8f5ee] to-white">
@@ -221,7 +230,7 @@ export function CoursesClient() {
                   <button
                     key={id}
                     type="button"
-                    onClick={() => setCourseType(id)}
+                    onClick={() => handleCourseTypeChange(id)}
                     className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all sm:px-6 sm:py-3 sm:text-base ${
                       isActive
                         ? "bg-primary text-white shadow-lg"

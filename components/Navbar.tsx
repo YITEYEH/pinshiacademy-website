@@ -10,6 +10,7 @@ import { LineCtaLabel } from "@/components/LineCtaLabel";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
 import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
+import { scheduleScrollToTop } from "@/lib/scroll-to-top";
 import { BRAND_LOGO_PATH } from "@/lib/site-assets";
 
 const aboutSubLinks = [
@@ -108,6 +109,13 @@ export function Navbar() {
     setMobileCoursesOpen(false);
     setMobileTeamOpen(false);
     setMobileResourcesOpen(false);
+  };
+
+  const handleMobileNavClick = () => {
+    closeMobileMenu();
+    // 選單收合動畫結束後再重試，避免手機端捲動被動畫與導頁時序打亂
+    scheduleScrollToTop();
+    window.setTimeout(scheduleScrollToTop, 350);
   };
 
   const toggleMobileMenu = () => {
@@ -336,7 +344,7 @@ export function Navbar() {
                 <div className="px-2">
                   <Link
                     href="/"
-                    onClick={closeMobileMenu}
+                    onClick={handleMobileNavClick}
                     className={mobileNavLinkClass(pathname === "/")}
                   >
                     主頁
@@ -373,7 +381,7 @@ export function Navbar() {
                             <Link
                               key={link.path}
                               href={link.path}
-                              onClick={closeMobileMenu}
+                              onClick={handleMobileNavClick}
                               className={mobileNavLinkClass(pathname === link.path)}
                             >
                               {link.name}
@@ -415,7 +423,7 @@ export function Navbar() {
                             <Link
                               key={link.path}
                               href={link.path}
-                              onClick={closeMobileMenu}
+                              onClick={handleMobileNavClick}
                               className={mobileNavLinkClass(pathname === link.path)}
                             >
                               {link.name}
@@ -457,7 +465,7 @@ export function Navbar() {
                             <Link
                               key={link.path}
                               href={link.path}
-                              onClick={closeMobileMenu}
+                              onClick={handleMobileNavClick}
                               className={mobileNavLinkClass(pathname === link.path)}
                             >
                               {link.name}
@@ -499,7 +507,7 @@ export function Navbar() {
                             <Link
                               key={link.path}
                               href={link.path}
-                              onClick={closeMobileMenu}
+                              onClick={handleMobileNavClick}
                               className={mobileNavLinkClass(pathname === link.path)}
                             >
                               {link.name}
