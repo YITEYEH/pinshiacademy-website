@@ -32,5 +32,5 @@ export const SITE = {
 } as const;
 
 /** Sitemap lastmod for routes without a content-derived timestamp (update when static pages meaningfully change). */
-export const STATIC_SITEMAP_LAST_MODIFIED = new Date("2026-06-04T00:00:00.000Z");
+export const STATIC_SITEMAP_LAST_MODIFIED = new Date("2026-07-10T00:00:00.000Z");
 

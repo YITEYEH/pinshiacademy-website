@@ -1,4 +1,5 @@
 import { organizationRef } from "@/lib/organization-schema";
+import { buildBreadcrumbJsonLd } from "@/lib/about-schema";
 import { SITE } from "@/lib/site";
 
 export const COURSE_SUBJECTS = [
@@ -63,6 +64,12 @@ export function buildCoursesJsonLd() {
 
   return {
     "@context": "https://schema.org",
-    "@graph": courses,
+    "@graph": [
+      ...courses,
+      buildBreadcrumbJsonLd([
+        { name: "首頁", path: "/" },
+        { name: "課程介紹", path: "/courses" },
+      ]),
+    ],
   };
 }

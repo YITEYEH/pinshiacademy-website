@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { buildPageMetadata } from "@/lib/seo";
+import { buildPageMetadata, buildNotFoundMetadata } from "@/lib/seo";
 import { buildTeacherProfileJsonLd } from "@/lib/teachers-schema";
 import {
   getAllTeacherSlugs,
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const teacher = getTeacherBySlug(slug);
 
   if (!teacher) {
-    return {};
+    return buildNotFoundMetadata(`/teachers/${slug}`, "師資頁面");
   }
 
   const profile = getTeacherProfile(slug);
@@ -36,6 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: `${teacher.name}｜${teacher.subject}教師｜品識學苑師資介紹`,
     description: `${teacher.name}老師，${experienceText}，專長${teacher.grades}${teacher.subject}。${teacher.philosophy}`,
     ogImages: [`${SITE.url}${teacher.image}`],
+    ogImageAlt: `${teacher.name}老師｜品識學苑`,
     titleAbsolute: true,
   });
 }

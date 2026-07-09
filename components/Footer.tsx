@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MapPin, Building2 } from "lucide-react";
 import { CONTACT } from "@/lib/contact";
+import { SITE } from "@/lib/site";
 import {
   FooterContactEmail,
   FooterSocialLinks,
@@ -173,7 +174,7 @@ export function Footer() {
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-white/60">
-              © 2026 品識學苑 PinShi Academy. All rights reserved.
+              © 2026 {SITE.name} {SITE.englishName}. All rights reserved.
             </p>
             <div className="flex gap-6">
               <Link

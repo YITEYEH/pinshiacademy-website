@@ -2,6 +2,13 @@
 
 > 品識學苑是以線上教學為主的 12 年國教升學輔導機構，提供國文、英文、數學、社會、自然五科課程，支援一對一與小班制，服務台灣各地國中與高中學生。
 
+## 品牌與法人
+
+- 中文名稱：品識學苑
+- 英文名稱：Pin Shi Academy
+- 法人名稱：品識教育科技有限公司（統編 62160059）
+- 官方網站（canonical）：https://www.pinshiacademy.com/
+
 ## 核心頁面
 
 - 首頁：https://www.pinshiacademy.com/
@@ -9,11 +16,19 @@
 - 品牌故事：https://www.pinshiacademy.com/story
 - 課程介紹：https://www.pinshiacademy.com/courses
 - 課程費用：https://www.pinshiacademy.com/pricing
+- 線上預錄課程：https://www.pinshiacademy.com/online-courses
+- 直播公開課：https://www.pinshiacademy.com/live-events
 - 師資團隊：https://www.pinshiacademy.com/teachers
 - 學生成果：https://www.pinshiacademy.com/student-success
 - 常見問題：https://www.pinshiacademy.com/faq
 - 學習專欄：https://www.pinshiacademy.com/blog
 - 聯絡我們：https://www.pinshiacademy.com/contact
+
+## 課程平台關係
+
+- 官網（www.pinshiacademy.com）為主要對外內容來源與 SEO canonical
+- 線上預錄課程購買與直播報名於 Teachify 平台進行：https://pinshiacademy.tw
+- 官網提供課程介紹、師資、定價參考與學習資源；實際購課與上課請至 pinshiacademy.tw
 
 ## 政策與條款
 
@@ -25,7 +40,7 @@
 
 - 團隊介紹：https://www.pinshiacademy.com/team
 - 教師招募：https://www.pinshiacademy.com/teacher-recruitment
-- 團隊招募：https://www.pinshiacademy.com/team-recruitment
+- 營運團隊招募：https://www.pinshiacademy.com/team-recruitment
 
 ## 官方內容來源
 
@@ -33,6 +48,7 @@
 - 學習專欄文章同步自 WordPress，請引用 www.pinshiacademy.com/blog/ 下的網址
 - blog.pinshiacademy.com 為內容管理後台，非對外收錄網站
 - RSS 訂閱：https://www.pinshiacademy.com/feed.xml
+- 完整 AI 指引（長文版）：https://www.pinshiacademy.com/llms-full.txt
 
 ## 聯絡
 

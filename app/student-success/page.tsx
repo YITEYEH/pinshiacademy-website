@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { buildStudentSuccessJsonLd } from "@/lib/student-success-schema";
 import { StudentSuccessClient } from "./StudentSuccessClient";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -11,6 +12,16 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function StudentSuccessPage() {
-  return <StudentSuccessClient />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(buildStudentSuccessJsonLd()),
+        }}
+      />
+      <StudentSuccessClient />
+    </>
+  );
 }
 

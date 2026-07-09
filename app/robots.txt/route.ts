@@ -1,7 +1,10 @@
 import { SITE } from "@/lib/site";
 
 export function GET() {
-  const body = `User-agent: *
+  const body = `# AI guidance: ${SITE.url}/llms.txt
+# Extended: ${SITE.url}/llms-full.txt
+
+User-agent: *
 Allow: /
 Disallow: /api/
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { buildPricingJsonLd } from "@/lib/pricing-schema";
 import { PricingClient } from "./PricingClient";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -11,5 +12,15 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function PricingPage() {
-  return <PricingClient />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(buildPricingJsonLd()),
+        }}
+      />
+      <PricingClient />
+    </>
+  );
 }

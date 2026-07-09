@@ -1,5 +1,6 @@
 import type { Teacher } from "@/content/teachers-data";
 import { teachers } from "@/content/teachers-data";
+import { buildBreadcrumbJsonLd } from "@/lib/about-schema";
 import { organizationRef } from "@/lib/organization-schema";
 import { SITE } from "@/lib/site";
 
@@ -37,6 +38,11 @@ export function buildTeacherProfileJsonLd(teacher: Teacher) {
         description: teacher.bio,
         mainEntity: { "@id": `${SITE.url}/teachers/${teacher.slug}` },
       },
+      buildBreadcrumbJsonLd([
+        { name: "首頁", path: "/" },
+        { name: "師資團隊", path: "/teachers" },
+        { name: teacher.name, path: `/teachers/${teacher.slug}` },
+      ]),
     ],
   };
 }

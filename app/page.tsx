@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getAllPosts } from "@/content/content-api/posts";
 import { faqCategories } from "@/content/faq-data";
 import { buildPageMetadata } from "@/lib/seo";
+import { buildHomeJsonLd } from "@/lib/home-schema";
 import { HomeClient } from "./HomeClient";
 
 const homeTitle = "品識學苑｜線上升學輔導｜國中會考・高中學測・五科一對一";
@@ -21,6 +22,16 @@ export const revalidate = 60;
 export default async function HomePage() {
   const latestPosts = (await getAllPosts()).slice(0, 3);
   const faqPreview = faqCategories.flatMap((c) => c.questions).slice(0, 3);
-  return <HomeClient latestPosts={latestPosts} faqPreview={faqPreview} />;
+  const homeJsonLd = buildHomeJsonLd(faqPreview);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
+      />
+      <HomeClient latestPosts={latestPosts} faqPreview={faqPreview} />
+    </>
+  );
 }
 

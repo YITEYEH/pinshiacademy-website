@@ -126,14 +126,19 @@ export default async function BlogIndexPage({
     .map(([name, count]) => ({ name, count }))
     .sort((a, b) => b.count - a.count);
 
-  const blogJsonLd = buildBlogIndexJsonLd(posts);
+  const blogJsonLd =
+    selectedCategory || selectedTag || currentPage > 1
+      ? null
+      : buildBlogIndexJsonLd(posts);
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
-      />
+      {blogJsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
+        />
+      ) : null}
       <div className="w-full">
       <section className="py-20 lg:py-28 bg-gradient-to-br from-[#e8f5ee] to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

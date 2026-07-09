@@ -10,7 +10,7 @@ import { getAllPosts, getPostBySlug } from "@/content/content-api/posts";
 import { buildBlogPostJsonLd, pickRelatedPosts } from "@/lib/blog-schema";
 import { effectiveModifiedDate } from "@/lib/blog-dates";
 import { SITE } from "@/lib/site";
-import { buildPageMetadata } from "@/lib/seo";
+import { buildPageMetadata, buildNotFoundMetadata } from "@/lib/seo";
 import { BRAND_LOGO_PATH } from "@/lib/site-assets";
 
 export const revalidate = 60;
@@ -58,6 +58,7 @@ export async function generateMetadata({
       description: post.frontmatter.description,
       openGraphType: "article",
       ogImages: post.frontmatter.cover ? [post.frontmatter.cover] : undefined,
+      ogImageAlt: post.frontmatter.title,
       titleAbsolute: true,
       articlePublishedTime: published,
       articleModifiedTime: modified,
@@ -68,7 +69,7 @@ export async function generateMetadata({
       articleTags: post.frontmatter.tags,
     });
   } catch {
-    return {};
+    return buildNotFoundMetadata(`/blog/${slug}`, "文章");
   }
 }
 

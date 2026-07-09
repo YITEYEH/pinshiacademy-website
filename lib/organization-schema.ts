@@ -1,21 +1,33 @@
 import { CONTACT } from "@/lib/contact";
 import { SOCIAL_SAME_AS } from "@/lib/social-links";
 import { SITE } from "@/lib/site";
-import { brandLogoUrl, defaultOgImageUrl } from "@/lib/site-assets";
+import { brandLogoUrl } from "@/lib/site-assets";
 
 const ORG_ID = `${SITE.url}/#organization`;
 const WEBSITE_ID = `${SITE.url}/#website`;
+
+/** 創辦人 Person @id，與師資頁與 story 頁共用 */
+export const FOUNDER_PERSON_ID = `${SITE.url}/teachers/yeh-yide`;
+
+const ORGANIZATION_ALTERNATE_NAMES = [
+  SITE.englishName,
+  "PinShi Academy",
+  "pinshiacademy",
+] as const;
 
 export function buildSiteJsonLdGraph() {
   const organization = {
     "@type": ["Organization", "EducationalOrganization"],
     "@id": ORG_ID,
     name: SITE.name,
-    alternateName: SITE.englishName,
+    alternateName: [...ORGANIZATION_ALTERNATE_NAMES],
+    legalName: CONTACT.companyName,
+    taxID: CONTACT.taxId,
     url: SITE.url,
     logo: brandLogoUrl(),
     description: SITE.defaultDescription,
     email: CONTACT.email,
+    founder: { "@id": FOUNDER_PERSON_ID },
     sameAs: SOCIAL_SAME_AS,
     areaServed: {
       "@type": "Country",

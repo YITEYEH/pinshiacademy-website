@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { buildAboutJsonLd } from "@/lib/about-schema";
 import { AboutClient } from "./AboutClient";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -11,6 +12,16 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function AboutPage() {
-  return <AboutClient />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(buildAboutJsonLd()),
+        }}
+      />
+      <AboutClient />
+    </>
+  );
 }
 

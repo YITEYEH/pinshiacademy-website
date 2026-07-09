@@ -5,6 +5,8 @@ import { SITE } from "@/lib/site";
 import { defaultOgImageUrl } from "@/lib/site-assets";
 
 const OG_LOCALE = "zh_TW";
+const DEFAULT_OG_WIDTH = 1200;
+const DEFAULT_OG_HEIGHT = 630;
 
 /** Ahrefs 等工具常將過短描述標為問題；低於此字數時自動補上品牌語句（不影響已足夠長的文案）。 */
 const MIN_DESCRIPTION_CHARS = 72;
@@ -45,7 +47,34 @@ export type BuildPageMetadataInput = {
   articleTags?: string[];
   /** 預設允許索引；篩選頁、404 等可設為 false */
   index?: boolean;
+  /** OG/Twitter 圖片 alt 文字 */
+  ogImageAlt?: string;
 };
+
+function resolveOgImages(
+  ogImages: string[] | undefined,
+  alt: string,
+): { url: string; width: number; height: number; alt: string }[] {
+  const sources =
+    ogImages && ogImages.length > 0 ? ogImages : [defaultOgImageUrl()];
+
+  return sources.map((src) => ({
+    url: src,
+    width: DEFAULT_OG_WIDTH,
+    height: DEFAULT_OG_HEIGHT,
+    alt,
+  }));
+}
+
+export function buildNotFoundMetadata(path: string, label: string): Metadata {
+  return buildPageMetadata({
+    path,
+    title: `找不到${label}`,
+    description: `您所尋找的${label}不存在或已移除，請返回品識學苑首頁。`,
+    titleAbsolute: true,
+    index: false,
+  });
+}
 
 function resolvedShareTitle(title: string, titleAbsolute: boolean): string {
   if (titleAbsolute) return title;
@@ -65,16 +94,14 @@ export function buildPageMetadata({
   articleSection,
   articleTags,
   index = true,
+  ogImageAlt,
 }: BuildPageMetadataInput): Metadata {
   const url = pageCanonical(path);
-  const images =
-    ogImages && ogImages.length > 0
-      ? ogImages.map((src) => ({ url: src }))
-      : [{ url: defaultOgImageUrl() }];
-
-  const twitterImages = images.map((i) => i.url);
   const shareTitle = resolvedShareTitle(title, titleAbsolute);
+  const imageAlt = ogImageAlt ?? shareTitle;
+  const images = resolveOgImages(ogImages, imageAlt);
   const descriptionOut = finalizeDescription(description);
+  const twitterImages = images.map((i) => i.url);
 
   return {
     ...(titleAbsolute ? { title: { absolute: title } } : { title }),

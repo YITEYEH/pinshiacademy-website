@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
 import { SITE } from "@/lib/site";
+import { FOUNDER_PERSON_ID, WEBSITE_ID } from "@/lib/organization-schema";
 import { StoryClient } from "./StoryClient";
 import { founderSignatureFont } from "./fonts";
 
@@ -21,17 +22,13 @@ export default function StoryPage() {
       "品識學苑創辦人葉以德分享教育理念與品牌誕生的故事。",
     url: `${SITE.url}/story`,
     inLanguage: "zh-Hant",
-    isPartOf: { "@id": `${SITE.url}/#website` },
+    isPartOf: { "@id": WEBSITE_ID },
     about: {
       "@type": "EducationalOrganization",
       name: SITE.name,
       url: SITE.url,
     },
-    author: {
-      "@type": "Person",
-      name: "葉以德",
-      jobTitle: "品識學苑創辦人",
-    },
+    author: { "@id": FOUNDER_PERSON_ID },
   };
 
   return (

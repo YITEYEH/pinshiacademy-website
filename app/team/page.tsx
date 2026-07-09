@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
+import { buildTeamJsonLd } from "@/lib/team-schema";
 import { TeamClient } from "./TeamClient";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -11,6 +12,16 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function TeamPage() {
-  return <TeamClient />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(buildTeamJsonLd()),
+        }}
+      />
+      <TeamClient />
+    </>
+  );
 }
 
