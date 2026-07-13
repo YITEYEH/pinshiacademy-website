@@ -1,4 +1,8 @@
-import { revalidatePath, revalidateTag } from "next/cache";
+import {
+  revalidatePath,
+  revalidateTag,
+  unstable_expireTag,
+} from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { WP_POSTS_CACHE_TAG } from "@/content/content-api/wpgraphql";
 import { TEACHIFY_CACHE_TAG } from "@/lib/teachify-cache";
@@ -60,9 +64,16 @@ function extractSlug(
 
 function revalidatePaths(paths: string[]) {
   for (const path of paths) {
+    // 無 type：涵蓋 route handler（feed / sitemap）與一般頁面
     revalidatePath(path);
     revalidatePath(path, "layout");
   }
+}
+
+/** 立即失效 tagged Data Cache，避免僅標記 stale 卻長期繼續餵舊資料 */
+function expireAndRevalidateTag(tag: string) {
+  unstable_expireTag(tag);
+  revalidateTag(tag);
 }
 
 function extractTarget(request: NextRequest, body: unknown): string | undefined {
@@ -78,13 +89,19 @@ function extractTarget(request: NextRequest, body: unknown): string | undefined 
 }
 
 function revalidateWordPress(slug?: string) {
-  revalidateTag(WP_POSTS_CACHE_TAG);
+  expireAndRevalidateTag(WP_POSTS_CACHE_TAG);
   revalidatePaths(["/", "/blog", "/feed.xml", "/sitemap.xml"]);
-  if (slug) revalidatePaths([`/blog/${slug}`]);
+  // 明確指定 page，確保學習專欄列表 Full Route Cache 一併失效
+  revalidatePath("/blog", "page");
+  revalidatePath("/", "page");
+  if (slug) {
+    revalidatePaths([`/blog/${slug}`]);
+    revalidatePath(`/blog/${slug}`, "page");
+  }
 }
 
 function revalidateTeachify() {
-  revalidateTag(TEACHIFY_CACHE_TAG);
+  expireAndRevalidateTag(TEACHIFY_CACHE_TAG);
   revalidatePaths([...TEACHIFY_PATHS]);
 }
 

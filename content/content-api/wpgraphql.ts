@@ -171,6 +171,7 @@ function resolveReadTime(node: {
   content?: string | null;
   excerpt?: string | null;
 }): string | undefined {
+  // 列表頁僅有 excerpt；文章頁才有完整 content
   const source = (node.content ?? node.excerpt ?? "").trim();
   return source ? estimateReadTime(source) : undefined;
 }
@@ -209,9 +210,13 @@ function mapNodeToSummary(n: GqlPostNode): BlogPostSummary | null {
   };
 }
 
+/**
+ * 列表／首頁／sitemap 用：不抓 content，避免全文過重導致 fetch 逾時、
+ * ISR 背景更新失敗後長期卡在舊快取。
+ */
 async function fetchPostNodesPage(first: number, after?: string | null) {
   const query = /* GraphQL */ `
-    query GetPosts($first: Int!, $after: String) {
+    query GetPostSummaries($first: Int!, $after: String) {
       posts(
         first: $first
         after: $after
@@ -227,7 +232,6 @@ async function fetchPostNodesPage(first: number, after?: string | null) {
           excerpt
           date
           modified
-          content
           author {
             node {
               name
@@ -388,9 +392,10 @@ export async function wpGetAllPosts(): Promise<BlogPostSummary[]> {
 export async function wpGetAllPostsForFeed(): Promise<BlogPost[]> {
   const all: BlogPost[] = [];
   let after: string | null = null;
-  const pageSize = 100;
+  // 全文 feed 分頁縮小，降低單次 GraphQL payload 逾時風險
+  const pageSize = 20;
 
-  for (let page = 0; page < 20; page++) {
+  for (let page = 0; page < 50; page++) {
     const batch = await fetchPostNodesPageWithContent(pageSize, after);
     for (const node of batch.nodes ?? []) {
       const post = mapNodeToBlogPost(node);
