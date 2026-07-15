@@ -5,9 +5,9 @@ import { PricingClient } from "./PricingClient";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/pricing",
-  title: "課程費用｜品識學苑一對一線上課程價格",
+  title: "線上一對一費用怎麼算？｜國小到高中參考價格｜品識學苑",
   description:
-    "品識學苑提供國小、國中、高中一對一線上課程，查看 50 分鐘課程參考價格，並預約免費學習諮詢，了解最適合孩子的課程方案。",
+    "想先知道大概要花多少？看國小／國中／高中每堂 50 分鐘起價與方案說明，費用公開透明。不清楚適不適合，可先預約免費學習諮詢。",
   titleAbsolute: true,
 });
 

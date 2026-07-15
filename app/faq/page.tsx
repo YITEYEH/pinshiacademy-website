@@ -6,9 +6,9 @@ import { FaqClient } from "./FaqClient";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/faq",
-  title: "補習常見問題｜線上一對一、會考學測、費用與排課｜品識學苑",
+  title: "線上補習常見問題｜費用、排課、一對一與會考學測｜品識學苑",
   description:
-    "整理線上補習、一對一與小班制、會考學測準備、課程費用與排課等常見問題，協助家長快速了解品識學苑的教學方式與服務流程。",
+    "線上上課穩不穩？可以試聽嗎？費用怎麼算？整理家長最常問的報名、排課與升學輔導問題，3 分鐘快速了解品識學苑怎麼陪孩子學習。",
   titleAbsolute: true,
 });
 

@@ -5,9 +5,9 @@ import { StudentSuccessClient } from "./StudentSuccessClient";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/student-success",
-  title: "升學輔導成果與家長見證｜品識學苑",
+  title: "學生進步案例｜從害怕到聽得懂、考得穩｜品識學苑",
   description:
-    "從成績提升到長期學習能力建立，探索品識學苑國中會考與高中學測學生的真實成長案例與家長見證，了解線上升學輔導如何發揮效果。",
+    "看真實學習歷程：基礎重建、解題信心與段考／會考準備如何一步步改變。若你家孩子也卡在同關卡，歡迎預約學習評估一起規劃。",
   titleAbsolute: true,
 });
 

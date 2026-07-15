@@ -26,11 +26,11 @@ export const SITE = {
   name: "品識學苑",
   englishName: "Pin Shi Academy",
   url: normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
-  defaultTitle: "品識學苑｜陪伴每位學生找到學習節奏",
+  defaultTitle: "品識學苑｜線上一對一會考學測輔導",
   defaultDescription:
-    "品識學苑重視每個孩子的獨特性，透過專業師資與個人化教學，讓學習成為充滿成就感的旅程。",
+    "成績卡住、越補越焦慮？品識學苑提供國英數社自線上一對一與小班，先診斷弱點再排課，協助會考與學測穩步進步。",
 } as const;
 
 /** Sitemap lastmod for routes without a content-derived timestamp (update when static pages meaningfully change). */
-export const STATIC_SITEMAP_LAST_MODIFIED = new Date("2026-07-10T00:00:00.000Z");
+export const STATIC_SITEMAP_LAST_MODIFIED = new Date("2026-07-14T00:00:00.000Z");
 

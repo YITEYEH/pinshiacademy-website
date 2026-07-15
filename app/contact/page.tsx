@@ -5,9 +5,9 @@ import { ContactClient } from "./ContactClient";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/contact",
-  title: "聯絡品識學苑｜預約諮詢、課程規劃與合作洽詢",
+  title: "預約學習評估｜線上諮詢會考學測課程｜品識學苑",
   description:
-    "想預約線上升學諮詢、了解國中會考或高中學測課程安排，或有合作提案，歡迎透過本頁與品識學苑聯繫，我們將盡快回覆。",
+    "不確定孩子適不適合一對一或小班？透過 LINE／表單預約學習評估，說明年級、弱科與目標，我們協助規劃下一步。通常盡快回覆。",
   titleAbsolute: true,
 });
 

@@ -5,9 +5,9 @@ import { CoursesClient } from "./CoursesClient";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/courses",
-  title: "線上升學輔導課程｜國文英文數學自然社會｜品識學苑",
+  title: "線上一對一與小班輔導｜國英數社自五科｜品識學苑",
   description:
-    "品識學苑提供線上國文、英文、數學、自然、社會五科升學輔導，支援一對一與小班制，協助國中會考與高中學測、分科測驗準備。",
+    "不是一直刷題，而是先把觀念學會。品識學苑線上課程支援一對一／小班，依程度規劃會考、學測準備。比較班型差異，找到適合孩子的上課方式。",
   titleAbsolute: true,
 });
 

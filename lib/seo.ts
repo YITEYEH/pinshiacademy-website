@@ -12,7 +12,7 @@ const DEFAULT_OG_HEIGHT = 630;
 const MIN_DESCRIPTION_CHARS = 72;
 
 const DESCRIPTION_SUFFIX =
-  "品識學苑專注12年國教升學規劃與個人化學習，陪伴國小到高中學生建立學習節奏與成就感。";
+  "先診斷弱點、再安排一對一或小班，陪伴會考與學測穩定進步。";
 
 function finalizeDescription(raw: string): string {
   const t = raw.trim();

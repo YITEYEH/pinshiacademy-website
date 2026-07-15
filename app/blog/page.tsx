@@ -52,9 +52,9 @@ export async function generateMetadata({
 
   const base = buildPageMetadata({
     path: "/blog",
-    title: "學習專欄｜會考、學測、分科與讀書方法｜品識學苑",
+    title: "會考學測讀書方法｜升學攻略與各科準備｜品識學苑學習專欄",
     description:
-      "收錄品識學苑關於會考、學測、分科測驗、各科讀書方法與親子溝通的文章，協助家長與學生建立更穩定的學習節奏與升學準備。",
+      "繁星、學測國英文數、讀書計畫與錯題本怎麼做？精選可落地的升學與備考文章，給家長與學生可馬上使用的方法，不只有觀念、還有步驟。",
     titleAbsolute: true,
   });
 

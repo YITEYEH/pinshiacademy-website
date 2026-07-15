@@ -12,9 +12,9 @@ export const revalidate = 28_800;
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/online-courses",
-  title: "線上課程｜會考學測預錄精選｜品識學苑",
+  title: "線上預錄課程｜會考數學等反覆複習｜品識學苑",
   description:
-    "品識學苑線上精選課程：會考數學歷屆試題解析等預錄課程，由資深師資授課。於官網瀏覽課程資訊，購買與上課於品識學苑 Teachify 平台完成。",
+    "時間不好固定？用預錄課照自己的步調重播重點。瀏覽會考數學等精選課程內容與老師介紹，購買與上課於官方課程平台完成。",
   titleAbsolute: true,
 });
 

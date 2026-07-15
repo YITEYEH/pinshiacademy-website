@@ -5,9 +5,10 @@ import { buildPageMetadata } from "@/lib/seo";
 import { buildHomeJsonLd } from "@/lib/home-schema";
 import { HomeClient } from "./HomeClient";
 
-const homeTitle = "品識學苑｜線上升學輔導｜國中會考・高中學測・五科一對一";
+const homeTitle =
+  "國中會考・高中學測線上輔導｜一對一找到孩子卡關點｜品識學苑";
 const homeDescription =
-  "品識學苑提供線上國文、英文、數學、自然、社會升學輔導，支援一對一與小班制，協助國中會考與高中學測、分科測驗準備，建立長期學習能力。";
+  "成績卡住、越補越焦慮？品識學苑提供國英數社自線上一對一與小班，先診斷弱點再排課，協助會考、學測與分科穩步進步。立即預約學習評估。";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/",
