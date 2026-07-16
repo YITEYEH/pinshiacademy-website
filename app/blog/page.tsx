@@ -21,6 +21,31 @@ const categoryIcon: Record<string, React.ComponentType<{ className?: string }>> 
     高中芝士補給站: GraduationCap,
   };
 
+/** 側欄分類固定順序：國小 → 國中 → 高中 → 其他 */
+const CATEGORY_ORDER = [
+  "國小萬試通",
+  "國中好試多",
+  "高中芝士補給站",
+  "學習技巧",
+] as const;
+
+function sortCategoriesByOrder(
+  categories: { name: string; count: number }[],
+) {
+  const orderIndex = new Map(
+    CATEGORY_ORDER.map((name, index) => [name, index]),
+  );
+
+  return [...categories].sort((a, b) => {
+    const ai = orderIndex.get(a.name as (typeof CATEGORY_ORDER)[number]);
+    const bi = orderIndex.get(b.name as (typeof CATEGORY_ORDER)[number]);
+    if (ai !== undefined && bi !== undefined) return ai - bi;
+    if (ai !== undefined) return -1;
+    if (bi !== undefined) return 1;
+    return a.name.localeCompare(b.name, "zh-Hant");
+  });
+}
+
 function isGenericGravatar(url: string) {
   try {
     const u = new URL(url);
@@ -107,13 +132,15 @@ export default async function BlogIndexPage({
     currentPage * POSTS_PER_PAGE,
   );
 
-  const categories = Object.entries(
-    posts.reduce<Record<string, number>>((acc, p) => {
-      const key = p.frontmatter.category ?? "未分類";
-      acc[key] = (acc[key] ?? 0) + 1;
-      return acc;
-    }, {}),
-  ).map(([name, count]) => ({ name, count }));
+  const categories = sortCategoriesByOrder(
+    Object.entries(
+      posts.reduce<Record<string, number>>((acc, p) => {
+        const key = p.frontmatter.category ?? "未分類";
+        acc[key] = (acc[key] ?? 0) + 1;
+        return acc;
+      }, {}),
+    ).map(([name, count]) => ({ name, count })),
+  );
 
   const tags = Object.entries(
     posts.reduce<Record<string, number>>((acc, p) => {
