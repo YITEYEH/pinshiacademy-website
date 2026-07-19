@@ -620,13 +620,30 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
                       </li>
                     ))}
                   </ul>
-                  <Link
-                    href="/blog"
-                    className="inline-flex items-center gap-2 mt-6 text-sm font-medium text-primary hover:underline"
-                  >
-                    瀏覽全部文章
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
+                  <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+                    <Link
+                      href="/blog"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+                    >
+                      瀏覽全部文章
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                    <Link
+                      href="/courses"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      查看課程
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                    <LineCtaButton
+                      href={LINE_LINKS.consult}
+                      analyticsLabel="home_blog_section_line_consult"
+                      label={LINE_CTA_LABELS.homeHero}
+                      size="sm"
+                      variant="outline"
+                      className="border-primary text-primary hover:bg-primary/5"
+                    />
+                  </div>
                 </div>
               )}
 

@@ -41,3 +41,11 @@ export function trackShareClick(action: "copy" | "facebook" | "line", url: strin
     content_url: url,
   });
 }
+
+/** 站內導流點擊（文章 CTA → 課程／師資等） */
+export function trackInternalNavClick(label: string, href: string) {
+  trackEvent("internal_nav_click", {
+    link_label: label,
+    link_url: href,
+  });
+}

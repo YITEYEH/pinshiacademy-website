@@ -5,9 +5,9 @@ import { StudentSuccessClient } from "./StudentSuccessClient";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/student-success",
-  title: "學生進步案例｜從害怕到聽得懂、考得穩｜品識學苑",
+  title: "學生成長故事｜看見孩子真正的改變｜品識學苑",
   description:
-    "看真實學習歷程：基礎重建、解題信心與段考／會考準備如何一步步改變。若你家孩子也卡在同關卡，歡迎預約學習評估一起規劃。",
+    "每一位孩子都有不同的起點，看品識學苑學生如何從不敢問、害怕數學，到願意思考、主動學習的真實成長故事",
   titleAbsolute: true,
 });
 
@@ -24,4 +24,3 @@ export default function StudentSuccessPage() {
     </>
   );
 }
-

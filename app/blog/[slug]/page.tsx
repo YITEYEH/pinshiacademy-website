@@ -4,11 +4,17 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { ArticleShare } from "@/components/blog/ArticleShare";
 import { ArticleConsultCta } from "@/components/blog/ArticleConsultCta";
+import { ArticleLiveEventsBridge } from "@/components/blog/ArticleLiveEventsBridge";
+import { ArticleStickyLineCta } from "@/components/blog/ArticleStickyLineCta";
 import { ArticleToc } from "@/components/blog/ArticleToc";
+import { ArticleTrustLinks } from "@/components/blog/ArticleTrustLinks";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { getAllPosts, getPostBySlug } from "@/content/content-api/posts";
 import { buildBlogPostJsonLd, pickRelatedPosts } from "@/lib/blog-schema";
+import { categorySupportsLiveBridge } from "@/lib/blog-article-cta";
 import { effectiveModifiedDate } from "@/lib/blog-dates";
+import { formatEventSchedule } from "@/lib/format-event-schedule";
+import { getLiveEvents } from "@/lib/get-live-events";
 import { SITE } from "@/lib/site";
 import { buildPageMetadata, buildNotFoundMetadata } from "@/lib/seo";
 import { BRAND_LOGO_PATH } from "@/lib/site-assets";
@@ -94,8 +100,43 @@ export default async function BlogPostPage({
     post.frontmatter.modifiedDate,
   );
 
+  const category = post.frontmatter.category;
+  let liveBridgeEvents: {
+    id: string;
+    title: string;
+    href: string;
+    dateLabel: string;
+  }[] = [];
+
+  if (categorySupportsLiveBridge(category)) {
+    const now = Date.now();
+    const events = await getLiveEvents();
+    liveBridgeEvents = events
+      .filter(
+        (e) =>
+          e.status !== "ended" && new Date(e.endsAt).getTime() > now,
+      )
+      .sort(
+        (a, b) =>
+          new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime(),
+      )
+      .slice(0, 2)
+      .map((e) => {
+        const { dateLabel, timeLabel } = formatEventSchedule(
+          e.startsAt,
+          e.endsAt,
+        );
+        return {
+          id: e.id,
+          title: e.title,
+          href: e.eventUrl,
+          dateLabel: `${dateLabel} · ${timeLabel}`,
+        };
+      });
+  }
+
   return (
-    <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12 lg:py-16">
+    <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12 lg:py-16 pb-28 md:pb-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -207,6 +248,10 @@ export default async function BlogPostPage({
         dangerouslySetInnerHTML={{ __html: post.content }}
       />
 
+      <ArticleTrustLinks category={post.frontmatter.category} />
+
+      <ArticleLiveEventsBridge events={liveBridgeEvents} />
+
       <ArticleShare url={postUrl} title={post.frontmatter.title} />
 
       <ArticleConsultCta category={post.frontmatter.category} />
@@ -222,6 +267,8 @@ export default async function BlogPostPage({
           返回學習專欄
         </Link>
       </footer>
+
+      <ArticleStickyLineCta />
     </article>
   );
 }
