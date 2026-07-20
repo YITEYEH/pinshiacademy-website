@@ -14,6 +14,7 @@ const googleSiteVerification = getGoogleSiteVerificationToken();
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
+  applicationName: SITE.name,
   title: {
     default: SITE.defaultTitle,
     template: `%s｜${SITE.name}`,

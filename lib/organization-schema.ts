@@ -65,8 +65,15 @@ export function buildSiteJsonLdGraph() {
   const website = {
     "@type": "WebSite",
     "@id": WEBSITE_ID,
-    url: SITE.url,
+    url: `${SITE.url}/`,
     name: SITE.name,
+    alternateName: [
+      SITE.englishName,
+      "PinShi Academy",
+      "www.pinshiacademy.com",
+      "pinshiacademy.com",
+    ],
+    description: SITE.defaultDescription,
     inLanguage: "zh-Hant",
     publisher: { "@id": ORG_ID },
   };
