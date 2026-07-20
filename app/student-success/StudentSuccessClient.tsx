@@ -145,7 +145,6 @@ export function StudentSuccessClient() {
             transition={{ duration: 0.6 }}
             className="mx-auto max-w-3xl text-center"
           >
-            <p className="mb-3 text-sm font-medium text-primary">學生成果</p>
             <h1 className="mb-6 text-4xl font-bold leading-tight text-foreground lg:text-5xl">
               {page.heroTitle}
             </h1>
