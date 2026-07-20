@@ -32,7 +32,7 @@ export type TeacherProfileContent = {
 const yehYideProfile: TeacherProfileContent = {
   slug: "yeh-yide",
   experienceHighlights: [
-    "五年以上教學經驗",
+    "六年以上教學經驗",
     "5000+ 堂授課經驗",
     "專攻國高中數學",
   ],

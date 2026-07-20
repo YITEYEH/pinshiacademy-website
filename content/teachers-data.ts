@@ -35,7 +35,7 @@ export const teachers = [
     ],
     studentReview:
       "葉老師讓我從害怕數學到喜歡數學，他總是很有耐心地解釋到我真的懂為止。",
-    experience: "五年以上教學經驗",
+    experience: "六年以上教學經驗",
     knowsAbout: ["國中數學", "高中數學", "邏輯思維"],
   },
   {
