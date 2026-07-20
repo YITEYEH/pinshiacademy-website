@@ -46,25 +46,25 @@ export function BlogPagination({
 
   return (
     <nav
-      className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
+      className="mt-10 flex items-center justify-between gap-2 sm:justify-center sm:gap-4"
       aria-label="文章分頁"
     >
       {currentPage > 1 ? (
         <Link
           href={hrefFor(currentPage - 1)}
-          className="inline-flex items-center gap-1 rounded-lg border border-border bg-white px-4 py-2 text-sm text-foreground transition-colors hover:bg-[#f7f9f7]"
+          className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-border bg-white px-3 py-2 text-sm text-foreground transition-colors hover:bg-[#f7f9f7] sm:px-4"
         >
           <ChevronLeft className="h-4 w-4" />
           上一頁
         </Link>
       ) : (
-        <span className="inline-flex items-center gap-1 rounded-lg border border-border bg-white/50 px-4 py-2 text-sm text-muted-foreground opacity-50">
+        <span className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-border bg-white/50 px-3 py-2 text-sm text-muted-foreground opacity-50 sm:px-4">
           <ChevronLeft className="h-4 w-4" />
           上一頁
         </span>
       )}
 
-      <div className="flex items-center gap-1">
+      <div className="flex min-w-0 flex-wrap items-center justify-center gap-1">
         {pages.map((page, index) =>
           page === "ellipsis" ? (
             <span
@@ -94,13 +94,13 @@ export function BlogPagination({
       {currentPage < totalPages ? (
         <Link
           href={hrefFor(currentPage + 1)}
-          className="inline-flex items-center gap-1 rounded-lg border border-border bg-white px-4 py-2 text-sm text-foreground transition-colors hover:bg-[#f7f9f7]"
+          className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-border bg-white px-3 py-2 text-sm text-foreground transition-colors hover:bg-[#f7f9f7] sm:px-4"
         >
           下一頁
           <ChevronRight className="h-4 w-4" />
         </Link>
       ) : (
-        <span className="inline-flex items-center gap-1 rounded-lg border border-border bg-white/50 px-4 py-2 text-sm text-muted-foreground opacity-50">
+        <span className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-border bg-white/50 px-3 py-2 text-sm text-muted-foreground opacity-50 sm:px-4">
           下一頁
           <ChevronRight className="h-4 w-4" />
         </span>
