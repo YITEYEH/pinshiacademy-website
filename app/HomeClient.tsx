@@ -1,5 +1,7 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import {
@@ -12,7 +14,6 @@ import {
   Leaf,
   Beaker,
   TrendingUp,
-  Star,
   ChevronLeft,
   ChevronRight,
   GraduationCap,
@@ -26,9 +27,9 @@ import { LearningProcess } from "@/components/LearningProcess";
 import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
 import { CTA_ROW_CLASS } from "@/lib/cta-button-styles";
+import { page as studentSuccessPage } from "@/content/student-success/page-copy";
 import type { BlogPostSummary } from "@/content/content-api/types";
 import type { FaqItem } from "@/content/faq-data";
-import { useState } from "react";
 
 type HomeClientProps = {
   latestPosts: BlogPostSummary[];
@@ -121,45 +122,115 @@ const stats = [
   { value: "5", label: "核心學科涵蓋" },
 ];
 
-const testimonials = [
-  {
-    name: "葉以德老師",
-    subject: "數學",
-    image: "/teacher-yeh-yide.jpg",
-    quote: "每個孩子都可以學會數學",
-    studentReview: "我以前幾乎都不會寫，現在有些題目自己也可以算出來",
-  },
-  {
-    name: "葉以德老師",
-    subject: "數學",
-    image: "/teacher-yeh-yide.jpg",
-    quote: "孩子不是學不會，是以前的方法不對",
-    studentReview:
-      "孩子原本段考40幾分，現在有到65以上，孩子也比較有自信",
-    reviewLabel: "家長評價",
-  },
-  {
-    name: "蔣季芹老師",
-    subject: "國文",
-    image: "/teacher-jiang-jiqin.jpg",
-    quote: "國文不是背，是理解",
-    studentReview: "以前看到長文章就放棄，現在至少會慢慢看懂",
-  },
-];
+const homeParents = studentSuccessPage.parents;
+
+function HomeParentsCarousel({
+  items,
+}: {
+  items: typeof homeParents;
+}) {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "center",
+    loop: true,
+    slidesToScroll: 1,
+  });
+  const [selected, setSelected] = useState(0);
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelected(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    const sync = () => {
+      setScrollSnaps(emblaApi.scrollSnapList());
+      onSelect();
+    };
+    sync();
+    emblaApi.on("reInit", sync);
+    emblaApi.on("select", onSelect);
+    return () => {
+      emblaApi.off("reInit", sync);
+      emblaApi.off("select", onSelect);
+    };
+  }, [emblaApi, onSelect]);
+
+  return (
+    <div>
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex touch-pan-y">
+          {items.map((item) => (
+            <div
+              key={`${item.name}-${item.quote.slice(0, 16)}`}
+              className="min-w-0 flex-[0_0_100%] px-1"
+            >
+              <figure className="rounded-2xl border border-border bg-gradient-to-br from-[#e8f5ee] to-white p-6 sm:p-8 lg:p-10">
+                <p className="mb-4 text-sm font-medium text-primary">
+                  家長回饋
+                </p>
+                <blockquote className="text-left text-base leading-[1.85] text-foreground sm:text-lg">
+                  「{item.quote}」
+                </blockquote>
+                <figcaption className="mt-6 flex items-center gap-3 border-t border-border/60 pt-5">
+                  <span
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-white text-sm font-semibold text-primary"
+                    aria-hidden
+                  >
+                    {item.name.slice(0, 1)}
+                  </span>
+                  <span className="text-left">
+                    <span className="block text-sm font-semibold text-foreground sm:text-base">
+                      {item.name}
+                      <span className="font-normal text-muted-foreground">
+                        {" "}
+                        · {item.role}
+                      </span>
+                    </span>
+                    <span className="block text-sm text-muted-foreground">
+                      {item.context}
+                    </span>
+                  </span>
+                </figcaption>
+              </figure>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-8 flex items-center justify-center gap-3">
+        <Button
+          type="button"
+          variant="outline"
+          size="icon"
+          className="rounded-full"
+          onClick={() => emblaApi?.scrollPrev()}
+          aria-label="上一則家長推薦"
+        >
+          <ChevronLeft className="size-5" />
+        </Button>
+
+        <p className="min-w-[4.5rem] text-center text-sm tabular-nums text-muted-foreground">
+          {selected + 1} / {scrollSnaps.length || items.length}
+        </p>
+
+        <Button
+          type="button"
+          variant="outline"
+          size="icon"
+          className="rounded-full"
+          onClick={() => emblaApi?.scrollNext()}
+          aria-label="下一則家長推薦"
+        >
+          <ChevronRight className="size-5" />
+        </Button>
+      </div>
+    </div>
+  );
+}
 
 export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
-
-  const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setCurrentTestimonial(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
-    );
-  };
-
   return (
     <div className="w-full">
       <section className="relative bg-gradient-to-br from-[#e8f5ee] to-white overflow-hidden">
@@ -491,85 +562,29 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
         </div>
       </section>
 
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-white py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={false}
             animate={{ opacity: 1, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="mb-10 text-center"
           >
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              專業師資與學生好評
+            <h2 className="mb-3 text-3xl font-bold text-foreground lg:text-4xl">
+              {studentSuccessPage.parentsTitle}
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              經驗豐富的教學團隊，用心陪伴每一位學生
+            <p className="text-muted-foreground">
+              {studentSuccessPage.parentsNote}
             </p>
           </motion.div>
 
-          <div className="max-w-4xl mx-auto relative">
-            <div className="bg-gradient-to-br from-[#e8f5ee] to-white rounded-2xl p-8 lg:p-12">
-              <div className="flex flex-col lg:flex-row items-center gap-8">
-                <div className="w-32 h-32 rounded-full overflow-hidden flex-shrink-0 shadow-xl">
-                  <ImageWithFallback
-                    src={testimonials[currentTestimonial].image}
-                    alt={testimonials[currentTestimonial].name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                <div className="flex-1 text-center lg:text-left">
-                  <div className="flex items-center justify-center lg:justify-start gap-1 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-5 h-5 fill-amber-400 text-amber-400"
-                      />
-                    ))}
-                  </div>
-                  <p className="text-xl text-foreground mb-4 italic">
-                    &ldquo;{testimonials[currentTestimonial].quote}&rdquo;
-                  </p>
-                  <div className="text-lg font-semibold text-primary mb-1">
-                    {testimonials[currentTestimonial].name}
-                  </div>
-                  <div className="text-muted-foreground mb-6">
-                    {testimonials[currentTestimonial].subject}科老師
-                  </div>
-                  <div className="bg-white rounded-lg p-4 border-l-4 border-primary">
-                    <div className="text-sm text-muted-foreground mb-1">
-                      {testimonials[currentTestimonial].reviewLabel ??
-                        "學生評價"}
-                    </div>
-                    <div className="text-foreground">
-                      {testimonials[currentTestimonial].studentReview}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex justify-center gap-4 mt-8">
-              <button
-                onClick={prevTestimonial}
-                className="w-10 h-10 bg-white border border-border rounded-full flex items-center justify-center hover:bg-accent transition-colors"
-                aria-label="上一則評價"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                onClick={nextTestimonial}
-                className="w-10 h-10 bg-white border border-border rounded-full flex items-center justify-center hover:bg-accent transition-colors"
-                aria-label="下一則評價"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
+          <div className="mx-auto max-w-3xl">
+            <HomeParentsCarousel items={homeParents} />
           </div>
 
-          <div className="text-center mt-12 space-y-4">
+          <div className="mt-12 space-y-4 text-center">
             <Button
               size="lg"
               variant="outline"
@@ -578,7 +593,7 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
             >
               <Link href="/teachers">
                 認識完整師資團隊
-                <ArrowRight className="ml-2 w-5 h-5" />
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
             <div>
@@ -587,7 +602,7 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
                 className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
               >
                 查看更多學生成果
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
           </div>
@@ -597,71 +612,54 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
       {(latestPosts.length > 0 || faqPreview.length > 0) && (
         <section className="py-20 bg-[#f7f9f7]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div className="grid items-stretch gap-12 lg:grid-cols-2">
               {latestPosts.length > 0 && (
-                <div>
-                  <h2 className="text-2xl font-bold text-foreground mb-6">
+                <div className="flex h-full min-h-0 flex-col">
+                  <h2 className="mb-6 shrink-0 text-2xl font-bold text-foreground">
                     最新學習專欄
                   </h2>
-                  <ul className="space-y-4">
+                  <ul className="min-h-0 flex-1 space-y-4">
                     {latestPosts.map((post) => (
                       <li key={post.slug}>
                         <Link
                           href={`/blog/${post.slug}`}
-                          className="block rounded-lg border border-border bg-white p-4 hover:border-primary/30 hover:shadow-sm transition-all"
+                          className="block rounded-lg border border-border bg-white p-4 transition-all hover:border-primary/30 hover:shadow-sm"
                         >
-                          <div className="text-xs text-muted-foreground mb-1">
+                          <div className="mb-1 text-xs text-muted-foreground">
                             {post.frontmatter.date}
                           </div>
-                          <div className="font-medium text-foreground group-hover:text-primary leading-snug">
+                          <div className="leading-snug font-medium text-foreground">
                             {post.frontmatter.title}
                           </div>
                         </Link>
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
-                    <Link
-                      href="/blog"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
-                    >
-                      瀏覽全部文章
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                    <Link
-                      href="/courses"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      查看課程
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                    <LineCtaButton
-                      href={LINE_LINKS.consult}
-                      analyticsLabel="home_blog_section_line_consult"
-                      label={LINE_CTA_LABELS.homeHero}
-                      size="sm"
-                      variant="outline"
-                      className="border-primary text-primary hover:bg-primary/5"
-                    />
-                  </div>
+                  <Link
+                    href="/blog"
+                    className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-medium text-primary hover:underline"
+                  >
+                    瀏覽全部文章
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
                 </div>
               )}
 
               {faqPreview.length > 0 && (
-                <div>
-                  <h2 className="text-2xl font-bold text-foreground mb-6">
+                <div className="flex h-full min-h-0 flex-col">
+                  <h2 className="mb-6 shrink-0 text-2xl font-bold text-foreground">
                     常見問題
                   </h2>
-                  <ul className="space-y-4">
+                  <ul className="min-h-0 flex-1 space-y-4">
                     {faqPreview.map((item) => (
                       <li
                         key={item.q}
                         className="rounded-lg border border-border bg-white p-4"
                       >
-                        <p className="font-medium text-foreground mb-2">
+                        <p className="mb-2 font-medium text-foreground">
                           {item.q}
                         </p>
-                        <p className="text-sm text-muted-foreground line-clamp-2">
+                        <p className="line-clamp-2 text-sm text-muted-foreground">
                           {item.a}
                         </p>
                       </li>
@@ -669,10 +667,10 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
                   </ul>
                   <Link
                     href="/faq"
-                    className="inline-flex items-center gap-2 mt-6 text-sm font-medium text-primary hover:underline"
+                    className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-medium text-primary hover:underline"
                   >
                     查看全部 FAQ
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="h-4 w-4" />
                   </Link>
                 </div>
               )}

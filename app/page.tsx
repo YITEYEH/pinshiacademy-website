@@ -21,8 +21,8 @@ export const metadata: Metadata = buildPageMetadata({
 export const revalidate = 60;
 
 export default async function HomePage() {
-  const latestPosts = (await getAllPosts()).slice(0, 3);
-  const faqPreview = faqCategories.flatMap((c) => c.questions).slice(0, 3);
+  const latestPosts = (await getAllPosts()).slice(0, 5);
+  const faqPreview = faqCategories.flatMap((c) => c.questions).slice(0, 4);
   const homeJsonLd = buildHomeJsonLd(faqPreview);
 
   return (
