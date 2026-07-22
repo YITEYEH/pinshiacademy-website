@@ -80,6 +80,8 @@ export const TEACHIFY_EVENT_OVERRIDES: Record<string, TeachifyEventOverride> = {
       "從歷史背景到文章精華，一堂課讀懂〈鴻門宴〉的關鍵轉折",
     description:
       "適合想提升古文閱讀與典故理解的學生，由蔣季芹老師直播解析〈鴻門宴〉的歷史脈絡、人物關係與文章重點，培養深度閱讀能力。",
+    coverImageUrl:
+      "https://warehouse.kaik.network/event/cover_photo/6fe71eb9-e8f8-4e94-94c4-9b1cb43581d4/459e08d8-f045-4434-9416-3192ca4fb56f.png",
     host: { name: "蔣季芹", role: "品識學苑國文教師" },
     tags: ["古文", "典故"],
     category: "高中系列講座",
