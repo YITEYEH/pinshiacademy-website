@@ -83,6 +83,33 @@ export function TeacherProfileClient({
       {/* 1. Hero */}
       <section className="bg-gradient-to-br from-[#e8f5ee] to-white py-10 sm:py-14 lg:py-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <nav
+            aria-label="breadcrumb"
+            className="mb-6 text-sm text-muted-foreground"
+          >
+            <ol className="flex flex-wrap items-center gap-1.5">
+              <li>
+                <Link
+                  href="/"
+                  className="transition-colors hover:text-primary"
+                >
+                  首頁
+                </Link>
+              </li>
+              <li aria-hidden="true">/</li>
+              <li>
+                <Link
+                  href="/teachers"
+                  className="transition-colors hover:text-primary"
+                >
+                  師資團隊
+                </Link>
+              </li>
+              <li aria-hidden="true">/</li>
+              <li className="text-foreground/80">{teacher.name}</li>
+            </ol>
+          </nav>
+
           <Link
             href="/teachers"
             className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"

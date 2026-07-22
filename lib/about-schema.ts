@@ -7,9 +7,12 @@ export type BreadcrumbItem = {
 };
 
 export function buildBreadcrumbJsonLd(items: BreadcrumbItem[]) {
+  const lastPath = items[items.length - 1]?.path ?? "/";
+  const pageUrl = lastPath === "/" ? SITE.url : `${SITE.url}${lastPath}`;
+
   return {
-    "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    "@id": `${pageUrl}#breadcrumb`,
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,

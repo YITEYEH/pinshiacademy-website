@@ -1,6 +1,7 @@
 import "server-only";
 
 import type { BlogPost, BlogPostSummary } from "@/content/content-api/types";
+import { buildBreadcrumbJsonLd } from "@/lib/about-schema";
 import { effectiveModifiedDate } from "@/lib/blog-dates";
 import { SITE } from "@/lib/site";
 import { brandLogoUrl } from "@/lib/site-assets";
@@ -56,34 +57,16 @@ export function buildBlogPostJsonLd(post: BlogPost, url: string) {
     article.keywords = post.frontmatter.tags.join(", ");
   }
 
-  const breadcrumb = {
-    "@type": "BreadcrumbList",
-    "@id": `${url}#breadcrumb`,
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "首頁",
-        item: SITE.url,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "學習專欄",
-        item: `${SITE.url}/blog`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: post.frontmatter.title,
-        item: url,
-      },
-    ],
-  };
-
   return {
     "@context": "https://schema.org",
-    "@graph": [article, breadcrumb],
+    "@graph": [
+      article,
+      buildBreadcrumbJsonLd([
+        { name: "首頁", path: "/" },
+        { name: "學習專欄", path: "/blog" },
+        { name: post.frontmatter.title, path: `/blog/${post.slug}` },
+      ]),
+    ],
   };
 }
 
