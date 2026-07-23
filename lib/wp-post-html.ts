@@ -129,6 +129,8 @@ export function prepareArticleHtml(
   processed = stripStrayTailwindClasses(processed);
   processed = stripEmbeddedSeoTags(processed);
   processed = removeWpShareBlocks(processed);
+  processed = mergeConsecutiveSiblingLists(processed);
+  processed = renumberFragmentedOrderedLists(processed);
   processed = stripTrailingOrphanCloseTags(processed);
 
   const filteredToc = toc.filter((item) => !isShareHeading(item.text));
@@ -189,6 +191,131 @@ function removeWpShareBlocks(html: string): string {
   }
 
   return out.trim();
+}
+
+/**
+ * WordPress／貼上內容常把連續編號拆成多個各自從 1 開始的 <ol>／<ul>。
+ * 合併相鄰同類型清單，讓編號正確遞增（1、2、3…）。
+ */
+function mergeConsecutiveSiblingLists(html: string): string {
+  let out = html;
+  let prev = "";
+
+  while (out !== prev) {
+    prev = out;
+    // </ol><ol>、</ol><p></p><ol> 這類「空段落夾在中間」也一併合併
+    out = out.replace(
+      /<\/ol>\s*(?:<(?:p|div)\b[^>]*>\s*<\/(?:p|div)>\s*)*<ol(\s[^>]*)?>/gi,
+      (_match, attrs: string | undefined = "") => {
+        // 第二個清單若有明確 start（且不是 1），視為刻意另起編號，不合併
+        const start = attrs.match(/\bstart\s*=\s*["']?(\d+)/i)?.[1];
+        if (start && start !== "1") return _match;
+        return "";
+      },
+    );
+    out = out.replace(
+      /<\/ul>\s*(?:<(?:p|div)\b[^>]*>\s*<\/(?:p|div)>\s*)*<ul(\s[^>]*)?>/gi,
+      "",
+    );
+  }
+
+  return out;
+}
+
+function countListItems(listInnerHtml: string): number {
+  return (listInnerHtml.match(/<li\b/gi) ?? []).length;
+}
+
+function withOlStart(attrs: string | undefined, start: number): string {
+  const cleaned = (attrs ?? "")
+    .replace(/\s*\bstart\s*=\s*(["']?)\d+\1/gi, "")
+    .trim();
+  const startAttr = ` start="${start}"`;
+  return cleaned ? ` ${cleaned}${startAttr}` : startAttr;
+}
+
+/**
+ * WP 常把「編號標題 + 下方說明段落」拆成多個只有一項的 <ol>，
+ * 中間夾著 <p>，導致畫面全是 1.。對這類連續單項清單補上 start。
+ */
+function renumberFragmentedOrderedLists(html: string): string {
+  const olRe = /<ol(\s[^>]*)?>([\s\S]*?)<\/ol>/gi;
+  const matches = [...html.matchAll(olRe)];
+  if (matches.length < 2) return html;
+
+  type OlHit = {
+    index: number;
+    end: number;
+    full: string;
+    attrs: string;
+    inner: string;
+    single: boolean;
+  };
+
+  const ols: OlHit[] = matches.map((match) => {
+    const full = match[0];
+    const attrs = match[1] ?? "";
+    const inner = match[2] ?? "";
+    const index = match.index ?? 0;
+    return {
+      index,
+      end: index + full.length,
+      full,
+      attrs,
+      inner,
+      single: countListItems(inner) === 1,
+    };
+  });
+
+  const replacements = new Map<number, string>();
+  let i = 0;
+
+  while (i < ols.length) {
+    if (!ols[i].single) {
+      i += 1;
+      continue;
+    }
+
+    const group = [ols[i]];
+    let j = i + 1;
+
+    while (j < ols.length && ols[j].single) {
+      const between = html.slice(group[group.length - 1].end, ols[j].index);
+      // 中間只能有段落／空白等說明文字；碰到標題或其他清單就斷開
+      if (/<(?:h[1-6]|ul|table|blockquote)\b/i.test(between)) break;
+      if (/<ol\b/i.test(between)) break;
+      group.push(ols[j]);
+      j += 1;
+    }
+
+    if (group.length >= 2) {
+      group.forEach((ol, offset) => {
+        const start = offset + 1;
+        const existing = ol.attrs.match(/\bstart\s*=\s*["']?(\d+)/i)?.[1];
+        if (existing && existing !== "1" && Number(existing) !== start) {
+          return;
+        }
+        replacements.set(
+          ol.index,
+          `<ol${withOlStart(ol.attrs, start)}>${ol.inner}</ol>`,
+        );
+      });
+    }
+
+    i = j;
+  }
+
+  if (replacements.size === 0) return html;
+
+  let out = "";
+  let cursor = 0;
+  for (const ol of ols) {
+    out += html.slice(cursor, ol.index);
+    out += replacements.get(ol.index) ?? ol.full;
+    cursor = ol.end;
+  }
+  out += html.slice(cursor);
+  return out;
 }
 
 /** 移除 WP 內文尾端多餘的闭合標籤，避免瀏覽器提前關閉 article-content 容器 */

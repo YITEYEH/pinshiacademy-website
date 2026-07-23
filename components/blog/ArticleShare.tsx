@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Check, Copy, Facebook } from "lucide-react";
+import { LineIcon } from "@/components/icons/LineIcon";
 import { trackShareClick } from "@/lib/analytics";
 
 type Props = {
@@ -80,7 +81,8 @@ export function ArticleShare({ url, title }: Props) {
           className="inline-flex items-center gap-2 rounded-lg bg-[#06C755] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#06C755]/90 transition-colors"
           aria-label={`分享「${title}」到 LINE`}
         >
-          <span className="text-xs font-bold tracking-wide">LINE</span>
+          <LineIcon className="size-4 text-white" />
+          LINE
         </button>
       </div>
     </div>
