@@ -13,15 +13,12 @@ export function RelatedPosts({ posts }: Props) {
 
   return (
     <aside
-      aria-label="接著讀這些"
+      aria-label="延伸閱讀"
       className="mt-16 pt-8 border-t border-border max-w-[42rem] mx-auto"
     >
-      <h2 className="text-lg font-bold text-foreground mb-1">
-        接著讀這些，更靠近下一步
+      <h2 className="text-lg font-bold text-foreground mb-4">
+        延伸閱讀
       </h2>
-      <p className="text-sm text-muted-foreground mb-4">
-        同主題延伸閱讀，幫你釐清方向後再決定是否預約評估。
-      </p>
       <ul className="space-y-3">
         {posts.map((post) => {
           const href = `/blog/${post.slug}`;
