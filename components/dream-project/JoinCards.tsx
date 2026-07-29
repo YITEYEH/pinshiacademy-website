@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
@@ -32,6 +31,8 @@ export function JoinCards() {
       <div className="grid gap-6 lg:grid-cols-3">
         {copy.cards.map((card, index) => {
           const isDisabled = "ctaDisabled" in card && card.ctaDisabled;
+          const paragraphs =
+            typeof card.body === "string" ? [card.body] : [...card.body];
 
           return (
             <motion.article
@@ -50,11 +51,9 @@ export function JoinCards() {
                 {card.title}
               </h3>
               <div className="mb-8 flex-1 space-y-3 text-[15px] leading-[1.85] text-muted-foreground">
-                {(Array.isArray(card.body) ? card.body : [card.body]).map(
-                  (paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ),
-                )}
+                {paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
               </div>
               <div className="space-y-3">
                 {isDisabled ? (
@@ -63,21 +62,13 @@ export function JoinCards() {
                   </p>
                 ) : (
                   <LineCtaButton
-                    href={hrefById[card.id as keyof typeof hrefById]}
+                    href={hrefById[card.id]}
                     analyticsLabel={card.analyticsLabel}
                     label={card.cta}
                     size="default"
                     fullWidth
                   />
                 )}
-                {"secondaryHref" in card && card.secondaryHref ? (
-                  <Link
-                    href={card.secondaryHref}
-                    className="inline-flex w-full items-center justify-center text-sm font-medium text-primary hover:underline"
-                  >
-                    {card.secondaryLabel}
-                  </Link>
-                ) : null}
               </div>
             </motion.article>
           );
