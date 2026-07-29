@@ -18,6 +18,8 @@ const aboutSubLinks = [
   { name: "品牌故事", path: "/story" },
 ];
 
+const dreamProjectPath = "/dream-project";
+
 const courseSubLinks = [
   { name: "課程介紹", path: "/courses" },
   { name: "課程費用", path: "/pricing" },
@@ -102,6 +104,9 @@ export function Navbar() {
   const courseNavActive = isCourseNavActive(pathname);
   const teamNavActive = isTeamNavActive(pathname);
   const resourceNavActive = isResourceNavActive(pathname);
+  const dreamProjectNavActive =
+    pathname === dreamProjectPath ||
+    pathname.startsWith(`${dreamProjectPath}/`);
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
@@ -311,7 +316,18 @@ export function Navbar() {
             </div>
           </div>
 
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-3">
+            <Button
+              variant="outline"
+              className={`h-9 rounded-full border-primary/35 px-4 text-sm ${
+                dreamProjectNavActive
+                  ? "border-primary bg-primary/5 font-medium text-primary"
+                  : "text-primary hover:bg-primary/5"
+              }`}
+              asChild
+            >
+              <Link href={dreamProjectPath}>築夢計畫</Link>
+            </Button>
             <Button className="bg-primary hover:bg-primary/90" asChild>
               <ExternalLinkOnce
                 href={LINE_LINKS.consult}
@@ -519,7 +535,20 @@ export function Navbar() {
                   </AnimatePresence>
                 </div>
 
-                <div className="border-t border-border px-4 pt-3 pb-1">
+                <div className="space-y-2 border-t border-border px-4 pt-3 pb-1">
+                  <Button
+                    variant="outline"
+                    className={`w-full rounded-full border-primary/35 ${
+                      dreamProjectNavActive
+                        ? "border-primary bg-primary/5 font-medium text-primary"
+                        : "text-primary hover:bg-primary/5"
+                    }`}
+                    asChild
+                  >
+                    <Link href={dreamProjectPath} onClick={handleMobileNavClick}>
+                      築夢計畫
+                    </Link>
+                  </Button>
                   <Button className="w-full bg-primary hover:bg-primary/90" asChild>
                     <ExternalLinkOnce
                       href={LINE_LINKS.consult}

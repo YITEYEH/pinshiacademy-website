@@ -14,6 +14,7 @@
 - 首頁：https://www.pinshiacademy.com/
 - 關於我們：https://www.pinshiacademy.com/about
 - 品牌故事：https://www.pinshiacademy.com/story
+- 築夢計畫：https://www.pinshiacademy.com/dream-project
 - 課程介紹：https://www.pinshiacademy.com/courses
 - 課程費用：https://www.pinshiacademy.com/pricing
 - 線上預錄課程：https://www.pinshiacademy.com/online-courses

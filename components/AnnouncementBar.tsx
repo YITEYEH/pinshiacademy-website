@@ -1,53 +1,38 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { SITE_ANNOUNCEMENT } from "@/lib/site-announcement";
 
 export function AnnouncementBar() {
   if (!SITE_ANNOUNCEMENT.enabled) return null;
 
-  const { headline, highlights } = SITE_ANNOUNCEMENT;
+  const { eyebrow, headline, description, ctaLabel, href } = SITE_ANNOUNCEMENT;
 
   return (
     <aside
-      aria-label="最新喜報"
-      className="relative overflow-hidden border-b border-primary/10 bg-[#e8f5ee]"
+      aria-label="最新公告"
+      className="border-b border-primary/10 bg-[#e8f5ee]"
     >
-      <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-primary/[0.06] via-transparent to-primary/[0.06]"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute -left-10 top-1/2 h-20 w-20 -translate-y-1/2 rounded-full bg-primary/10 blur-2xl"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute -right-10 top-1/2 h-20 w-20 -translate-y-1/2 rounded-full bg-primary/10 blur-2xl"
-        aria-hidden
-      />
-
-      <div className="relative mx-auto max-w-7xl px-4 py-2.5 sm:px-6 sm:py-3 lg:px-8">
-        <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-5">
-          <div className="shrink-0 text-left leading-tight">
-            <p className="text-sm font-bold text-foreground sm:text-base">
+      <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 sm:py-3.5 lg:px-8">
+        <div className="flex flex-col items-center justify-center gap-3 text-center sm:flex-row sm:gap-5">
+          <div className="min-w-0">
+            <p className="text-xs font-medium tracking-wide text-primary">
+              {eyebrow}
+            </p>
+            <p className="mt-0.5 text-base font-bold tracking-tight text-foreground sm:text-lg">
               {headline}
+            </p>
+            <p className="mt-0.5 text-sm leading-snug text-muted-foreground">
+              {description}
             </p>
           </div>
 
-          <div className="w-full max-w-2xl rounded-2xl border border-white/90 bg-white/95 p-1 shadow-sm backdrop-blur-sm sm:w-auto sm:max-w-none">
-            <ul className="grid grid-cols-3 divide-x divide-primary/10">
-              {highlights.map((item) => (
-                <li
-                  key={item.label}
-                  className="flex flex-col items-center justify-center px-3 py-2 text-center sm:px-5 sm:py-2.5"
-                >
-                  <span className="text-xl font-bold tabular-nums leading-none text-primary sm:text-2xl">
-                    {item.value}
-                  </span>
-                  <span className="mt-1 text-[11px] leading-snug text-muted-foreground sm:text-xs">
-                    {item.label}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <Link
+            href={href}
+            className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            {ctaLabel}
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
         </div>
       </div>
     </aside>

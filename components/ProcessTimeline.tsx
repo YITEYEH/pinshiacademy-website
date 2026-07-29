@@ -7,12 +7,12 @@ import { LINE_LINKS } from "@/lib/line-links";
 
 export type ProcessStep = {
   title: string;
-  description: string;
+  description: string | readonly string[];
 };
 
 type ProcessTimelineProps = {
   title: string;
-  description: string;
+  description: string | readonly string[];
   steps: readonly ProcessStep[];
   /** 給家長的重點說明（可選） */
   parentNote?: {
@@ -37,6 +37,11 @@ export function ProcessTimeline({
   className = "",
   sectionClassName = "bg-[#f7f9f7]",
 }: ProcessTimelineProps) {
+  const descriptionParagraphs = Array.isArray(description)
+    ? description
+    : [description];
+  const isMultiParagraph = descriptionParagraphs.length > 1;
+
   return (
     <section className={`py-20 ${sectionClassName} ${className}`.trim()}>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,14 +51,27 @@ export function ProcessTimeline({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="mb-12"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+          <h2 className="mb-5 text-center text-3xl font-bold tracking-tight text-foreground lg:text-4xl">
             {title}
           </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            {description}
-          </p>
+          {isMultiParagraph ? (
+            <div className="mx-auto max-w-2xl space-y-4 text-center">
+              <p className="text-lg font-medium leading-relaxed text-foreground">
+                {descriptionParagraphs[0]}
+              </p>
+              <div className="space-y-3 text-base leading-[1.85] text-muted-foreground sm:text-[1.0625rem]">
+                {descriptionParagraphs.slice(1).map((p) => (
+                  <p key={p}>{p}</p>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <p className="text-center text-lg leading-relaxed text-muted-foreground">
+              {descriptionParagraphs[0]}
+            </p>
+          )}
         </motion.div>
 
         <ol className="relative">
@@ -82,12 +100,17 @@ export function ProcessTimeline({
                 </div>
 
                 <div className="min-w-0 flex-1 rounded-xl border border-border bg-white px-5 py-4 sm:px-6 sm:py-5">
-                  <h3 className="text-lg font-semibold text-foreground mb-1.5">
+                  <h3 className="mb-1.5 text-lg font-semibold text-foreground">
                     {step.title}
                   </h3>
-                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                    {step.description}
-                  </p>
+                  <div className="space-y-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                    {(Array.isArray(step.description)
+                      ? step.description
+                      : [step.description]
+                    ).map((line) => (
+                      <p key={line}>{line}</p>
+                    ))}
+                  </div>
                 </div>
               </motion.li>
             );

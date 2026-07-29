@@ -28,6 +28,7 @@ import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
 import { CTA_ROW_CLASS } from "@/lib/cta-button-styles";
 import { page as studentSuccessPage } from "@/content/student-success/page-copy";
+import { dreamProjectHomePromo } from "@/content/dream-project/page-copy";
 import type { BlogPostSummary } from "@/content/content-api/types";
 import type { FaqItem } from "@/content/faq-data";
 
@@ -609,8 +610,43 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
         </div>
       </section>
 
+      <section className="bg-[#f7f9f7] py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mx-auto max-w-3xl text-center"
+          >
+            <p className="mb-3 text-sm font-medium text-primary">
+              {dreamProjectHomePromo.tagline}
+            </p>
+            <h2 className="mb-4 text-3xl font-bold text-foreground lg:text-4xl">
+              {dreamProjectHomePromo.title}
+            </h2>
+            <div className="mb-8 space-y-3 text-base leading-relaxed text-muted-foreground sm:text-lg">
+              {dreamProjectHomePromo.body.map((p) => (
+                <p key={p}>{p}</p>
+              ))}
+            </div>
+            <Button
+              size="lg"
+              className="rounded-full bg-primary px-8 text-primary-foreground hover:bg-primary/90"
+              asChild
+            >
+              <Link href="/dream-project">
+                {dreamProjectHomePromo.cta}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
       {(latestPosts.length > 0 || faqPreview.length > 0) && (
-        <section className="py-20 bg-[#f7f9f7]">
+        <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid items-stretch gap-12 lg:grid-cols-2">
               {latestPosts.length > 0 && (

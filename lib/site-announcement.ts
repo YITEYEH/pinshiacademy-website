@@ -1,10 +1,9 @@
-/** 全站 Navbar 下方喜報列；設 enabled: false 即可關閉 */
+/** 全站 Navbar 下方公告列；設 enabled: false 即可關閉 */
 export const SITE_ANNOUNCEMENT = {
   enabled: true,
-  headline: "🎉 恭喜 115 國中會考學員再創佳績！",
-  highlights: [
-    { value: "8 位", label: "錄取第一志願" },
-    { value: "1 位", label: "數學滿分" },
-    { value: "12 位", label: "突破個人最佳成績" },
-  ],
+  eyebrow: "直播公開課",
+  headline: "免費場次現正開放報名",
+  description: "會考複習、學測主題與高一先修，線上跟著老師即時學習",
+  ctaLabel: "立即報名",
+  href: "/live-events",
 } as const;

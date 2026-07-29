@@ -19,6 +19,7 @@ const quickLinks = [
   { name: "主頁", path: "/" },
   { name: "關於我們", path: "/about" },
   { name: "品牌故事", path: "/story" },
+  { name: "築夢計畫", path: "/dream-project" },
   { name: "課程介紹", path: "/courses" },
   { name: "線上預錄課程", path: "/online-courses" },
   { name: "直播公開課", path: "/live-events" },

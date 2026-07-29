@@ -38,3 +38,10 @@ export const LINE_LINKS: Record<LineLinkKey, string> = {
   humanities: lineLink("humanities"),
   stem: lineLink("stem"),
 };
+
+/** 築夢計畫專用 CTA（共用 consult 短網址，以 UTM 區分用途） */
+export const DREAM_PROJECT_LINE = {
+  apply: lineLink("consult", "dream_project_apply"),
+  teacher: lineLink("consult", "dream_project_teacher"),
+  partner: lineLink("consult", "dream_project_partner"),
+} as const;
