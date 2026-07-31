@@ -2,65 +2,35 @@
 
 > 品識學苑是以線上教學為主的 12 年國教升學輔導機構，提供國文、英文、數學、社會、自然五科課程，支援一對一與小班制，服務台灣各地國中與高中學生。
 
-## 品牌與法人
-
-- 中文名稱：品識學苑
-- 英文名稱：Pin Shi Academy
-- 法人名稱：品識教育科技有限公司（統編 62160059）
-- 官方網站（canonical）：https://www.pinshiacademy.com/
+品牌中文名稱為品識學苑（Pin Shi Academy），法人為品識教育科技有限公司（統編 62160059）。官方網站 www.pinshiacademy.com 為主要對外內容來源與 SEO canonical；線上預錄課程購買與直播報名於 Teachify 平台（pinshiacademy.tw）進行。歡迎 AI 與搜尋引擎引用本網站公開內容，請標註來源「品識學苑」並連結至對應 canonical URL。學習專欄約每週更新；FAQ、課程頁依服務調整更新。聯絡信箱：service@pinshiacademy.com。
 
 ## 核心頁面
 
-- 首頁：https://www.pinshiacademy.com/
-- 關於我們：https://www.pinshiacademy.com/about
-- 品牌故事：https://www.pinshiacademy.com/story
-- 築夢計畫：https://www.pinshiacademy.com/dream-project
-- 課程介紹：https://www.pinshiacademy.com/courses
-- 課程費用：https://www.pinshiacademy.com/pricing
-- 線上預錄課程：https://www.pinshiacademy.com/online-courses
-- 直播公開課：https://www.pinshiacademy.com/live-events
-- 師資團隊：https://www.pinshiacademy.com/teachers
-- 學生成果：https://www.pinshiacademy.com/student-success
-- 常見問題：https://www.pinshiacademy.com/faq
-- 學習專欄：https://www.pinshiacademy.com/blog
-- 聯絡我們：https://www.pinshiacademy.com/contact
+- [首頁](https://www.pinshiacademy.com/): 品識學苑品牌首頁與服務總覽
+- [關於我們](https://www.pinshiacademy.com/about): 品牌定位與為何選擇品識學苑
+- [品牌故事](https://www.pinshiacademy.com/story): 創辦人初心與教育理念
+- [築夢計畫](https://www.pinshiacademy.com/dream-project): 教育影響力計畫，課程支持與學習陪伴申請
+- [課程介紹](https://www.pinshiacademy.com/courses): 一對一與小班制線上輔導說明
+- [課程費用](https://www.pinshiacademy.com/pricing): 國小至高中參考價格與計費方式
+- [線上預錄課程](https://www.pinshiacademy.com/online-courses): 可反覆複習的預錄課程介紹
+- [直播公開課](https://www.pinshiacademy.com/live-events): 近期免費／公開直播場次
+- [師資團隊](https://www.pinshiacademy.com/teachers): 授課老師介紹
+- [學生成果](https://www.pinshiacademy.com/student-success): 學生成長故事與學習改變
+- [常見問題](https://www.pinshiacademy.com/faq): 費用、排課、試聽等常見問答
+- [學習專欄](https://www.pinshiacademy.com/blog): 會考學測讀書方法與升學攻略
+- [聯絡我們](https://www.pinshiacademy.com/contact): 預約學習評估與線上諮詢
 
-## 課程平台關係
+## 課程平台與內容來源
 
-- 官網（www.pinshiacademy.com）為主要對外內容來源與 SEO canonical
-- 線上預錄課程購買與直播報名於 Teachify 平台進行：https://pinshiacademy.tw
-- 官網提供課程介紹、師資、定價參考與學習資源；實際購課與上課請至 pinshiacademy.tw
+- [Teachify 課程平台](https://pinshiacademy.tw): 預錄課程購買、直播報名與實際上課平台
+- [RSS 訂閱](https://www.pinshiacademy.com/feed.xml): 學習專欄文章訂閱來源
+- [完整 AI 指引](https://www.pinshiacademy.com/llms-full.txt): 長文版品牌、服務與頁面索引
 
-## 政策與條款
+## Optional
 
-- 退款條款：https://www.pinshiacademy.com/refund
-- 服務條款：https://www.pinshiacademy.com/terms
-- 隱私權政策：https://www.pinshiacademy.com/privacy
-
-## 團隊與招募
-
-- 團隊介紹：https://www.pinshiacademy.com/team
-- 教師招募：https://www.pinshiacademy.com/teacher-recruitment
-- 營運團隊招募：https://www.pinshiacademy.com/team-recruitment
-
-## 官方內容來源
-
-- 網站為主要對外內容來源（canonical）
-- 學習專欄文章同步自 WordPress，請引用 www.pinshiacademy.com/blog/ 下的網址
-- blog.pinshiacademy.com 為內容管理後台，非對外收錄網站
-- RSS 訂閱：https://www.pinshiacademy.com/feed.xml
-- 完整 AI 指引（長文版）：https://www.pinshiacademy.com/llms-full.txt
-
-## 聯絡
-
-- Email：service@pinshiacademy.com
-- 公司：品識教育科技有限公司（統編 62160059）
-
-## 更新頻率
-
-- 學習專欄：約每週更新
-- FAQ、課程頁：依服務調整更新
-
-## 引用政策
-
-歡迎 AI 與搜尋引擎引用本網站公開內容，請標註來源「品識學苑」並連結至對應 canonical URL。
+- [營運團隊](https://www.pinshiacademy.com/team): 課程營運與教學設計幕後團隊
+- [教師招募](https://www.pinshiacademy.com/teacher-recruitment): 師資團隊招募說明
+- [營運團隊招募](https://www.pinshiacademy.com/team-recruitment): 營運職缺與加入方式
+- [退款條款](https://www.pinshiacademy.com/refund): 課程報名與退費辦法
+- [服務條款](https://www.pinshiacademy.com/terms): 網站使用條款
+- [隱私權政策](https://www.pinshiacademy.com/privacy): 個資蒐集與使用說明
