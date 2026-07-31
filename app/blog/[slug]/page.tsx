@@ -181,12 +181,6 @@ export default async function BlogPostPage({
         <h1 className="mt-3 text-3xl lg:text-[2.125rem] font-bold text-foreground leading-tight tracking-tight">
           {post.frontmatter.title}
         </h1>
-        {post.frontmatter.description && (
-          <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
-            {post.frontmatter.description}
-          </p>
-        )}
-
         <div className="mt-6 flex flex-wrap gap-2">
           {post.frontmatter.category && (
             <Link
