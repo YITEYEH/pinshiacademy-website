@@ -13,7 +13,6 @@ import {
   Calculator,
   Leaf,
   Beaker,
-  TrendingUp,
   ChevronLeft,
   ChevronRight,
   GraduationCap,
@@ -21,12 +20,10 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { LineCtaButton } from "@/components/LineCtaButton";
 import { LearningProcess } from "@/components/LearningProcess";
 import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
-import { CTA_ROW_CLASS } from "@/lib/cta-button-styles";
 import { page as studentSuccessPage } from "@/content/student-success/page-copy";
 import { dreamProjectHomePromo } from "@/content/dream-project/page-copy";
 import type { BlogPostSummary } from "@/content/content-api/types";
@@ -234,75 +231,6 @@ function HomeParentsCarousel({
 export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
   return (
     <div className="w-full">
-      <section className="relative bg-gradient-to-br from-[#e8f5ee] to-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground mb-6 leading-tight">
-                成績上不去？
-                <br />
-                問題不是努力不夠
-                <br />
-                而是方法不對
-              </h1>
-              <p className="text-lg text-muted-foreground mb-8 max-w-xl">
-                我們不做填鴨式教學
-                <br />
-                而是幫學生找到能持續進步的讀書方法
-              </p>
-              <div className={CTA_ROW_CLASS}>
-                <LineCtaButton
-                  href={LINE_LINKS.consult}
-                  analyticsLabel="home_hero_line_consult"
-                  label={LINE_CTA_LABELS.homeHero}
-                  className="bg-primary hover:bg-primary/90 text-lg px-8 w-full sm:w-auto"
-                />
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="h-12 rounded-full text-lg px-8 border-primary text-primary hover:bg-primary/5 w-full sm:w-auto"
-                  asChild
-                >
-                  <Link href="/courses">探索課程</Link>
-                </Button>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={false}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative"
-            >
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <ImageWithFallback
-                  src="/hero-section.jpg"
-                  alt="品識學苑教室互動教學"
-                  className="w-full h-auto"
-                />
-              </div>
-              <div className="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-xl p-6 max-w-xs">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                    <TrendingUp className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-primary">95%</div>
-                    <div className="text-sm text-muted-foreground">
-                      學生進步率
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div

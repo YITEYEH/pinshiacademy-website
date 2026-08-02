@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin, Building2 } from "lucide-react";
 import { CONTACT, formatRegisteredAddress } from "@/lib/contact";
 import { SITE } from "@/lib/site";
@@ -59,10 +60,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-6">
-              <img
+              <Image
                 src={BRAND_LOGO_PATH}
                 alt="品識學苑"
-                className="w-10 h-10 object-contain"
+                width={40}
+                height={40}
+                className="h-10 w-10 object-contain"
               />
               <span className="text-xl font-semibold">品識學苑</span>
             </Link>

@@ -1,9 +1,20 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { getAllPosts } from "@/content/content-api/posts";
 import { faqCategories } from "@/content/faq-data";
 import { buildPageMetadata } from "@/lib/seo";
 import { buildHomeJsonLd } from "@/lib/home-schema";
-import { HomeClient } from "./HomeClient";
+import { HomeHero } from "@/components/home/HomeHero";
+
+const HomeClient = dynamic(
+  () =>
+    import("./HomeClient").then((mod) => ({ default: mod.HomeClient })),
+  {
+    loading: () => (
+      <div className="min-h-[40vh] bg-white" aria-hidden />
+    ),
+  },
+);
 
 const homeTitle =
   "品識學苑｜國中會考・高中學測線上輔導｜一對一找到孩子卡關點";
@@ -31,6 +42,7 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
       />
+      <HomeHero />
       <HomeClient latestPosts={latestPosts} faqPreview={faqPreview} />
     </>
   );
