@@ -75,21 +75,30 @@ function rootQueryValue(state: TeachifyApolloState, key: string): unknown {
   return root[key];
 }
 
-export const TEACHIFY_FETCH_OPTIONS = {
-  next: {
-    revalidate: TEACHIFY_REVALIDATE_SECONDS,
-    tags: [TEACHIFY_CACHE_TAG],
-  },
-  signal: AbortSignal.timeout(15_000),
-  headers: { Accept: "text/html" },
+const TEACHIFY_FETCH_HEADERS = {
+  Accept: "text/html",
+  "User-Agent":
+    "PinShiAcademyBot/1.0 (+https://www.pinshiacademy.com; catalog sync)",
 };
 
 export async function fetchTeachifyHtml(url: string): Promise<string | null> {
   try {
-    const res = await fetch(url, TEACHIFY_FETCH_OPTIONS);
-    if (!res.ok) return null;
+    const res = await fetch(url, {
+      next: {
+        revalidate: TEACHIFY_REVALIDATE_SECONDS,
+        tags: [TEACHIFY_CACHE_TAG],
+      },
+      // 必須每次請求新建 timeout；模組層共用 signal 會在 15 秒後永久 aborted
+      signal: AbortSignal.timeout(15_000),
+      headers: TEACHIFY_FETCH_HEADERS,
+    });
+    if (!res.ok) {
+      console.error(`[teachify] fetch failed ${res.status} ${url}`);
+      return null;
+    }
     return res.text();
-  } catch {
+  } catch (error) {
+    console.error(`[teachify] fetch error ${url}`, error);
     return null;
   }
 }

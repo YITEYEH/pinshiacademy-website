@@ -21,9 +21,16 @@ export async function fetchTeachifyOgImage(
         tags: [TEACHIFY_CACHE_TAG],
       },
       signal: AbortSignal.timeout(10_000),
-      headers: { Accept: "text/html" },
+      headers: {
+        Accept: "text/html",
+        "User-Agent":
+          "PinShiAcademyBot/1.0 (+https://www.pinshiacademy.com; catalog sync)",
+      },
     });
-    if (!res.ok) return undefined;
+    if (!res.ok) {
+      console.error(`[teachify] og:image fetch failed ${res.status} ${pageUrl}`);
+      return undefined;
+    }
 
     const html = await res.text();
     for (const pattern of OG_IMAGE_PATTERNS) {

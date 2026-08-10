@@ -8,7 +8,7 @@ import {
 } from "@/lib/get-online-courses";
 import { OnlineCoursesClient } from "./OnlineCoursesClient";
 
-export const revalidate = 28_800;
+export const revalidate = 3_600;
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/online-courses",

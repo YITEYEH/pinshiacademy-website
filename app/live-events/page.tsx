@@ -13,7 +13,7 @@ export const metadata: Metadata = buildPageMetadata({
   titleAbsolute: true,
 });
 
-export const revalidate = 28_800;
+export const revalidate = 3_600;
 
 function buildLiveEventsJsonLd(events: LiveEventView[]) {
   return {
