@@ -9,6 +9,9 @@ import {
 } from "@/content/teachify-events";
 import { TEACHIFY_PLATFORM_URL } from "@/content/teachify-courses";
 import {
+  extractFlightLecturerName,
+  extractFlightObjectBySlug,
+  extractFlightObjectsByTypename,
   fetchTeachifyHtml,
   getSessionEventRefs,
   parseTeachifyNextData,
@@ -26,7 +29,7 @@ type ApolloEvent = {
   endedAt: string;
   description?: string;
   lecturers?: ApolloRef[];
-  tickets?: ApolloRef[];
+  tickets?: ApolloRef[] | FlightTicket[];
 };
 
 type ApolloLecturer = {
@@ -35,10 +38,22 @@ type ApolloLecturer = {
   headline?: string;
 };
 
-type ApolloTicket = {
-  __typename: "Ticket";
+type FlightTicket = {
   amount: number;
   currencySymbol?: string;
+};
+
+type FlightEvent = {
+  __typename?: "Event";
+  id?: string;
+  name: string;
+  slug: string;
+  coverPhoto?: string;
+  startedAt: string | number;
+  endedAt: string | number;
+  description?: string;
+  lecturers?: ApolloLecturer[];
+  tickets?: FlightTicket[];
 };
 
 type ApolloRef = { __ref: string };
@@ -69,7 +84,7 @@ function eventStatus(startsAt: string, endsAt: string): TeachifyEventStatus {
   return "scheduled";
 }
 
-function formatPriceLabel(tickets: ApolloTicket[]): string {
+function formatPriceLabel(tickets: FlightTicket[]): string {
   if (tickets.length === 0) return "洽詢";
   const minAmount = Math.min(...tickets.map((ticket) => ticket.amount));
   if (minAmount <= 0) return "免費";
@@ -123,12 +138,13 @@ function buildSubtitle(title: string, plainDescription: string): string {
 
 function resolveTickets(
   state: TeachifyApolloState,
-  refs: ApolloRef[] | undefined,
-): ApolloTicket[] {
-  if (!refs) return [];
-  return refs
-    .map((ref) => resolveApolloRef<ApolloTicket>(state, ref))
-    .filter((ticket): ticket is ApolloTicket => ticket !== null);
+  refs: ApolloRef[] | FlightTicket[] | undefined,
+): FlightTicket[] {
+  if (!refs || refs.length === 0) return [];
+  if (!("__ref" in refs[0])) return refs as FlightTicket[];
+  return (refs as ApolloRef[])
+    .map((ref) => resolveApolloRef<FlightTicket>(state, ref))
+    .filter((ticket): ticket is FlightTicket => ticket !== null);
 }
 
 function resolveLecturers(
@@ -154,19 +170,20 @@ function applyOverride(
   };
 }
 
-function mapApolloEvent(
-  summary: ApolloEvent,
-  detail: ApolloEvent | null,
-  state: TeachifyApolloState,
+function mapEvent(
+  event: FlightEvent,
+  lecturers: ApolloLecturer[],
+  tickets: FlightTicket[],
 ): TeachifyEvent {
-  const event = detail ?? summary;
-  const lecturers = resolveLecturers(state, event.lecturers);
-  const primaryLecturer = lecturers[0];
-  const tickets = resolveTickets(state, event.tickets);
   const startsAt = unixToIso(event.startedAt);
   const endsAt = unixToIso(event.endedAt);
   const title = event.name;
-  const plainDescription = stripHtml(event.description ?? "");
+  const rawDescription = event.description;
+  const plainDescription =
+    rawDescription && !rawDescription.startsWith("$")
+      ? stripHtml(rawDescription)
+      : "";
+  const primaryLecturer = lecturers[0];
 
   const base: TeachifyEvent = {
     id: event.slug,
@@ -191,6 +208,28 @@ function mapApolloEvent(
   return applyOverride(base, TEACHIFY_EVENT_OVERRIDES[event.slug]);
 }
 
+function mapApolloEvent(
+  summary: ApolloEvent,
+  detail: ApolloEvent | null,
+  state: TeachifyApolloState,
+): TeachifyEvent {
+  const event = detail ?? summary;
+  return mapEvent(
+    {
+      name: event.name,
+      slug: event.slug,
+      coverPhoto: event.coverPhoto,
+      startedAt: event.startedAt,
+      endedAt: event.endedAt,
+      description: event.description,
+    },
+    resolveLecturers(state, Array.isArray(event.lecturers) && event.lecturers[0] && "__ref" in event.lecturers[0]
+      ? (event.lecturers as ApolloRef[])
+      : undefined),
+    resolveTickets(state, event.tickets),
+  );
+}
+
 async function fetchEventDetail(slug: string): Promise<{
   event: ApolloEvent | null;
   state: TeachifyApolloState | null;
@@ -211,17 +250,49 @@ async function fetchEventDetail(slug: string): Promise<{
   };
 }
 
-/** 從 Teachify 活動列表頁自動抓取公開課場次 */
-export async function fetchTeachifyEvents(): Promise<TeachifyEvent[]> {
-  const html = await fetchTeachifyHtml(TEACHIFY_EVENTS_URL);
-  if (!html) return [];
+async function fetchFlightEventDetail(slug: string): Promise<FlightEvent | null> {
+  const html = await fetchTeachifyHtml(`${TEACHIFY_PLATFORM_URL}/events/${slug}`);
+  if (!html) return null;
 
+  const parsed = extractFlightObjectBySlug<FlightEvent>(
+    html,
+    slug,
+    (value) =>
+      value.slug === slug &&
+      (Array.isArray(value.lecturers) || Boolean(value.coverPhoto)),
+  );
+  const lecturerName = extractFlightLecturerName(html);
+  const lecturers =
+    parsed?.lecturers?.length
+      ? parsed.lecturers
+      : lecturerName
+        ? [{ __typename: "Lecturer" as const, name: lecturerName }]
+        : undefined;
+
+  if (!parsed && !lecturers) return null;
+
+  return {
+    name: parsed?.name ?? "",
+    slug,
+    coverPhoto: parsed?.coverPhoto,
+    startedAt: parsed?.startedAt ?? 0,
+    endedAt: parsed?.endedAt ?? 0,
+    description: parsed?.description,
+    tickets: parsed?.tickets,
+    lecturers,
+  };
+}
+
+async function fetchTeachifyEventsFromApollo(
+  html: string,
+): Promise<TeachifyEvent[]> {
   const listState = parseTeachifyNextData(html);
   if (!listState) return [];
 
   const upcomingRefs = getSessionEventRefs(listState, "upcoming");
   const pastRefs = getSessionEventRefs(listState, "past");
   const allRefs = [...upcomingRefs, ...pastRefs];
+  if (allRefs.length === 0) return [];
 
   const events = await Promise.all(
     allRefs.map(async (ref) => {
@@ -237,10 +308,52 @@ export async function fetchTeachifyEvents(): Promise<TeachifyEvent[]> {
     }),
   );
 
-  return events
-    .filter((event): event is TeachifyEvent => event !== null)
-    .sort(
-      (a, b) =>
-        new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime(),
-    );
+  return events.filter((event): event is TeachifyEvent => event !== null);
+}
+
+async function fetchTeachifyEventsFromFlight(
+  html: string,
+): Promise<TeachifyEvent[]> {
+  const summaries = extractFlightObjectsByTypename<FlightEvent>(html, "Event");
+  if (summaries.length === 0) {
+    console.error("[teachify] no events found in Apollo state or RSC payload");
+    return [];
+  }
+
+  const events = await Promise.all(
+    summaries.map(async (summary) => {
+      const detail = await fetchFlightEventDetail(summary.slug);
+      const event = {
+        ...summary,
+        ...detail,
+        name: summary.name,
+        slug: summary.slug,
+        startedAt: summary.startedAt,
+        endedAt: summary.endedAt,
+        coverPhoto: detail?.coverPhoto ?? summary.coverPhoto,
+        tickets: summary.tickets ?? detail?.tickets,
+        lecturers: detail?.lecturers ?? summary.lecturers,
+      };
+      return mapEvent(event, event.lecturers ?? [], event.tickets ?? []);
+    }),
+  );
+
+  return events;
+}
+
+/** 從 Teachify 活動列表頁自動抓取公開課場次 */
+export async function fetchTeachifyEvents(): Promise<TeachifyEvent[]> {
+  const html = await fetchTeachifyHtml(TEACHIFY_EVENTS_URL);
+  if (!html) return [];
+
+  const apolloEvents = await fetchTeachifyEventsFromApollo(html);
+  const events =
+    apolloEvents.length > 0
+      ? apolloEvents
+      : await fetchTeachifyEventsFromFlight(html);
+
+  return events.sort(
+    (a, b) =>
+      new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime(),
+  );
 }
