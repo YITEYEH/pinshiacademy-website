@@ -24,9 +24,14 @@ const DEFAULT_CTA: ArticleConsultCtaContent = {
       analyticsLabel: "blog_article_nav_courses",
     },
     {
-      href: "/faq",
-      label: "常見問題",
-      analyticsLabel: "blog_article_nav_faq",
+      href: "/online-courses",
+      label: "線上預錄課程",
+      analyticsLabel: "blog_article_nav_online_courses",
+    },
+    {
+      href: "/live-events",
+      label: "直播公開課",
+      analyticsLabel: "blog_article_nav_live_events",
     },
   ],
 };
@@ -130,10 +135,10 @@ export function getArticleTrustLinks(
   if (key === "國小萬試通") {
     return [
       {
-        href: "/teachers/ye-xuezhen",
-        label: "認識葉學貞老師",
-        description: "國小、國中數學，擅長把觀念拆成可跟得上的步驟。",
-        analyticsLabel: "blog_article_trust_teacher_ye_xuezhen",
+        href: "/teachers/yeh-yide",
+        label: "認識葉以德老師",
+        description: "國中、高中數學，重視理解與解題思維。",
+        analyticsLabel: "blog_article_trust_teacher_yeh_yide",
       },
       {
         href: "/student-success",
@@ -170,10 +175,10 @@ export function getArticleTrustLinks(
         analyticsLabel: "blog_article_trust_teachers",
       },
       {
-        href: "/teachers/jiang-jiqin",
-        label: "認識蔣季芹老師",
-        description: "國中、高中國文，擅長架構化閱讀與寫作。",
-        analyticsLabel: "blog_article_trust_teacher_jiang",
+        href: "/teachers/HSU-Hsi",
+        label: "認識徐璽老師",
+        description: "國中、高中英文，擅長語境理解與檢定準備。",
+        analyticsLabel: "blog_article_trust_teacher_hsu_hsi",
       },
     ];
   }
@@ -196,5 +201,10 @@ export function getArticleTrustLinks(
 
 export function categorySupportsLiveBridge(category?: string): boolean {
   const key = category?.trim() ?? "";
-  return key === "國中好試多" || key === "高中芝士補給站";
+  return (
+    key === "國中好試多" ||
+    key === "高中芝士補給站" ||
+    key === "學習技巧" ||
+    key === "國小萬試通"
+  );
 }

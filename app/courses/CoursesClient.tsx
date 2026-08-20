@@ -3,7 +3,6 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 import {
-  ArrowRight,
   Book,
   Globe,
   Calculator,
@@ -19,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { LineCtaButton } from "@/components/LineCtaButton";
 import { LineCtaLabel } from "@/components/LineCtaLabel";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { StickyLineCta } from "@/components/StickyLineCta";
 import { courseLineCtaLabel, LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
 import {
@@ -29,14 +29,14 @@ import {
 import { scheduleScrollToTop } from "@/lib/scroll-to-top";
 import { useState } from "react";
 
+const SUBJECT_CARD_CLASS =
+  "rounded-2xl border border-border bg-[#f7f9f7] p-8 lg:p-10";
+
 const courses = [
   {
     icon: Book,
     name: "國文",
     englishName: "Chinese",
-    color: "bg-[#e8f5ee]",
-    iconBg: "bg-primary",
-    iconColor: "text-white",
     features: [
       "理解勝過記憶：深入解析文意與寫作技巧",
       "培養閱讀素養：從古文到現代文的全方位訓練",
@@ -50,9 +50,6 @@ const courses = [
     icon: Globe,
     name: "英文",
     englishName: "English",
-    color: "bg-blue-50",
-    iconBg: "bg-blue-500",
-    iconColor: "text-white",
     features: [
       "建立語感：從聽說讀寫全方位提升英語能力",
       "活用單字：透過情境學習，不再死背單字",
@@ -66,9 +63,6 @@ const courses = [
     icon: Calculator,
     name: "數學",
     englishName: "Mathematics",
-    color: "bg-purple-50",
-    iconBg: "bg-purple-500",
-    iconColor: "text-white",
     features: [
       "建立思路：理解數學概念，而非死記公式",
       "解題策略：培養邏輯推理與問題拆解能力",
@@ -82,9 +76,6 @@ const courses = [
     icon: Leaf,
     name: "社會",
     englishName: "Social Studies",
-    color: "bg-amber-50",
-    iconBg: "bg-amber-500",
-    iconColor: "text-white",
     features: [
       "理解脈絡：連結歷史、地理與公民的整合學習",
       "時事連結：將課本知識與現實世界結合",
@@ -98,9 +89,6 @@ const courses = [
     icon: Beaker,
     name: "自然",
     englishName: "Science",
-    color: "bg-teal-50",
-    iconBg: "bg-teal-500",
-    iconColor: "text-white",
     features: [
       "探索原理：從實驗與觀察理解科學概念",
       "邏輯推理：培養科學思維與假設驗證能力",
@@ -114,9 +102,6 @@ const courses = [
     icon: GraduationCap,
     name: "升學策略",
     englishName: "Academic Planning",
-    color: "bg-rose-50",
-    iconBg: "bg-rose-500",
-    iconColor: "text-white",
     features: [
       "目標設定：根據興趣與能力，規劃升學方向",
       "資源整合：有效運用學習資源，優化讀書計畫",
@@ -205,7 +190,7 @@ export function CoursesClient() {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full pb-24 md:pb-0">
       <section className="py-20 lg:py-28 bg-gradient-to-br from-[#e8f5ee] to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -266,6 +251,34 @@ export function CoursesClient() {
                 ))}
               </div>
             </div>
+
+            <div className={`${CTA_ROW_CLASS} justify-center`}>
+              <LineCtaButton
+                href={LINE_LINKS.coursesConsult}
+                analyticsLabel="courses_hero_line_consult"
+                label={LINE_CTA_LABELS.coursesBottom}
+                className="w-full bg-primary px-8 text-lg hover:bg-primary/90 sm:w-auto"
+              />
+              {courseType === "recorded" ? (
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="h-12 w-full rounded-full border-primary px-8 text-lg text-primary hover:bg-primary/5 sm:w-auto"
+                  asChild
+                >
+                  <Link href="/online-courses">瀏覽預錄課程</Link>
+                </Button>
+              ) : (
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="h-12 w-full rounded-full border-primary px-8 text-lg text-primary hover:bg-primary/5 sm:w-auto"
+                  asChild
+                >
+                  <Link href="/pricing">查看課程費用</Link>
+                </Button>
+              )}
+            </div>
           </motion.div>
         </div>
       </section>
@@ -281,14 +294,12 @@ export function CoursesClient() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`${course.color} rounded-2xl p-8 lg:p-10`}
+                className={SUBJECT_CARD_CLASS}
               >
                 <div className="grid lg:grid-cols-3 gap-8">
                   <div className="lg:col-span-1">
-                    <div
-                      className={`w-20 h-20 ${course.iconBg} rounded-2xl flex items-center justify-center mb-6 shadow-lg`}
-                    >
-                      <course.icon className={`w-10 h-10 ${course.iconColor}`} />
+                    <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary shadow-lg">
+                      <course.icon className="h-10 w-10 text-white" />
                     </div>
                     <h3 className="text-3xl font-bold text-foreground mb-2">
                       {course.name}
@@ -378,12 +389,15 @@ export function CoursesClient() {
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
               孩子現在的學習方式，真的適合他嗎？
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-white/90 mb-4 max-w-2xl mx-auto">
               多數孩子不是不努力，而是沒有找到對的方法
               <br />
               我們用專業診斷，幫你找出最適合的學習路徑
             </p>
-            <div className={CTA_ROW_CLASS}>
+            <p className="mb-8 text-sm text-white/75">
+              95% 學生進步率 · 首次學習評估免費，無義務繼續上課
+            </p>
+            <div className={`${CTA_ROW_CLASS} justify-center`}>
               <LineCtaButton
                 href={LINE_LINKS.coursesConsult}
                 analyticsLabel="courses_line_consult"
@@ -394,17 +408,29 @@ export function CoursesClient() {
               <Button size="lg" className={CTA_SECONDARY_ON_DARK_CLASS} asChild>
                 <Link href="/pricing">查看課程費用</Link>
               </Button>
-              <Button size="lg" className={CTA_SECONDARY_ON_DARK_CLASS} asChild>
-                <Link href="/student-success">學生成果</Link>
-              </Button>
-              <Button size="lg" className={CTA_SECONDARY_ON_DARK_CLASS} asChild>
-                <Link href="/teachers">認識師資團隊</Link>
-              </Button>
+            </div>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-white/85">
+              <Link href="/student-success" className="hover:underline">
+                學生成果
+              </Link>
+              <Link href="/teachers" className="hover:underline">
+                認識師資
+              </Link>
+              <Link href="/live-events" className="hover:underline">
+                直播公開課
+              </Link>
+              <Link href="/online-courses" className="hover:underline">
+                線上預錄課程
+              </Link>
             </div>
           </motion.div>
         </div>
       </section>
+
+      <StickyLineCta
+        analyticsLabel="courses_sticky_line_consult"
+        dismissKey="psa_courses_sticky_line_dismissed"
+      />
     </div>
   );
 }
-

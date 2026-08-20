@@ -103,13 +103,19 @@ function excerptCoreText(excerpt: string) {
     .trim();
 }
 
+function excerptLooksTruncated(excerpt: string) {
+  return /(?:…|\.\.\.)\s*$/u.test(excerpt.trim());
+}
+
 function deriveDescription(excerptText: string, contentHtml: string | null | undefined) {
   const excerpt = sanitizeExcerpt(excerptText);
   const excerptCore = excerptCoreText(excerpt);
   const fromContent = contentHtml ? deriveDescriptionFromContent(contentHtml) : "";
 
-  // WP 摘要夠長就優先使用（即使尾端有 … 也保留完整導讀）
-  if (excerptCore.length >= MIN_LEAD_CHARS) {
+  if (
+    excerptCore.length >= MIN_LEAD_CHARS &&
+    !excerptLooksTruncated(excerpt)
+  ) {
     return clampDescription(excerpt);
   }
 

@@ -342,13 +342,27 @@ export function Navbar() {
             </Button>
           </div>
 
-          <button
-            className="md:hidden text-foreground"
-            onClick={toggleMobileMenu}
-            aria-label={mobileMenuOpen ? "關閉選單" : "開啟選單"}
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <Button
+              size="sm"
+              className="h-9 shrink-0 rounded-full bg-primary px-3 text-xs font-semibold hover:bg-primary/90"
+              asChild
+            >
+              <ExternalLinkOnce
+                href={LINE_LINKS.consult}
+                analyticsLabel="navbar_mobile_header_line"
+              >
+                <LineCtaLabel iconClassName="size-3.5" label="評估" />
+              </ExternalLinkOnce>
+            </Button>
+            <button
+              className="text-foreground"
+              onClick={toggleMobileMenu}
+              aria-label={mobileMenuOpen ? "關閉選單" : "開啟選單"}
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         <AnimatePresence>

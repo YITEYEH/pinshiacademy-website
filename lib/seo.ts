@@ -16,7 +16,8 @@ const DESCRIPTION_SUFFIX =
 
 function finalizeDescription(raw: string): string {
   const t = raw.trim();
-  if (t.length >= MIN_DESCRIPTION_CHARS) {
+  const endsWithEllipsis = /(?:…|\.\.\.)\s*$/u.test(t);
+  if (t.length >= MIN_DESCRIPTION_CHARS || endsWithEllipsis) {
     return t.length > 320 ? `${t.slice(0, 319)}…` : t;
   }
   const joiner = t && !/[。．.!！?？]$/u.test(t) ? "。" : "";

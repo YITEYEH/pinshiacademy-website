@@ -16,6 +16,8 @@ const nextConfig: NextConfig = {
       { source: "/online-tutoring", destination: "/courses", permanent: true },
       { source: "/courses/math", destination: "/courses", permanent: true },
       { source: "/courses/senior-high", destination: "/courses", permanent: true },
+      { source: "/teachers/ye-xuezhen", destination: "/teachers", permanent: true },
+      { source: "/teachers/jiang-jiqin", destination: "/teachers", permanent: true },
     ];
   },
   async rewrites() {

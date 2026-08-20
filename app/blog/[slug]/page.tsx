@@ -18,6 +18,7 @@ import { getLiveEvents } from "@/lib/get-live-events";
 import { SITE } from "@/lib/site";
 import { buildPageMetadata, buildNotFoundMetadata } from "@/lib/seo";
 import { BRAND_LOGO_PATH } from "@/lib/site-assets";
+import { splitArticleHtmlAfterNthH2 } from "@/lib/split-article-html";
 
 export const revalidate = 60;
 
@@ -46,10 +47,9 @@ export async function generateMetadata({
   try {
     const post = await getPostBySlug(slug);
     const rawTitle = post.frontmatter.title.trim();
-    const seoTitle =
-      rawTitle.length >= 20
-        ? rawTitle
-        : `${rawTitle}｜品識學苑升學專欄`;
+    const seoTitle = rawTitle.includes("品識學苑")
+      ? rawTitle
+      : `${rawTitle}｜品識學苑升學專欄`;
     const published = toIsoDate(post.frontmatter.date);
     const modified = toIsoDate(
       effectiveModifiedDate(
@@ -101,6 +101,7 @@ export default async function BlogPostPage({
   );
 
   const category = post.frontmatter.category;
+  const articleSplit = splitArticleHtmlAfterNthH2(post.content, 2);
   let liveBridgeEvents: {
     id: string;
     title: string;
@@ -237,18 +238,35 @@ export default async function BlogPostPage({
 
       {post.toc && post.toc.length > 0 && <ArticleToc items={post.toc} />}
 
-      <div
-        className="article-content max-w-[42rem] mx-auto"
-        dangerouslySetInnerHTML={{ __html: post.content }}
-      />
+      {articleSplit ? (
+        <>
+          <div
+            className="article-content max-w-[42rem] mx-auto"
+            dangerouslySetInnerHTML={{ __html: articleSplit.before }}
+          />
+          <ArticleConsultCta
+            category={post.frontmatter.category}
+            variant="compact"
+          />
+          <div
+            className="article-content max-w-[42rem] mx-auto"
+            dangerouslySetInnerHTML={{ __html: articleSplit.after }}
+          />
+        </>
+      ) : (
+        <div
+          className="article-content max-w-[42rem] mx-auto"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
+      )}
+
+      <ArticleConsultCta category={post.frontmatter.category} />
 
       <ArticleTrustLinks category={post.frontmatter.category} />
 
       <ArticleLiveEventsBridge events={liveBridgeEvents} />
 
       <ArticleShare url={postUrl} title={post.frontmatter.title} />
-
-      <ArticleConsultCta category={post.frontmatter.category} />
 
       <RelatedPosts posts={relatedPosts} />
 

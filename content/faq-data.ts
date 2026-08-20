@@ -98,7 +98,9 @@ export const faqCategories: FaqCategory[] = [
       },
       {
         q: "有提供線上課程嗎？",
-        a: "有的，品識學苑目前提供線上課程服務，學生可透過電腦、平板或手機參與課程，不受地區限制即可學習。我們提供一對一個別指導及部分小班制課程，讓學生在家也能享有高品質的學習體驗。課程將搭配線上互動教學工具進行授課，老師可即時講解、解題與互動，確保學習效果。更多資訊歡迎參閱線上家教頁面。",
+        a: "有的，品識學苑提供一對一、小班與線上預錄課程，以及免費直播公開課。詳見課程介紹、線上預錄課程與直播公開課頁面。",
+        aHtml:
+          "有的，品識學苑提供一對一、小班與<a href=\"/courses\" class=\"text-primary hover:underline\">線上輔導課程</a>，也有<a href=\"/online-courses\" class=\"text-primary hover:underline\">線上預錄課程</a>與<a href=\"/live-events\" class=\"text-primary hover:underline\">免費直播公開課</a>。學生可透過電腦、平板或手機參與，不受地區限制。",
       },
       {
         q: "只上一科可以嗎？",

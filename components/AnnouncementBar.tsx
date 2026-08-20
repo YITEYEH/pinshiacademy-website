@@ -1,20 +1,37 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
 import { SITE_ANNOUNCEMENT } from "@/lib/site-announcement";
 
+const DISMISS_KEY = "psa_announcement_dismissed";
+
 export function AnnouncementBar() {
-  if (!SITE_ANNOUNCEMENT.enabled) return null;
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (!SITE_ANNOUNCEMENT.enabled) return;
+    try {
+      if (sessionStorage.getItem(DISMISS_KEY) === "1") return;
+    } catch {
+      // ignore
+    }
+    setVisible(true);
+  }, []);
+
+  if (!SITE_ANNOUNCEMENT.enabled || !visible) return null;
 
   const { eyebrow, headline, description, ctaLabel, href } = SITE_ANNOUNCEMENT;
 
   return (
     <aside
       aria-label="最新公告"
-      className="border-b border-primary/10 bg-[#e8f5ee]"
+      className="relative border-b border-primary/10 bg-[#e8f5ee]"
     >
       <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 sm:py-3.5 lg:px-8">
         <div className="flex flex-col items-center justify-center gap-3 text-center sm:flex-row sm:gap-5">
-          <div className="min-w-0">
+          <div className="min-w-0 pr-8 sm:pr-0">
             <p className="text-xs font-medium tracking-wide text-primary">
               {eyebrow}
             </p>
@@ -35,6 +52,22 @@ export function AnnouncementBar() {
           </Link>
         </div>
       </div>
+
+      <button
+        type="button"
+        aria-label="關閉公告"
+        className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-muted-foreground hover:bg-white/60 hover:text-foreground sm:right-4"
+        onClick={() => {
+          try {
+            sessionStorage.setItem(DISMISS_KEY, "1");
+          } catch {
+            // ignore
+          }
+          setVisible(false);
+        }}
+      >
+        <X className="h-4 w-4" />
+      </button>
     </aside>
   );
 }

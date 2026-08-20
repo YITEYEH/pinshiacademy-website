@@ -3,8 +3,6 @@
 import { motion } from "motion/react";
 import { ArrowRight, Heart, Target, Zap, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { TeamMemberCard } from "@/components/team/TeamMemberCard";
-import type { TeamMember } from "@/components/team/TeamMemberCard";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 
 const teamValues = [
@@ -27,18 +25,6 @@ const teamValues = [
     icon: Shield,
     title: "可靠信賴",
     description: "建立長期穩定的信任關係",
-  },
-];
-
-const teamMembers: readonly TeamMember[] = [
-  {
-    name: "葉學貞",
-    role: "教學設計師",
-    image: "/team/ye-xuezhen.jpg",
-    imagePosition: "center",
-    description:
-      "專責數學教材研發與課程架構設計，將抽象概念拆解為可理解的學習步驟，建立學生穩定成長的解題邏輯系統",
-    expertise: ["教學規劃", "師資培訓"],
   },
 ];
 
@@ -120,41 +106,6 @@ export function TeamClient() {
                 <p className="text-sm text-muted-foreground">
                   {value.description}
                 </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#f7f9f7] py-16 sm:py-20">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-10 text-center sm:mb-12"
-          >
-            <h2 className="mb-3 text-3xl font-bold text-foreground">
-              團隊成員介紹
-            </h2>
-            <p className="mx-auto max-w-xl text-muted-foreground">
-              認識支援品識學苑運作的專業團隊
-            </p>
-          </motion.div>
-
-          <div className="grid gap-6 md:grid-cols-2">
-            {teamMembers.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={false}
-                animate={{ opacity: 1, y: 0 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <TeamMemberCard member={member} />
               </motion.div>
             ))}
           </div>

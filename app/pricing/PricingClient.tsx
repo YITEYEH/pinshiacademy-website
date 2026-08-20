@@ -11,6 +11,7 @@ import {
 import { LINE_LINKS } from "@/lib/line-links";
 import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LineCtaButton } from "@/components/LineCtaButton";
+import { StickyLineCta } from "@/components/StickyLineCta";
 import { PricingCtaButton } from "@/components/pricing/PricingCtaButton";
 import { PricingFactorsCard } from "@/components/pricing/PricingFactorsCard";
 import { PricingFaq } from "@/components/pricing/PricingFaq";
@@ -26,7 +27,7 @@ const fadeUp = {
 
 export function PricingClient() {
   return (
-    <div className="w-full">
+    <div className="w-full pb-24 md:pb-0">
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#f4f9f6] via-white to-white py-16 lg:py-20">
         <div
@@ -127,6 +128,9 @@ export function PricingClient() {
             <p className="mt-5 text-lg leading-relaxed text-white/90 sm:text-xl">
               {pricingFinalCta.subtitle}
             </p>
+            <p className="mt-4 text-sm text-white/75">
+              95% 學生進步率 · 首次學習評估免費
+            </p>
             <div className="mt-10 flex flex-col items-center">
               <PricingCtaButton
                 href={LINE_LINKS.homeAssessment}
@@ -138,6 +142,11 @@ export function PricingClient() {
           </motion.div>
         </div>
       </section>
+
+      <StickyLineCta
+        analyticsLabel="pricing_sticky_line_consult"
+        dismissKey="psa_pricing_sticky_line_dismissed"
+      />
     </div>
   );
 }

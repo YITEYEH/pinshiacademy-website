@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { motion } from "motion/react";
 import { Mail, MapPin, Building2 } from "lucide-react";
 import { LineCtaButton } from "@/components/LineCtaButton";
+import { StickyLineCta } from "@/components/StickyLineCta";
 import { LineIcon } from "@/components/icons/LineIcon";
 import { CONTACT, formatRegisteredAddress } from "@/lib/contact";
 import { LINE_CTA_LABELS } from "@/lib/line-cta";
@@ -46,7 +47,7 @@ function InfoCard({
 
 export function ContactClient() {
   return (
-    <div className="w-full">
+    <div className="w-full pb-24 md:pb-0">
       <section className="bg-gradient-to-br from-[#e8f5ee] to-white py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -148,6 +149,11 @@ export function ContactClient() {
           </div>
         </div>
       </section>
+
+      <StickyLineCta
+        analyticsLabel="contact_sticky_line_consult"
+        dismissKey="psa_contact_sticky_line_dismissed"
+      />
     </div>
   );
 }

@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LineCtaButton } from "@/components/LineCtaButton";
+import { StickyLineCta } from "@/components/StickyLineCta";
 import { LearningProcess } from "@/components/LearningProcess";
 import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
@@ -230,7 +231,7 @@ function HomeParentsCarousel({
 
 export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
   return (
-    <div className="w-full">
+    <div className="w-full pb-24 md:pb-0">
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -424,7 +425,7 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="bg-white rounded-xl p-6 border-2 border-primary/20"
+                className="flex h-full flex-col rounded-xl border-2 border-primary/20 bg-white p-6"
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -437,7 +438,7 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
                 <p className="text-muted-foreground mb-4">
                   高品質錄製課程，隨時隨地學習，依照自己的步調反覆觀看
                 </p>
-                <ul className="space-y-2">
+                <ul className="mb-4 space-y-2">
                   <li className="flex items-start gap-2 text-sm text-foreground">
                     <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                     <span>彈性學習時間</span>
@@ -451,22 +452,51 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
                     <span>配套練習題庫</span>
                   </li>
                 </ul>
+                <Link
+                  href="/online-courses"
+                  className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+                >
+                  瀏覽線上預錄課程
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </motion.div>
             </div>
           </div>
 
-          <div className="text-center">
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary/5"
-              asChild
-            >
-              <Link href="/courses">
-                查看完整課程內容
-                <ArrowRight className="ml-2 w-5 h-5" />
+          <div className="text-center space-y-4">
+            <div className={`flex flex-col items-center gap-3 sm:flex-row sm:justify-center`}>
+              <LineCtaButton
+                href={LINE_LINKS.consult}
+                analyticsLabel="home_subjects_line_consult"
+                label={LINE_CTA_LABELS.homeHero}
+                className="w-full bg-primary px-8 text-lg hover:bg-primary/90 sm:w-auto"
+              />
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-12 w-full rounded-full border-primary px-8 text-lg text-primary hover:bg-primary/5 sm:w-auto"
+                asChild
+              >
+                <Link href="/courses">
+                  查看完整課程內容
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
+              </Button>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
+              <Link
+                href="/live-events"
+                className="font-medium text-primary hover:underline"
+              >
+                免費直播公開課
               </Link>
-            </Button>
+              <Link
+                href="/online-courses"
+                className="font-medium text-primary hover:underline"
+              >
+                線上預錄課程
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -514,18 +544,20 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
           </div>
 
           <div className="mt-12 space-y-4 text-center">
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary/5"
-              asChild
-            >
-              <Link href="/teachers">
+            <LineCtaButton
+              href={LINE_LINKS.consult}
+              analyticsLabel="home_parents_line_consult"
+              label={LINE_CTA_LABELS.homeHero}
+              className="px-8 text-lg"
+            />
+            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+              <Link
+                href="/teachers"
+                className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+              >
                 認識完整師資團隊
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="h-4 w-4" />
               </Link>
-            </Button>
-            <div>
               <Link
                 href="/student-success"
                 className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
@@ -636,6 +668,15 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
                     查看全部 FAQ
                     <ArrowRight className="h-4 w-4" />
                   </Link>
+                  <div className="pt-6 text-center sm:text-left">
+                    <LineCtaButton
+                      href={LINE_LINKS.consult}
+                      analyticsLabel="home_faq_preview_line_consult"
+                      label={LINE_CTA_LABELS.homeHero}
+                      size="default"
+                      className="w-full sm:w-auto"
+                    />
+                  </div>
                 </div>
               )}
             </div>
@@ -655,11 +696,14 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
               孩子成績卡住，不知道問題在哪？
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              免費學習檢測，幫你找出真正的卡關點，給你明確方向
+            <p className="text-xl text-white/90 mb-4 max-w-2xl mx-auto">
+              免費學習評估，幫你找出真正的卡關點，給你明確方向
+            </p>
+            <p className="mb-8 text-sm text-white/75">
+              95% 學生進步率 · 首次評估免費，無義務繼續上課
             </p>
             <LineCtaButton
-              href={LINE_LINKS.homeAssessment}
+              href={LINE_LINKS.consult}
               analyticsLabel="home_cta_line_assessment"
               label={LINE_CTA_LABELS.homeAssessment}
               variant="inverse"
@@ -668,6 +712,11 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
           </motion.div>
         </div>
       </section>
+
+      <StickyLineCta
+        analyticsLabel="home_sticky_line_consult"
+        dismissKey="psa_home_sticky_line_dismissed"
+      />
     </div>
   );
 }
