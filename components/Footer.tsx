@@ -25,7 +25,7 @@ const quickLinks = [
   { name: "線上預錄課程", path: "/online-courses" },
   { name: "直播公開課", path: "/live-events" },
   { name: "師資團隊", path: "/teachers" },
-  { name: "營運團隊", path: "/team" },
+  { name: "學習支持團隊", path: "/team" },
   { name: "師資團隊招募", path: "/teacher-recruitment" },
   { name: "營運團隊招募", path: "/team-recruitment" },
   { name: "聯絡我們", path: "/contact" },

@@ -27,6 +27,7 @@ export const LINE_CTA_LABELS = {
   dreamApply: "申請築夢計畫",
   dreamTeacher: "成為築夢教師",
   dreamPartner: "洽談合作",
+  teamThreeTeachers: "預約學習諮詢",
 } as const;
 
 /** 課程介紹頁 — 各科目的 LINE CTA */
