@@ -34,20 +34,27 @@ export function RoleSection({ role, index }: RoleSectionProps) {
         transition={{ duration: 0.5 }}
       >
         <header className="mb-8 sm:mb-10">
-          <p className="mb-3 text-sm font-medium tracking-wide text-primary">
-            {role.number}｜{role.title}
-          </p>
-          <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-[#e8f5ee]">
-            <Icon className="h-5 w-5 text-primary" aria-hidden />
+          <div className="mb-5 flex items-center gap-3 sm:gap-4">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#e8f5ee] sm:h-12 sm:w-12">
+              <Icon className="h-5 w-5 text-primary sm:h-6 sm:w-6" aria-hidden />
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm font-medium tabular-nums tracking-wide text-primary">
+                {role.number}
+              </p>
+              <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
+                {role.title}
+              </h2>
+            </div>
           </div>
-          <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
-            {role.title}
-          </h2>
-          <h3 className="mt-2 text-lg font-semibold text-primary sm:text-xl lg:text-2xl">
+
+          <p className="text-xl font-semibold tracking-tight text-primary sm:text-2xl">
             {role.subtitle}
-          </h3>
-          <p className="mt-4 text-base font-medium text-foreground sm:mt-5 sm:text-lg">
-            核心問題：{role.question}
+          </p>
+
+          <p className="mt-4 border-l-2 border-primary/30 pl-4 text-base leading-relaxed text-muted-foreground sm:mt-5 sm:text-lg">
+            <span className="sr-only">核心問題：</span>
+            {role.question}
           </p>
         </header>
 
@@ -58,34 +65,14 @@ export function RoleSection({ role, index }: RoleSectionProps) {
             <p className="mb-4 text-sm font-medium tracking-wide text-primary">
               核心流程
             </p>
-            {/* Mobile: vertical steps */}
-            <ol className="space-y-0 sm:hidden">
-              {role.process.map((step, i) => (
-                <li key={step} className="relative flex gap-3 pb-4 last:pb-0">
-                  {i < role.process!.length - 1 ? (
-                    <div
-                      aria-hidden
-                      className="absolute left-[0.9375rem] top-8 bottom-0 w-px bg-primary/20"
-                    />
-                  ) : null}
-                  <span className="relative z-10 flex h-[1.875rem] w-[1.875rem] shrink-0 items-center justify-center rounded-full border border-primary/20 bg-white text-xs font-semibold text-primary">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="pt-1 text-sm font-semibold text-foreground">
-                    {step}
-                  </span>
-                </li>
-              ))}
-            </ol>
-            {/* sm+: horizontal chips */}
-            <ol className="hidden flex-wrap items-center gap-y-2 sm:flex">
+            <ol className="flex flex-wrap items-center justify-start gap-y-2">
               {role.process.map((step, i) => (
                 <li key={step} className="flex items-center">
-                  <span className="rounded-full border border-primary/20 bg-white px-3.5 py-1.5 text-sm font-semibold text-foreground">
+                  <span className="rounded-full border border-primary/20 bg-white px-3 py-1.5 text-sm font-semibold text-foreground sm:px-3.5">
                     {step}
                   </span>
                   {i < role.process!.length - 1 ? (
-                    <span aria-hidden className="mx-2 text-primary/40">
+                    <span aria-hidden className="mx-1.5 text-primary/40 sm:mx-2">
                       →
                     </span>
                   ) : null}

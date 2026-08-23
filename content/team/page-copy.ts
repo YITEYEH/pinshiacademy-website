@@ -1,9 +1,9 @@
 /** 三師共學制度頁文案（/team）— 頁面內文不加句號 */
 
 export const threeTeachersSeo = {
-  title: "三師共學制度｜授課老師、學習顧問、輔導老師｜品識學苑",
+  title: "三師共學制度｜授課老師、解題老師、輔導老師｜品識學苑",
   description:
-    "品識學苑透過授課老師、學習顧問與輔導老師三師共學制度，從學科教學、學習策略到成長陪伴，持續了解學生的學習狀況，找到真正適合自己的學習方式。",
+    "品識學苑透過授課老師、解題老師與輔導老師三師共學制度，從學科教學、學習策略到成長陪伴，持續了解學生的學習狀況，找到真正適合自己的學習方式。",
   ogTitle: "三師共學制度｜品識學苑",
   h1Line1: "三師共學制度",
   h1Line2: "一個孩子的學習，不該只交給一位老師",
@@ -12,7 +12,7 @@ export const threeTeachersSeo = {
 export const threeTeachersHero = {
   roles: [
     { id: "teaching", label: "授課老師", focus: "把知識教懂" },
-    { id: "advisor", label: "學習顧問", focus: "把策略找對" },
+    { id: "advisor", label: "解題老師", focus: "把策略找對" },
     { id: "guidance", label: "輔導老師", focus: "把成長陪好" },
   ],
   intro: [
@@ -71,12 +71,12 @@ export const threeTeacherRoles: readonly ThreeTeacherRoleCopy[] = [
   {
     id: "advisor",
     number: "02",
-    title: "學習顧問",
+    title: "解題老師",
     subtitle: "把策略找對",
     question: "「我該怎麼進步？」",
     body: [
       "努力很重要，但方向不對，再多的時間也可能沒有轉換成真正的學習成果",
-      "學習顧問不負責重新教一次課程，而是從學生整體的學習狀況出發，協助分析目前遇到的問題，找出影響學習成效的關鍵因素，並制定適合學生的學習策略",
+      "解題老師不負責重新教一次課程，而是從學生整體的學習狀況出發，協助分析目前遇到的問題，找出影響學習成效的關鍵因素，並制定適合學生的學習策略",
       "從目標設定、時間安排、複習方式到實際執行情況，透過持續追蹤與調整，讓學生逐漸找到真正適合自己的學習方式",
     ],
     duties: [
@@ -126,7 +126,7 @@ export const threeTeachersCollaboration = {
     },
     {
       id: "advisor" as const,
-      title: "學習顧問",
+      title: "解題老師",
       question: "我該怎麼進步？",
       english: "LEARNING STRATEGY",
     },
@@ -141,7 +141,7 @@ export const threeTeachersCollaboration = {
   studentEnglish: "STUDENT",
   sees: [
     "授課老師，看見孩子的「知識」",
-    "學習顧問，看見孩子的「策略」",
+    "解題老師，看見孩子的「策略」",
     "輔導老師，看見孩子的「成長」",
   ],
   closing: [
@@ -167,7 +167,7 @@ export const threeTeachersOperation = {
     {
       title: "協作",
       description:
-        "由授課老師、學習顧問與輔導老師依照各自專業進行分工與溝通",
+        "由授課老師、解題老師與輔導老師依照各自專業進行分工與溝通",
     },
     {
       title: "執行",

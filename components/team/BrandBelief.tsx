@@ -10,12 +10,11 @@ import {
 import { threeTeachersBrand } from "@/content/team/page-copy";
 
 export function BrandBelief() {
-  const { eyebrow, title, paragraphs, closing } = threeTeachersBrand;
+  const { title, paragraphs, closing } = threeTeachersBrand;
 
   return (
     <DreamSection bg="muted" innerClassName="max-w-3xl">
       <DreamSectionHeader
-        eyebrow={eyebrow}
         title={title}
         align="left"
         className="max-w-none"

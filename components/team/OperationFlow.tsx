@@ -9,12 +9,11 @@ import {
 import { threeTeachersOperation } from "@/content/team/page-copy";
 
 export function OperationFlow() {
-  const { eyebrow, title, steps, highlight } = threeTeachersOperation;
+  const { title, steps, highlight } = threeTeachersOperation;
 
   return (
     <DreamSection bg="white" innerClassName="max-w-3xl">
       <DreamSectionHeader
-        eyebrow={eyebrow}
         title={title}
         align="left"
         className="max-w-none"
