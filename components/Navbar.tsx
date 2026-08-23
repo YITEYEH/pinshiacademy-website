@@ -345,18 +345,22 @@ export function Navbar() {
           <div className="flex items-center gap-2 md:hidden">
             <Button
               size="sm"
-              className="h-9 shrink-0 rounded-full bg-primary px-3 text-xs font-semibold hover:bg-primary/90"
+              className="h-10 shrink-0 rounded-full bg-primary px-4 text-sm font-semibold hover:bg-primary/90"
               asChild
             >
               <ExternalLinkOnce
                 href={LINE_LINKS.consult}
                 analyticsLabel="navbar_mobile_header_line"
               >
-                <LineCtaLabel iconClassName="size-3.5" label="評估" />
+                <LineCtaLabel
+                  iconClassName="size-4"
+                  label={LINE_CTA_LABELS.navbarMobile}
+                />
               </ExternalLinkOnce>
             </Button>
             <button
-              className="text-foreground"
+              type="button"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full text-foreground hover:bg-[#f7f9f7]"
               onClick={toggleMobileMenu}
               aria-label={mobileMenuOpen ? "關閉選單" : "開啟選單"}
             >

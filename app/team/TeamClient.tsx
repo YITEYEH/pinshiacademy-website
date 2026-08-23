@@ -11,7 +11,7 @@ import { threeTeacherRoles } from "@/content/team/page-copy";
 
 export function TeamClient() {
   return (
-    <div className="w-full">
+    <div className="w-full overflow-x-clip">
       <ThreeTeachersHero />
       <WhyThreeTeachers />
       {threeTeacherRoles.map((role, index) => (

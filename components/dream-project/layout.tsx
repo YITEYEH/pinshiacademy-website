@@ -24,7 +24,7 @@ export function DreamSection({
   return (
     <section
       id={id}
-      className={cn("scroll-mt-24 py-20", bgClass[bg], className)}
+      className={cn("scroll-mt-24 py-16 sm:py-20", bgClass[bg], className)}
     >
       <div
         className={cn(
@@ -77,7 +77,7 @@ export function DreamSectionHeader({
           {eyebrow}
         </p>
       ) : null}
-      <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground lg:text-4xl">
+      <h2 className="mb-4 text-2xl font-bold tracking-tight text-foreground text-balance sm:text-3xl lg:text-4xl">
         {title}
       </h2>
       {lead ? (
@@ -140,7 +140,7 @@ export function DreamQuote({
   return (
     <blockquote
       className={cn(
-        "rounded-xl border border-primary/15 bg-[#e8f5ee] px-5 py-4 text-base font-medium leading-relaxed text-foreground sm:px-6 sm:py-5",
+        "rounded-xl border border-primary/15 bg-[#e8f5ee] px-4 py-4 text-[15px] font-medium leading-relaxed text-foreground sm:px-6 sm:py-5 sm:text-base",
         centered && "text-center",
         className,
       )}
