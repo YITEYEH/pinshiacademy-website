@@ -5,9 +5,9 @@ import { CoursesClient } from "./CoursesClient";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/courses",
-  title: "線上一對一與小班｜國英數社自｜品識學苑",
+  title: "線上一對一還是小班？找到適合孩子的上課方式",
   description:
-    "不是一直刷題，而是先把觀念學會線上一對一／小班依程度規劃會考與學測，比較班型差異，找到適合孩子的上課方式",
+    "國英數社自線上一對一與小班怎麼選？查看課程內容與上課方式，依孩子目前的程度、問題與目標，找到更適合的學習安排",
   titleAbsolute: true,
 });
 

@@ -5,9 +5,9 @@ import { AboutClient } from "./AboutClient";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/about",
-  title: "為什麼選品識學苑？｜線上升學輔導品牌",
+  title: "為什麼不只看分數？認識品識學苑的教育理念",
   description:
-    "分數是過程、理解才是底氣了解品識學苑如何用線上一對一與小班，陪台灣學生做會考、學測與長期學習力規劃",
+    "分數是過程，理解是底氣；認識品識如何從理解學生開始，把課程、學習方法與陪伴放在一起，讓進步不只停留在下一次考試",
   titleAbsolute: true,
 });
 

@@ -16,9 +16,9 @@ const HomeClient = dynamic(
   },
 );
 
-const homeTitle = "品識學苑｜會考學測線上一對一｜找到卡關點";
+const homeTitle = "線上一對一家教怎麼選？品識學苑先陪孩子找到卡關點";
 const homeDescription =
-  "成績卡住、越補越焦慮？品識學苑提供國英數社自線上一對一與小班，先診斷弱點再排課，協助會考與學測穩步進步立即預約學習評估";
+  "成績卡住，不一定是題目做得不夠；國英數社自線上一對一與小班課程，先了解程度、弱點與目標，再找到適合孩子的學習方式";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/",

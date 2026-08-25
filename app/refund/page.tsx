@@ -4,9 +4,9 @@ import { RefundClient } from "./RefundClient";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/refund",
-  title: "課程報名與退費辦法｜品識學苑",
+  title: "課程退費、請假與補課辦法｜品識學苑",
   description:
-    "說明線上一對一、小班、預錄課程與數位教材的退費條件、計算方式、請假補課及退款作業流程，報名前請詳閱",
+    "查看線上一對一、小班與預錄課程的退費規則，以及請假、改期、補課與退款方式，報名前即可完整了解相關規範",
   titleAbsolute: true,
 });
 

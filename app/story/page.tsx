@@ -7,9 +7,9 @@ import { founderSignatureFont } from "./fonts";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/story",
-  title: "創辦人初心｜理解才是底氣｜品識學苑",
+  title: "為什麼想做一間學苑？品識學苑的創辦故事",
   description:
-    "創辦人葉以德分享從學生到教育工作者的歷程，以及品識學苑如何以品德、知識、見識、膽識陪孩子建立真正學習力",
+    "從學生、成為老師，到決定創立一間學苑；認識創辦人葉以德一路走進教育的故事，以及「品識」這個名字真正想做的事",
   titleAbsolute: true,
 });
 

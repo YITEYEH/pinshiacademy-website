@@ -6,9 +6,9 @@ import { FaqClient } from "./FaqClient";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/faq",
-  title: "線上補習常見問題｜費用排課試聽｜品識學苑",
+  title: "線上家教怎麼上？費用、試聽與排課問題一次看",
   description:
-    "線上上課穩不穩？可以試聽嗎？費用怎麼算？整理家長最常問的報名、排課與升學問題，快速了解品識學苑怎麼陪孩子學習",
+    "可以試聽嗎？費用怎麼算？請假怎麼辦？整理品識學苑課程、報名、排課與上課常見問題，開始以前先把疑問一次看懂",
   titleAbsolute: true,
 });
 

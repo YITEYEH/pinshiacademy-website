@@ -7,9 +7,9 @@ import { LiveEventsClient } from "./LiveEventsClient";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/live-events",
-  title: "免費直播公開課｜會考學測・高一先修｜品識學苑",
+  title: "想先看看老師怎麼教？免費線上公開課開放報名",
   description:
-    "想先體驗上課氛圍？查看近期免費／公開直播，含會考複習、學測主題與高一先修線上報名，當天跟著老師一起練",
+    "查看近期免費線上公開課與直播活動，包含會考複習、學測主題與高中先修，正式上課以前，先實際體驗老師的教學方式",
   titleAbsolute: true,
 });
 
