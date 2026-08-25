@@ -8,6 +8,7 @@ import {
   FooterSocialLinks,
 } from "@/components/FooterContactLinks";
 import { BRAND_LOGO_PATH } from "@/lib/site-assets";
+import { GooglePreferredSourceCta } from "@/components/GooglePreferredSourceCta";
 
 const coreValues = [
   { icon: "品", title: "品德", description: "培養良好品格" },
@@ -180,7 +181,7 @@ export function Footer() {
             <p className="text-sm text-white/60">
               © 2026 {SITE.name} {SITE.englishName}. All rights reserved.
             </p>
-            <div className="flex gap-6">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
               <Link
                 href="/privacy"
                 className="text-sm text-white/60 hover:text-white transition-colors"
@@ -199,6 +200,7 @@ export function Footer() {
               >
                 退款條款
               </Link>
+              <GooglePreferredSourceCta variant="footer" />
             </div>
           </div>
         </div>

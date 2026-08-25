@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ExternalLink, BookOpen, Lightbulb, Target, GraduationCap } from "lucide-react";
 import { BlogPagination } from "@/components/blog/BlogPagination";
+import { GooglePreferredSourceCta } from "@/components/GooglePreferredSourceCta";
 import { getAllPosts } from "@/content/content-api/posts";
 import { buildPageMetadata } from "@/lib/seo";
 import { buildBlogIndexJsonLd } from "@/lib/blog-index-schema";
@@ -241,6 +242,8 @@ export default async function BlogIndexPage({
                     </div>
                   </div>
                 )}
+
+                <GooglePreferredSourceCta />
               </div>
             </div>
 
