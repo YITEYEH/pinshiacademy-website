@@ -29,7 +29,7 @@ const courseSubLinks = [
 ];
 
 const teamSubLinks = [
-  { name: "師資團隊", path: "/teachers" },
+  { name: "核心教師團隊", path: "/teachers" },
   { name: "學習支持團隊", path: "/team" },
   { name: "師資團隊招募", path: "/teacher-recruitment" },
   { name: "營運團隊招募", path: "/team-recruitment" },

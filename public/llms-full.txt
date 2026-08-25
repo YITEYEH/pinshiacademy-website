@@ -22,7 +22,7 @@
 - [課程費用](https://www.pinshiacademy.com/pricing): 國小至高中參考價格與計費方式
 - [線上預錄課程](https://www.pinshiacademy.com/online-courses): 可反覆複習的預錄課程介紹
 - [直播公開課](https://www.pinshiacademy.com/live-events): 近期免費／公開直播場次
-- [師資團隊](https://www.pinshiacademy.com/teachers): 完整授課老師列表
+- [核心教師團隊](https://www.pinshiacademy.com/teachers): 完整授課老師列表
 - [學生成果](https://www.pinshiacademy.com/student-success): 學生成長故事與學習改變
 - [常見問題](https://www.pinshiacademy.com/faq): 費用、排課、試聽等完整 FAQ
 - [學習專欄](https://www.pinshiacademy.com/blog): 會考學測讀書方法與升學攻略

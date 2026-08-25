@@ -36,7 +36,7 @@ export function buildTeachersJsonLd() {
       ...teachers.map(personNode),
       buildBreadcrumbJsonLd([
         { name: "首頁", path: "/" },
-        { name: "師資團隊", path: "/teachers" },
+        { name: "核心教師團隊", path: "/teachers" },
       ]),
     ],
   };
@@ -57,7 +57,7 @@ export function buildTeacherProfileJsonLd(teacher: Teacher) {
       },
       buildBreadcrumbJsonLd([
         { name: "首頁", path: "/" },
-        { name: "師資團隊", path: "/teachers" },
+        { name: "核心教師團隊", path: "/teachers" },
         { name: teacher.name, path: `/teachers/${teacher.slug}` },
       ]),
     ],
