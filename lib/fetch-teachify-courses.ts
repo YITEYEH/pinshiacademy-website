@@ -93,9 +93,9 @@ function inferBadge(title: string, tags: string[]): string | undefined {
 function inferDescription(title: string, seoDescription?: string): string {
   if (seoDescription) return seoDescription;
   if (title.includes("會考")) {
-    return "精選歷屆試題解析，掌握會考出題邏輯與解題策略，可重複觀看複習。";
+    return "精選歷屆試題解析，掌握會考出題邏輯與解題策略，可重複觀看複習";
   }
-  return "品識學苑線上預錄課程，依自己的步調學習、反覆複習。";
+  return "品識學苑線上預錄課程，依自己的步調學習、反覆複習";
 }
 
 function resolveCategory(

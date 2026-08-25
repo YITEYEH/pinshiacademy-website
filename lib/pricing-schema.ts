@@ -34,7 +34,7 @@ export function buildPricingJsonLd() {
         "@id": `${SITE.url}/pricing#service`,
         name: "品識學苑線上升學輔導課程",
         description:
-          "品識學苑提供國小、國中、高中一對一與小班制線上升學輔導，涵蓋國文、英文、數學、社會、自然五科。",
+          "品識學苑提供國小、國中、高中一對一與小班制線上升學輔導，涵蓋國文、英文、數學、社會、自然五科",
         provider: organizationRef(),
         areaServed: {
           "@type": "Country",

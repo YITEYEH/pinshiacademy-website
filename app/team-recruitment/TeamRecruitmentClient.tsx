@@ -61,7 +61,7 @@ export function TeamRecruitmentClient() {
               加入營運團隊
             </h1>
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              品識學苑的成功，不只來自優秀的教學團隊，更需要專業的營運後援。我們正在尋找熱愛教育、注重服務品質的夥伴，一起為學生與家長創造最好的體驗。
+              品識學苑的成功，不只來自優秀的教學團隊，更需要專業的營運後援我們正在尋找熱愛教育、注重服務品質的夥伴，一起為學生與家長創造最好的體驗
             </p>
           </motion.div>
         </div>

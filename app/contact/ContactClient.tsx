@@ -61,7 +61,7 @@ export function ContactClient() {
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-muted-foreground sm:text-xl">
               想了解課程規劃、預約學習評估或合作提案？歡迎透過 LINE 或 Email
-              與我們聯繫，我們會盡快回覆。
+              與我們聯繫，我們會盡快回覆
             </p>
           </motion.div>
         </div>
@@ -83,7 +83,7 @@ export function ContactClient() {
               <h2 className="text-2xl font-bold tracking-tight">最快取得回覆</h2>
               <p className="mt-3 text-[0.9375rem] leading-relaxed text-white/85">
                 建議直接透過 LINE
-                與我們聊聊，可即時了解孩子的學習需求並安排學習評估。
+                與我們聊聊，可即時了解孩子的學習需求並安排學習評估
               </p>
               <ul className="mt-6 space-y-2.5 text-sm text-white/80">
                 <li className="flex items-center gap-2.5">

@@ -1,4 +1,4 @@
-/** 與 Vercel 網域設定一致：apex 會轉到 www，canonical／sitemap 應以 www 為準。 */
+/** 與 Vercel 網域設定一致：apex 會轉到 www，canonical／sitemap 應以 www 為準 */
 const DEFAULT_SITE_URL = "https://www.pinshiacademy.com";
 
 function normalizeSiteUrl(raw: string | undefined): string {
@@ -26,9 +26,9 @@ export const SITE = {
   name: "品識學苑",
   englishName: "Pin Shi Academy",
   url: normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
-  defaultTitle: "品識學苑｜線上一對一會考學測輔導",
+  defaultTitle: "品識學苑｜會考學測線上一對一輔導",
   defaultDescription:
-    "成績卡住、越補越焦慮？品識學苑提供國英數社自線上一對一與小班，先診斷弱點再排課，協助會考與學測穩步進步。",
+    "成績卡住、越補越焦慮？品識學苑提供國英數社自線上一對一與小班，先診斷弱點再排課，協助會考與學測穩步進步",
 } as const;
 
 /** Sitemap lastmod for routes without a content-derived timestamp (update when static pages meaningfully change). */

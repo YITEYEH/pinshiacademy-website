@@ -132,10 +132,10 @@ export function AboutClient() {
                 品識學苑的使命
               </h1>
               <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
-                我們相信每個孩子都有獨特的學習節奏與潛能。品識學苑不只是傳授知識，更重視培養「品德、知識、見識、膽識」的全人發展。
+                我們相信每個孩子都有獨特的學習節奏與潛能品識學苑不只是傳授知識，更重視培養「品德、知識、見識、膽識」的全人發展
               </p>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                透過專業診斷、個人化教學與持續陪伴，我們幫助學生找到最適合自己的學習方式，建立自信，培養終身學習的能力。
+                透過專業診斷、個人化教學與持續陪伴，我們幫助學生找到最適合自己的學習方式，建立自信，培養終身學習的能力
               </p>
               <div className="flex flex-wrap gap-4 mb-8">
                 <div className="flex items-center gap-2 bg-white rounded-lg px-4 py-2 shadow-sm">

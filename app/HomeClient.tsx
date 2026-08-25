@@ -696,11 +696,8 @@ export function HomeClient({ latestPosts, faqPreview }: HomeClientProps) {
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
               孩子成績卡住，不知道問題在哪？
             </h2>
-            <p className="text-xl text-white/90 mb-4 max-w-2xl mx-auto">
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
               免費學習評估，幫你找出真正的卡關點，給你明確方向
-            </p>
-            <p className="mb-8 text-sm text-white/75">
-              95% 學生進步率 · 首次評估免費，無義務繼續上課
             </p>
             <LineCtaButton
               href={LINE_LINKS.consult}

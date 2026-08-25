@@ -96,7 +96,7 @@ export function FaqClient() {
           >
             <h2 className="text-2xl font-bold mb-3">還有疑問？</h2>
             <p className="text-white/90 mb-6 max-w-lg mx-auto leading-relaxed">
-              歡迎預約免費諮詢，由學習顧問協助評估孩子的學習狀況與適合的課程規劃。
+              歡迎預約免費諮詢，由學習顧問協助評估孩子的學習狀況與適合的課程規劃
             </p>
             <div className={CTA_ROW_CLASS}>
               <LineCtaButton

@@ -14,7 +14,7 @@ export const LINE_CTA_LABELS = {
   pricingCardSeniorHigh: "了解高中課程",
   pricingFinal: "預約免費學習評估",
   coursesBottom: "預約免費學習評估",
-  teachers: "預約媒合師資",
+  teachers: "預約學習評估",
   about: "了解學習方式",
   story: "預約免費學習評估",
   faq: "預約免費學習評估",

@@ -5,9 +5,9 @@ import { StudentSuccessClient } from "./StudentSuccessClient";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/student-success",
-  title: "學生成長故事｜看見孩子真正的改變｜品識學苑",
+  title: "學生成長故事｜看見真正的改變｜品識學苑",
   description:
-    "每一位孩子都有不同的起點，看品識學苑學生如何從不敢問、害怕數學，到願意思考、主動學習的真實成長故事",
+    "每個孩子起點不同看品識學苑學生如何從不敢問、害怕數學，到願意思考、主動學習的真實成長歷程與家長回饋",
   titleAbsolute: true,
 });
 

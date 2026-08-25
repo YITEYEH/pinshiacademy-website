@@ -14,7 +14,7 @@ export function buildBlogIndexJsonLd(posts: BlogPostSummary[]) {
         name: "品識學苑學習專欄",
         url: `${SITE.url}/blog`,
         description:
-          "品識學苑關於12年國教升學規劃、學習方法、親子溝通與各科讀書策略的文章。",
+          "品識學苑關於12年國教升學規劃、學習方法、親子溝通與各科讀書策略的文章",
         publisher: organizationRef(),
         inLanguage: "zh-TW",
       },

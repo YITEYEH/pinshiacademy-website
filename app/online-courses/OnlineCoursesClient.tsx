@@ -38,15 +38,15 @@ type Props = {
 const faqItems = [
   {
     q: "我要在哪裡購買課程？",
-    a: "本頁提供課程介紹，點選「查看課程」或「立即購買」後，將前往品識學苑官方課程平台完成選課、付款與觀看課程。",
+    a: "本頁提供課程介紹，點選「查看課程」或「立即購買」後，將前往品識學苑官方課程平台完成選課、付款與觀看課程",
   },
   {
     q: "線上課程與一對一／小班輔導有什麼不同？",
-    a: "線上預錄課程適合希望依照自己的步調學習、反覆觀看重點內容的學生；一對一與小班輔導則提供老師即時互動、個別化指導與問題解答。\n\n若希望兼顧自主學習與老師陪伴，也可以搭配使用，學習效果更完整。",
+    a: "線上預錄課程適合希望依照自己的步調學習、反覆觀看重點內容的學生；一對一與小班輔導則提供老師即時互動、個別化指導與問題解答\n\n若希望兼顧自主學習與老師陪伴，也可以搭配使用，學習效果更完整",
   },
   {
     q: "購買後如何開始上課？",
-    a: "完成購買後，依照系統指示註冊或登入，即可於課程平台觀看已購買的課程。若課程包含陪跑、直播或提問服務，將依各課程頁面說明使用即可。",
+    a: "完成購買後，依照系統指示註冊或登入，即可於課程平台觀看已購買的課程若課程包含陪跑、直播或提問服務，將依各課程頁面說明使用即可",
   },
 ];
 
@@ -187,7 +187,7 @@ export function OnlineCoursesClient({ courses }: Props) {
             隨時學習，真正把每個觀念讀懂
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            品識學苑師資精心錄製的預錄課程，適合自主學習、課後複習與考前衝刺，可依照自己的步調反覆觀看，讓每一次學習都更加扎實。
+            品識學苑師資精心錄製的預錄課程，適合自主學習、課後複習與考前衝刺，可依照自己的步調反覆觀看，讓每一次學習都更加扎實
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Button size="lg" className="bg-primary hover:bg-primary/90" asChild>
@@ -242,7 +242,7 @@ export function OnlineCoursesClient({ courses }: Props) {
               </div>
               <h3 className="font-semibold text-foreground">線上預錄課程</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                依照自己的步調學習，隨時複習、反覆觀看，適合自主學習、課後複習與考前衝刺。購買後即可立即開始學習。
+                依照自己的步調學習，隨時複習、反覆觀看，適合自主學習、課後複習與考前衝刺購買後即可立即開始學習
               </p>
               <ExternalLinkOnce
                 href={platformHref}
@@ -259,7 +259,7 @@ export function OnlineCoursesClient({ courses }: Props) {
               </div>
               <h3 className="font-semibold text-foreground">直播一對一／小班</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                與老師即時互動，針對個人學習狀況提供個別化指導，適合需要即時解惑、建立扎實觀念的學生。
+                與老師即時互動，針對個人學習狀況提供個別化指導，適合需要即時解惑、建立扎實觀念的學生
               </p>
               <Link
                 href="/courses"
@@ -304,7 +304,7 @@ export function OnlineCoursesClient({ courses }: Props) {
             不確定該選線上課還是直播輔導？
           </h2>
           <p className="mt-4 text-white/85">
-            歡迎預約免費諮詢，我們依孩子程度與目標協助規劃。
+            歡迎預約免費諮詢，我們依孩子程度與目標協助規劃
           </p>
           <div className={`mt-8 ${CTA_ROW_CLASS}`}>
             <LineCtaButton

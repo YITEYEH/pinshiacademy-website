@@ -37,15 +37,15 @@ type Props = {
 const faqItems = [
   {
     q: "報名要在官網還是課程平台？",
-    a: "本頁提供活動資訊與介紹，點選「免費報名」後，將前往品識學苑官方課程平台完成報名。活動開始前，可於課程平台進入直播教室。",
+    a: "本頁提供活動資訊與介紹，點選「免費報名」後，將前往品識學苑官方課程平台完成報名活動開始前，可於課程平台進入直播教室",
   },
   {
     q: "直播公開課與線上預錄課程有什麼不同？",
-    a: "直播公開課於固定時段由老師即時授課，可與老師互動、提問，適合體驗課程或針對特定主題學習；線上預錄課程則可依照自己的步調隨時觀看、反覆複習，適合自主學習與考前加強。可依學習需求選擇，也能搭配使用。",
+    a: "直播公開課於固定時段由老師即時授課，可與老師互動、提問，適合體驗課程或針對特定主題學習；線上預錄課程則可依照自己的步調隨時觀看、反覆複習，適合自主學習與考前加強可依學習需求選擇，也能搭配使用",
   },
   {
     q: "錯過直播還能觀看嗎？",
-    a: "是否提供直播回放將依各場活動安排而定，請參閱活動頁面說明。若有提供回放，將依活動規則於課程平台觀看。",
+    a: "是否提供直播回放將依各場活動安排而定，請參閱活動頁面說明若有提供回放，將依活動規則於課程平台觀看",
   },
 ];
 
@@ -164,7 +164,7 @@ export function LiveEventsClient({ events }: Props) {
             跟著老師即時學習，把每個關鍵觀念真正搞懂
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            品識學苑定期舉辦免費講座、公開課程與主題直播，透過即時互動與重點講解，陪伴你建立扎實觀念。近期場次可於本頁查看，報名後即可前往課程平台參與直播。
+            品識學苑定期舉辦免費講座、公開課程與主題直播，透過即時互動與重點講解，陪伴你建立扎實觀念近期場次可於本頁查看，報名後即可前往課程平台參與直播
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Button size="lg" className="bg-primary hover:bg-primary/90" asChild>
@@ -218,7 +218,7 @@ export function LiveEventsClient({ events }: Props) {
               >
                 Teachify 活動頁
               </a>{" "}
-              查看最新公告。
+              查看最新公告
             </p>
           )}
 
@@ -249,7 +249,7 @@ export function LiveEventsClient({ events }: Props) {
               </div>
               <h3 className="font-semibold text-foreground">直播公開課</h3>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-                固定時段直播，由老師即時講解重點觀念，適合想體驗課程、掌握特定主題或考前快速衝刺的學生。
+                固定時段直播，由老師即時講解重點觀念，適合想體驗課程、掌握特定主題或考前快速衝刺的學生
               </p>
               <a
                 href="#upcoming-events"
@@ -264,7 +264,7 @@ export function LiveEventsClient({ events }: Props) {
               </div>
               <h3 className="font-semibold text-foreground">線上預錄課程</h3>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-                依照自己的步調學習，隨時觀看、反覆複習，適合自主學習、課後複習與考前加強。
+                依照自己的步調學習，隨時觀看、反覆複習，適合自主學習、課後複習與考前加強
               </p>
               <Link
                 href="/online-courses"
@@ -279,7 +279,7 @@ export function LiveEventsClient({ events }: Props) {
               </div>
               <h3 className="font-semibold text-foreground">直播一對一／小班輔導</h3>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-                老師即時互動、個別化教學，依學生程度安排學習進度，適合希望建立扎實觀念、長期穩定提升成績的學生。
+                老師即時互動、個別化教學，依學生程度安排學習進度，適合希望建立扎實觀念、長期穩定提升成績的學生
               </p>
               <Link
                 href="/courses"
@@ -324,7 +324,7 @@ export function LiveEventsClient({ events }: Props) {
             想長期規劃學習，而不只聽一場講座？
           </h2>
           <p className="mt-4 text-white/85">
-            歡迎預約免費諮詢，我們依孩子程度協助規劃適合的課程組合。
+            歡迎預約免費諮詢，我們依孩子程度協助規劃適合的課程組合
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <LineCtaButton

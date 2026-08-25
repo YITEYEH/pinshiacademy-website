@@ -130,9 +130,9 @@ const courseFormats: Record<
     label: "一對一課程",
     icon: User,
     title: "一對一課程",
-    tagline: "每一堂課，都只為孩子而設計。",
+    tagline: "每一堂課，都只為孩子而設計",
     description:
-      "根據學生的程度、學習目標與學習節奏調整教學內容，打造真正適合每位學生的一對一學習體驗。",
+      "根據學生的程度、學習目標與學習節奏調整教學內容，打造真正適合每位學生的一對一學習體驗",
     features: [
       "即時互動提問，問題當下解決",
       "客製化教學安排，依程度調整進度",
@@ -144,9 +144,9 @@ const courseFormats: Record<
     label: "小班互動課程",
     icon: Users,
     title: "小班互動課程",
-    tagline: "在互動中學習，在討論中成長。",
+    tagline: "在互動中學習，在討論中成長",
     description:
-      "透過小班教學兼顧老師引導與同儕互動，讓每位學生都有發言、思考與練習的機會。",
+      "透過小班教學兼顧老師引導與同儕互動，讓每位學生都有發言、思考與練習的機會",
     features: [
       "小班互動教學，提升學習參與感",
       "即時提問與課堂討論",
@@ -158,9 +158,9 @@ const courseFormats: Record<
     label: "預錄課程",
     icon: Video,
     title: "預錄課程",
-    tagline: "不受時間限制，依自己的步調學習。",
+    tagline: "不受時間限制，依自己的步調學習",
     description:
-      "把學習安排在最適合自己的時間，遇到不懂的地方可以反覆觀看，真正理解每個觀念。",
+      "把學習安排在最適合自己的時間，遇到不懂的地方可以反覆觀看，真正理解每個觀念",
     features: [
       "彈性安排學習時間",
       "課程可反覆觀看",
@@ -389,13 +389,10 @@ export function CoursesClient() {
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
               孩子現在的學習方式，真的適合他嗎？
             </h2>
-            <p className="text-xl text-white/90 mb-4 max-w-2xl mx-auto">
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
               多數孩子不是不努力，而是沒有找到對的方法
               <br />
               我們用專業診斷，幫你找出最適合的學習路徑
-            </p>
-            <p className="mb-8 text-sm text-white/75">
-              95% 學生進步率 · 首次學習評估免費，無義務繼續上課
             </p>
             <div className={`${CTA_ROW_CLASS} justify-center`}>
               <LineCtaButton
@@ -408,20 +405,6 @@ export function CoursesClient() {
               <Button size="lg" className={CTA_SECONDARY_ON_DARK_CLASS} asChild>
                 <Link href="/pricing">查看課程費用</Link>
               </Button>
-            </div>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-white/85">
-              <Link href="/student-success" className="hover:underline">
-                學生成果
-              </Link>
-              <Link href="/teachers" className="hover:underline">
-                認識師資
-              </Link>
-              <Link href="/live-events" className="hover:underline">
-                直播公開課
-              </Link>
-              <Link href="/online-courses" className="hover:underline">
-                線上預錄課程
-              </Link>
             </div>
           </motion.div>
         </div>

@@ -29,4 +29,4 @@ export const successStats: SuccessStat[] = [
 ];
 
 export const successStatsNote =
-  "以上內容依目前可公開之教學成果整理。品識學苑重視學生隱私，不公開未經授權之姓名、學校與個人成績資料。";
+  "以上內容依目前可公開之教學成果整理品識學苑重視學生隱私，不公開未經授權之姓名、學校與個人成績資料";

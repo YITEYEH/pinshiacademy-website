@@ -22,7 +22,7 @@ export const learningMethodSteps: LearningMethodStep[] = [
   {
     id: "adjust",
     title: "依程度調整課程",
-    intro: "相同年級的學生，也可能需要完全不同的教學方式。老師會依學生的：",
+    intro: "相同年級的學生，也可能需要完全不同的教學方式老師會依學生的：",
     points: [
       "基礎程度",
       "學習目標",

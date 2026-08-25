@@ -107,7 +107,7 @@ export function TeacherRecruitmentClient() {
               加入品識學苑教學團隊
             </h1>
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              我們正在尋找志同道合的教育夥伴，一起為學生創造更好的學習體驗。如果您對教育充滿熱情，相信每個孩子都有無限潛能，歡迎加入我們！
+              我們正在尋找志同道合的教育夥伴，一起為學生創造更好的學習體驗如果您對教育充滿熱情，相信每個孩子都有無限潛能，歡迎加入我們！
             </p>
           </motion.div>
         </div>

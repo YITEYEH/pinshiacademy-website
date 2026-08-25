@@ -32,7 +32,7 @@ export function buildAboutJsonLd() {
         url: `${SITE.url}/about`,
         name: "關於品識學苑",
         description:
-          "從制度理解到學習規劃，品識學苑專注於12年國教升學輔導與國高中課程設計。",
+          "從制度理解到學習規劃，品識學苑專注於12年國教升學輔導與國高中課程設計",
         inLanguage: "zh-Hant",
         isPartOf: { "@id": WEBSITE_ID },
         about: organizationRef(),

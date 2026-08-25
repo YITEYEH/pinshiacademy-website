@@ -16,10 +16,9 @@ const HomeClient = dynamic(
   },
 );
 
-const homeTitle =
-  "品識學苑｜國中會考・高中學測線上輔導｜一對一找到孩子卡關點";
+const homeTitle = "品識學苑｜會考學測線上一對一｜找到卡關點";
 const homeDescription =
-  "成績卡住、越補越焦慮？品識學苑提供國英數社自線上一對一與小班，先診斷弱點再排課，協助會考、學測與分科穩步進步。立即預約學習評估。";
+  "成績卡住、越補越焦慮？品識學苑提供國英數社自線上一對一與小班，先診斷弱點再排課，協助會考與學測穩步進步立即預約學習評估";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/",

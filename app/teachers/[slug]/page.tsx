@@ -33,8 +33,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return buildPageMetadata({
     path: `/teachers/${teacher.slug}`,
-    title: `${teacher.name}｜${teacher.subject}教師｜品識學苑師資介紹`,
-    description: `${teacher.name}老師，${experienceText}，專長${teacher.grades}${teacher.subject}。${teacher.philosophy}`,
+    title: `${teacher.name}｜${teacher.subject}老師｜品識學苑`,
+    description: `${teacher.name}老師，${experienceText}，專長${teacher.grades}${teacher.subject}${teacher.philosophy}`,
     ogImages: [`${SITE.url}${teacher.image}`],
     ogImageAlt: `${teacher.name}老師｜品識學苑`,
     titleAbsolute: true,

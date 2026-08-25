@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   ...buildPageMetadata({
     path: "/404",
     title: "找不到頁面",
-    description: "您所尋找的頁面不存在或已移除，請返回品識學苑首頁或學習專欄。",
+    description: "您所尋找的頁面不存在或已移除，請返回品識學苑首頁或學習專欄",
     titleAbsolute: true,
   }),
   robots: { index: false, follow: true },
@@ -18,7 +18,7 @@ export default function NotFound() {
       <p className="text-sm font-medium text-primary mb-2">404</p>
       <h1 className="text-2xl font-bold text-foreground mb-4">找不到此頁面</h1>
       <p className="text-muted-foreground mb-8">
-        連結可能已失效，或網址輸入有誤。您可以返回首頁或瀏覽學習專欄。
+        連結可能已失效，或網址輸入有誤您可以返回首頁或瀏覽學習專欄
       </p>
       <div className="flex flex-wrap justify-center gap-4">
         <Link

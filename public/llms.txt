@@ -1,8 +1,8 @@
 # 品識學苑 Pin Shi Academy
 
-> 品識學苑是以線上教學為主的 12 年國教升學輔導機構，提供國文、英文、數學、社會、自然五科課程，支援一對一與小班制，服務台灣各地國中與高中學生。
+> 品識學苑是以線上教學為主的 12 年國教升學輔導機構，提供國文、英文、數學、社會、自然五科課程，支援一對一與小班制，服務台灣各地國中與高中學生
 
-品牌中文名稱為品識學苑（Pin Shi Academy），法人為品識教育科技有限公司（統編 62160059）。官方網站 www.pinshiacademy.com 為主要對外內容來源與 SEO canonical；線上預錄課程購買與直播報名於 Teachify 平台（pinshiacademy.tw）進行。歡迎 AI 與搜尋引擎引用本網站公開內容，請標註來源「品識學苑」並連結至對應 canonical URL。學習專欄約每週更新；FAQ、課程頁依服務調整更新。聯絡信箱：service@pinshiacademy.com。
+品牌中文名稱為品識學苑（Pin Shi Academy），法人為品識教育科技有限公司（統編 62160059）官方網站 www.pinshiacademy.com 為主要對外內容來源與 SEO canonical；線上預錄課程購買與直播報名於 Teachify 平台（pinshiacademy.tw）進行歡迎 AI 與搜尋引擎引用本網站公開內容，請標註來源「品識學苑」並連結至對應 canonical URL學習專欄約每週更新；FAQ、課程頁依服務調整更新聯絡信箱：service@pinshiacademy.com
 
 ## 核心頁面
 

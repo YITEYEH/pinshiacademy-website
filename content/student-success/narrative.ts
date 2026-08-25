@@ -12,27 +12,27 @@ export const outcomeSignals: OutcomeSignal[] = [
   {
     id: "ask",
     label: "敢說「我卡在這裡」",
-    detail: "不再整題放棄，能指出自己哪一步不懂。",
+    detail: "不再整題放棄，能指出自己哪一步不懂",
   },
   {
     id: "read",
     label: "願意把長題讀完",
-    detail: "先看懂條件，再動手——而不是直接跳過。",
+    detail: "先看懂條件，再動手——而不是直接跳過",
   },
   {
     id: "why",
     label: "能說出為什麼這樣算",
-    detail: "不是背公式，而是真的理解。",
+    detail: "不是背公式，而是真的理解",
   },
   {
     id: "try",
     label: "先試一次，再求助",
-    detail: "答錯變成線索，而不是打擊。",
+    detail: "答錯變成線索，而不是打擊",
   },
   {
     id: "own",
     label: "主動想多練一點",
-    detail: "從「被要求寫」變成「自己想寫」。",
+    detail: "從「被要求寫」變成「自己想寫」",
   },
 ];
 
@@ -105,7 +105,7 @@ export const processEvidence: ProcessEvidence[] = [
   {
     id: "observe",
     title: "上課怎麼看",
-    description: "我們不只看對不對，更看孩子怎麼面對「不會」。",
+    description: "我們不只看對不對，更看孩子怎麼面對「不會」",
     fields: [
       "卡在哪一個觀念",
       "能不能用自己的話說",
@@ -116,7 +116,7 @@ export const processEvidence: ProcessEvidence[] = [
   {
     id: "feedback",
     title: "下課你會知道",
-    description: "每次課後，家長都能掌握進度，不用等到段考才緊張。",
+    description: "每次課後，家長都能掌握進度，不用等到段考才緊張",
     fields: [
       "這堂教了什麼",
       "吸收得好不好",
@@ -127,7 +127,7 @@ export const processEvidence: ProcessEvidence[] = [
   {
     id: "errors",
     title: "錯題怎麼用",
-    description: "同樣是錯，原因不同，練法就不同。",
+    description: "同樣是錯，原因不同，練法就不同",
     fields: [
       "是粗心、沒讀懂，還是觀念缺口",
       "對應要練什麼",
@@ -137,4 +137,4 @@ export const processEvidence: ProcessEvidence[] = [
 ];
 
 export const privacyFootnote =
-  "為保護隱私，故事中不公開學生姓名與學校。每位孩子的起點與進度不同，成長步調也會不一樣。";
+  "為保護隱私，故事中不公開學生姓名與學校每位孩子的起點與進度不同，成長步調也會不一樣";

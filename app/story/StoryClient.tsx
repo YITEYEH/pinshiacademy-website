@@ -42,7 +42,7 @@ export function StoryClient({ signatureNameClassName }: StoryClientProps) {
             創辦人初心與品識學苑理念
           </h1>
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-            從一位學生的困惑，到一座願意陪伴理解的教育品牌。
+            從一位學生的困惑，到一座願意陪伴理解的教育品牌
           </p>
         </div>
       </section>
@@ -196,7 +196,7 @@ export function StoryClient({ signatureNameClassName }: StoryClientProps) {
             想為孩子找到適合的學習方式？
           </h2>
           <p className="text-base sm:text-lg text-white/90 mb-8 leading-relaxed">
-            歡迎預約免費諮詢，我們會依學生程度與目標，協助規劃學習方向。
+            歡迎預約免費諮詢，我們會依學生程度與目標，協助規劃學習方向
           </p>
           <div className={CTA_ROW_CLASS}>
             <LineCtaButton

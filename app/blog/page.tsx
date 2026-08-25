@@ -77,9 +77,9 @@ export async function generateMetadata({
 
   const base = buildPageMetadata({
     path: "/blog",
-    title: "會考學測讀書方法｜升學攻略與各科準備｜品識學苑學習專欄",
+    title: "會考學測讀書方法｜升學攻略｜品識學苑專欄",
     description:
-      "繁星、學測國英文數、讀書計畫與錯題本怎麼做？精選可落地的升學與備考文章，給家長與學生可馬上使用的方法，不只有觀念、還有步驟。",
+      "繁星、學測與會考讀書方法、錯題本怎麼做？精選可落地的升學備考文章，給家長與學生能立刻使用的方法與步驟",
     titleAbsolute: true,
   });
 

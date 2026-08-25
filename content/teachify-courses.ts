@@ -47,13 +47,13 @@ export const TEACHIFY_COURSE_CATEGORY_SLUGS = [
 ] as const;
 
 /**
- * 選用：針對特定課程微調文案。未列出的課程會完全依 Teachify 自動同步。
+ * 選用：針對特定課程微調文案未列出的課程會完全依 Teachify 自動同步
  */
 export const TEACHIFY_COURSE_OVERRIDES: Record<string, TeachifyCourseOverride> =
   {
     "114-mathematics-in-the-junior-high-school-education-examination": {
       description:
-        "13 堂精選解析，從選擇題到非選題，帶你讀懂會考數學出題邏輯。含補充講義，可重複觀看，另有陪跑與衝刺方案可於購課頁選擇。",
+        "13 堂精選解析，從選擇題到非選題，帶你讀懂會考數學出題邏輯含補充講義，可重複觀看，另有陪跑與衝刺方案可於購課頁選擇",
       instructors: [
         { name: "葉以德", role: "品識學苑創辦人／資深數學授課師" },
         { name: "葉學貞", role: "教學設計師（數學組）" },

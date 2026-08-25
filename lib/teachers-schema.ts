@@ -21,7 +21,24 @@ function personNode(teacher: Teacher) {
 export function buildTeachersJsonLd() {
   return {
     "@context": "https://schema.org",
-    "@graph": teachers.map(personNode),
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `${SITE.url}/teachers#webpage`,
+        url: `${SITE.url}/teachers`,
+        name: "品識學苑師資｜核心教師與教學品質",
+        description:
+          "認識品識學苑核心教師，以及線上數學、英文家教的選師標準與教學品質要求",
+        mainEntity: teachers.map((t) => ({
+          "@id": `${SITE.url}/teachers/${t.slug}`,
+        })),
+      },
+      ...teachers.map(personNode),
+      buildBreadcrumbJsonLd([
+        { name: "首頁", path: "/" },
+        { name: "師資團隊", path: "/teachers" },
+      ]),
+    ],
   };
 }
 

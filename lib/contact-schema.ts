@@ -12,7 +12,7 @@ export function buildContactPageJsonLd() {
         url: `${SITE.url}/contact`,
         name: "聯絡品識學苑",
         description:
-          "預約升學諮詢、了解線上課程安排，或洽詢合作提案。",
+          "預約升學諮詢、了解線上課程安排，或洽詢合作提案",
         isPartOf: { "@id": `${SITE.url}/#website` },
         about: organizationRef(),
       },

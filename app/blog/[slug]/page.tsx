@@ -49,7 +49,7 @@ export async function generateMetadata({
     const rawTitle = post.frontmatter.title.trim();
     const seoTitle = rawTitle.includes("品識學苑")
       ? rawTitle
-      : `${rawTitle}｜品識學苑升學專欄`;
+      : `${rawTitle}｜品識學苑`;
     const published = toIsoDate(post.frontmatter.date);
     const modified = toIsoDate(
       effectiveModifiedDate(

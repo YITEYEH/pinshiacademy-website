@@ -29,7 +29,7 @@ export function buildHomeJsonLd(faqPreview: FaqItem[]) {
         url: SITE.url,
         name: SITE.name,
         description:
-          "品識學苑提供線上國文、英文、數學、自然、社會升學輔導，支援一對一與小班制，協助國中會考與高中學測準備。",
+          "品識學苑提供線上國文、英文、數學、自然、社會升學輔導，支援一對一與小班制，協助國中會考與高中學測準備",
         inLanguage: "zh-Hant",
         isPartOf: { "@id": WEBSITE_ID },
         about: organizationRef(),

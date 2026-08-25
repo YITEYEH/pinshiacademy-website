@@ -126,7 +126,7 @@ function inferSubtitle(title: string): string {
 
 function buildSubtitle(title: string, plainDescription: string): string {
   if (plainDescription) {
-    const firstSentence = plainDescription.split(/[。！？\n]/)[0]?.trim();
+    const firstSentence = plainDescription.split(/[！？\n]/)[0]?.trim();
     if (firstSentence && firstSentence.length >= 12) {
       return firstSentence.length > 80
         ? `${firstSentence.slice(0, 77)}…`

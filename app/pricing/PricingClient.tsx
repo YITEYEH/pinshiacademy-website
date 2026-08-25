@@ -128,9 +128,6 @@ export function PricingClient() {
             <p className="mt-5 text-lg leading-relaxed text-white/90 sm:text-xl">
               {pricingFinalCta.subtitle}
             </p>
-            <p className="mt-4 text-sm text-white/75">
-              95% 學生進步率 · 首次學習評估免費
-            </p>
             <div className="mt-10 flex flex-col items-center">
               <PricingCtaButton
                 href={LINE_LINKS.homeAssessment}

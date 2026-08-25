@@ -12,9 +12,9 @@ export const revalidate = 3_600;
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/online-courses",
-  title: "線上預錄課程｜會考數學等反覆複習｜品識學苑",
+  title: "線上預錄課程｜會考數學反覆複習｜品識學苑",
   description:
-    "時間不好固定？用預錄課照自己的步調重播重點。瀏覽會考數學等精選課程內容與老師介紹，購買與上課於官方課程平台完成。",
+    "時間不好固定？用預錄課照自己步調重播重點瀏覽會考數學等精選課程與老師介紹，購買與上課於官方平台完成",
   titleAbsolute: true,
 });
 

@@ -49,7 +49,7 @@ export function LandingPageShell({
             想進一步了解適合的課程規劃？
           </h2>
           <p className="text-muted-foreground mb-8">
-            歡迎預約免費諮詢，我們會依學生程度與目標提供建議。
+            歡迎預約免費諮詢，我們會依學生程度與目標提供建議
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <LineCtaButton href={lineHref} analyticsLabel={outboundLabel} label={ctaLabel} />
