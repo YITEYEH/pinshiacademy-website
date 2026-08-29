@@ -45,7 +45,7 @@ export const teachers = [
     jobTitle: "英文教師",
     grades: "國中、高中",
     tags: ["國中英文", "高中英文", "英文檢定"],
-    image: "/teacher-xu-xi.jpg",
+    image: "/teacher-xu-xi.jpg?v=2",
     imagePosition: "center",
     philosophy:
       "英文不是死背單字，而是建立能理解、能表達、能應考的語言能力我相信每個孩子都能找到適合自己的學習節奏",

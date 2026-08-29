@@ -54,7 +54,7 @@ export function TeachersFaculty() {
             >
               <div
                 className={cn(
-                  "relative aspect-[4/5] overflow-hidden rounded-2xl bg-[#e8f5ee] sm:aspect-[3/4]",
+                  "relative aspect-[3/4] overflow-hidden rounded-2xl bg-[#e8f5ee]",
                   !imageFirst && "lg:order-2",
                 )}
               >
