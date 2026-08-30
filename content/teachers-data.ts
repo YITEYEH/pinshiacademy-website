@@ -40,7 +40,7 @@ export const teachers = [
   },
   {
     slug: "HSU-Hsi",
-    name: "徐璽",
+    name: "徐璽（Alma）",
     subject: "英文",
     jobTitle: "英文教師",
     grades: "國中、高中",

@@ -18,7 +18,6 @@ import { getLiveEvents } from "@/lib/get-live-events";
 import { SITE } from "@/lib/site";
 import { buildPageMetadata, buildNotFoundMetadata } from "@/lib/seo";
 import { BRAND_LOGO_PATH } from "@/lib/site-assets";
-import { splitArticleHtmlAfterNthH2 } from "@/lib/split-article-html";
 
 export const revalidate = 60;
 
@@ -101,7 +100,6 @@ export default async function BlogPostPage({
   );
 
   const category = post.frontmatter.category;
-  const articleSplit = splitArticleHtmlAfterNthH2(post.content, 2);
   let liveBridgeEvents: {
     id: string;
     title: string;
@@ -238,27 +236,10 @@ export default async function BlogPostPage({
 
       {post.toc && post.toc.length > 0 && <ArticleToc items={post.toc} />}
 
-      {articleSplit ? (
-        <>
-          <div
-            className="article-content max-w-[42rem] mx-auto"
-            dangerouslySetInnerHTML={{ __html: articleSplit.before }}
-          />
-          <ArticleConsultCta
-            category={post.frontmatter.category}
-            variant="compact"
-          />
-          <div
-            className="article-content max-w-[42rem] mx-auto"
-            dangerouslySetInnerHTML={{ __html: articleSplit.after }}
-          />
-        </>
-      ) : (
-        <div
-          className="article-content max-w-[42rem] mx-auto"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
-      )}
+      <div
+        className="article-content max-w-[42rem] mx-auto"
+        dangerouslySetInnerHTML={{ __html: post.content }}
+      />
 
       <ArticleConsultCta category={post.frontmatter.category} />
 
