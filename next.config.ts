@@ -23,6 +23,15 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [{ source: "/favicon.ico", destination: "/brand/logo.png" }];
   },
+  async headers() {
+    return [
+      {
+        // Best-effort Accept negotiation signal; Next RSC may still rewrite Vary on HTML.
+        source: "/:path*",
+        headers: [{ key: "Vary", value: "Accept" }],
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },

@@ -1,25 +1,8 @@
-import type { FaqItem } from "@/content/faq-data";
-import { learningProcess } from "@/content/learning-process";
 import { SITE } from "@/lib/site";
 import { organizationRef, WEBSITE_ID } from "@/lib/organization-schema";
 import { buildLearningProcessHowToJsonLd } from "@/lib/learning-process-schema";
 
-export function buildHomeFaqJsonLd(items: FaqItem[]) {
-  return {
-    "@type": "FAQPage",
-    "@id": `${SITE.url}/#faq`,
-    mainEntity: items.map((item) => ({
-      "@type": "Question",
-      name: item.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.a,
-      },
-    })),
-  };
-}
-
-export function buildHomeJsonLd(faqPreview: FaqItem[]) {
+export function buildHomeJsonLd() {
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -35,7 +18,6 @@ export function buildHomeJsonLd(faqPreview: FaqItem[]) {
         about: organizationRef(),
         publisher: organizationRef(),
       },
-      buildHomeFaqJsonLd(faqPreview),
       buildLearningProcessHowToJsonLd(),
     ],
   };

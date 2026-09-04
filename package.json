@@ -10,7 +10,9 @@
     "build": "next build",
     "start": "next start",
     "start:local": "next start --port 3001",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "node --experimental-strip-types --test tests/**/*.test.mjs",
+    "verify:agent": "node scripts/verify-agent-readiness.mjs"
   },
   "dependencies": {
     "@popperjs/core": "2.11.8",

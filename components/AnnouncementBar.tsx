@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { ArrowRight, X } from "lucide-react";
+import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
+import { trackLineConsultClick } from "@/lib/analytics";
 import { SITE_ANNOUNCEMENT } from "@/lib/site-announcement";
 
 const DISMISS_KEY = "psa_announcement_dismissed";
@@ -43,13 +44,15 @@ export function AnnouncementBar() {
             </p>
           </div>
 
-          <Link
+          <ExternalLinkOnce
             href={href}
+            analyticsLabel="announcement_bar_line_trial"
             className="inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+            onClick={() => trackLineConsultClick("announcement_bar")}
           >
             {ctaLabel}
             <ArrowRight className="h-4 w-4" aria-hidden />
-          </Link>
+          </ExternalLinkOnce>
         </div>
       </div>
 

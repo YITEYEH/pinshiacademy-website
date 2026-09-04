@@ -24,6 +24,13 @@ export function trackOutboundClick(label: string, href: string) {
   });
 }
 
+/** 首頁等轉換漏斗：LINE 諮詢點擊（與 outbound_click 並存） */
+export function trackLineConsultClick(ctaLocation: string) {
+  trackEvent("line_consult_click", {
+    cta_location: ctaLocation,
+  });
+}
+
 /** Email 點擊（聯絡頁、Footer 等） */
 export function trackContactEmail(source = "contact_page") {
   trackEvent("contact_email_click", { link_label: source });

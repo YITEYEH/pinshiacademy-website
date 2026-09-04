@@ -1,12 +1,17 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { ExternalLinkOnce } from "@/components/ExternalLinkOnce";
 import { LineCtaLabel } from "@/components/LineCtaLabel";
 import { cn } from "@/components/ui/utils";
+import { trackLineConsultClick } from "@/lib/analytics";
 import { LINE_CTA_LABEL } from "@/lib/line-cta";
 
 type LineCtaButtonProps = {
   href: string;
   analyticsLabel: string;
+  /** 若提供，額外發送 line_consult_click（cta_location） */
+  ctaLocation?: string;
   label?: string;
   size?: "default" | "lg" | "sm";
   variant?: "primary" | "inverse" | "outline";
@@ -17,6 +22,7 @@ type LineCtaButtonProps = {
 export function LineCtaButton({
   href,
   analyticsLabel,
+  ctaLocation,
   label = LINE_CTA_LABEL,
   size = "lg",
   variant = "primary",
@@ -45,7 +51,13 @@ export function LineCtaButton({
       )}
       asChild
     >
-      <ExternalLinkOnce href={href} analyticsLabel={analyticsLabel}>
+      <ExternalLinkOnce
+        href={href}
+        analyticsLabel={analyticsLabel}
+        onClick={() => {
+          if (ctaLocation) trackLineConsultClick(ctaLocation);
+        }}
+      >
         <LineCtaLabel iconClassName={iconSize} label={label} />
       </ExternalLinkOnce>
     </Button>

@@ -1,20 +1,9 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { getAllPosts } from "@/content/content-api/posts";
-import { faqCategories } from "@/content/faq-data";
 import { buildPageMetadata } from "@/lib/seo";
 import { buildHomeJsonLd } from "@/lib/home-schema";
 import { HomeHero } from "@/components/home/HomeHero";
-
-const HomeClient = dynamic(
-  () =>
-    import("./HomeClient").then((mod) => ({ default: mod.HomeClient })),
-  {
-    loading: () => (
-      <div className="min-h-[40vh] bg-white" aria-hidden />
-    ),
-  },
-);
+import { HomeClient } from "./HomeClient";
 
 const homeTitle = "線上一對一家教怎麼選？品識學苑先陪孩子找到卡關點";
 const homeDescription =
@@ -32,8 +21,7 @@ export const revalidate = 60;
 
 export default async function HomePage() {
   const latestPosts = (await getAllPosts()).slice(0, 5);
-  const faqPreview = faqCategories.flatMap((c) => c.questions).slice(0, 4);
-  const homeJsonLd = buildHomeJsonLd(faqPreview);
+  const homeJsonLd = buildHomeJsonLd();
 
   return (
     <>
@@ -42,8 +30,7 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
       />
       <HomeHero />
-      <HomeClient latestPosts={latestPosts} faqPreview={faqPreview} />
+      <HomeClient latestPosts={latestPosts} />
     </>
   );
 }
-

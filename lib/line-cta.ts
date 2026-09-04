@@ -3,7 +3,7 @@ export const LINE_CTA_LABEL = "預約免費學習評估";
 
 /** 依頁面／區塊情境區分的 CTA 文案 */
 export const LINE_CTA_LABELS = {
-  navbar: "免費學習評估",
+  navbar: "預約免費試聽",
   navbarMobile: "預約免費試聽",
   homeHero: "預約免費學習評估",
   homeAssessment: "預約免費學習評估",

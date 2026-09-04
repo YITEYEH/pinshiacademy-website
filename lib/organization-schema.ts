@@ -12,7 +12,10 @@ export const FOUNDER_PERSON_ID = `${SITE.url}/teachers/yeh-yide`;
 const ORGANIZATION_ALTERNATE_NAMES = [
   SITE.englishName,
   "PinShi Academy",
+  "Pinshi Academy",
   "pinshiacademy",
+  "品識",
+  "www.pinshiacademy.com",
 ] as const;
 
 export function buildSiteJsonLdGraph() {
@@ -70,6 +73,9 @@ export function buildSiteJsonLdGraph() {
     alternateName: [
       SITE.englishName,
       "PinShi Academy",
+      "Pinshi Academy",
+      "pinshiacademy",
+      "品識",
       "www.pinshiacademy.com",
       "pinshiacademy.com",
     ],
