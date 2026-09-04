@@ -61,13 +61,6 @@ export const homeLineValue = {
         "例如：「平常作業大多會寫，但考試遇到變化題就容易卡住」",
     },
   ] as const,
-  analysisCta: "LINE 免費做初步分析",
-  analysisMicrocopy: "免費・不需先選課・不需立即報名",
-  conversationLabel: "對話示意（非真實聊天紀錄）",
-  parentMessage:
-    "您好，孩子目前國二，數學應用題比較容易卡住，想了解看看適合怎麼加強",
-  advisorMessage:
-    "您好，沒問題！我們可以先了解孩子目前的學習狀況，再一起看看比較適合從哪裡開始",
   conversationHint:
     "不知道怎麼問也沒關係，告訴我們「年級＋科目＋目前問題」就可以開始",
   conversationCta: "LINE 了解學習建議",
