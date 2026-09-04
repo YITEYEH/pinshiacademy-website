@@ -315,10 +315,7 @@ async function fetchTeachifyEventsFromFlight(
   html: string,
 ): Promise<TeachifyEvent[]> {
   const summaries = extractFlightObjectsByTypename<FlightEvent>(html, "Event");
-  if (summaries.length === 0) {
-    console.error("[teachify] no events found in Apollo state or RSC payload");
-    return [];
-  }
+  if (summaries.length === 0) return [];
 
   const events = await Promise.all(
     summaries.map(async (summary) => {
@@ -351,6 +348,13 @@ export async function fetchTeachifyEvents(): Promise<TeachifyEvent[]> {
     apolloEvents.length > 0
       ? apolloEvents
       : await fetchTeachifyEventsFromFlight(html);
+
+  // 目前沒有場次是正常狀態；僅在開發時提示，避免文章頁被誤報成錯誤
+  if (events.length === 0 && process.env.NODE_ENV === "development") {
+    console.info(
+      "[teachify] no upcoming/past events parsed from list page (empty is OK)",
+    );
+  }
 
   return events.sort(
     (a, b) =>

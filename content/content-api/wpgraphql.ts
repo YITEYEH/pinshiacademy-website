@@ -416,44 +416,71 @@ export async function wpGetAllPostsForFeed(): Promise<BlogPost[]> {
 }
 
 export async function wpGetPostBySlug(slug: string): Promise<BlogPost> {
-  const query = /* GraphQL */ `
+  const postFields = /* GraphQL */ `
+    slug
+    title
+    excerpt
+    date
+    modified
+    content
+    author {
+      node {
+        name
+        avatar {
+          url
+        }
+      }
+    }
+    featuredImage {
+      node {
+        sourceUrl
+      }
+    }
+    categories {
+      nodes {
+        name
+      }
+    }
+    tags {
+      nodes {
+        name
+      }
+    }
+  `;
+
+  // 多數文章可用 idType: SLUG；少數（如 mathematics-b）會回 null，
+  // 需改以 posts(where: { name }) 備援（WPGraphQL 已知不一致）。
+  const bySlugQuery = /* GraphQL */ `
     query GetPostBySlug($slug: ID!) {
       post(id: $slug, idType: SLUG) {
-        slug
-        title
-        excerpt
-        date
-        modified
-        content
-        author {
-          node {
-            name
-            avatar {
-              url
-            }
-          }
-        }
-        featuredImage {
-          node {
-            sourceUrl
-          }
-        }
-        categories {
-          nodes {
-            name
-          }
-        }
-        tags {
-          nodes {
-            name
-          }
+        ${postFields}
+      }
+    }
+  `;
+
+  const byNameQuery = /* GraphQL */ `
+    query GetPostByName($slug: String!) {
+      posts(where: { name: $slug }, first: 1) {
+        nodes {
+          ${postFields}
         }
       }
     }
   `;
 
-  const data = await graphqlRequest<{ post: GqlPostNode | null }>(query, { slug });
-  const post = data.post;
+  const bySlug = await graphqlRequest<{ post: GqlPostNode | null }>(
+    bySlugQuery,
+    { slug },
+  );
+  let post = bySlug.post;
+
+  if (!post?.slug) {
+    const byName = await graphqlRequest<{
+      posts: { nodes: GqlPostNode[] | null } | null;
+    }>(byNameQuery, { slug });
+    post = byName.posts?.nodes?.[0] ?? null;
+  }
+
   if (!post?.slug) throw new Error("Post not found");
 
   const mapped = mapNodeToBlogPost(post);

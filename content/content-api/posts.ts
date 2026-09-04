@@ -86,6 +86,10 @@ function hasWpGraphqlConfigured() {
   return true;
 }
 
+function isPostNotFoundError(error: unknown): boolean {
+  return error instanceof Error && error.message === "Post not found";
+}
+
 export async function getAllPosts(): Promise<BlogPostSummary[]> {
   if (hasWpGraphqlConfigured()) {
     try {
@@ -103,7 +107,10 @@ export async function getPostBySlug(slug: string): Promise<BlogPost> {
     try {
       return await wpGetPostBySlug(slug);
     } catch (error) {
-      await logWpFallback("getPostBySlug", error, { slug });
+      // 文章本來就不存在 ≠ WP GraphQL 掛掉；勿當成 fallback 告警
+      if (!isPostNotFoundError(error)) {
+        await logWpFallback("getPostBySlug", error, { slug });
+      }
       return mdxGetPostBySlug(slug);
     }
   }

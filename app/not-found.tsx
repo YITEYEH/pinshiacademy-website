@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { buildPageMetadata } from "@/lib/seo";
-import { AGENT_RECOVERY_LINKS } from "@/lib/agent-recovery";
 
 export const metadata: Metadata = {
   ...buildPageMetadata({
@@ -35,32 +34,6 @@ export default function NotFound() {
           學習專欄
         </Link>
       </div>
-
-      <nav
-        aria-label="Agent recovery links"
-        className="mt-14 border-t border-border pt-8 text-left"
-      >
-        <h2 className="mb-2 text-sm font-semibold text-foreground">
-          For agents and crawlers
-        </h2>
-        <p className="mb-4 text-sm text-muted-foreground">
-          This is an HTTP 404. Use these links to recover site structure and
-          canonical content.
-        </p>
-        <ul className="space-y-1.5 text-sm text-muted-foreground">
-          {AGENT_RECOVERY_LINKS.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className="text-foreground underline-offset-2 hover:underline"
-              >
-                {link.label}
-              </Link>
-              <span className="text-muted-foreground"> — {link.href}</span>
-            </li>
-          ))}
-        </ul>
-      </nav>
     </div>
   );
 }
