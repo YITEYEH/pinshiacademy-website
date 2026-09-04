@@ -39,7 +39,7 @@ export function HomeHero() {
             </div>
           </div>
 
-          <div className="relative lg:justify-self-end">
+          <div className="relative w-full min-w-0">
             <div className="relative overflow-hidden rounded-2xl shadow-xl">
               <Image
                 src="/hero-section.jpg"
@@ -48,8 +48,8 @@ export function HomeHero() {
                 height={819}
                 priority
                 fetchPriority="high"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="h-auto w-full"
+                sizes="(max-width: 1024px) 100vw, min(560px, 50vw)"
+                className="h-auto w-full object-cover"
               />
             </div>
           </div>
