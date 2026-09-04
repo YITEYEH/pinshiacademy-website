@@ -22,7 +22,7 @@ export function HomePainPoints() {
           </h2>
         </motion.div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
           {cards.map((card, index) => (
             <motion.article
               key={card.number}
@@ -31,12 +31,12 @@ export function HomePainPoints() {
               viewport={{ once: true }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: index * 0.05 }}
-              className="rounded-2xl border border-border bg-[#f7f9f7] p-5 sm:p-6"
+              className="rounded-2xl border border-border bg-[#f7f9f7] p-4 sm:p-5 lg:p-6"
             >
-              <p className="mb-3 font-mono text-sm font-semibold tracking-wider text-primary">
+              <p className="mb-2 font-mono text-xs font-semibold tracking-wider text-primary sm:mb-3 sm:text-sm">
                 {card.number}
               </p>
-              <p className="text-base font-medium leading-relaxed text-foreground sm:text-[1.0625rem]">
+              <p className="text-sm font-medium leading-relaxed text-foreground sm:text-[1.0625rem]">
                 <span className="block">{card.line1}</span>
                 <span className="block">{card.line2}</span>
               </p>
