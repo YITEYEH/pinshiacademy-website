@@ -183,6 +183,6 @@ export const homeFinalCta = {
 } as const;
 
 export const homeSticky = {
-  message: "LINE 詢問學習顧問",
-  label: "LINE 詢問學習顧問",
+  message: "不知道從哪裡開始？先聊聊孩子狀況",
+  label: "LINE 了解學習建議",
 } as const;
