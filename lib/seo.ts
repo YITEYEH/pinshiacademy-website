@@ -10,22 +10,27 @@ const DEFAULT_OG_HEIGHT = 630;
 
 /**
  * Meta description 長度（繁中字元數）：
- * - Ahrefs Site Audit「too short」門檻約 <110
- * - Google 桌機片段約至 ~160；過長易被截斷
+ * - Ahrefs「too short」約 <110；目標 ≥120 留緩衝
+ * - 上限約 155，避免桌機片段過度截斷
  */
-const MIN_DESCRIPTION_CHARS = 110;
+const MIN_DESCRIPTION_CHARS = 120;
 const MAX_DESCRIPTION_CHARS = 155;
 
-/** 過短時一次補上的說明（避免重複疊加同一句） */
-const DESCRIPTION_PAD =
-  "歡迎透過 LINE 了解學習建議，由顧問協助整理年級、科目與目前卡點，再一起討論適合的一對一或小班學習方向";
+const DESCRIPTION_FILLERS = [
+  "歡迎透過 LINE 了解學習建議，由顧問協助整理年級、科目與目前卡點，再一起討論適合的一對一或小班學習方向",
+  "品識學苑提供國高中線上一對一與小班輔導，協助孩子找到適合的學習方法與節奏，陪伴會考與學測穩定進步",
+  "開始以前不用先決定課程，先把真正卡住的地方說清楚",
+] as const;
 
 function finalizeDescription(raw: string): string {
   let out = raw.trim().replace(/\s+/g, " ");
-  if (out.length < MIN_DESCRIPTION_CHARS) {
+
+  for (const filler of DESCRIPTION_FILLERS) {
+    if (out.length >= MIN_DESCRIPTION_CHARS) break;
     const needsPause = !/[。！？!?]$/u.test(out);
-    out = `${out}${needsPause ? "。" : ""}${DESCRIPTION_PAD}`;
+    out = `${out}${needsPause ? "。" : ""}${filler}`;
   }
+
   if (out.length > MAX_DESCRIPTION_CHARS) {
     return `${out.slice(0, MAX_DESCRIPTION_CHARS - 1)}…`;
   }
