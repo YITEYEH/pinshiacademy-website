@@ -5,8 +5,8 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = {
   ...buildPageMetadata({
     path: "/404",
-    title: "找不到頁面",
-    description: "您所尋找的頁面不存在或已移除，請返回品識學苑首頁或學習專欄",
+    title: "找不到頁面｜請返回品識學苑首頁或學習專欄",
+    description: "您所尋找的頁面不存在或已移除，請返回品識學苑首頁或瀏覽學習專欄，亦可透過 LINE 了解學習建議",
     titleAbsolute: true,
   }),
   robots: { index: false, follow: true },

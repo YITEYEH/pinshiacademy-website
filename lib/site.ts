@@ -28,7 +28,7 @@ export const SITE = {
   url: normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
   defaultTitle: "線上一對一與學習陪伴，讓孩子真正學會｜品識學苑",
   defaultDescription:
-    "不只把題目教會，更找到真正卡住的地方；提供國高中線上一對一、小班課程與學習陪伴，從理解開始，讓進步更有方向",
+    "不只把題目教會，更找到真正卡住的地方；提供國高中線上一對一、小班課程與學習陪伴，從理解開始，讓進步更有方向。歡迎透過 LINE 了解學習建議",
 } as const;
 
 /** Sitemap lastmod for routes without a content-derived timestamp (update when static pages meaningfully change). */

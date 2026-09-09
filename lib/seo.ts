@@ -9,22 +9,22 @@ const DEFAULT_OG_WIDTH = 1200;
 const DEFAULT_OG_HEIGHT = 630;
 
 /**
- * Meta description 建議長度（繁中）：
- * - Google 約顯示 150–160 英文字元寬度，中文約 70–90 字較不易被截斷
- * - 過短（<50）工具常標警告；過長無益且易被省略
+ * Meta description 長度（繁中字元數）：
+ * - Ahrefs Site Audit「too short」門檻約 <110
+ * - Google 桌機片段約至 ~160；過長易被截斷
  */
-const MIN_DESCRIPTION_CHARS = 50;
-const MAX_DESCRIPTION_CHARS = 90;
+const MIN_DESCRIPTION_CHARS = 110;
+const MAX_DESCRIPTION_CHARS = 155;
 
-const DESCRIPTION_SUFFIX =
-  "先診斷弱點、再安排一對一或小班，陪伴會考與學測穩定進步";
+/** 過短時一次補上的說明（避免重複疊加同一句） */
+const DESCRIPTION_PAD =
+  "歡迎透過 LINE 了解學習建議，由顧問協助整理年級、科目與目前卡點，再一起討論適合的一對一或小班學習方向";
 
 function finalizeDescription(raw: string): string {
-  const t = raw.trim();
-  const endsWithEllipsis = /(?:…|\.\.\.)\s*$/u.test(t);
-  let out = t;
-  if (t.length < MIN_DESCRIPTION_CHARS && !endsWithEllipsis) {
-    out = `${t}${DESCRIPTION_SUFFIX}`;
+  let out = raw.trim().replace(/\s+/g, " ");
+  if (out.length < MIN_DESCRIPTION_CHARS) {
+    const needsPause = !/[。！？!?]$/u.test(out);
+    out = `${out}${needsPause ? "。" : ""}${DESCRIPTION_PAD}`;
   }
   if (out.length > MAX_DESCRIPTION_CHARS) {
     return `${out.slice(0, MAX_DESCRIPTION_CHARS - 1)}…`;
