@@ -10,6 +10,7 @@ import { CONTACT, formatRegisteredAddress } from "@/lib/contact";
 import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { LINE_LINKS } from "@/lib/line-links";
 import { trackContactEmail } from "@/lib/analytics";
+import { MailtoLink } from "@/components/MailtoLink";
 
 type InfoCardProps = {
   icon: typeof Mail;
@@ -113,13 +114,12 @@ export function ContactClient() {
 
             <div className="grid gap-4 sm:grid-cols-2 lg:col-span-3">
               <InfoCard icon={Mail} title="Email" delay={0.05}>
-                <a
-                  href={`mailto:${CONTACT.email}`}
+                <MailtoLink
                   className="font-medium text-foreground transition-colors hover:text-primary break-all"
                   onClick={() => trackContactEmail("contact_page")}
                 >
                   {CONTACT.email}
-                </a>
+                </MailtoLink>
               </InfoCard>
 
               <InfoCard icon={Building2} title="公司資訊" delay={0.1}>

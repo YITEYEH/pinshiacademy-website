@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "motion/react";
 import { trackContactEmail } from "@/lib/analytics";
+import { MailtoLink } from "@/components/MailtoLink";
 import type { PolicyBlock, PolicySection } from "@/content/policy-document-types";
 
 type PolicyDocumentProps = {
@@ -70,13 +71,13 @@ function PolicyBlockView({
       <p>{companyName}</p>
       <p>
         客服信箱：
-        <a
-          href={`mailto:${contactEmail}`}
+        <MailtoLink
+          email={contactEmail}
           className="text-primary hover:underline break-all"
           onClick={() => trackContactEmail("policy_document")}
         >
           {contactEmail}
-        </a>
+        </MailtoLink>
       </p>
     </div>
   );

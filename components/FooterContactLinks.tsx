@@ -4,6 +4,7 @@ import { Facebook, Instagram, Mail, Youtube } from "lucide-react";
 import { CONTACT } from "@/lib/contact";
 import { trackContactEmail, trackSocialClick } from "@/lib/analytics";
 import { SOCIAL_LINKS } from "@/lib/social-links";
+import { MailtoLink } from "@/components/MailtoLink";
 
 const socialItems = [
   { platform: "facebook", href: SOCIAL_LINKS.facebook, Icon: Facebook, label: "Facebook" },
@@ -15,13 +16,12 @@ export function FooterContactEmail() {
   return (
     <li className="flex items-start gap-3 text-sm text-white/80">
       <Mail className="w-4 h-4 mt-0.5 shrink-0 text-white/60" />
-      <a
-        href={`mailto:${CONTACT.email}`}
+      <MailtoLink
         className="hover:text-white transition-colors break-all"
         onClick={() => trackContactEmail("footer_email")}
       >
         {CONTACT.email}
-      </a>
+      </MailtoLink>
     </li>
   );
 }
