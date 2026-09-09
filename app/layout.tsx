@@ -35,13 +35,13 @@ export const metadata: Metadata = {
   icons: {
     icon: [{ url: BRAND_LOGO_PATH, type: "image/png" }],
   },
-  ...(googleSiteVerification
-    ? {
-        verification: {
-          google: googleSiteVerification,
-        },
-      }
-    : {}),
+  verification: {
+    ...(googleSiteVerification ? { google: googleSiteVerification } : {}),
+    other: {
+      "ahrefs-site-verification":
+        "2e76e779a760fbc3ad48d08e72a6f7f1ec5409096e62dad208b6666367721a32",
+    },
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
