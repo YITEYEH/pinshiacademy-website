@@ -22,8 +22,8 @@ export function buildLineOaMessageUrl(
 }
 
 /**
- * 舊版 lin.ee 短網址（僅供對照／後台追蹤用）。
- * 站內 CTA 改走 oaMessage 以支援預填；點擊歸因改以 GA analyticsLabel／cta_location。
+ * 站內 CTA 預設用 lin.ee（桌面／無 JS 最穩）。
+ * 手機端由 ExternalLinkOnce 改走 oaMessage 以帶預填。
  */
 const LINE_BASE = {
   consult: "https://lin.ee/8nQNuYl",
@@ -36,6 +36,33 @@ const LINE_BASE = {
 
 export type LineLinkKey = keyof typeof LINE_BASE;
 
+/** 是否為站內 LINE CTA 網址（短網址或 line.me） */
+export function isLineCtaUrl(url: string): boolean {
+  try {
+    const host = new URL(url).hostname;
+    return host === "lin.ee" || host === "line.me" || host.endsWith(".line.me");
+  } catch {
+    return false;
+  }
+}
+
+/** 粗判手機／平板（有 LINE App 機率高）；桌面一律走 lin.ee */
+export function isLikelyMobileDevice(): boolean {
+  if (typeof navigator === "undefined") return false;
+  return /Android|iPhone|iPad|iPod|Windows Phone|Mobile/i.test(
+    navigator.userAgent,
+  );
+}
+
+/**
+ * 依裝置選擇 LINE 連結：手機用預填 oaMessage，其餘用傳入的桌面連結。
+ */
+export function resolveLineHrefForDevice(desktopHref: string): string {
+  if (!isLineCtaUrl(desktopHref)) return desktopHref;
+  if (isLikelyMobileDevice()) return buildLineOaMessageUrl();
+  return desktopHref;
+}
+
 /** @deprecated oaMessage 無法同時保留訊息與 UTM query；請用 GA 標籤追蹤 */
 export function withLineUtm(baseUrl: string, campaign: string): string {
   const url = new URL(baseUrl);
@@ -46,14 +73,15 @@ export function withLineUtm(baseUrl: string, campaign: string): string {
 }
 
 /**
- * 依用途取得 LINE 連結（含預填諮詢模板）。
+ * 依用途取得 LINE 桌面／預設連結。
  * campaign 保留參數以相容舊呼叫，實際歸因請看 analyticsLabel／cta_location。
  */
-export function lineLink(_key: LineLinkKey, _campaign?: string): string {
-  return buildLineOaMessageUrl();
+export function lineLink(key: LineLinkKey, campaign?: string): string {
+  const base = LINE_BASE[key];
+  return campaign ? withLineUtm(base, campaign) : base;
 }
 
-/** 全站 LINE 官方帳號連結（集中管理，皆含預填訊息） */
+/** 全站 LINE 官方帳號連結（集中管理；手機預填由 ExternalLinkOnce 處理） */
 export const LINE_LINKS: Record<LineLinkKey, string> = {
   consult: lineLink("consult"),
   homeAssessment: lineLink("homeAssessment"),
@@ -63,7 +91,7 @@ export const LINE_LINKS: Record<LineLinkKey, string> = {
   stem: lineLink("stem"),
 };
 
-/** 築夢計畫專用 CTA（同樣預填；以 GA label 區分用途） */
+/** 築夢計畫專用 CTA（以 GA label／UTM campaign 區分用途） */
 export const DREAM_PROJECT_LINE = {
   apply: lineLink("consult", "dream_project_apply"),
   teacher: lineLink("consult", "dream_project_teacher"),
