@@ -22,7 +22,7 @@ type StickyLineCtaProps = {
 export function StickyLineCta({
   analyticsLabel,
   dismissKey,
-  message = "不確定適不適合？先預約免費學習評估",
+  message = "不確定適不適合？先預約免費試聽",
   label = LINE_CTA_LABEL,
   href = LINE_LINKS.consult,
   ctaLocation,

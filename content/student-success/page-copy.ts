@@ -153,5 +153,5 @@ export const page = {
   ],
   ctaTitle: "下一個改變的故事，也許就是您的孩子",
   ctaBody: "先了解孩子目前真正的學習狀況，再一起找到適合他的學習方式",
-  ctaLabel: "立即預約免費試聽",
+  ctaLabel: "預約免費試聽",
 } as const;

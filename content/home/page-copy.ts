@@ -6,7 +6,7 @@ export const homeHero = {
   h1Line3: "而是還沒找到適合的方法",
   subtitle:
     "從孩子目前的程度、觀念與學習方式開始了解，找出真正卡住的地方，再一起看看適合怎麼學",
-  primaryCta: "LINE 了解學習建議",
+  primaryCta: "預約免費試聽",
   secondaryCta: "了解品識怎麼教",
   secondaryHref: "#how-we-help",
 } as const;
@@ -63,7 +63,7 @@ export const homeLineValue = {
   ] as const,
   conversationHint:
     "不知道怎麼問也沒關係，告訴我們「年級＋科目＋目前問題」就可以開始",
-  conversationCta: "LINE 了解學習建議",
+  conversationCta: "預約免費試聽",
 } as const;
 
 export const homeHowWeHelp = {
@@ -132,7 +132,7 @@ export const homeCourses = {
     },
   ] as const,
   closing: "還不知道適合哪一種？很正常",
-  lineCta: "LINE 了解學習建議",
+  lineCta: "預約免費試聽",
 } as const;
 
 export const homeTeachers = {
@@ -177,12 +177,12 @@ export const homeFinalCta = {
   titleLine1: "不知道從哪裡開始",
   titleLine2: "就先從聊聊孩子的狀況開始",
   subtitle: "不用先選課，也不用現在就做決定",
-  primaryCta: "LINE 了解學習建議",
+  primaryCta: "預約免費試聽",
   secondaryCta: "了解課程介紹",
   secondaryHref: "/courses",
 } as const;
 
 export const homeSticky = {
   message: "不知道從哪裡開始？先聊聊孩子狀況",
-  label: "LINE 了解學習建議",
+  label: "預約免費試聽",
 } as const;

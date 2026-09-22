@@ -200,7 +200,7 @@ export const threeTeachersFinalCta = {
     "與其急著增加更多課程，不如先了解孩子現在真正遇到的問題",
     "品識學苑會從學生目前的程度、學習狀況與目標出發，一起找到適合的學習方式",
   ],
-  primaryLabel: "預約學習諮詢",
+  primaryLabel: "預約免費試聽",
   secondaryLabel: "了解課程方案",
   secondaryHref: "/courses",
 } as const;

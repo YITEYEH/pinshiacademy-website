@@ -111,7 +111,7 @@ export const teachersFit = {
   highlight: "適合，比急著開始更重要",
   closing:
     "如果目前的課程或師資並不符合學生的需要，我們也會如實說明；因為比起多安排一堂課，我們更在意這堂課是否真的能為孩子帶來幫助",
-  ctaLabel: "預約學習評估",
+  ctaLabel: "預約免費試聽",
 } as const;
 
 export const teachersTeamBridge = {

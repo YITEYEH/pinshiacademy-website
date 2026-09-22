@@ -15,7 +15,7 @@ export type ArticleConsultCtaContent = {
 const DEFAULT_CTA: ArticleConsultCtaContent = {
   title: "不確定孩子適不適合一對一或小班？",
   description: "預約學習評估，說明年級與弱科，我們協助規劃下一步",
-  lineButtonLabel: "預約學習評估",
+  lineButtonLabel: "預約免費試聽",
   analyticsLabel: "blog_article_line_consult",
   secondaryLinks: [
     {
@@ -41,7 +41,7 @@ const CATEGORY_CTA: Record<string, ArticleConsultCtaContent> = {
   國小萬試通: {
     title: "想幫孩子打好國小基礎、建立學習節奏嗎？",
     description: "預約學習評估，了解程度與適合的上課方式後再決定",
-    lineButtonLabel: "預約學習評估",
+    lineButtonLabel: "預約免費試聽",
     analyticsLabel: "blog_article_line_consult_elementary",
     secondaryLinks: [
       {
@@ -59,7 +59,7 @@ const CATEGORY_CTA: Record<string, ArticleConsultCtaContent> = {
   國中好試多: {
     title: "段考或會考卡住，不知道從哪裡補強？",
     description: "預約學習評估，先找出弱點再安排一對一或小班",
-    lineButtonLabel: "預約學習評估",
+    lineButtonLabel: "預約免費試聽",
     analyticsLabel: "blog_article_line_consult_junior_high",
     secondaryLinks: [
       {
@@ -77,7 +77,7 @@ const CATEGORY_CTA: Record<string, ArticleConsultCtaContent> = {
   學習技巧: {
     title: "想確認現在的讀書方法有沒有效？",
     description: "預約學習評估，一起檢視節奏、錯題與複習方式",
-    lineButtonLabel: "預約學習評估",
+    lineButtonLabel: "預約免費試聽",
     analyticsLabel: "blog_article_line_consult_study_skills",
     secondaryLinks: [
       {
@@ -95,7 +95,7 @@ const CATEGORY_CTA: Record<string, ArticleConsultCtaContent> = {
   高中芝士補給站: {
     title: "學測、課業壓力大，想提早把方向抓穩？",
     description: "預約學習評估，依年級與目標規劃適合的輔導方式",
-    lineButtonLabel: "預約學習評估",
+    lineButtonLabel: "預約免費試聽",
     analyticsLabel: "blog_article_line_consult_senior_high",
     secondaryLinks: [
       {
