@@ -1,3 +1,4 @@
+import { AUTH_MD } from "@/lib/agent-discovery";
 import { SITE } from "@/lib/site";
 import { buildNotFoundMarkdown } from "@/lib/agent-recovery";
 import {
@@ -236,6 +237,7 @@ const PAGE_BUILDERS: Record<string, () => string> = {
       "教育影響力計畫：課程支持與學習陪伴申請",
       "/dream-project",
     ),
+  "/auth": () => AUTH_MD,
 };
 
 /** Map URL path segments to markdown body */

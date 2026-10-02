@@ -15,29 +15,37 @@ export function GET() {
 # with these signals in the Cloudflare dashboard.
 
 User-agent: *
+Content-Signal: ai-train=no, search=yes, ai-input=yes
 Allow: /
 Disallow: /api/
 
 # Prefer AI search / assistant crawlers to read public pages + llms.txt
 User-agent: GPTBot
+Content-Signal: ai-train=no, search=yes, ai-input=yes
 Allow: /
 
 User-agent: ChatGPT-User
+Content-Signal: ai-train=no, search=yes, ai-input=yes
 Allow: /
 
 User-agent: ClaudeBot
+Content-Signal: ai-train=no, search=yes, ai-input=yes
 Allow: /
 
 User-agent: anthropic-ai
+Content-Signal: ai-train=no, search=yes, ai-input=yes
 Allow: /
 
 User-agent: Google-Extended
+Content-Signal: ai-train=no, search=yes, ai-input=yes
 Allow: /
 
 User-agent: PerplexityBot
+Content-Signal: ai-train=no, search=yes, ai-input=yes
 Allow: /
 
 User-agent: Applebot-Extended
+Content-Signal: ai-train=no, search=yes, ai-input=yes
 Allow: /
 
 Sitemap: ${SITE.url}/sitemap.xml

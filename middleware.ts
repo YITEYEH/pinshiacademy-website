@@ -3,6 +3,14 @@ import {
   appendVaryAccept,
   preferredType,
 } from "@/lib/accept-markdown";
+import { HOMEPAGE_LINK_HEADER } from "@/lib/discovery-links";
+
+const DISCOVERY_REWRITES: Record<string, string> = {
+  "/.well-known/api-catalog": "/api/discovery/api-catalog",
+  "/openapi.json": "/api/discovery/openapi",
+  "/.well-known/agent-skills/index.json": "/api/discovery/agent-skills",
+  "/.well-known/agent-skills/pinshi-public-site/SKILL.md": "/api/discovery/skill",
+};
 
 /** Skip negotiation for static / public assets (keep .md for rewrite). */
 function isStaticAssetPath(pathname: string): boolean {
@@ -12,8 +20,15 @@ function isStaticAssetPath(pathname: string): boolean {
 
 export function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
+  const discoveryTarget = DISCOVERY_REWRITES[pathname];
 
-  if (isStaticAssetPath(pathname)) {
+  if (discoveryTarget) {
+    const url = req.nextUrl.clone();
+    url.pathname = discoveryTarget;
+    return NextResponse.rewrite(url);
+  }
+
+  if (pathname.startsWith("/.well-known/") || isStaticAssetPath(pathname)) {
     return NextResponse.next();
   }
 
@@ -57,6 +72,9 @@ export function middleware(req: NextRequest) {
   appendVaryAccept(res.headers);
   // Next may replace Vary on HTML responses; append again as a distinct token.
   res.headers.append("Vary", "Accept");
+  if (pathname === "/") {
+    res.headers.append("Link", HOMEPAGE_LINK_HEADER);
+  }
   return res;
 }
 
