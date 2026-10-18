@@ -1,5 +1,5 @@
 export type { SuccessStat } from "./stats";
-export { successStats, successStatsNote } from "./stats";
+export { successStats, successStatsNote, successStatsTitle } from "./stats";
 
 export type { StudentStory } from "./stories";
 export { studentStories } from "./stories";

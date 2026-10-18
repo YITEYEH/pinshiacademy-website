@@ -42,21 +42,27 @@ export type HonestStat = {
   label: string;
 };
 
+/** 與 successStats／首頁數據對齊 */
 export const honestStats: HonestStat[] = [
   {
-    id: "a-plus-plus",
-    value: "2",
-    label: "會考數學拿到 A++",
+    id: "gsat-5a",
+    value: "10",
+    label: "會考5A++",
   },
   {
-    id: "levels",
-    value: "4",
-    label: "會考數學達 A++、B++ 或 B+",
+    id: "top-three",
+    value: "13",
+    label: "校排名前三",
   },
   {
-    id: "track",
-    value: "每堂",
-    label: "課後都會告訴你學到哪、下一步怎麼走",
+    id: "score-gain",
+    value: "23",
+    label: "在校成績進步10分以上",
+  },
+  {
+    id: "gsat-target",
+    value: "17",
+    label: "學測達成目標級分",
   },
 ];
 

@@ -23,7 +23,7 @@ import {
   studentStories,
   studentSuccessFaqs,
   successStats,
-  successStatsNote,
+  successStatsTitle,
   type ParentFeedback,
 } from "@/content/student-success";
 
@@ -176,22 +176,31 @@ export function StudentSuccessClient() {
 
       <section className="bg-primary py-12 text-white sm:py-14">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <p className="mb-8 text-center text-sm font-medium text-white/90 sm:text-base">
-            可公開的教學成果整理
-          </p>
-          <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
+          <h2 className="mx-auto mb-8 max-w-2xl text-center text-lg font-bold leading-snug tracking-tight sm:text-xl lg:text-2xl">
+            {successStatsTitle}
+          </h2>
+          <div className="grid grid-cols-2 gap-6 sm:gap-8 lg:grid-cols-4 lg:gap-6">
             {successStats.map((stat) => (
-              <div key={stat.id} className="text-center">
-                <div className="mb-1 text-2xl font-bold sm:text-3xl">
-                  {stat.value}
-                </div>
-                <div className="text-xs text-white/80 sm:text-sm">{stat.label}</div>
+              <div
+                key={stat.id}
+                className="flex flex-col items-center text-center"
+              >
+                <p className="mb-2 flex items-baseline justify-center gap-1">
+                  <span className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-[2.75rem]">
+                    {stat.value}
+                  </span>
+                  {stat.unit ? (
+                    <span className="text-sm font-semibold text-white/85 sm:text-base">
+                      {stat.unit}
+                    </span>
+                  ) : null}
+                </p>
+                <p className="max-w-[12rem] text-xs leading-relaxed text-white/80 sm:max-w-none sm:text-sm">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </div>
-          <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-relaxed text-white/70 sm:text-sm">
-            {successStatsNote}
-          </p>
         </div>
       </section>
 
@@ -267,7 +276,7 @@ export function StudentSuccessClient() {
             <p className="text-muted-foreground">{page.storiesNote}</p>
           </motion.div>
 
-          <div className="space-y-5">
+          <div className="space-y-6">
             {studentStories.map((story, index) => (
               <motion.article
                 key={story.id}
@@ -276,52 +285,85 @@ export function StudentSuccessClient() {
                 viewport={{ once: true }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="overflow-hidden rounded-xl border border-border bg-white shadow-sm"
+                className="overflow-hidden rounded-2xl border border-border/70 bg-white shadow-sm"
               >
-                <div className="border-b border-border px-5 py-3 sm:px-6">
-                  <p className="text-sm font-semibold text-primary">
+                <div className="flex flex-wrap items-center gap-2 border-b border-border/70 px-5 py-3.5 sm:px-6">
+                  <span className="rounded-md bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">
                     {story.category}
-                  </p>
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {story.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded bg-[#e8f5ee] px-2 py-0.5 text-xs font-medium text-primary/90"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
+
                 <div className="px-5 py-5 sm:px-6 sm:py-6">
-                  <h3 className="mb-4 text-xl font-bold leading-snug text-foreground sm:text-2xl">
+                  <h3 className="mb-5 text-xl font-bold leading-snug tracking-tight text-foreground sm:text-2xl">
                     {story.title}
                   </h3>
-                  <div className="grid gap-4 sm:grid-cols-3">
-                    <div>
-                      <p className="mb-2 text-xs font-semibold text-muted-foreground">
+
+                  <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
+                    <div className="rounded-xl bg-[#fafafa] px-4 py-4">
+                      <p className="mb-3 text-xs font-semibold tracking-wide text-muted-foreground">
                         之前
                       </p>
-                      <ul className="space-y-1.5 text-sm leading-relaxed text-muted-foreground">
+                      <ul className="space-y-2.5 text-sm leading-relaxed text-muted-foreground">
                         {story.before.map((line) => (
-                          <li key={line}>{line}</li>
+                          <li key={line} className="flex gap-2">
+                            <span
+                              className="mt-2 h-1 w-1 shrink-0 rounded-full bg-muted-foreground/40"
+                              aria-hidden
+                            />
+                            <span>{line}</span>
+                          </li>
                         ))}
                       </ul>
                     </div>
-                    <div>
-                      <p className="mb-2 text-xs font-semibold text-muted-foreground">
+
+                    <div className="rounded-xl border border-border/60 bg-white px-4 py-4">
+                      <p className="mb-3 text-xs font-semibold tracking-wide text-foreground/70">
                         怎麼帶
                       </p>
-                      <ul className="space-y-1.5 text-sm leading-relaxed text-muted-foreground">
+                      <ul className="space-y-2.5 text-sm leading-relaxed text-foreground/80">
                         {story.approach.map((line) => (
-                          <li key={line}>{line}</li>
+                          <li key={line} className="flex gap-2">
+                            <span
+                              className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary/50"
+                              aria-hidden
+                            />
+                            <span>{line}</span>
+                          </li>
                         ))}
                       </ul>
                     </div>
-                    <div>
-                      <p className="mb-2 text-xs font-semibold text-primary">
+
+                    <div className="rounded-xl bg-[#e8f5ee] px-4 py-4">
+                      <p className="mb-3 text-xs font-semibold tracking-wide text-primary">
                         之後
                       </p>
-                      <ul className="space-y-1.5 text-sm leading-relaxed text-foreground">
+                      <ul className="space-y-2.5 text-sm font-medium leading-relaxed text-foreground">
                         {story.after.map((line) => (
-                          <li key={line}>{line}</li>
+                          <li key={line} className="flex gap-2">
+                            <span
+                              className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
+                              aria-hidden
+                            />
+                            <span>{line}</span>
+                          </li>
                         ))}
                       </ul>
                     </div>
                   </div>
                 </div>
-                <div className="border-t border-primary/15 bg-[#e8f5ee] px-5 py-4 sm:px-6">
-                  <p className="font-semibold leading-snug text-foreground">
+
+                <div className="border-t border-primary/15 bg-[#f7f9f7] px-5 py-4 sm:px-6">
+                  <p className="border-l-2 border-primary pl-3 text-[0.9375rem] font-medium leading-snug text-foreground sm:text-base">
                     「{story.quote}」
                   </p>
                 </div>
