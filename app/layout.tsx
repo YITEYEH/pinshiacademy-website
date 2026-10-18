@@ -6,6 +6,7 @@ import { Navbar } from "@/components/Navbar";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { Footer } from "@/components/Footer";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { ExitIntentLinePopup } from "@/components/ExitIntentLinePopup";
 import { WebMcpTools } from "@/components/WebMcpTools";
 import { buildSiteJsonLdGraph } from "@/lib/organization-schema";
 import { BRAND_LOGO_PATH } from "@/lib/site-assets";
@@ -59,6 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {ga4Id ? <GoogleAnalytics measurementId={ga4Id} /> : null}
         <ScrollToTop />
         <WebMcpTools />
+        <ExitIntentLinePopup />
         <div className="min-h-screen flex flex-col">
           <Navbar />
           <AnnouncementBar />
