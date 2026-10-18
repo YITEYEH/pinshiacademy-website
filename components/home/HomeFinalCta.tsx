@@ -11,6 +11,7 @@ export function HomeFinalCta() {
     titleLine1,
     titleLine2,
     subtitle,
+    nextStep,
     primaryCta,
     secondaryCta,
     secondaryHref,
@@ -39,6 +40,7 @@ export function HomeFinalCta() {
             variant="inverse"
             className="px-8"
           />
+          <p className="mt-3 text-sm text-white/70">{nextStep}</p>
           <div className="mt-4">
             <Link
               href={secondaryHref}

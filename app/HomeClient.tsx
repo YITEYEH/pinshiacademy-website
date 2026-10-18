@@ -8,8 +8,6 @@ import { StickyLineCta } from "@/components/StickyLineCta";
 import { LearningProcess } from "@/components/LearningProcess";
 import { TeachersTeamBridge } from "@/components/teachers/TeachersTeamBridge";
 import { HomePainPoints } from "@/components/home/HomePainPoints";
-import { HomeLineValue } from "@/components/home/HomeLineValue";
-import { HomeHowWeHelp } from "@/components/home/HomeHowWeHelp";
 import { HomeProof } from "@/components/home/HomeProof";
 import { HomeCourses } from "@/components/home/HomeCourses";
 import { HomeTeachersTrust } from "@/components/home/HomeTeachersTrust";
@@ -27,12 +25,13 @@ export function HomeClient({ latestPosts }: HomeClientProps) {
   return (
     <div className="w-full pb-24 md:pb-0">
       <HomePainPoints />
-      <HomeLineValue />
-      <HomeHowWeHelp />
       <HomeProof />
       <TeachersTeamBridge />
       <HomeCourses />
-      <LearningProcess analyticsLabel="home_learning_process_line_consult" />
+      <LearningProcess
+        showCta
+        analyticsLabel="home_learning_process_line_consult"
+      />
       <HomeTeachersTrust />
       <HomeBrandValues />
 

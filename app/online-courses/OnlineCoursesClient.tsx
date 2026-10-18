@@ -51,6 +51,7 @@ const faqItems = [
 ];
 
 function formatPrice(amount: number) {
+  if (amount <= 0) return "免費";
   return `NT$${amount.toLocaleString("zh-TW")}`;
 }
 
@@ -162,7 +163,7 @@ function CourseCard({ course }: { course: OnlineCourseView }) {
               newTab
               analyticsLabel={`online_course_${course.id}`}
             >
-              立即上課
+              {course.priceFrom <= 0 ? "免費觀看" : "立即上課"}
               <ArrowRight className="ml-2 h-4 w-4" />
             </ExternalLinkOnce>
           </Button>
@@ -216,17 +217,39 @@ export function OnlineCoursesClient({ courses }: Props) {
             </p>
           </div>
 
-          <div
-            className={
-              courses.length === 1
-                ? "mx-auto max-w-xs sm:max-w-sm"
-                : "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-            }
-          >
-            {courses.map((course) => (
-              <CourseCard key={course.id} course={course} />
-            ))}
-          </div>
+          {courses.length === 0 ? (
+            <div className="mx-auto max-w-lg rounded-2xl border border-border bg-white px-6 py-10 text-center">
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                目前精選課程同步更新中，也可先前往官方課程平台查看最新上架內容
+              </p>
+              <Button
+                size="sm"
+                className="mt-5 bg-primary hover:bg-primary/90"
+                asChild
+              >
+                <ExternalLinkOnce
+                  href={platformHref}
+                  newTab
+                  analyticsLabel="online_courses_empty_teachify"
+                >
+                  前往品識學苑課程平台
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </ExternalLinkOnce>
+              </Button>
+            </div>
+          ) : (
+            <div
+              className={
+                courses.length === 1
+                  ? "mx-auto max-w-xs sm:max-w-sm"
+                  : "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+              }
+            >
+              {courses.map((course) => (
+                <CourseCard key={course.id} course={course} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

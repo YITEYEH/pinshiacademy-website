@@ -16,6 +16,7 @@ import { effectiveModifiedDate } from "@/lib/blog-dates";
 import { formatEventSchedule } from "@/lib/format-event-schedule";
 import { getLiveEvents } from "@/lib/get-live-events";
 import { SITE } from "@/lib/site";
+import { getBlogSeoOverride } from "@/lib/blog-seo-overrides";
 import { buildPageMetadata, buildNotFoundMetadata } from "@/lib/seo";
 import { BRAND_LOGO_PATH } from "@/lib/site-assets";
 
@@ -45,7 +46,8 @@ export async function generateMetadata({
   const { slug } = await params;
   try {
     const post = await getPostBySlug(slug);
-    const rawTitle = post.frontmatter.title.trim();
+    const override = getBlogSeoOverride(post.slug);
+    const rawTitle = (override?.title ?? post.frontmatter.title).trim();
     const seoTitle = rawTitle.includes("品識學苑")
       ? rawTitle
       : `${rawTitle}｜品識學苑`;
@@ -60,7 +62,7 @@ export async function generateMetadata({
     return buildPageMetadata({
       path: `/blog/${post.slug}`,
       title: seoTitle,
-      description: post.frontmatter.description,
+      description: override?.description ?? post.frontmatter.description,
       openGraphType: "article",
       ogImages: post.frontmatter.cover ? [post.frontmatter.cover] : undefined,
       ogImageAlt: post.frontmatter.title,

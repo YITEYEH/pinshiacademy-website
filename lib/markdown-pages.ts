@@ -5,8 +5,6 @@ import {
   homeCourses,
   homeFinalCta,
   homeHero,
-  homeHowWeHelp,
-  homeLineValue,
   homePainPoints,
   homeTeachers,
 } from "@/content/home/page-copy";
@@ -27,9 +25,6 @@ function homeMarkdown(): string {
   const painList = homePainPoints.cards
     .map((c) => `- ${c.number} ${c.line1}${c.line2}`)
     .join("\n");
-  const howSteps = homeHowWeHelp.steps
-    .map((s) => `### ${s.number} ${s.title}\n\n${s.description}`)
-    .join("\n\n");
   const formats = homeCourses.formats
     .map((f) => `- **${f.name}**: ${f.description}`)
     .join("\n");
@@ -42,10 +37,9 @@ function homeMarkdown(): string {
     "",
     `Canonical: ${SITE.url}`,
     "",
-    `## ${homeHero.h1Line1}`,
+    `## ${homeHero.h1Product}`,
     "",
-    `${homeHero.h1Line2}`,
-    `${homeHero.h1Line3}`,
+    homeHero.h1Benefit,
     "",
     homeHero.subtitle,
     "",
@@ -54,22 +48,6 @@ function homeMarkdown(): string {
     painList,
     "",
     homePainPoints.closing,
-    "",
-    `## ${homeLineValue.titleLine1}`,
-    "",
-    homeLineValue.titleLine2,
-    "",
-    homeLineValue.body,
-    "",
-    homeLineValue.conversationHint,
-    "",
-    `## ${homeHowWeHelp.titleLine1}`,
-    "",
-    homeHowWeHelp.titleLine2,
-    "",
-    howSteps,
-    "",
-    `> ${homeHowWeHelp.highlight}`,
     "",
     `## ${homeCourses.titleLine1}`,
     "",

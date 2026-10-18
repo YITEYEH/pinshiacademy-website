@@ -8,6 +8,8 @@ import {
   type TeachifyCourseOverride,
 } from "@/content/teachify-courses";
 import {
+  extractFlightObjectBySlug,
+  extractFlightObjectsByTypename,
   fetchTeachifyHtml,
   getCourseRefsFromCategoryPage,
   parseTeachifyNextData,
@@ -23,9 +25,32 @@ type ApolloCourseSummary = {
   invisible?: boolean;
 };
 
-type ApolloCourse = {
-  __typename: "Course";
-  id: string;
+type FlightLecturer = {
+  __typename?: "Lecturer";
+  name?: string;
+  headline?: string;
+};
+
+type FlightCourseFeatures = {
+  __typename?: "CourseFeatures";
+  lecturesCount?: number;
+  videoTotalHours?: number;
+};
+
+type FlightPlan = {
+  __typename?: "CurriculumPlan";
+  amount?: number;
+  compareAtPrice?: number | null;
+};
+
+type FlightCategory = {
+  __typename?: "Category";
+  name?: string;
+};
+
+type FlightCourse = {
+  __typename?: "Course";
+  id?: string;
   slug: string;
   name: string;
   subtitle?: string;
@@ -37,33 +62,17 @@ type ApolloCourse = {
   courseType?: string;
   tags?: string[];
   totalHours?: number;
+  categories?: FlightCategory[];
+  lecturers?: FlightLecturer[];
+  plans?: FlightPlan[];
+  courseFeatures?: FlightCourseFeatures;
+};
+
+type ApolloCourse = FlightCourse & {
   categories?: ApolloRef[];
   lecturers?: ApolloRef[];
   plans?: ApolloRef[];
   courseFeatures?: ApolloRef;
-};
-
-type ApolloCategory = {
-  __typename: "Category";
-  name: string;
-};
-
-type ApolloLecturer = {
-  __typename: "Lecturer";
-  name: string;
-  headline?: string;
-};
-
-type ApolloCurriculumPlan = {
-  __typename: "CurriculumPlan";
-  amount: number;
-  compareAtPrice?: number | null;
-};
-
-type ApolloCourseFeatures = {
-  __typename: "CourseFeatures";
-  lecturesCount?: number;
-  videoTotalHours?: number;
 };
 
 function stripHtml(html: string): string {
@@ -87,6 +96,7 @@ function inferBadge(title: string, tags: string[]): string | undefined {
   if (tags[0]) return tags[0];
   if (title.includes("會考")) return "會考數學";
   if (title.includes("學測")) return "學測";
+  if (title.includes("英文")) return "高中英文";
   return undefined;
 }
 
@@ -98,38 +108,59 @@ function inferDescription(title: string, seoDescription?: string): string {
   return "品識學苑線上預錄課程，依自己的步調學習、反覆複習";
 }
 
-function resolveCategory(
+function resolveCategoryFromApollo(
   state: TeachifyApolloState,
   refs: ApolloRef[] | undefined,
 ): string | undefined {
   const category = refs
-    ?.map((ref) => resolveApolloRef<ApolloCategory>(state, ref))
+    ?.map((ref) => resolveApolloRef<{ __typename: "Category"; name: string }>(state, ref))
     .find(Boolean);
   return category?.name;
 }
 
-function resolveLecturers(
+function resolveLecturersFromApollo(
   state: TeachifyApolloState,
   refs: ApolloRef[] | undefined,
 ): { name: string; role: string }[] {
   if (!refs) return [];
 
   return refs
-    .map((ref) => resolveApolloRef<ApolloLecturer>(state, ref))
-    .filter((lecturer): lecturer is ApolloLecturer => lecturer !== null)
+    .map((ref) =>
+      resolveApolloRef<{ __typename: "Lecturer"; name: string; headline?: string }>(
+        state,
+        ref,
+      ),
+    )
+    .filter(
+      (lecturer): lecturer is { __typename: "Lecturer"; name: string; headline?: string } =>
+        lecturer !== null,
+    )
     .map((lecturer) => ({
       name: displayName(lecturer.name),
       role: lecturer.headline ?? "",
     }));
 }
 
-function resolvePricing(
+function resolvePricingFromApollo(
   state: TeachifyApolloState,
   refs: ApolloRef[] | undefined,
 ): { priceFrom: number; priceOriginal?: number } {
   const plans = (refs ?? [])
-    .map((ref) => resolveApolloRef<ApolloCurriculumPlan>(state, ref))
-    .filter((plan): plan is ApolloCurriculumPlan => plan !== null)
+    .map((ref) =>
+      resolveApolloRef<{ __typename: "CurriculumPlan"; amount: number; compareAtPrice?: number | null }>(
+        state,
+        ref,
+      ),
+    )
+    .filter(
+      (
+        plan,
+      ): plan is {
+        __typename: "CurriculumPlan";
+        amount: number;
+        compareAtPrice?: number | null;
+      } => plan !== null,
+    )
     .filter((plan) => plan.amount > 0);
 
   if (plans.length === 0) return { priceFrom: 0 };
@@ -147,18 +178,46 @@ function resolvePricing(
   };
 }
 
-function resolveCourseFeatures(
+function resolveCourseFeaturesFromApollo(
   state: TeachifyApolloState,
   ref: ApolloRef | undefined,
   totalHours?: number,
 ): { lectureCount: number; videoHours: string } {
   const features = ref
-    ? resolveApolloRef<ApolloCourseFeatures>(state, ref)
+    ? resolveApolloRef<{
+        __typename: "CourseFeatures";
+        lecturesCount?: number;
+        videoTotalHours?: number;
+      }>(state, ref)
     : null;
 
   return {
     lectureCount: features?.lecturesCount ?? 0,
     videoHours: formatVideoHours(features?.videoTotalHours ?? totalHours),
+  };
+}
+
+function resolvePricingFromFlight(
+  plans: FlightPlan[] | undefined,
+): { priceFrom: number; priceOriginal?: number } {
+  const priced = (plans ?? []).filter(
+    (plan) => typeof plan.amount === "number" && plan.amount > 0,
+  );
+  if (priced.length === 0) {
+    return { priceFrom: 0 };
+  }
+
+  const cheapest = priced.reduce((min, plan) =>
+    (plan.amount ?? 0) < (min.amount ?? 0) ? plan : min,
+  );
+
+  return {
+    priceFrom: cheapest.amount ?? 0,
+    priceOriginal:
+      cheapest.compareAtPrice &&
+      cheapest.compareAtPrice > (cheapest.amount ?? 0)
+        ? cheapest.compareAtPrice
+        : undefined,
   };
 }
 
@@ -176,21 +235,29 @@ function applyOverride(
   };
 }
 
-function mapApolloCourse(
-  course: ApolloCourse,
-  state: TeachifyApolloState,
-): TeachifyCourse | null {
+function mapFlightCourse(course: FlightCourse): TeachifyCourse | null {
   if (course.invisible) return null;
+  if (!course.slug || !course.name) return null;
 
-  const { priceFrom, priceOriginal } = resolvePricing(state, course.plans);
-  const { lectureCount, videoHours } = resolveCourseFeatures(
-    state,
-    course.courseFeatures,
-    course.totalHours,
+  const { priceFrom, priceOriginal } = resolvePricingFromFlight(course.plans);
+  const features = course.courseFeatures;
+  const lectureCount = features?.lecturesCount ?? 0;
+  const videoHours = formatVideoHours(
+    features?.videoTotalHours ?? course.totalHours,
   );
-  const instructors = resolveLecturers(state, course.lecturers);
+  const instructors = (course.lecturers ?? [])
+    .filter((lecturer) => Boolean(lecturer.name))
+    .map((lecturer) => ({
+      name: displayName(lecturer.name!),
+      role: lecturer.headline ?? "",
+    }));
   const tags = course.tags ?? [];
-  const plainDescription = stripHtml(course.description ?? "");
+  const plainDescription =
+    typeof course.description === "string" && course.description.startsWith("<")
+      ? stripHtml(course.description)
+      : typeof course.description === "string" && !course.description.startsWith("$")
+        ? course.description
+        : "";
 
   const base: TeachifyCourse = {
     id: course.slug,
@@ -205,7 +272,7 @@ function mapApolloCourse(
       inferDescription(course.name, course.seoDescription),
     purchaseUrl: `${TEACHIFY_PLATFORM_URL}/courses/${course.slug}`,
     coverImageUrl: course.image,
-    category: resolveCategory(state, course.categories) ?? "線上課程",
+    category: course.categories?.[0]?.name ?? "線上課程",
     tags,
     lectureCount,
     videoHours,
@@ -219,17 +286,139 @@ function mapApolloCourse(
   return applyOverride(base, TEACHIFY_COURSE_OVERRIDES[course.slug]);
 }
 
+function mapApolloCourse(
+  course: ApolloCourse,
+  state: TeachifyApolloState,
+): TeachifyCourse | null {
+  if (course.invisible) return null;
+
+  const { priceFrom, priceOriginal } = resolvePricingFromApollo(
+    state,
+    course.plans as ApolloRef[] | undefined,
+  );
+  const { lectureCount, videoHours } = resolveCourseFeaturesFromApollo(
+    state,
+    course.courseFeatures as ApolloRef | undefined,
+    course.totalHours,
+  );
+  const instructors = resolveLecturersFromApollo(
+    state,
+    course.lecturers as ApolloRef[] | undefined,
+  );
+  const tags = course.tags ?? [];
+  const plainDescription = stripHtml(
+    typeof course.description === "string" ? course.description : "",
+  );
+
+  const base: TeachifyCourse = {
+    id: course.slug,
+    title: course.name,
+    subtitle:
+      course.subtitle ??
+      course.seoDescription ??
+      inferDescription(course.name),
+    description:
+      plainDescription ||
+      course.seoDescription ||
+      inferDescription(course.name, course.seoDescription),
+    purchaseUrl: `${TEACHIFY_PLATFORM_URL}/courses/${course.slug}`,
+    coverImageUrl: course.image,
+    category:
+      resolveCategoryFromApollo(state, course.categories as ApolloRef[] | undefined) ??
+      "線上課程",
+    tags,
+    lectureCount,
+    videoHours,
+    instructors,
+    priceFrom,
+    priceOriginal,
+    featured: course.featured ?? false,
+    badge: inferBadge(course.name, tags),
+  };
+
+  return applyOverride(base, TEACHIFY_COURSE_OVERRIDES[course.slug]);
+}
+
+function extractSlugsFromHtml(html: string): string[] {
+  const fromLinks = [
+    ...html.matchAll(/\/courses\/([a-z0-9][a-z0-9-]{2,})/gi),
+  ].map((match) => match[1]);
+
+  const fromFlight = extractFlightObjectsByTypename<FlightCourse>(
+    html,
+    "Course",
+  )
+    .map((course) => course.slug)
+    .filter(Boolean);
+
+  return [...fromLinks, ...fromFlight];
+}
+
+async function discoverCourseSlugs(): Promise<string[]> {
+  const sources = [
+    `${TEACHIFY_PLATFORM_URL}/courses`,
+    ...TEACHIFY_COURSE_CATEGORY_SLUGS.map(
+      (categorySlug) =>
+        `${TEACHIFY_PLATFORM_URL}/categories/${categorySlug}`,
+    ),
+  ];
+
+  const slugSets = await Promise.all(
+    sources.map(async (url) => {
+      const html = await fetchTeachifyHtml(url);
+      if (!html) return [] as string[];
+
+      const fromHtml = extractSlugsFromHtml(html);
+
+      const state = parseTeachifyNextData(html);
+      const fromApollo = state
+        ? getCourseRefsFromCategoryPage(state)
+            .map(
+              (ref) =>
+                resolveApolloRef<ApolloCourseSummary>(state, ref)?.slug,
+            )
+            .filter((slug): slug is string => Boolean(slug))
+        : [];
+
+      return [...fromHtml, ...fromApollo];
+    }),
+  );
+
+  const skip = new Set(["all", "new", "search", "categories"]);
+  return [
+    ...new Set(
+      slugSets
+        .flat()
+        .map((slug) => slug.toLowerCase())
+        .filter((slug) => !skip.has(slug) && !slug.includes("/")),
+    ),
+  ];
+}
+
 async function fetchCourseDetail(slug: string): Promise<{
-  course: ApolloCourse | null;
+  course: FlightCourse | ApolloCourse | null;
   state: TeachifyApolloState | null;
+  mode: "flight" | "apollo" | null;
 }> {
   const html = await fetchTeachifyHtml(
     `${TEACHIFY_PLATFORM_URL}/courses/${slug}`,
   );
-  if (!html) return { course: null, state: null };
+  if (!html) return { course: null, state: null, mode: null };
+
+  const flightCourse = extractFlightObjectBySlug<FlightCourse>(
+    html,
+    slug,
+    (value) =>
+      value.slug === slug &&
+      (value.__typename === "Course" ||
+        (typeof value.name === "string" && "invisible" in value)),
+  );
+  if (flightCourse) {
+    return { course: flightCourse, state: null, mode: "flight" };
+  }
 
   const state = parseTeachifyNextData(html);
-  if (!state) return { course: null, state: null };
+  if (!state) return { course: null, state: null, mode: null };
 
   const entry = Object.entries(state).find(
     ([key, value]) => key.startsWith("Course:") && value.slug === slug,
@@ -238,39 +427,24 @@ async function fetchCourseDetail(slug: string): Promise<{
   return {
     course: (entry?.[1] as ApolloCourse | undefined) ?? null,
     state,
+    mode: entry ? "apollo" : null,
   };
 }
 
-async function discoverCourseSlugs(): Promise<string[]> {
-  const slugSets = await Promise.all(
-    TEACHIFY_COURSE_CATEGORY_SLUGS.map(async (categorySlug) => {
-      const html = await fetchTeachifyHtml(
-        `${TEACHIFY_PLATFORM_URL}/categories/${categorySlug}`,
-      );
-      if (!html) return [] as string[];
-
-      const state = parseTeachifyNextData(html);
-      if (!state) return [];
-
-      return getCourseRefsFromCategoryPage(state)
-        .map((ref) => resolveApolloRef<ApolloCourseSummary>(state, ref)?.slug)
-        .filter((slug): slug is string => Boolean(slug));
-    }),
-  );
-
-  return [...new Set(slugSets.flat())];
-}
-
-/** 從 Teachify 課程分類頁自動抓取線上預錄課程 */
+/** 從 Teachify 課程分類／列表頁自動抓取線上預錄課程 */
 export async function fetchTeachifyCourses(): Promise<TeachifyCourse[]> {
   const slugs = await discoverCourseSlugs();
   if (slugs.length === 0) return [];
 
   const courses = await Promise.all(
     slugs.map(async (slug) => {
-      const { course, state } = await fetchCourseDetail(slug);
-      if (!course || !state) return null;
-      return mapApolloCourse(course, state);
+      const { course, state, mode } = await fetchCourseDetail(slug);
+      if (!course) return null;
+      if (mode === "flight") return mapFlightCourse(course as FlightCourse);
+      if (mode === "apollo" && state) {
+        return mapApolloCourse(course as ApolloCourse, state);
+      }
+      return null;
     }),
   );
 

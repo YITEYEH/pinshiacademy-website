@@ -26,7 +26,6 @@ import {
   CTA_ROW_CLASS,
   CTA_SECONDARY_ON_DARK_CLASS,
 } from "@/lib/cta-button-styles";
-import { scheduleScrollToTop } from "@/lib/scroll-to-top";
 import { useState } from "react";
 
 const SUBJECT_CARD_CLASS =
@@ -183,10 +182,6 @@ export function CoursesClient() {
 
   const handleCourseTypeChange = (id: CourseFormatId) => {
     setCourseType(id);
-
-    if (window.matchMedia("(max-width: 767px)").matches) {
-      scheduleScrollToTop();
-    }
   };
 
   return (
@@ -202,10 +197,10 @@ export function CoursesClient() {
             <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
               孩子努力了，成績卻還是上不來？
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              我們不只是教科目，而是幫孩子建立真正能進步的學習方法
+            <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
+              國小到高中線上一對一與小班輔導，依孩子程度與卡點安排；先看費用或預約免費試聽
             </p>
-            <div className="mb-8 flex flex-wrap justify-center gap-3">
+            <div className="mb-8 flex flex-wrap justify-center gap-2 sm:gap-3">
               {courseFormatOrder.map((id) => {
                 const format = courseFormats[id];
                 const Icon = format.icon;
@@ -216,13 +211,13 @@ export function CoursesClient() {
                     key={id}
                     type="button"
                     onClick={() => handleCourseTypeChange(id)}
-                    className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all sm:px-6 sm:py-3 sm:text-base ${
+                    className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all sm:px-5 sm:py-2.5 ${
                       isActive
-                        ? "bg-primary text-white shadow-lg"
+                        ? "bg-primary text-white shadow-md"
                         : "bg-white text-muted-foreground hover:bg-white/80"
                     }`}
                   >
-                    <Icon className="h-5 w-5" />
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
                     {format.label}
                   </button>
                 );
@@ -256,6 +251,7 @@ export function CoursesClient() {
               <LineCtaButton
                 href={LINE_LINKS.coursesConsult}
                 analyticsLabel="courses_hero_line_consult"
+                ctaLocation="courses_hero"
                 label={LINE_CTA_LABELS.coursesBottom}
                 className="w-full bg-primary px-8 text-lg hover:bg-primary/90 sm:w-auto"
               />
@@ -307,20 +303,9 @@ export function CoursesClient() {
                     <div className="text-lg text-muted-foreground mb-4">
                       {course.englishName}
                     </div>
-                    <div className="mb-6 flex flex-wrap gap-2">
-                      <span className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 text-sm font-medium text-primary">
-                        <User className="h-3 w-3" />
-                        一對一
-                      </span>
-                      <span className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 text-sm font-medium text-primary">
-                        <Users className="h-3 w-3" />
-                        小班
-                      </span>
-                      <span className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 text-sm font-medium text-primary">
-                        <Video className="h-3 w-3" />
-                        預錄
-                      </span>
-                    </div>
+                    <p className="mb-6 text-sm text-muted-foreground">
+                      實際班型（一對一／小班／預錄）依年級與學習需求安排，歡迎先預約免費試聽確認
+                    </p>
                     <p className="text-foreground/80 italic border-l-4 border-primary pl-4">
                       {course.highlights}
                     </p>
@@ -398,6 +383,7 @@ export function CoursesClient() {
               <LineCtaButton
                 href={LINE_LINKS.coursesConsult}
                 analyticsLabel="courses_line_consult"
+                ctaLocation="courses_final"
                 label={LINE_CTA_LABELS.coursesBottom}
                 variant="inverse"
                 className={`text-lg px-8 ${CTA_LINE_ON_DARK_CLASS}`}
@@ -412,7 +398,10 @@ export function CoursesClient() {
 
       <StickyLineCta
         analyticsLabel="courses_sticky_line_consult"
+        ctaLocation="courses_sticky"
         dismissKey="psa_courses_sticky_line_dismissed"
+        message="想確認適合哪種班型？先預約免費試聽"
+        label={LINE_CTA_LABELS.coursesBottom}
       />
     </div>
   );

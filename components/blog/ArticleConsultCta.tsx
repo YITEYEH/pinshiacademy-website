@@ -60,18 +60,20 @@ export function ArticleConsultCta({
             <LineCtaLabel iconClassName="size-4" label={cta.lineButtonLabel} />
           </ExternalLinkOnce>
         </Button>
-        {cta.secondaryLinks.map((link) => (
-          <Button key={link.href} size="sm" variant="outline" asChild>
-            <Link
-              href={link.href}
-              onClick={() =>
-                trackInternalNavClick(link.analyticsLabel, link.href)
-              }
-            >
-              {link.label}
-            </Link>
-          </Button>
-        ))}
+        {(isCompact ? cta.secondaryLinks.slice(0, 1) : cta.secondaryLinks).map(
+          (link) => (
+            <Button key={link.href} size="sm" variant="outline" asChild>
+              <Link
+                href={link.href}
+                onClick={() =>
+                  trackInternalNavClick(link.analyticsLabel, link.href)
+                }
+              >
+                {link.label}
+              </Link>
+            </Button>
+          ),
+        )}
       </div>
     </div>
   );

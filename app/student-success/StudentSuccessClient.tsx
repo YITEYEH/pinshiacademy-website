@@ -5,10 +5,27 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
 import { LineCtaButton } from "@/components/LineCtaButton";
+import { StickyLineCta } from "@/components/StickyLineCta";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { LINE_LINKS } from "@/lib/line-links";
+import { LINE_CTA_LABELS } from "@/lib/line-cta";
 import { CTA_ROW_CLASS } from "@/lib/cta-button-styles";
 import { page } from "@/content/student-success/page-copy";
+import {
+  parentFeedbackItems,
+  privacyNoticeParagraphs,
+  studentStories,
+  studentSuccessFaqs,
+  successStats,
+  successStatsNote,
+  type ParentFeedback,
+} from "@/content/student-success";
 
 function Prose({
   paragraphs,
@@ -28,11 +45,13 @@ function Prose({
   );
 }
 
-function ParentsCarousel({
-  items,
-}: {
-  items: typeof page.parents;
-}) {
+function feedbackBadge(item: ParentFeedback): string {
+  if (item.type === "learning-summary") return "課程觀察整理";
+  if (item.type === "adapted-feedback") return "家長回饋整理";
+  return "家長回饋";
+}
+
+function FeedbackCarousel({ items }: { items: readonly ParentFeedback[] }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "center",
     loop: true,
@@ -67,35 +86,27 @@ function ParentsCarousel({
         <div className="flex touch-pan-y">
           {items.map((item) => (
             <div
-              key={`${item.name}-${item.quote.slice(0, 16)}`}
+              key={item.id}
               className="min-w-0 flex-[0_0_100%] px-1"
             >
               <figure className="rounded-2xl border border-border bg-gradient-to-br from-[#e8f5ee] to-white p-6 sm:p-8 lg:p-10">
                 <p className="mb-4 text-sm font-medium text-primary">
-                  家長回饋
+                  {feedbackBadge(item)}
+                  <span className="font-normal text-muted-foreground">
+                    {" "}
+                    · {item.category}
+                  </span>
                 </p>
+                {item.title ? (
+                  <h3 className="mb-3 text-lg font-semibold text-foreground">
+                    {item.title}
+                  </h3>
+                ) : null}
                 <blockquote className="text-left text-base leading-[1.85] text-foreground sm:text-lg">
-                  「{item.quote}」
+                  「{item.content}」
                 </blockquote>
-                <figcaption className="mt-6 flex items-center gap-3 border-t border-border/60 pt-5">
-                  <span
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-white text-sm font-semibold text-primary"
-                    aria-hidden
-                  >
-                    {item.name.slice(0, 1)}
-                  </span>
-                  <span className="text-left">
-                    <span className="block text-sm font-semibold text-foreground sm:text-base">
-                      {item.name}
-                      <span className="font-normal text-muted-foreground">
-                        {" "}
-                        · {item.role}
-                      </span>
-                    </span>
-                    <span className="block text-sm text-muted-foreground">
-                      {item.context}
-                    </span>
-                  </span>
+                <figcaption className="mt-6 border-t border-border/60 pt-5 text-left text-sm text-muted-foreground">
+                  {item.source}
                 </figcaption>
               </figure>
             </div>
@@ -110,22 +121,20 @@ function ParentsCarousel({
           size="icon"
           className="rounded-full"
           onClick={() => emblaApi?.scrollPrev()}
-          aria-label="上一則家長推薦"
+          aria-label="上一則回饋"
         >
           <ChevronLeft className="size-5" />
         </Button>
-
-        <p className="min-w-[4.5rem] text-center text-sm text-muted-foreground tabular-nums">
+        <p className="min-w-[4.5rem] text-center text-sm tabular-nums text-muted-foreground">
           {selected + 1} / {scrollSnaps.length || items.length}
         </p>
-
         <Button
           type="button"
           variant="outline"
           size="icon"
           className="rounded-full"
           onClick={() => emblaApi?.scrollNext()}
-          aria-label="下一則家長推薦"
+          aria-label="下一則回饋"
         >
           <ChevronRight className="size-5" />
         </Button>
@@ -135,9 +144,11 @@ function ParentsCarousel({
 }
 
 export function StudentSuccessClient() {
+  const beliefs = page.beliefs.slice(0, 3);
+
   return (
-    <div className="w-full">
-      <section className="bg-gradient-to-br from-[#e8f5ee] to-white py-20 lg:py-28">
+    <div className="w-full pb-24 md:pb-0">
+      <section className="bg-gradient-to-br from-[#e8f5ee] to-white py-16 sm:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={false}
@@ -145,7 +156,7 @@ export function StudentSuccessClient() {
             transition={{ duration: 0.6 }}
             className="mx-auto max-w-3xl text-center"
           >
-            <h1 className="mb-6 text-4xl font-bold leading-tight text-foreground lg:text-5xl">
+            <h1 className="mb-6 text-3xl font-bold leading-tight text-foreground sm:text-4xl lg:text-5xl">
               {page.heroTitle}
             </h1>
             <div className="mx-auto max-w-2xl">
@@ -155,28 +166,49 @@ export function StudentSuccessClient() {
               <LineCtaButton
                 href={LINE_LINKS.consult}
                 analyticsLabel="student_success_hero_line_consult"
-                label={page.ctaLabel}
+                ctaLocation="student_success_hero"
+                label={LINE_CTA_LABELS.studentSuccess}
               />
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* 改變重點：以前／現在並陳，重點一眼可見 */}
-      <section className="bg-[#f7f9f7] py-20">
+      <section className="bg-primary py-12 text-white sm:py-14">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <p className="mb-8 text-center text-sm font-medium text-white/90 sm:text-base">
+            可公開的教學成果整理
+          </p>
+          <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
+            {successStats.map((stat) => (
+              <div key={stat.id} className="text-center">
+                <div className="mb-1 text-2xl font-bold sm:text-3xl">
+                  {stat.value}
+                </div>
+                <div className="text-xs text-white/80 sm:text-sm">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+          <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-relaxed text-white/70 sm:text-sm">
+            {successStatsNote}
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-[#f7f9f7] py-16 sm:py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={false}
-            animate={{ opacity: 1, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="mb-10 text-center"
           >
-            <h2 className="mb-4 text-3xl font-bold text-foreground lg:text-4xl">
+            <h2 className="mb-4 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">
               {page.worthTitle}
             </h2>
-            <p className="text-lg text-muted-foreground">{page.worthLead}</p>
+            <p className="text-muted-foreground">{page.worthLead}</p>
           </motion.div>
 
           <div className="space-y-4">
@@ -184,9 +216,9 @@ export function StudentSuccessClient() {
               <motion.div
                 key={item.label}
                 initial={false}
-                animate={{ opacity: 1, y: 0 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, delay: index * 0.05 }}
                 className="overflow-hidden rounded-xl border border-border bg-white"
               >
@@ -219,52 +251,78 @@ export function StudentSuccessClient() {
         </div>
       </section>
 
-      {/* 故事 */}
-      <section className="bg-white py-20">
+      <section className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={false}
-            animate={{ opacity: 1, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="mb-10 text-center"
           >
-            <h2 className="mb-3 text-3xl font-bold text-foreground lg:text-4xl">
+            <h2 className="mb-3 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">
               {page.storiesTitle}
             </h2>
             <p className="text-muted-foreground">{page.storiesNote}</p>
           </motion.div>
 
           <div className="space-y-5">
-            {page.stories.map((story, index) => (
+            {studentStories.map((story, index) => (
               <motion.article
                 key={story.id}
                 initial={false}
-                animate={{ opacity: 1, y: 0 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
                 className="overflow-hidden rounded-xl border border-border bg-white shadow-sm"
               >
                 <div className="border-b border-border px-5 py-3 sm:px-6">
                   <p className="text-sm font-semibold text-primary">
-                    {story.label}
+                    {story.category}
                   </p>
                 </div>
                 <div className="px-5 py-5 sm:px-6 sm:py-6">
                   <h3 className="mb-4 text-xl font-bold leading-snug text-foreground sm:text-2xl">
                     {story.title}
                   </h3>
-                  <div className="space-y-3 text-[15px] leading-[1.85] text-muted-foreground">
-                    {story.body.map((line) => (
-                      <p key={line}>{line}</p>
-                    ))}
+                  <div className="grid gap-4 sm:grid-cols-3">
+                    <div>
+                      <p className="mb-2 text-xs font-semibold text-muted-foreground">
+                        之前
+                      </p>
+                      <ul className="space-y-1.5 text-sm leading-relaxed text-muted-foreground">
+                        {story.before.map((line) => (
+                          <li key={line}>{line}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="mb-2 text-xs font-semibold text-muted-foreground">
+                        怎麼帶
+                      </p>
+                      <ul className="space-y-1.5 text-sm leading-relaxed text-muted-foreground">
+                        {story.approach.map((line) => (
+                          <li key={line}>{line}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="mb-2 text-xs font-semibold text-primary">
+                        之後
+                      </p>
+                      <ul className="space-y-1.5 text-sm leading-relaxed text-foreground">
+                        {story.after.map((line) => (
+                          <li key={line}>{line}</li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
                 <div className="border-t border-primary/15 bg-[#e8f5ee] px-5 py-4 sm:px-6">
                   <p className="font-semibold leading-snug text-foreground">
-                    {story.takeaway}
+                    「{story.quote}」
                   </p>
                 </div>
               </motion.article>
@@ -273,43 +331,24 @@ export function StudentSuccessClient() {
         </div>
       </section>
 
-      {/* 信念：一句一卡，願意／而不是層次對照 */}
-      <section className="bg-[#f7f9f7] py-20">
+      <section className="bg-[#f7f9f7] py-12 sm:py-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mb-10 text-center"
-          >
-            <h2 className="mb-4 text-3xl font-bold text-foreground lg:text-4xl">
-              {page.beliefTitle}
-            </h2>
-            <p className="mx-auto max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              {page.beliefLead}
-            </p>
-          </motion.div>
-
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 sm:gap-4">
-            {page.beliefs.map((item, index) => (
-              <motion.div
+          <h2 className="mb-3 text-center text-2xl font-bold text-foreground sm:text-3xl">
+            {page.beliefTitle}
+          </h2>
+          <p className="mx-auto mb-8 max-w-xl text-center text-muted-foreground">
+            {page.beliefLead}
+          </p>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {beliefs.map((item) => (
+              <div
                 key={item.toward}
-                initial={false}
-                animate={{ opacity: 1, y: 0 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.04 }}
                 className="overflow-hidden rounded-xl border border-border bg-white shadow-sm"
               >
                 <div className="flex h-full">
-                  <div
-                    className="w-1 shrink-0 bg-primary/70"
-                    aria-hidden
-                  />
+                  <div className="w-1 shrink-0 bg-primary/70" aria-hidden />
                   <div className="flex flex-1 flex-col justify-center px-4 py-4 sm:px-5 sm:py-5">
-                    <p className="text-base font-bold leading-snug text-foreground sm:text-lg">
+                    <p className="text-base font-bold leading-snug text-foreground">
                       {item.toward}
                     </p>
                     <p className="mt-1.5 text-sm leading-snug text-muted-foreground">
@@ -317,81 +356,103 @@ export function StudentSuccessClient() {
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 家長推薦：輪播 */}
-      <section className="bg-white py-20">
+      <section className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={false}
-            animate={{ opacity: 1, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="mb-10 text-center"
           >
-            <h2 className="mb-3 text-3xl font-bold text-foreground lg:text-4xl">
-              {page.parentsTitle}
+            <h2 className="mb-3 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">
+              家長與課堂觀察到的改變
             </h2>
-            <p className="text-muted-foreground">{page.parentsNote}</p>
+            <p className="text-muted-foreground">
+              以下為課程觀察或家長回饋整理，非逐字錄音；皆已去識別化
+            </p>
           </motion.div>
 
           <div className="mx-auto max-w-3xl">
-            <ParentsCarousel items={page.parents} />
+            <FeedbackCarousel items={parentFeedbackItems} />
           </div>
         </div>
       </section>
 
-      {/* 結語 */}
-      <section className="border-y border-border/50 bg-white py-20">
-        <div className="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
-          <motion.div
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="mb-6 text-3xl font-bold text-foreground lg:text-4xl">
-              {page.closingTitle}
-            </h2>
-            <Prose
-              paragraphs={page.closingBody}
-              className="text-center text-foreground/85"
-            />
-          </motion.div>
+      <section className="bg-[#f7f9f7] py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-8 text-center text-2xl font-bold text-foreground sm:text-3xl">
+            常見問題
+          </h2>
+          <Accordion type="single" collapsible className="space-y-3">
+            {studentSuccessFaqs.map((item, index) => (
+              <AccordionItem
+                key={item.q}
+                value={`faq-${index}`}
+                className="rounded-xl border border-border bg-white px-5"
+              >
+                <AccordionTrigger className="text-left text-base font-semibold hover:no-underline">
+                  {item.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed">
+                  {item.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+          <div className="mt-8 space-y-2 text-center text-xs leading-relaxed text-muted-foreground sm:text-sm">
+            {privacyNoticeParagraphs.map((p) => (
+              <p key={p}>{p}</p>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="bg-gradient-to-br from-primary to-[#1a4d2e] py-20">
-        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-          <motion.div
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="mb-6 text-3xl font-bold text-white lg:text-4xl">
-              {page.ctaTitle}
-            </h2>
-            <p className="mx-auto mb-8 max-w-2xl text-xl leading-relaxed text-white/90">
-              {page.ctaBody}
-            </p>
-            <LineCtaButton
-              href={LINE_LINKS.consult}
-              analyticsLabel="student_success_final_line_consult"
-              label={page.ctaLabel}
-              variant="inverse"
-              className="px-8 text-lg"
-            />
-          </motion.div>
+      <section className="border-y border-border/50 bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="mb-6 text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">
+            {page.closingTitle}
+          </h2>
+          <Prose
+            paragraphs={page.closingBody}
+            className="text-center text-foreground/85"
+          />
         </div>
       </section>
+
+      <section className="bg-gradient-to-br from-primary to-[#1a4d2e] py-16 sm:py-20">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="mb-6 text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
+            {page.ctaTitle}
+          </h2>
+          <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-white/90 sm:text-xl">
+            {page.ctaBody}
+          </p>
+          <LineCtaButton
+            href={LINE_LINKS.consult}
+            analyticsLabel="student_success_final_line_consult"
+            ctaLocation="student_success_final"
+            label={LINE_CTA_LABELS.studentSuccess}
+            variant="inverse"
+            className="px-8 text-lg"
+          />
+        </div>
+      </section>
+
+      <StickyLineCta
+        analyticsLabel="student_success_sticky_line_consult"
+        ctaLocation="student_success_sticky"
+        dismissKey="psa_student_success_sticky_line_dismissed"
+        message="想了解孩子適不適合？先預約免費試聽"
+        label={LINE_CTA_LABELS.studentSuccess}
+      />
     </div>
   );
 }

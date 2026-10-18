@@ -1,10 +1,12 @@
 "use client";
 
 import { motion } from "motion/react";
+import { LineCtaButton } from "@/components/LineCtaButton";
 import { homePainPoints } from "@/content/home/page-copy";
+import { LINE_LINKS } from "@/lib/line-links";
 
 export function HomePainPoints() {
-  const { title, cards, closing } = homePainPoints;
+  const { title, cards, closing, lineCta } = homePainPoints;
 
   return (
     <section className="bg-white py-16 sm:py-20">
@@ -44,9 +46,20 @@ export function HomePainPoints() {
           ))}
         </div>
 
-        <p className="mx-auto mt-10 max-w-2xl text-center text-base leading-relaxed text-muted-foreground sm:mt-12 sm:text-lg">
-          {closing}
-        </p>
+        <div className="mx-auto mt-10 max-w-2xl text-center sm:mt-12">
+          <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
+            {closing}
+          </p>
+          <div className="mt-6">
+            <LineCtaButton
+              href={LINE_LINKS.consult}
+              analyticsLabel="home_pain_points_line_consult"
+              ctaLocation="pain_points"
+              label={lineCta}
+              className="px-8"
+            />
+          </div>
+        </div>
       </div>
     </section>
   );

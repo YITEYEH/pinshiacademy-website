@@ -6,13 +6,25 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LineCtaButton } from "@/components/LineCtaButton";
 import { homeProof } from "@/content/home/page-copy";
+import {
+  parentFeedbackItems,
+  type ParentFeedback,
+} from "@/content/student-success";
 import { page as studentSuccessPage } from "@/content/student-success/page-copy";
+import { LINE_LINKS } from "@/lib/line-links";
 
-function HomeParentsCarousel({
+function feedbackBadge(item: ParentFeedback): string {
+  if (item.type === "learning-summary") return "課程觀察整理";
+  if (item.type === "adapted-feedback") return "家長回饋整理";
+  return "家長回饋";
+}
+
+function HomeFeedbackCarousel({
   items,
 }: {
-  items: typeof studentSuccessPage.parents;
+  items: readonly ParentFeedback[];
 }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "center",
@@ -47,34 +59,25 @@ function HomeParentsCarousel({
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex touch-pan-y">
           {items.map((item) => (
-            <div
-              key={`${item.name}-${item.quote.slice(0, 16)}`}
-              className="min-w-0 flex-[0_0_100%] px-1"
-            >
+            <div key={item.id} className="min-w-0 flex-[0_0_100%] px-1">
               <figure className="rounded-2xl border border-border bg-gradient-to-br from-[#e8f5ee] to-white p-6 sm:p-8 lg:p-10">
-                <p className="mb-4 text-sm font-medium text-primary">家長回饋</p>
+                <p className="mb-4 text-sm font-medium text-primary">
+                  {feedbackBadge(item)}
+                  <span className="font-normal text-muted-foreground">
+                    {" "}
+                    · {item.category}
+                  </span>
+                </p>
+                {item.title ? (
+                  <h3 className="mb-3 text-lg font-semibold text-foreground">
+                    {item.title}
+                  </h3>
+                ) : null}
                 <blockquote className="text-left text-base leading-[1.85] text-foreground sm:text-lg">
-                  「{item.quote}」
+                  「{item.content}」
                 </blockquote>
-                <figcaption className="mt-6 flex items-center gap-3 border-t border-border/60 pt-5">
-                  <span
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-white text-sm font-semibold text-primary"
-                    aria-hidden
-                  >
-                    {item.name.slice(0, 1)}
-                  </span>
-                  <span className="text-left">
-                    <span className="block text-sm font-semibold text-foreground sm:text-base">
-                      {item.name}
-                      <span className="font-normal text-muted-foreground">
-                        {" "}
-                        · {item.role}
-                      </span>
-                    </span>
-                    <span className="block text-sm text-muted-foreground">
-                      {item.context}
-                    </span>
-                  </span>
+                <figcaption className="mt-6 border-t border-border/60 pt-5 text-left text-sm text-muted-foreground">
+                  {item.source}
                 </figcaption>
               </figure>
             </div>
@@ -89,7 +92,7 @@ function HomeParentsCarousel({
           size="icon"
           className="rounded-full"
           onClick={() => emblaApi?.scrollPrev()}
-          aria-label="上一則家長推薦"
+          aria-label="上一則回饋"
         >
           <ChevronLeft className="size-5" />
         </Button>
@@ -102,7 +105,7 @@ function HomeParentsCarousel({
           size="icon"
           className="rounded-full"
           onClick={() => emblaApi?.scrollNext()}
-          aria-label="下一則家長推薦"
+          aria-label="下一則回饋"
         >
           <ChevronRight className="size-5" />
         </Button>
@@ -121,6 +124,7 @@ export function HomeProof() {
     stats,
     moreCta,
     moreHref,
+    lineCta,
   } = homeProof;
 
   return (
@@ -171,36 +175,55 @@ export function HomeProof() {
 
         <div className="mb-10 text-center">
           <h3 className="mb-3 text-xl font-bold text-foreground sm:text-2xl">
-            {studentSuccessPage.parentsTitle}
+            家長與課堂觀察到的改變
           </h3>
           <p className="mb-8 text-sm text-muted-foreground sm:text-base">
-            {studentSuccessPage.parentsNote}
+            課程觀察或家長回饋整理，皆已去識別化
           </p>
           <div className="mx-auto max-w-3xl">
-            <HomeParentsCarousel items={studentSuccessPage.parents} />
+            <HomeFeedbackCarousel items={parentFeedbackItems} />
           </div>
         </div>
 
-        <div className="mb-10 rounded-2xl bg-primary px-4 py-8 text-white sm:px-8 sm:py-10">
-          <p className="mb-6 text-center text-sm font-medium text-white/90 sm:text-base">
+        <div className="mb-10 rounded-2xl bg-primary px-4 py-8 text-white sm:px-6 sm:py-10 lg:px-8">
+          <h3 className="mx-auto mb-8 max-w-2xl text-center text-lg font-bold leading-snug tracking-tight sm:text-xl lg:text-2xl">
             {statsTitle}
-          </p>
-          <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
+          </h3>
+          <div className="grid grid-cols-2 gap-6 sm:gap-8 lg:grid-cols-4 lg:gap-6">
             {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="mb-1 text-2xl font-bold sm:text-3xl">
-                  {stat.value}
-                </div>
-                <div className="text-xs text-white/80 sm:text-sm">{stat.label}</div>
+              <div
+                key={stat.label}
+                className="flex flex-col items-center text-center"
+              >
+                <p className="mb-2 flex items-baseline justify-center gap-1">
+                  <span className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-[2.75rem]">
+                    {stat.value}
+                  </span>
+                  {stat.unit ? (
+                    <span className="text-sm font-semibold text-white/85 sm:text-base">
+                      {stat.unit}
+                    </span>
+                  ) : null}
+                </p>
+                <p className="max-w-[12rem] text-xs leading-relaxed text-white/80 sm:max-w-none sm:text-sm">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="text-center">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <LineCtaButton
+            href={LINE_LINKS.consult}
+            analyticsLabel="home_proof_line_consult"
+            ctaLocation="proof"
+            label={lineCta}
+            className="px-8"
+          />
           <Link
             href={moreHref}
-            className="inline-flex items-center gap-2 text-base font-semibold text-primary hover:underline"
+            className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
           >
             {moreCta}
             <ArrowRight className="h-4 w-4" />

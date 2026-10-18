@@ -37,8 +37,9 @@ export function PricingLevelCard({ tier }: PricingLevelCardProps) {
 
   return (
     <article
+      id={tier.id}
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-2xl border border-border/80 bg-white shadow-sm transition-all duration-300",
+        "group relative scroll-mt-28 flex flex-col overflow-hidden rounded-2xl border border-border/80 bg-white shadow-sm transition-all duration-300",
         "hover:-translate-y-1.5 hover:border-primary/25 hover:shadow-[0_16px_48px_rgba(45,122,79,0.12)]",
       )}
     >

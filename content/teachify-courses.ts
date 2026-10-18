@@ -61,6 +61,15 @@ export const TEACHIFY_COURSE_OVERRIDES: Record<string, TeachifyCourseOverride> =
       tags: ["會考總複習", "114會考總複習", "數學"],
       badge: "會考數學",
     },
+    "high-school-english-writing-translation-11": {
+      subtitle: "從翻譯打底，寫出更有邏輯的英文",
+      description:
+        "學測英文作文與翻譯公開課，從翻譯思維、句子組織到作文架構，協助建立可運用在段考、模考與學測的寫作能力",
+      instructors: [{ name: "徐璽", role: "高中英文授課老師" }],
+      tags: ["高中英文", "作文", "翻譯"],
+      badge: "免費公開課",
+      featured: true,
+    },
   };
 
 export function teachifyPurchaseUrl(

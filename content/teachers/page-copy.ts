@@ -60,6 +60,16 @@ export const teachersFacultyCards = [
       "適合希望建立英文基礎與語感，同時提升閱讀、表達與應考能力的學生",
     profileCta: "認識老師",
   },
+  {
+    slug: "tseng-hsiao-chu",
+    featureTags: ["引導教學", "中英對比", "單字辨析"] as const,
+    statement:
+      "比起一次塞進很多規則，我更希望學生先聽懂、再對照，最後能自己說出為什麼這樣用",
+    body: "課堂上以引導式教學為主，常用中英雙語對比說明文法差異，並在單字教學時補充同義詞用法，幫助學生把英文學得更清楚、也更敢用",
+    suitableFor:
+      "適合希望釐清文法觀念、補強單字運用，並建立穩定英文理解節奏的學生",
+    profileCta: "認識老師",
+  },
 ] as const;
 
 export const teachersSelection = {

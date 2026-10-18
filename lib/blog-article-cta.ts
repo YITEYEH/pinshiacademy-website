@@ -14,7 +14,7 @@ export type ArticleConsultCtaContent = {
 
 const DEFAULT_CTA: ArticleConsultCtaContent = {
   title: "不確定孩子適不適合一對一或小班？",
-  description: "預約學習評估，說明年級與弱科，我們協助規劃下一步",
+  description: "預約免費試聽，說明年級與弱科，我們協助規劃下一步",
   lineButtonLabel: "預約免費試聽",
   analyticsLabel: "blog_article_line_consult",
   secondaryLinks: [
@@ -24,14 +24,14 @@ const DEFAULT_CTA: ArticleConsultCtaContent = {
       analyticsLabel: "blog_article_nav_courses",
     },
     {
-      href: "/online-courses",
-      label: "線上預錄課程",
-      analyticsLabel: "blog_article_nav_online_courses",
+      href: "/pricing",
+      label: "看課程費用",
+      analyticsLabel: "blog_article_nav_pricing",
     },
     {
-      href: "/live-events",
-      label: "直播公開課",
-      analyticsLabel: "blog_article_nav_live_events",
+      href: "/student-success",
+      label: "看學生成果",
+      analyticsLabel: "blog_article_nav_student_success",
     },
   ],
 };
@@ -40,7 +40,7 @@ const DEFAULT_CTA: ArticleConsultCtaContent = {
 const CATEGORY_CTA: Record<string, ArticleConsultCtaContent> = {
   國小萬試通: {
     title: "想幫孩子打好國小基礎、建立學習節奏嗎？",
-    description: "預約學習評估，了解程度與適合的上課方式後再決定",
+    description: "預約免費試聽，了解程度與適合的上課方式後再決定",
     lineButtonLabel: "預約免費試聽",
     analyticsLabel: "blog_article_line_consult_elementary",
     secondaryLinks: [
@@ -50,15 +50,20 @@ const CATEGORY_CTA: Record<string, ArticleConsultCtaContent> = {
         analyticsLabel: "blog_article_nav_courses_elementary",
       },
       {
-        href: "/teachers",
-        label: "認識師資",
-        analyticsLabel: "blog_article_nav_teachers_elementary",
+        href: "/pricing",
+        label: "看課程費用",
+        analyticsLabel: "blog_article_nav_pricing_elementary",
+      },
+      {
+        href: "/student-success",
+        label: "看學生成果",
+        analyticsLabel: "blog_article_nav_student_success_elementary",
       },
     ],
   },
   國中好試多: {
     title: "段考或會考卡住，不知道從哪裡補強？",
-    description: "預約學習評估，先找出弱點再安排一對一或小班",
+    description: "預約免費試聽，先找出弱點再安排一對一或小班",
     lineButtonLabel: "預約免費試聽",
     analyticsLabel: "blog_article_line_consult_junior_high",
     secondaryLinks: [
@@ -72,18 +77,23 @@ const CATEGORY_CTA: Record<string, ArticleConsultCtaContent> = {
         label: "看課程費用",
         analyticsLabel: "blog_article_nav_pricing_junior",
       },
+      {
+        href: "/student-success",
+        label: "看學生成果",
+        analyticsLabel: "blog_article_nav_student_success_junior",
+      },
     ],
   },
   學習技巧: {
     title: "想確認現在的讀書方法有沒有效？",
-    description: "預約學習評估，一起檢視節奏、錯題與複習方式",
+    description: "預約免費試聽，一起檢視節奏、錯題與複習方式",
     lineButtonLabel: "預約免費試聽",
     analyticsLabel: "blog_article_line_consult_study_skills",
     secondaryLinks: [
       {
-        href: "/faq",
-        label: "常見問題",
-        analyticsLabel: "blog_article_nav_faq_skills",
+        href: "/student-success",
+        label: "看學生成果",
+        analyticsLabel: "blog_article_nav_student_success_skills",
       },
       {
         href: "/courses",
@@ -94,7 +104,7 @@ const CATEGORY_CTA: Record<string, ArticleConsultCtaContent> = {
   },
   高中芝士補給站: {
     title: "學測、課業壓力大，想提早把方向抓穩？",
-    description: "預約學習評估，依年級與目標規劃適合的輔導方式",
+    description: "預約免費試聽，依年級與目標規劃適合的輔導方式",
     lineButtonLabel: "預約免費試聽",
     analyticsLabel: "blog_article_line_consult_senior_high",
     secondaryLinks: [
@@ -104,9 +114,33 @@ const CATEGORY_CTA: Record<string, ArticleConsultCtaContent> = {
         analyticsLabel: "blog_article_nav_courses_senior",
       },
       {
+        href: "/pricing",
+        label: "看課程費用",
+        analyticsLabel: "blog_article_nav_pricing_senior",
+      },
+      {
+        href: "/student-success",
+        label: "看學生成果",
+        analyticsLabel: "blog_article_nav_student_success_senior",
+      },
+    ],
+  },
+  /** 親子教育：偏家長意圖，CTA 溫和、不硬推報名 */
+  親子教育: {
+    title: "想先搞清楚孩子卡在哪裡，再決定要不要補習？",
+    description: "預約免費試聽，先了解狀況與適合的學習方向",
+    lineButtonLabel: "預約免費試聽",
+    analyticsLabel: "blog_article_line_consult_parenting",
+    secondaryLinks: [
+      {
+        href: "/student-success",
+        label: "看學生成果",
+        analyticsLabel: "blog_article_nav_student_success_parenting",
+      },
+      {
         href: "/teachers",
-        label: "認識師資",
-        analyticsLabel: "blog_article_nav_teachers_senior",
+        label: "認識老師",
+        analyticsLabel: "blog_article_nav_teachers_parenting",
       },
     ],
   },
@@ -135,10 +169,10 @@ export function getArticleTrustLinks(
   if (key === "國小萬試通") {
     return [
       {
-        href: "/teachers/yeh-yide",
-        label: "認識葉以德老師",
-        description: "國中、高中數學，重視理解與解題思維",
-        analyticsLabel: "blog_article_trust_teacher_yeh_yide",
+        href: "/teachers",
+        label: "認識師資團隊",
+        description: "先了解教學風格，再決定是否預約免費試聽",
+        analyticsLabel: "blog_article_trust_teachers_elementary",
       },
       {
         href: "/student-success",
@@ -175,10 +209,10 @@ export function getArticleTrustLinks(
         analyticsLabel: "blog_article_trust_teachers",
       },
       {
-        href: "/teachers/HSU-Hsi",
-        label: "認識徐璽老師",
-        description: "國中、高中英文，擅長語境理解與檢定準備",
-        analyticsLabel: "blog_article_trust_teacher_hsu_hsi",
+        href: "/student-success",
+        label: "看學生成果",
+        description: "看看其他學生如何穩定進步",
+        analyticsLabel: "blog_article_trust_student_success_senior",
       },
     ];
   }
@@ -187,7 +221,7 @@ export function getArticleTrustLinks(
     {
       href: "/teachers",
       label: "認識師資團隊",
-      description: "先了解教學風格，再決定是否預約評估",
+      description: "先了解教學風格，再決定是否預約免費試聽",
       analyticsLabel: "blog_article_trust_teachers",
     },
     {

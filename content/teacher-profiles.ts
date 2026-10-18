@@ -287,9 +287,139 @@ const xuXiProfile: TeacherProfileContent = {
   },
 };
 
+const tsengHsiaoChuProfile: TeacherProfileContent = {
+  slug: "tseng-hsiao-chu",
+  experienceHighlights: [
+    "五年以上英文教學經驗",
+    "引導式文法與單字教學",
+    "跨國語言教學實務",
+  ],
+  aboutParagraphs: [
+    "曾筱筑老師從事英文教學五年以上，課堂以引導式教學為主，擅長用中英雙語對比說明文法差異，幫助學生把抽象規則轉成可理解、可運用的概念",
+    "講解單字時，她通常會再補充同義詞用法與差異，讓學生不只記得中文意思，更能分辨相近詞在語氣與情境上的不同",
+  ],
+  teachingFeatures: [
+    {
+      title: "引導式教學",
+      description:
+        "先釐清學生卡住的地方，再以提問與步驟說明帶出觀念，減少死背、提升理解",
+    },
+    {
+      title: "中英雙語對比",
+      description:
+        "對照中英文結構差異，協助學生看見母語干擾與常見錯誤，建立正確用法",
+    },
+    {
+      title: "單字與同義詞辨析",
+      description:
+        "在單字教學中補充相近詞用法與差異，提升閱讀理解與表達精準度",
+    },
+    {
+      title: "文法說清楚",
+      description:
+        "用簡單易懂的方式拆解文法重點，讓學生知道規則背後的邏輯，而不只是背公式",
+    },
+    {
+      title: "跨文化語言視角",
+      description:
+        "結合語言與文化經驗，幫助學生理解英文在溝通中的實際用法與學習意義",
+    },
+    {
+      title: "依程度調整節奏",
+      description:
+        "依學生起點調整說明密度與練習難度，讓基礎待加強的學生也能穩步跟上",
+    },
+  ],
+  suitableStudents: [
+    "國中會考英文準備",
+    "高中段考英文準備",
+    "學測英文準備",
+    "文法觀念容易混淆的學生",
+    "單字記得住卻用不準的學生",
+    "英文基礎待加強的學生",
+    "希望老師用中英對照說明的學生",
+    "想建立穩定英文理解節奏的學生",
+  ],
+  courseFormats: [
+    {
+      title: "一對一課程",
+      description:
+        "針對個別文法與單字弱點深度指導，依學習節奏彈性調整進度與練習內容",
+      suitableFor: "適合：需個別加強、希望釐清觀念的學生",
+    },
+    {
+      title: "小班互動課程",
+      description:
+        "在引導與討論中練習理解與運用，兼顧互動感與個別關注",
+      suitableFor: "適合：喜歡同儕互動、希望穩定學習節奏的學生",
+    },
+    {
+      title: "預錄課程",
+      description:
+        "可反覆複習文法與單字重點，適合需要多次觀看的學習內容",
+      suitableFor: "適合：時間較難固定、想自主複習的學生",
+    },
+  ],
+  teachingProcess: [
+    {
+      title: "預約諮詢",
+      description: "透過 LINE 預約，初步了解學習需求與目標",
+    },
+    {
+      title: "學習狀況了解",
+      description: "了解目前程度、文法與單字困難點，找出適合的起點",
+    },
+    {
+      title: "安排適合課程",
+      description: "依程度與目標，建議一對一、小班或預錄課程",
+    },
+    {
+      title: "正式上課",
+      description: "以引導與對比說明建立理解，再搭配練習鞏固運用",
+    },
+    {
+      title: "定期追蹤學習成效",
+      description: "持續檢視進步狀況，調整說明重點與複習策略",
+    },
+  ],
+  faq: [
+    {
+      question: "程度不好可以上課嗎？",
+      answer:
+        "可以曾老師會從學生目前理解程度出發，先把基礎觀念講清楚，再循序加入練習，不需要擔心跟不上",
+    },
+    {
+      question: "上課會用很多英文嗎？",
+      answer:
+        "會依程度調整中英比例基礎待加強時，會多用中英對比協助理解；程度較穩後，再逐步增加英文說明與運用練習",
+    },
+    {
+      question: "一對一和小班課程怎麼選？",
+      answer:
+        "若需要較高頻率的個別指導與彈性進度，建議選擇一對一；若希望在互動中練習並維持穩定節奏，小班課程會更適合",
+    },
+    {
+      question: "上課會有教材或作業嗎？",
+      answer:
+        "會依學習目標安排練習內容，並在課後提供適量複習與作業，幫助鞏固課堂所學",
+    },
+    {
+      question: "可以先預約諮詢再決定嗎？",
+      answer:
+        "當然可以歡迎先預約學習評估，我們會依孩子的狀況說明適合的課程方向，再決定是否開始上課",
+    },
+  ],
+  footerCta: {
+    title: "想把英文文法與單字學得更清楚嗎？",
+    description:
+      "立即預約學習評估，讓品識學苑協助你安排最適合的課程",
+  },
+};
+
 const teacherProfiles: Record<string, TeacherProfileContent> = {
   "yeh-yide": yehYideProfile,
   "HSU-Hsi": xuXiProfile,
+  "tseng-hsiao-chu": tsengHsiaoChuProfile,
 };
 
 export function getTeacherProfile(slug: string): TeacherProfileContent | undefined {

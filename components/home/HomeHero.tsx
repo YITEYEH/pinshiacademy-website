@@ -12,10 +12,13 @@ export function HomeHero() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
           <div className="max-w-xl">
-            <h1 className="mb-5 text-[1.75rem] font-bold leading-snug tracking-tight text-foreground text-balance sm:mb-6 sm:text-4xl sm:leading-tight lg:text-5xl">
-              <span className="block">{homeHero.h1Line1}</span>
-              <span className="block">{homeHero.h1Line2}</span>
-              <span className="block">{homeHero.h1Line3}</span>
+            <h1 className="mb-5 sm:mb-6">
+              <span className="block text-[1.625rem] font-bold tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15]">
+                {homeHero.h1Product}
+              </span>
+              <span className="mt-2 block max-w-[18em] text-[1.375rem] font-bold leading-snug tracking-tight text-foreground/85 sm:mt-3 sm:max-w-none sm:text-3xl sm:leading-snug lg:text-[2.125rem] lg:leading-[1.25]">
+                {homeHero.h1Benefit}
+              </span>
             </h1>
             <p className="mb-8 text-base leading-[1.85] text-muted-foreground sm:text-lg">
               {homeHero.subtitle}

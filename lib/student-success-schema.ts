@@ -13,9 +13,9 @@ export function buildStudentSuccessJsonLd() {
         "@type": "WebPage",
         "@id": `${pageUrl}#webpage`,
         url: pageUrl,
-        name: "學生成長故事｜看見孩子真正的改變｜品識學苑",
+        name: "學生成長故事｜真實學習改變與會考案例｜品識學苑",
         description:
-          "每一位孩子都有不同的起點，看品識學苑學生如何從不敢問、害怕數學，到願意思考、主動學習的真實成長故事",
+          "看品識學苑去識別化的學生成長故事、會考數學公開成果整理，以及課程觀察與家長回饋；先了解改變，再預約免費試聽",
         inLanguage: "zh-Hant",
         isPartOf: { "@id": WEBSITE_ID },
         about: organizationRef(),

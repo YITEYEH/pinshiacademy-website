@@ -145,6 +145,7 @@ export function ProcessTimeline({
             <LineCtaButton
               href={LINE_LINKS.consult}
               analyticsLabel={analyticsLabel}
+              ctaLocation="learning_process"
               label={ctaLabel ?? LINE_CTA_LABELS.homeProcess}
             />
           </div>

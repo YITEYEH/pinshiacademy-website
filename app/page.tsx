@@ -5,9 +5,10 @@ import { buildHomeJsonLd } from "@/lib/home-schema";
 import { HomeHero } from "@/components/home/HomeHero";
 import { HomeClient } from "./HomeClient";
 
-const homeTitle = "線上一對一家教怎麼選？品識學苑先陪孩子找到卡關點";
+/** 對齊 Hero，保留品牌與「線上一對一」搜尋意圖；不刪既有可排名詞 */
+const homeTitle = "國高中線上一對一家教｜品識學苑從學習診斷開始找卡點";
 const homeDescription =
-  "成績卡住，不一定是題目做得不夠；國英數社自線上一對一與小班課程，先了解程度、弱點與目標，再找到適合孩子的學習方式";
+  "國英數社自線上一對一與小班輔導；從學習程度、觀念與解題方式找出瓶頸，再規劃適合孩子的方向。可先預約免費試聽";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/",

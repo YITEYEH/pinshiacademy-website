@@ -353,29 +353,31 @@ export function TeacherProfileClient({
         </div>
       </section>
 
-      {/* 7. 學生評價 */}
-      <section className="bg-[#f7f9f7] py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading title="學生評價" />
-          <div className="rounded-2xl border border-border bg-white p-8 shadow-sm sm:p-10">
-            <div className="mb-4 flex items-center gap-2">
-              <Quote className="h-5 w-5 text-primary" />
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="h-4 w-4 fill-amber-400 text-amber-400"
-                  />
-                ))}
+      {/* 7. 學生評價（僅在有可公開回饋時顯示） */}
+      {teacher.studentReview ? (
+        <section className="bg-[#f7f9f7] py-16 sm:py-20">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <SectionHeading title="學生評價" />
+            <div className="rounded-2xl border border-border bg-white p-8 shadow-sm sm:p-10">
+              <div className="mb-4 flex items-center gap-2">
+                <Quote className="h-5 w-5 text-primary" />
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className="h-4 w-4 fill-amber-400 text-amber-400"
+                    />
+                  ))}
+                </div>
               </div>
+              <p className="text-lg leading-relaxed text-foreground/90 sm:text-xl">
+                「{teacher.studentReview}」
+              </p>
+              <p className="mt-5 text-sm text-muted-foreground">— 品識學苑學生</p>
             </div>
-            <p className="text-lg leading-relaxed text-foreground/90 sm:text-xl">
-              「{teacher.studentReview}」
-            </p>
-            <p className="mt-5 text-sm text-muted-foreground">— 品識學苑學生</p>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       {/* 8. FAQ */}
       <section className="py-16 sm:py-20">

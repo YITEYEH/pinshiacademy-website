@@ -1,14 +1,17 @@
 /** 首頁 CRO 文案（頁面內文不加句號） */
 
+/** CTA 旁下一步說明（全站試聽承諾對齊） */
+export const homeCtaNextStep =
+  "先了解狀況再安排試聽 · 約 1 個工作天回覆 · 不一定要馬上報名";
+
 export const homeHero = {
-  h1Line1: "成績上不去？",
-  h1Line2: "問題不一定是不夠努力",
-  h1Line3: "而是還沒找到適合的方法",
+  h1Product: "國高中線上一對一家教",
+  h1Benefit: "從學習診斷開始，找到真正需要加強的地方",
   subtitle:
-    "從孩子目前的程度、觀念與學習方式開始了解，找出真正卡住的地方，再一起看看適合怎麼學",
+    "每個孩子都有不同的學習步調。品識學苑從學習程度、觀念理解與解題方式出發，找出學習瓶頸，規劃適合孩子的學習方向，讓每一分努力都更有意義",
   primaryCta: "預約免費試聽",
   secondaryCta: "了解品識怎麼教",
-  secondaryHref: "#how-we-help",
+  secondaryHref: "/about",
 } as const;
 
 export const homePainPoints = {
@@ -36,60 +39,7 @@ export const homePainPoints = {
     },
   ] as const,
   closing: "與其急著再多上一堂課，不如先弄清楚孩子真正卡住的地方",
-} as const;
-
-export const homeLineValue = {
-  id: "initial-analysis",
-  titleLine1: "孩子到底卡在哪裡？",
-  titleLine2: "先不用急著決定要補什麼",
-  body: "告訴我們孩子的年級、科目與目前遇到的問題，學習顧問會先協助整理可能的學習卡點，並提供初步的學習方向建議",
-  steps: [
-    {
-      number: "01",
-      label: "年級",
-      example: "例如：國二",
-    },
-    {
-      number: "02",
-      label: "科目",
-      example: "例如：數學",
-    },
-    {
-      number: "03",
-      label: "目前遇到的問題",
-      example:
-        "例如：「平常作業大多會寫，但考試遇到變化題就容易卡住」",
-    },
-  ] as const,
-  conversationHint:
-    "不知道怎麼問也沒關係，告訴我們「年級＋科目＋目前問題」就可以開始",
-  conversationCta: "預約免費試聽",
-} as const;
-
-export const homeHowWeHelp = {
-  id: "how-we-help",
-  titleLine1: "我們不急著推薦課程",
-  titleLine2: "先找出孩子真正卡住的地方",
-  steps: [
-    {
-      number: "01",
-      title: "了解現況",
-      description: "了解目前程度、學習狀況與學習目標",
-    },
-    {
-      number: "02",
-      title: "找出卡點",
-      description:
-        "從觀念、計算、閱讀理解、解題策略、學習方式，協助整理目前主要問題",
-    },
-    {
-      number: "03",
-      title: "討論學習方向",
-      description: "再依照實際需求，討論適合的課程或學習安排",
-    },
-  ] as const,
-  highlight:
-    "不是先選課，再把孩子放進去；而是先了解孩子，再討論適合怎麼學",
+  lineCta: "預約免費試聽",
 } as const;
 
 export const homeProof = {
@@ -97,13 +47,15 @@ export const homeProof = {
   worthLead: "成績很重要，但這些改變，往往比分數更早出現",
   beforeLabel: "之前",
   afterLabel: "之後",
-  statsTitle: "這些數據，來自我們實際帶過的學生",
+  statsTitle: "每一份成績背後，都是持續累積的努力",
+  /** 皆為「學生人數＋具體學習成果」；上線前須核對統計依據與隱私授權 */
   stats: [
-    { value: "95%", label: "學生在3個月內看到進步" },
-    { value: "4.8", label: "平均滿意度" },
-    { value: "500+", label: "輔導學生數" },
-    { value: "5", label: "核心學科涵蓋" },
+    { value: "10", unit: "位", label: "會考5A++" },
+    { value: "13", unit: "位", label: "校排名前三" },
+    { value: "23", unit: "位", label: "在校成績進步10分以上" },
+    { value: "17", unit: "位", label: "學測達成目標級分" },
   ] as const,
+  lineCta: "預約免費試聽",
   moreCta: "看更多學生的學習改變",
   moreHref: "/student-success",
 } as const;
@@ -119,7 +71,7 @@ export const homeCourses = {
       linkLabel: "了解更多",
     },
     {
-      name: "家教制課程",
+      name: "小班互動課程",
       description: "小班制即時互動教學，老師充分關注每位學生，即時解答疑問",
       href: "/courses",
       linkLabel: "了解更多",
@@ -175,14 +127,15 @@ export const homeBrand = {
 
 export const homeFinalCta = {
   titleLine1: "不知道從哪裡開始",
-  titleLine2: "就先從聊聊孩子的狀況開始",
-  subtitle: "不用先選課，也不用現在就做決定",
+  titleLine2: "就先預約免費試聽",
+  subtitle: "先了解孩子卡點，再決定適不適合；不用先選課",
+  nextStep: homeCtaNextStep,
   primaryCta: "預約免費試聽",
   secondaryCta: "了解課程介紹",
   secondaryHref: "/courses",
 } as const;
 
 export const homeSticky = {
-  message: "不知道從哪裡開始？先聊聊孩子狀況",
+  message: "不確定適不適合？先預約免費試聽",
   label: "預約免費試聽",
 } as const;
