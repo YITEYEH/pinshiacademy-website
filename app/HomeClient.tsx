@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "motion/react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -17,11 +14,12 @@ import { homeSticky } from "@/content/home/page-copy";
 import { dreamProjectHomePromo } from "@/content/dream-project/page-copy";
 import type { BlogPostSummary } from "@/content/content-api/types";
 
-type HomeClientProps = {
+type HomeBelowFoldProps = {
   latestPosts: BlogPostSummary[];
 };
 
-export function HomeClient({ latestPosts }: HomeClientProps) {
+/** 首頁折疊下內容：盡量保持 RSC，僅互動區塊為 client */
+export function HomeBelowFold({ latestPosts }: HomeBelowFoldProps) {
   return (
     <div className="w-full pb-24 md:pb-0">
       <HomePainPoints />
@@ -37,14 +35,7 @@ export function HomeClient({ latestPosts }: HomeClientProps) {
 
       <section className="bg-[#f7f9f7] py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={false}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mx-auto max-w-3xl text-center"
-          >
+          <div className="mx-auto max-w-3xl text-center">
             <p className="mb-3 text-sm font-medium text-primary">
               {dreamProjectHomePromo.tagline}
             </p>
@@ -66,7 +57,7 @@ export function HomeClient({ latestPosts }: HomeClientProps) {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
-          </motion.div>
+          </div>
         </div>
       </section>
 

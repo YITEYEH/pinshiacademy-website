@@ -156,7 +156,7 @@ async function graphqlRequest<T>(
     body: JSON.stringify({ query, variables }),
     signal: fetchTimeoutSignal(),
     // ISR + on-demand revalidate via /api/revalidate (tag: wordpress-posts)
-    next: { revalidate: 60, tags: [WP_POSTS_CACHE_TAG] },
+    next: { revalidate: 3600, tags: [WP_POSTS_CACHE_TAG] },
   });
 
   if (!res.ok) {

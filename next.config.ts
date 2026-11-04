@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   experimental: {
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: ["lucide-react", "motion"],
   },
   /**
    * 不在此做 www ↔ apex 的 host 轉址：Vercel／DNS 若已設定主網域轉址，
@@ -29,6 +29,30 @@ const nextConfig: NextConfig = {
         // Best-effort Accept negotiation signal; Next RSC may still rewrite Vary on HTML.
         source: "/:path*",
         headers: [{ key: "Vary", value: "Accept" }],
+      },
+      ...[
+        "/hero-section.jpg",
+        "/teacher-yeh-yide.jpg",
+        "/teacher-xu-xi.jpg",
+        "/teacher-tseng-hsiao-chu.jpg",
+        "/teacher-jiang-jiqin.jpg",
+      ].map((source) => ({
+        source,
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      })),
+      {
+        source: "/brand/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
       },
     ];
   },

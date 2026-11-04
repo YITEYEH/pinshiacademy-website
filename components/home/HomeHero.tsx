@@ -51,6 +51,7 @@ export function HomeHero() {
                 height={819}
                 priority
                 fetchPriority="high"
+                quality={70}
                 sizes="(max-width: 1024px) 100vw, min(560px, 50vw)"
                 className="h-auto w-full object-cover"
               />

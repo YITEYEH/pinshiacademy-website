@@ -1,9 +1,10 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getAllPosts } from "@/content/content-api/posts";
 import { buildPageMetadata } from "@/lib/seo";
 import { buildHomeJsonLd } from "@/lib/home-schema";
 import { HomeHero } from "@/components/home/HomeHero";
-import { HomeClient } from "./HomeClient";
+import { HomeBelowFold } from "./HomeClient";
 
 /** 對齊 Hero，保留品牌與「線上一對一」搜尋意圖；不刪既有可排名詞 */
 const homeTitle = "國高中線上一對一家教｜品識學苑從學習診斷開始找卡點";
@@ -17,11 +18,15 @@ export const metadata: Metadata = buildPageMetadata({
   titleAbsolute: true,
 });
 
-/** 與 WP fetch 快取一致；WordPress 發布時另由 /api/revalidate 即時清除 */
-export const revalidate = 60;
+/** 長快取降 TTFB；WordPress 發布時另由 /api/revalidate 即時清除 */
+export const revalidate = 3600;
 
-export default async function HomePage() {
+async function HomeLatestPosts() {
   const latestPosts = (await getAllPosts()).slice(0, 5);
+  return <HomeBelowFold latestPosts={latestPosts} />;
+}
+
+export default function HomePage() {
   const homeJsonLd = buildHomeJsonLd();
 
   return (
@@ -31,7 +36,9 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
       />
       <HomeHero />
-      <HomeClient latestPosts={latestPosts} />
+      <Suspense fallback={null}>
+        <HomeLatestPosts />
+      </Suspense>
     </>
   );
 }

@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { motion } from "motion/react";
 import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -130,19 +129,12 @@ export function HomeProof() {
   return (
     <section className="bg-[#f7f9f7] py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={false}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-10 text-center sm:mb-12"
-        >
+        <div className="mb-10 text-center sm:mb-12">
           <h2 className="mb-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
             {worthTitle}
           </h2>
           <p className="text-muted-foreground">{worthLead}</p>
-        </motion.div>
+        </div>
 
         <div className="mb-14 grid gap-4 sm:grid-cols-2 lg:gap-5">
           {studentSuccessPage.worthItems.map((item) => (
@@ -200,12 +192,12 @@ export function HomeProof() {
                     {stat.value}
                   </span>
                   {stat.unit ? (
-                    <span className="text-sm font-semibold text-white/85 sm:text-base">
+                    <span className="text-sm font-semibold text-white sm:text-base">
                       {stat.unit}
                     </span>
                   ) : null}
                 </p>
-                <p className="max-w-[12rem] text-xs leading-relaxed text-white/80 sm:max-w-none sm:text-sm">
+                <p className="max-w-[12rem] text-xs leading-relaxed text-white sm:max-w-none sm:text-sm">
                   {stat.label}
                 </p>
               </div>

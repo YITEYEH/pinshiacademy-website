@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "motion/react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { LineCtaButton } from "@/components/LineCtaButton";
@@ -19,29 +16,17 @@ export function HomeCourses() {
   return (
     <section className="bg-white py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={false}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-10 text-center sm:mb-12"
-        >
+        <div className="mb-10 text-center sm:mb-12">
           <h2 className="text-2xl font-bold tracking-tight text-foreground text-balance sm:text-3xl lg:text-4xl">
             <span className="block">{titleLine1}</span>
             <span className="block">{titleLine2}</span>
           </h2>
-        </motion.div>
+        </div>
 
         <div className="mx-auto mb-12 grid max-w-5xl gap-4 md:grid-cols-3 md:gap-5">
-          {formats.map((format, index) => (
-            <motion.article
+          {formats.map((format) => (
+            <article
               key={format.name}
-              initial={false}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: index * 0.05 }}
               className="flex h-full flex-col rounded-2xl border border-border bg-[#f7f9f7] p-6"
             >
               <h3 className="mb-2 text-lg font-semibold text-foreground">
@@ -57,7 +42,7 @@ export function HomeCourses() {
                 {format.linkLabel}
                 <ArrowRight className="h-4 w-4" />
               </Link>
-            </motion.article>
+            </article>
           ))}
         </div>
 

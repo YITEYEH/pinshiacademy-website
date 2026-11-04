@@ -1,6 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { cn } from "@/components/ui/utils";
 import type { Teacher } from "@/content/teachers-data";
 
@@ -16,11 +16,14 @@ export function TeacherCard({ teacher }: TeacherCardProps) {
     >
       <article className="grid h-full grid-cols-[7.5rem_1fr] overflow-hidden rounded-xl border border-border bg-white shadow-sm transition-all duration-300 hover:border-primary/20 hover:shadow-lg sm:grid-cols-[9.5rem_1fr]">
         <div className="relative min-h-[220px] bg-[#e8f5ee] sm:min-h-[240px]">
-          <ImageWithFallback
+          <Image
             src={teacher.image}
             alt={teacher.name}
+            fill
+            sizes="(max-width: 640px) 7.5rem, 9.5rem"
+            loading="lazy"
             className={cn(
-              "absolute inset-0 h-full w-full object-cover",
+              "object-cover",
               teacher.imagePosition === "center" ? "object-center" : "object-top",
             )}
           />

@@ -13,7 +13,8 @@
   --secondary: #f7f9f7;
   --secondary-foreground: #2d3748;
   --muted: #f7f9f7;
-  --muted-foreground: #718096;
+  /* #718096 在淺綠／淺灰底上對比不足（PSI a11y）；加深以達 WCAG AA */
+  --muted-foreground: #4a5568;
   --accent: #e8f5ee;
   --accent-foreground: #2D7A4F;
   --destructive: #e53e3e;
