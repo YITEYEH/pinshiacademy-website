@@ -155,8 +155,8 @@ async function graphqlRequest<T>(
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ query, variables }),
     signal: fetchTimeoutSignal(),
-    // ISR + on-demand revalidate via /api/revalidate (tag: wordpress-posts)
-    next: { revalidate: 3600, tags: [WP_POSTS_CACHE_TAG] },
+    // 與 /blog revalidate=60 對齊；發布時另由 /api/revalidate 以 tag 即時清除
+    next: { revalidate: 60, tags: [WP_POSTS_CACHE_TAG] },
   });
 
   if (!res.ok) {

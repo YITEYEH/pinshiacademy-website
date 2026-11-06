@@ -18,8 +18,8 @@ export const metadata: Metadata = buildPageMetadata({
   titleAbsolute: true,
 });
 
-/** 長快取降 TTFB；WordPress 發布時另由 /api/revalidate 即時清除 */
-export const revalidate = 3600;
+/** 與 WP fetch／部落格列表對齊，避免新文卡在舊 Data Cache */
+export const revalidate = 60;
 
 async function HomeLatestPosts() {
   const latestPosts = (await getAllPosts()).slice(0, 5);
