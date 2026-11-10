@@ -35,6 +35,7 @@ const nextConfig: NextConfig = {
         "/teacher-yeh-yide.jpg",
         "/teacher-xu-xi.jpg",
         "/teacher-tseng-hsiao-chu.jpg",
+        "/teacher-li-zi-ying.jpg",
         "/teacher-jiang-jiqin.jpg",
       ].map((source) => ({
         source,

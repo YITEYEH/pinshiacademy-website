@@ -81,6 +81,26 @@ export const teachers = [
     experience: "五年以上英文教學經驗",
     knowsAbout: ["國中英文", "高中英文", "文法理解", "單字與同義詞"],
   },
+  {
+    slug: "li-zi-ying",
+    name: "李姿穎（Melissa）",
+    subject: "英文",
+    jobTitle: "英文教師",
+    grades: "國小、國中",
+    tags: ["國小英文", "國中英文", "會考解題"],
+    image: "/teacher-li-zi-ying.jpg",
+    imagePosition: "center",
+    philosophy:
+      "透過具親和力與系統化的教學，帶領學生在輕鬆有自信的氛圍中打破英文學習瓶頸",
+    bio: "李老師畢業於國立政治大學教育學系（輔修英文系），目前於澳洲蒙納許大學攻讀英語教學（TESOL）碩士，並具備中等教育英文科教師證她擁有國中小英語補救教學、私導、補習班及營隊等第一線教學實務，擅長用結構化解題步驟與溫暖引導，幫助學生建立會考戰力與學習自信",
+    teachingHighlights: [
+      "結構化解題 SOP，把會考閱讀與文法拆成可操作步驟",
+      "以同理與正向鼓勵建構學習鷹架，讓基礎待加強的學生敢開口",
+      "結合數位視覺教具與高頻互動，維持課堂專注與理解",
+    ],
+    experience: "四年以上英文教學經驗",
+    knowsAbout: ["國小英文", "國中英文", "會考閱讀解題", "英語補救教學"],
+  },
 ] as const satisfies readonly Teacher[];
 
 export function getTeacherBySlug(slug: string): Teacher | undefined {

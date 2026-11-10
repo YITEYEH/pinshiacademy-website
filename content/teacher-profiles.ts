@@ -416,10 +416,143 @@ const tsengHsiaoChuProfile: TeacherProfileContent = {
   },
 };
 
+const liZiYingProfile: TeacherProfileContent = {
+  slug: "li-zi-ying",
+  experienceHighlights: [
+    "四年以上英文教學經驗",
+    "中等學校英語科教師證書",
+    "國立政治大學教育學士（輔修英文學士）",
+    "澳洲 Monash University Master of TESOL（在學）",
+    "墨爾本海外中文學校華語教學助理",
+    "國中小補習班／家教／營隊英語講師經驗",
+  ],
+  aboutParagraphs: [
+    "李姿穎老師（Melissa）畢業於國立政治大學教育學系（輔修英文系），目前於澳洲蒙納許大學（Monash University）攻讀英語教學（TESOL）碩士，並持有中華民國教育部中等學校英語科教師證書",
+    "她具備國中小英語補救教學、私導、補習班及營隊等第一線教學實務，也曾於墨爾本海外中文學校擔任華語教學助理，負責小組補救教學與學生溝通管理課堂上重視親和力與系統化並進，幫助學生在有安全感的氛圍中突破英文學習瓶頸",
+  ],
+  teachingFeatures: [
+    {
+      title: "結構化解題 SOP",
+      description:
+        "以關鍵字定位、首尾段抓主旨與排除法建立會考閱讀解題邏輯，減少盲猜",
+    },
+    {
+      title: "會考英語衝刺",
+      description:
+        "聚焦主旨題、圖表題與克漏字等常見題型，協助學生建立清楚答題步驟",
+    },
+    {
+      title: "學習鷹架建構",
+      description:
+        "將複雜概念拆解成可跟上的步驟，協助基礎待加強的學生循序提升",
+    },
+    {
+      title: "溫暖同理引導",
+      description:
+        "理解學生學習痛點，以正向強化與耐心引導，讓學生敢於開口並建立自信",
+    },
+    {
+      title: "雙語與跨文化視角",
+      description:
+        "結合 EFL／TESOL 訓練，培養語法理解與語感，幫助學生把規則用回真實情境",
+    },
+    {
+      title: "數位視覺化教具",
+      description:
+        "運用 Canva 圖像化教學與線上白板互動教材，提升專注與課堂參與",
+    },
+  ],
+  suitableStudents: [
+    "國小英文基礎建立",
+    "國中英文段考準備",
+    "國中會考英文準備",
+    "會考閱讀與克漏字需加強的學生",
+    "英文基礎待加強、需要鷹架引導的學生",
+    "較不敢開口、需要正向鼓勵的學生",
+    "希望課堂有更多視覺提示與互動的學生",
+    "需要補救教學與穩定學習節奏的學生",
+  ],
+  courseFormats: [
+    {
+      title: "一對一課程",
+      description:
+        "針對個別弱點深度指導，依學習節奏彈性調整解題練習與複習步驟",
+      suitableFor: "適合：需個別加強、希望釐清觀念的學生",
+    },
+    {
+      title: "小班互動課程",
+      description:
+        "在引導與互動中練習理解與解題，兼顧參與感與個別關注",
+      suitableFor: "適合：喜歡同儕互動、希望穩定學習節奏的學生",
+    },
+    {
+      title: "預錄課程",
+      description:
+        "可反覆複習文法與解題重點，適合需要多次觀看的學習內容",
+      suitableFor: "適合：時間較難固定、想自主複習的學生",
+    },
+  ],
+  teachingProcess: [
+    {
+      title: "預約諮詢",
+      description: "透過 LINE 預約，初步了解學習需求與目標",
+    },
+    {
+      title: "學習狀況了解",
+      description: "了解目前程度、閱讀與文法困難點，找出適合的起點",
+    },
+    {
+      title: "安排適合課程",
+      description: "依程度與目標，建議一對一、小班或預錄課程",
+    },
+    {
+      title: "正式上課",
+      description: "以解題步驟與鷹架引導建立理解，再搭配練習鞏固運用",
+    },
+    {
+      title: "定期追蹤學習成效",
+      description: "持續檢視進步狀況，調整說明重點與複習策略",
+    },
+  ],
+  faq: [
+    {
+      question: "程度不好可以上課嗎？",
+      answer:
+        "可以李老師會先了解學生目前卡住的地方，再把複雜概念拆成可跟上的步驟，用鷹架引導循序練習，不需要擔心跟不上",
+    },
+    {
+      question: "上課比較適合國小還是國中？",
+      answer:
+        "李老師主要授課對象為國小與國中英文會依年級與目標調整內容，國中生也可聚焦會考閱讀與解題練習",
+    },
+    {
+      question: "一對一和小班課程怎麼選？",
+      answer:
+        "若需要較高頻率的個別指導與彈性進度，建議選擇一對一；若希望在互動中練習並維持穩定節奏，小班課程會更適合",
+    },
+    {
+      question: "上課會有教材或作業嗎？",
+      answer:
+        "會依學習目標安排練習內容，並在課後提供適量複習與作業，幫助鞏固課堂所學",
+    },
+    {
+      question: "可以先預約諮詢再決定嗎？",
+      answer:
+        "當然可以歡迎先預約學習評估，我們會依孩子的狀況說明適合的課程方向，再決定是否開始上課",
+    },
+  ],
+  footerCta: {
+    title: "想幫孩子把英文學得更有步驟、也更有自信嗎？",
+    description:
+      "立即預約學習評估，讓品識學苑協助你安排最適合的課程",
+  },
+};
+
 const teacherProfiles: Record<string, TeacherProfileContent> = {
   "yeh-yide": yehYideProfile,
   "HSU-Hsi": xuXiProfile,
   "tseng-hsiao-chu": tsengHsiaoChuProfile,
+  "li-zi-ying": liZiYingProfile,
 };
 
 export function getTeacherProfile(slug: string): TeacherProfileContent | undefined {

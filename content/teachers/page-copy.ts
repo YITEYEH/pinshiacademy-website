@@ -70,6 +70,16 @@ export const teachersFacultyCards = [
       "適合希望釐清文法觀念、補強單字運用，並建立穩定英文理解節奏的學生",
     profileCta: "認識老師",
   },
+  {
+    slug: "li-zi-ying",
+    featureTags: ["解題 SOP", "學習鷹架", "視覺互動"] as const,
+    statement:
+      "比起一次塞進很多規則，我更希望學生先有清楚步驟，再在有安全感的氛圍裡敢練、敢問",
+    body: "課堂上會把會考閱讀與文法拆成可操作的解題步驟，並依學生程度搭建學習鷹架，搭配數位視覺教具與即時互動，讓學生更專注、也更有自信",
+    suitableFor:
+      "適合國小、國中英文基礎待加強，或希望系統準備會考閱讀與解題的學生",
+    profileCta: "認識老師",
+  },
 ] as const;
 
 export const teachersSelection = {
