@@ -420,11 +420,8 @@ const liZiYingProfile: TeacherProfileContent = {
   slug: "li-zi-ying",
   experienceHighlights: [
     "四年以上英文教學經驗",
-    "中等學校英語科教師證書",
-    "國立政治大學教育學士（輔修英文學士）",
-    "澳洲 Monash University Master of TESOL（在學）",
-    "墨爾本海外中文學校華語教學助理",
-    "國中小補習班／家教／營隊英語講師經驗",
+    "中等英文科教師證",
+    "TESOL 碩士在學",
   ],
   aboutParagraphs: [
     "李姿穎老師（Melissa）畢業於國立政治大學教育學系（輔修英文系），目前於澳洲蒙納許大學（Monash University）攻讀英語教學（TESOL）碩士，並持有中華民國教育部中等學校英語科教師證書",
