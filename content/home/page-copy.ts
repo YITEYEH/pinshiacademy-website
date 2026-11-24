@@ -1,9 +1,5 @@
 /** 首頁 CRO 文案（頁面內文不加句號） */
 
-/** CTA 旁下一步說明（全站試聽承諾對齊） */
-export const homeCtaNextStep =
-  "先了解狀況再安排試聽 · 約 1 個工作天回覆 · 不一定要馬上報名";
-
 export const homeHero = {
   h1Product: "國高中線上一對一家教",
   h1Benefit: "從學習診斷開始，找到真正需要加強的地方",
@@ -129,10 +125,7 @@ export const homeFinalCta = {
   titleLine1: "不知道從哪裡開始",
   titleLine2: "就先預約免費試聽",
   subtitle: "先了解孩子卡點，再決定適不適合；不用先選課",
-  nextStep: homeCtaNextStep,
   primaryCta: "預約免費試聽",
-  secondaryCta: "了解課程介紹",
-  secondaryHref: "/courses",
 } as const;
 
 export const homeSticky = {

@@ -1,18 +1,9 @@
-import Link from "next/link";
 import { LineCtaButton } from "@/components/LineCtaButton";
 import { homeFinalCta } from "@/content/home/page-copy";
 import { LINE_LINKS } from "@/lib/line-links";
 
 export function HomeFinalCta() {
-  const {
-    titleLine1,
-    titleLine2,
-    subtitle,
-    nextStep,
-    primaryCta,
-    secondaryCta,
-    secondaryHref,
-  } = homeFinalCta;
+  const { titleLine1, titleLine2, subtitle, primaryCta } = homeFinalCta;
 
   return (
     <section className="bg-gradient-to-br from-primary to-[#1a4d2e] py-12 sm:py-14">
@@ -30,15 +21,6 @@ export function HomeFinalCta() {
           variant="inverse"
           className="px-8"
         />
-        <p className="mt-3 text-sm text-white">{nextStep}</p>
-        <div className="mt-4">
-          <Link
-            href={secondaryHref}
-            className="text-sm text-white underline-offset-4 transition-colors hover:underline"
-          >
-            {secondaryCta}
-          </Link>
-        </div>
       </div>
     </section>
   );
